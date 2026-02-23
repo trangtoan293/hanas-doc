@@ -2,16 +2,16 @@
 
 ## Resource Management
 
-<-r TODO: Resource requests/limits -->
+[TODO: Resource requests/limits -->
 
 ## High Availability
 
-<-r TODO: Pod disruption budgets, anti-affinity -->
+[TODO: Pod disruption budgets, anti-affinity -->
 
 ## Security
 
-<-r TODO: RBAC, network policies, pod security -->
+[TODO: RBAC, network policies, pod security -->
 
 ## Monitoring
 
-<-r TODO: Metrics, health checks -->
+[TODO: Metrics, health checks -->

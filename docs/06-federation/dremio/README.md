@@ -4,42 +4,67 @@
 
 Dremio là **Lakehouse Query Engine** thống nhất, đóng vai trò là lớp liên kết dữ liệu (Data Federation) trong Hanas Data Platform. Dremio ảo hóa toàn bộ nguồn dữ liệu vào một catalog logic duy nhất, cung cấp semantic layer, query acceleration (Reflections), và kết nối BI chuẩn (JDBC/ODBC/Arrow Flight).
 
-Trong kiến trúc 7 lớp của Hanas Platform, Dremio nằm ở **Layer 6 — Liên Kết Dữ Liệu (Federation)**, là _điểm truy vấn duy nhất_ cho toàn bộ người dùng và BI tools.
+Trong kiến trúc 7 lớp của Hanas Platform, Dremio nằm ở **Layer 6 — Liên Kết Dữ Liệu (Federation)**, là _điểm truy vấn duy nhất_ cho toàn bộ ngườii dùng và BI tools.
 
 ## Kiến Trúc Trong Platform
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                      BI / Analytics                          │
-│   Superset  │  Tableau  │  PowerBI  │  Custom Apps           │
-└──────────┬───────────┬───────────┬──────────────────────────┘
-           │ JDBC      │ ODBC      │ Arrow Flight (port 32010)
-┌──────────▼───────────▼───────────▼──────────────────────────┐
-│                     DREMIO CLUSTER                           │
-│  ┌──────────────┐  ┌─────────────┐  ┌────────────────────┐  │
-│  │ Coordinator  │  │  Executor   │  │  Reflections        │  │
-│  │  - Query     │  │  Pods (N)   │  │  (Pre-computed      │  │
-│  │    Planning  │  │  - Query    │  │   Acceleration)     │  │
-│  │  - UI/API    │  │    Exec     │  │  - Raw Reflections  │  │
-│  │  - Metadata  │  │  - C3 Cache │  │  - Agg Reflections  │  │
-│  └──────┬───────┘  └──────┬──────┘  └────────────────────┘  │
-│         │                 │                                   │
-│  ┌──────▼─────────────────▼──────────────────────────────┐   │
-│  │              Semantic Layer                            │   │
-│  │  Spaces: DATA_MART │ INTEGRATION │ ...                │   │
-│  │  Virtual Datasets (Views) │ Folders │ Wiki/Labels     │   │
-│  └───────────────────────┬───────────────────────────────┘   │
-└──────────────────────────┼───────────────────────────────────┘
-                           │ SQL (S3/Hive/Iceberg protocols)
-┌──────────────────────────▼───────────────────────────────────┐
-│                    Data Sources                               │
-│  ┌──────────────┐  ┌────────────────┐  ┌─────────────────┐   │
-│  │    MinIO      │  │ Hive Metastore │  │  RDBMS (Oracle, │   │
-│  │  (S3-compat)  │  │  (Catalog)     │  │  PostgreSQL...) │   │
-│  │  Iceberg      │  │  Iceberg       │  │                 │   │
-│  │  data files   │  │  metadata      │  │                 │   │
-│  └──────────────┘  └────────────────┘  └─────────────────┘   │
-└──────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph BI["📊 BI / Analytics"]
+        Superset[Superset]
+        Tableau[Tableau]
+        PowerBI[PowerBI]
+        Custom[Custom Apps]
+    end
+    
+    subgraph DremioCluster["🚀 DREMIO CLUSTER"]
+        subgraph Coord["Coordinator"]
+            C1[Query Planning]
+            C2[UI/API]
+            C3[Metadata]
+        end
+        
+        subgraph Exec["Executor Pods"]
+            E1[Query Execution]
+            E2[C3 Cache]
+        end
+        
+        subgraph Reflections["💡 Reflections"]
+            R1[Raw Reflections]
+            R2[Aggregation Reflections]
+        end
+        
+        subgraph Semantic["Semantic Layer"]
+            S1[Spaces: DATA_MART]
+            S2[Spaces: INTEGRATION]
+            S3[Virtual Datasets]
+            S4[Folders / Wiki]
+        end
+    end
+    
+    subgraph Sources["🗄️ Data Sources"]
+        MIN[(MinIO)]
+        HMS[Hive Metastore]
+        RDB[(RDBMS)]
+    end
+    
+    BI -->|JDBC| Coord
+    BI -->|ODBC| Coord
+    BI -->|Arrow Flight| Coord
+    
+    Coord --> Exec
+    Exec --> Reflections
+    Exec --> Semantic
+    
+    Semantic -->|SQL/S3/Iceberg| Sources
+    
+    style BI fill:#e3f2fd,stroke:#1976d2
+    style DremioCluster fill:#fff3e0,stroke:#ef6c00,stroke-width:3px
+    style Coord fill:#ffecb3,stroke:#ff6f00
+    style Exec fill:#ffe0b2,stroke:#e65100
+    style Reflections fill:#e8f5e9,stroke:#388e3c
+    style Semantic fill:#f3e5f5,stroke:#7b1fa2
+    style Sources fill:#e8f5e9,stroke:#2e7d32
 ```
 
 ## Vai Trò Trong Platform
@@ -69,21 +94,37 @@ Trong kiến trúc 7 lớp của Hanas Platform, Dremio nằm ở **Layer 6 — 
 
 ## Luồng Dữ Liệu End-to-End
 
-```
-Oracle DB                                                      BI Dashboard
-    │                                                              ▲
-    │ JDBC                                                         │ JDBC/Arrow Flight
-    ▼                                                              │
-┌────────┐    ┌─────────┐    ┌───────┐    ┌──────────┐    ┌────────┐
-│  NiFi  │───▶│  MinIO  │◀──│ Spark │───▶│ Iceberg  │───▶│ Dremio │
-│(Ingest)│    │  (S3)   │   │ + dbt │    │ Tables   │    │(Query) │
-└────────┘    └─────────┘   └───────┘    └──────────┘    └────────┘
-                 ▲                            │               │
-                 │                            │               │
-              Airflow ─── Orchestrate ────────┘               │
-                 │                                            │
-                 └──── DremioClient API ──────────────────────┘
-                       (Views + Reflections)
+```mermaid
+flowchart LR
+    Oracle[(Oracle DB)]
+    NiFi[Apache NiFi]
+    MinIO[(MinIO S3)]
+    Spark[Apache Spark + dbt]
+    Iceberg[(Iceberg Tables)]
+    Dremio[Dremio]
+    Airflow[Apache Airflow]
+    BI[BI Dashboard]
+    
+    Oracle -->|JDBC| NiFi
+    NiFi -->|Ingest| MinIO
+    
+    MinIO -->|Read| Spark
+    Spark -->|Write| Iceberg
+    
+    Iceberg -->|Query| Dremio
+    Dremio -->|JDBC/Arrow| BI
+    
+    Airflow -->|Orchestrate| Spark
+    Airflow -->|DremioClient API| Dremio
+    
+    style Oracle fill:#e3f2fd,stroke:#1976d2
+    style NiFi fill:#fff3e0,stroke:#ef6c00
+    style MinIO fill:#e8f5e9,stroke:#388e3c
+    style Spark fill:#fce4ec,stroke:#c2185b
+    style Iceberg fill:#e0f7fa,stroke:#00838f
+    style Dremio fill:#fff8e1,stroke:#ff6f00,stroke-width:3px
+    style Airflow fill:#f3e5f5,stroke:#7b1fa2
+    style BI fill:#e8eaf6,stroke:#3f51b5
 ```
 
 **Luồng chi tiết:**

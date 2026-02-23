@@ -10,8 +10,8 @@
 
 ## Lịch Sử Thay Đổi
 
-<-r TODO: Changelog -->
+[TODO: Changelog -->
 
 ## Tương Thích
 
-<-r TODO: Compatibility matrix -->
+[TODO: Compatibility matrix -->

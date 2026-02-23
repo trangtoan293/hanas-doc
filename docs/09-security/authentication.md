@@ -7,4 +7,4 @@
 
 ## Giải Pháp
 
-<-r TODO: Chi tiết giải pháp xác thực -->
+[TODO: Chi tiết giải pháp xác thực -->

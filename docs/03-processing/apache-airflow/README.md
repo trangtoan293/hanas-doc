@@ -6,23 +6,49 @@ Apache Airflow là nền tảng điều phối (orchestration) trung tâm của 
 
 ### Kiến Trúc Tích Hợp
 
-```
-┌──────────────┐  SparkKubernetesOperator  ┌──────────────┐  dbt on Spark  ┌──────────────┐
-│   Airflow    │─────────────────────────▶│  Spark on    │──────────────▶│   Iceberg    │
-│  Scheduler   │   K8s YAML templates     │  Kubernetes  │  ktl_dbt      │  Tables      │
-└──────────────┘                          └──────────────┘               └──────┬───────┘
-       │                                        │                              │
-       │  Callbacks                             │ git-sync                     │ S3FileIO
-       ▼                                        ▼                              ▼
-┌──────────────┐                          ┌──────────────┐               ┌──────────────┐
-│   Slack/     │                          │  dbt Project │               │    MinIO      │
-│   Maileroo   │                          │  (Git Repo)  │               │  (Warehouse)  │
-└──────────────┘                          └──────────────┘               └──────┬───────┘
-                                                                               │
-                                          ┌──────────────┐               ┌─────▼────────┐
-                                          │   DataHub    │◀──────────────│ Hive         │
-                                          │  (Metadata)  │  Publish      │ Metastore    │
-                                          └──────────────┘               └──────────────┘
+```mermaid
+flowchart TB
+    subgraph AirflowLayer["🎛️ Airflow Orchestration"]
+        AF[Airflow Scheduler]
+    end
+    
+    subgraph ProcessingLayer["⚡ Processing Layer"]
+        SPK[Spark on Kubernetes]
+        DBT[dbt Project]
+    end
+    
+    subgraph StorageLayer["💾 Storage Layer"]
+        ICE[Iceberg Tables]
+        MIN[(MinIO Warehouse)]
+        HMS[Hive Metastore]
+    end
+    
+    subgraph Notification["📢 Notifications"]
+        SLACK[Slack / Maileroo]
+    end
+    
+    subgraph Governance["🔍 Governance"]
+        DH[DataHub]
+    end
+    
+    AF -->|SparkKubernetesOperator<br/>K8s YAML| SPK
+    AF -->|Callbacks| SLACK
+    
+    SPK -->|git-sync| DBT
+    SPK -->|ktl_dbt| ICE
+    
+    DBT -->|SQL Transform| ICE
+    
+    ICE -->|S3FileIO| MIN
+    ICE -->|Metadata| HMS
+    
+    HMS -->|Publish| DH
+    
+    style AirflowLayer fill:#fff3e0,stroke:#ef6c00
+    style ProcessingLayer fill:#e3f2fd,stroke:#1976d2
+    style StorageLayer fill:#e8f5e9,stroke:#388e3c
+    style Notification fill:#fce4ec,stroke:#c2185b
+    style Governance fill:#f3e5f5,stroke:#7b1fa2
 ```
 
 ## Vai Trò Trong Platform

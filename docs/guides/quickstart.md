@@ -64,7 +64,7 @@ hanas-platform/
 ```env
 # ===== MinIO =====
 MINIO_ROOT_USER=admin
-MINIO_ROOT_PASSWORD=minio_secret_2024
+MINIO_ROOT_PASSWORD=minio_secret_2025
 MINIO_ENDPOINT=http://minio:9000
 
 # ===== Airflow =====
@@ -85,7 +85,7 @@ AWS_REGION=us-east-1
 
 # ===== PostgreSQL (shared) =====
 POSTGRES_USER=admin
-POSTGRES_PASSWORD=admin_secret_2024
+POSTGRES_PASSWORD=admin_secret_2025
 ```
 
 ### 2.3 Docker Compose (Core Services)
@@ -243,7 +243,7 @@ docker compose logs -f <service-name>
 
 | Service | URL | Credentials |
 |---|---|---|
-| **MinIO Console** | http://localhost:9001 | admin / minio_secret_2024 |
+| **MinIO Console** | http://localhost:9001 | admin / minio_secret_2025 |
 | **Hive Metastore** | thrift://localhost:9083 | — |
 | **Airflow UI** | http://localhost:8081 | airflow / airflow |
 | **Dremio UI** | http://localhost:9047 | (setup lần đầu) |
@@ -260,11 +260,11 @@ docker compose logs -f <service-name>
 # Tạo file CSV mẫu
 cat > data/customers.csv << 'EOF'
 customer_id,name,email,phone,city,created_at
-C001,Nguyen Van A,a@example.com,0901234567,Ha Noi,2024-01-15
-C002,Tran Thi B,b@example.com,0912345678,Ho Chi Minh,2024-02-20
-C003,Le Van C,c@example.com,0923456789,Da Nang,2024-03-10
-C004,Pham Thi D,d@example.com,0934567890,Hai Phong,2024-04-05
-C005,Hoang Van E,e@example.com,0945678901,Can Tho,2024-05-22
+C001,Nguyen Van A,a@example.com,0901234567,Ha Noi,2025-01-15
+C002,Tran Thi B,b@example.com,0912345678,Ho Chi Minh,2025-02-20
+C003,Le Van C,c@example.com,0923456789,Da Nang,2025-03-10
+C004,Pham Thi D,d@example.com,0934567890,Hai Phong,2025-04-05
+C005,Hoang Van E,e@example.com,0945678901,Can Tho,2025-05-22
 EOF
 ```
 
@@ -343,7 +343,7 @@ spark.stop()
 2. Add Source → **Amazon S3** (hoặc **NAS**)
    - Endpoint: `minio:9000`
    - Access Key: `admin`
-   - Secret Key: `minio_secret_2024`
+   - Secret Key: `minio_secret_2025`
    - Connection Properties: `fs.s3a.path.style.access = true`
 3. Browse đến `warehouse/raw_vault/`
 4. Truy vấn:

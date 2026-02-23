@@ -11,8 +11,8 @@
 
 ## Cam Kết Uptime
 
-<-r TODO: % uptime cam kết -->
+[TODO: % uptime cam kết -->
 
 ## Quy Trình Escalation
 
-<-r TODO: Quy trình leo thang -->
+[TODO: Quy trình leo thang -->

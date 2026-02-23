@@ -8,4 +8,4 @@
 
 ## Giải Pháp
 
-<-r TODO: Chi tiết giải pháp phân quyền qua Ranger -->
+[TODO: Chi tiết giải pháp phân quyền qua Ranger -->

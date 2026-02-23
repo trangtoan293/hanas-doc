@@ -4,24 +4,24 @@
 Data Engineer, ETL Developer
 
 ## Hình Thức Đào Tạo
-<-r TODO: Chi tiết hình thức -->
+[TODO: Chi tiết hình thức -->
 
 ## Nội Dung
 
 ### Apache Airflow
-<-r TODO: DAG development, scheduling -->
+[TODO: DAG development, scheduling -->
 
 ### Apache Spark
-<-r TODO: Spark SQL, PySpark, job tuning -->
+[TODO: Spark SQL, PySpark, job tuning -->
 
 ### dbt
-<-r TODO: Model development, testing, documentation -->
+[TODO: Model development, testing, documentation -->
 
 ### Data Vault Implementation
-<-r TODO: Hub/Link/Satellite development -->
+[TODO: Hub/Link/Satellite development -->
 
 ## Kết Quả Sau Đào Tạo
-<-r TODO: Năng lực đạt được -->
+[TODO: Năng lực đạt được -->
 
 ## Kiểm Tra & Đánh Giá
-<-r TODO: Phương pháp đánh giá -->
+[TODO: Phương pháp đánh giá -->
