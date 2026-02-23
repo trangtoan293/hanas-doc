@@ -216,9 +216,8 @@ Run Schedule: 0 */30 * * * ?    # Chạy mỗi 30 phút
 # dags/data_vault_pipeline.py
 from datetime import datetime, timedelta
 from airflow import DAG
-from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOperator
+from airflow.providers.cncf.kubernetes.operators.spark_kubernetes import SparkKubernetesOperator
 from airflow.operators.python import PythonOperator
-from airflow.operators.bash import BashOperator
 from airflow.sensors.s3_key_sensor import S3KeySensor
 
 # ── DAG Config ──
@@ -232,24 +231,8 @@ default_args = {
     'execution_timeout': timedelta(hours=2),
 }
 
-# ── Spark Common Config ──
-SPARK_CONN_ID = "spark_default"
-SPARK_PACKAGES = ",".join([
-    "org.apache.iceberg:iceberg-spark-runtime-3.5_2.12:1.5.0",
-    "org.apache.hadoop:hadoop-aws:3.3.4",
-    "com.amazonaws:aws-java-sdk-bundle:1.12.262",
-])
-SPARK_CONF = {
-    "spark.sql.catalog.hanas": "org.apache.iceberg.spark.SparkCatalog",
-    "spark.sql.catalog.hanas.type": "hadoop",
-    "spark.sql.catalog.hanas.warehouse": "s3a://warehouse/",
-    "spark.hadoop.fs.s3a.endpoint": "http://minio:9000",
-    "spark.hadoop.fs.s3a.access.key": "admin",
-    "spark.hadoop.fs.s3a.secret.key": "minio_secret_2024",
-    "spark.hadoop.fs.s3a.path.style.access": "true",
-    "spark.hadoop.fs.s3a.impl": "org.apache.hadoop.fs.s3a.S3AFileSystem",
-    "spark.sql.catalog.hanas.io-impl": "org.apache.iceberg.aws.s3.S3FileIO",
-}
+# Spark on K8s — dùng SparkKubernetesOperator
+# SparkConf, credentials, resources được khai báo trong K8s YAML templates
 
 with DAG(
     dag_id='hanas_data_vault_pipeline',
@@ -274,92 +257,83 @@ with DAG(
     )
 
     # ── Step 2: Validate landing data ──
-    validate = SparkSubmitOperator(
+    validate = SparkKubernetesOperator(
         task_id='validate_landing_data',
-        conn_id=SPARK_CONN_ID,
-        application='/opt/airflow/spark_jobs/validate_landing.py',
-        application_args=['--date', '{{ ds }}'],
-        packages=SPARK_PACKAGES,
-        conf=SPARK_CONF,
-        name='validate-landing',
+        namespace='spark-jobs',
+        application_file='k8s/spark-validate-landing.yaml',
+        kubernetes_conn_id='kubernetes_default',
+        params={'date': '{{ ds }}'},
     )
 
     # ── Step 3: Load Raw Vault (parallel) ──
-    load_hub_customer = SparkSubmitOperator(
+    load_hub_customer = SparkKubernetesOperator(
         task_id='load_hub_customer',
-        conn_id=SPARK_CONN_ID,
-        application='/opt/airflow/spark_jobs/load_raw_vault.py',
-        application_args=['--entity', 'hub_customer', '--date', '{{ ds }}'],
-        packages=SPARK_PACKAGES,
-        conf=SPARK_CONF,
-        name='load-hub-customer',
+        namespace='spark-jobs',
+        application_file='k8s/spark-load-raw-vault.yaml',
+        kubernetes_conn_id='kubernetes_default',
+        params={'entity': 'hub_customer', 'date': '{{ ds }}'},
     )
 
-    load_hub_account = SparkSubmitOperator(
+    load_hub_account = SparkKubernetesOperator(
         task_id='load_hub_account',
-        conn_id=SPARK_CONN_ID,
-        application='/opt/airflow/spark_jobs/load_raw_vault.py',
-        application_args=['--entity', 'hub_account', '--date', '{{ ds }}'],
-        packages=SPARK_PACKAGES,
-        conf=SPARK_CONF,
-        name='load-hub-account',
+        namespace='spark-jobs',
+        application_file='k8s/spark-load-raw-vault.yaml',
+        kubernetes_conn_id='kubernetes_default',
+        params={'entity': 'hub_account', 'date': '{{ ds }}'},
     )
 
-    load_lnk_cust_account = SparkSubmitOperator(
+    load_lnk_cust_account = SparkKubernetesOperator(
         task_id='load_lnk_customer_account',
-        conn_id=SPARK_CONN_ID,
-        application='/opt/airflow/spark_jobs/load_raw_vault.py',
-        application_args=['--entity', 'lnk_customer_account', '--date', '{{ ds }}'],
-        packages=SPARK_PACKAGES,
-        conf=SPARK_CONF,
-        name='load-lnk-cust-acct',
+        namespace='spark-jobs',
+        application_file='k8s/spark-load-raw-vault.yaml',
+        kubernetes_conn_id='kubernetes_default',
+        params={'entity': 'lnk_customer_account', 'date': '{{ ds }}'},
     )
 
-    load_sat_customer = SparkSubmitOperator(
+    load_sat_customer = SparkKubernetesOperator(
         task_id='load_sat_customer_details',
-        conn_id=SPARK_CONN_ID,
-        application='/opt/airflow/spark_jobs/load_raw_vault.py',
-        application_args=['--entity', 'sat_customer_details', '--date', '{{ ds }}'],
-        packages=SPARK_PACKAGES,
-        conf=SPARK_CONF,
-        name='load-sat-customer',
+        namespace='spark-jobs',
+        application_file='k8s/spark-load-raw-vault.yaml',
+        kubernetes_conn_id='kubernetes_default',
+        params={'entity': 'sat_customer_details', 'date': '{{ ds }}'},
     )
 
-    load_sat_account = SparkSubmitOperator(
+    load_sat_account = SparkKubernetesOperator(
         task_id='load_sat_account_details',
-        conn_id=SPARK_CONN_ID,
-        application='/opt/airflow/spark_jobs/load_raw_vault.py',
-        application_args=['--entity', 'sat_account_details', '--date', '{{ ds }}'],
-        packages=SPARK_PACKAGES,
-        conf=SPARK_CONF,
-        name='load-sat-account',
+        namespace='spark-jobs',
+        application_file='k8s/spark-load-raw-vault.yaml',
+        kubernetes_conn_id='kubernetes_default',
+        params={'entity': 'sat_account_details', 'date': '{{ ds }}'},
     )
 
-    load_sat_txn = SparkSubmitOperator(
+    load_sat_txn = SparkKubernetesOperator(
         task_id='load_sat_transaction',
-        conn_id=SPARK_CONN_ID,
-        application='/opt/airflow/spark_jobs/load_raw_vault.py',
-        application_args=['--entity', 'sat_transaction', '--date', '{{ ds }}'],
-        packages=SPARK_PACKAGES,
-        conf=SPARK_CONF,
-        name='load-sat-txn',
+        namespace='spark-jobs',
+        application_file='k8s/spark-load-raw-vault.yaml',
+        kubernetes_conn_id='kubernetes_default',
+        params={'entity': 'sat_transaction', 'date': '{{ ds }}'},
     )
 
     # ── Step 4: Run dbt (Business Vault + Information Mart) ──
-    run_dbt = BashOperator(
+    # dbt chạy qua SparkApplication với git-sync sidecar pull dbt code từ Git
+    run_dbt = SparkKubernetesOperator(
         task_id='run_dbt_models',
-        bash_command='cd /opt/airflow/dbt/hanas_vault && dbt run --profiles-dir . --target prod',
+        namespace='spark-jobs',
+        application_file='k8s/dbt-runner.yaml',
+        kubernetes_conn_id='kubernetes_default',
+        params={
+            'dbt_select': 'data_mart',
+            'full_refresh': False,
+        },
     )
 
     # ── Step 5: Quality check ──
-    quality_check = SparkSubmitOperator(
+    quality_check = SparkKubernetesOperator(
         task_id='quality_check_mart',
-        conn_id=SPARK_CONN_ID,
-        application='/opt/airflow/spark_jobs/quality_check.py',
-        application_args=['--date', '{{ ds }}'],
-        packages=SPARK_PACKAGES,
-        conf=SPARK_CONF,
-        name='quality-check',
+        namespace='spark-jobs',
+        application_file='k8s/spark-quality-check.yaml',
+        kubernetes_conn_id='kubernetes_default',
+        params={'date': '{{ ds }}'},
     )
 
     # ── Step 6: Refresh Dremio metadata ──
@@ -390,7 +364,7 @@ with DAG(
 > - Sensor timeout = 1h — không chờ vô hạn
 > - Hub load trước Satellite (đảm bảo foreign key)
 > - Hub/Link load song song (không phụ thuộc nhau)
-> - dbt chạy sau Raw Vault hoàn tất
+> - dbt chạy qua SparkApplication (không dùng BashOperator)
 > - Quality check sau dbt
 > - Refresh Dremio cuối cùng
 
@@ -645,7 +619,7 @@ Endpoint: grpc://dremio-host:32010
                                                        ▼
 ┌──────────┐   Submit      ┌──────────┐   Iceberg  ┌──────────┐
 │ Airflow  │──────────────▶│  Spark   │──────────▶│  MinIO   │
-│  (DAG)   │  SparkSubmit  │(Process) │  tables   │(Raw Vault)│
+│  (DAG)   │  SparkK8sOp  │(K8s Pods)│  tables   │(Raw Vault)│
 └──────────┘               └──────────┘           └────┬─────┘
                                                        │
                                                        ▼

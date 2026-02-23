@@ -74,8 +74,14 @@ AIRFLOW__CORE__FERNET_KEY=your-fernet-key-here
 AIRFLOW__CORE__DAGS_FOLDER=/opt/airflow/dags
 AIRFLOW__CORE__LOAD_EXAMPLES=false
 
-# ===== Spark =====
-SPARK_MASTER_URL=spark://spark-master:7077
+# ===== Spark on K8s =====
+# Spark chạy trên K8s qua Spark Operator, không cần config ở đây
+# Xem docs/03-processing/apache-spark/installation.md
+
+# ===== AWS/S3 (cho Spark Iceberg) =====
+AWS_ACCESS_KEY_ID=your_access_key
+AWS_SECRET_ACCESS_KEY=your_secret_key
+AWS_REGION=us-east-1
 
 # ===== PostgreSQL (shared) =====
 POSTGRES_USER=admin
@@ -150,31 +156,23 @@ services:
       retries: 5
 
   # ========== PROCESSING LAYER ==========
-  spark-master:
-    image: bitnami/spark:3.5
-    container_name: hanas-spark-master
-    environment:
-      - SPARK_MODE=master
-      - SPARK_MASTER_HOST=spark-master
+  # ⚠️ Spark chạy trên Kubernetes qua Spark Operator
+  # Không deploy Spark standalone trong Docker Compose
+  # Xem: docs/03-processing/apache-spark/installation.md
+  #
+  # Quickstart flow dùng Hive Metastore để quản lý Iceberg catalog:
+  hive-metastore:
+    image: apache/hive:4.0.0
+    container_name: hanas-hive-metastore
     ports:
-      - "8080:8080"   # Spark UI
-      - "7077:7077"   # Spark Master
-    volumes:
-      - ./config/spark/spark-defaults.conf:/opt/bitnami/spark/conf/spark-defaults.conf
-      - ./data:/data
-
-  spark-worker:
-    image: bitnami/spark:3.5
-    container_name: hanas-spark-worker
+      - "9083:9083"
     environment:
-      - SPARK_MODE=worker
-      - SPARK_MASTER_URL=spark://spark-master:7077
-      - SPARK_WORKER_MEMORY=4g
-      - SPARK_WORKER_CORES=2
-    depends_on:
-      - spark-master
+      SERVICE_NAME: metastore
     volumes:
-      - ./data:/data
+      - hive_data:/opt/hive/data
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   # ========== ORCHESTRATION ==========
   airflow-webserver:
@@ -225,6 +223,7 @@ volumes:
   minio_data:
   postgres_data:
   dremio_data:
+  hive_data:
 ```
 
 ### 2.4 Khởi động
@@ -245,9 +244,11 @@ docker compose logs -f <service-name>
 | Service | URL | Credentials |
 |---|---|---|
 | **MinIO Console** | http://localhost:9001 | admin / minio_secret_2024 |
-| **Spark Master UI** | http://localhost:8080 | — |
+| **Hive Metastore** | thrift://localhost:9083 | — |
 | **Airflow UI** | http://localhost:8081 | airflow / airflow |
 | **Dremio UI** | http://localhost:9047 | (setup lần đầu) |
+
+> **Spark**: Chạy trên K8s cluster riêng qua Spark Operator. Xem [Cài đặt Spark](../03-processing/apache-spark/installation.md).
 
 ---
 
@@ -281,18 +282,29 @@ aws --endpoint-url http://localhost:9000 \
 ### 3.3 Xử lý bằng Spark → Ghi Iceberg
 
 ```python
-# spark_quickstart.py — Submit vào Spark container
+# spark_quickstart.py — Chạy trong Spark on K8s (SparkApplication)
+import os
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import current_timestamp, md5, concat_ws, lit
 
+# SparkSession khi chạy trên K8s đã được cấu hình qua sparkConf trong manifest
+# Credentials được inject qua K8s Secrets → environment variables
 spark = (SparkSession.builder
     .appName("quickstart-landing-to-vault")
-    .config("spark.sql.catalog.hanas", "org.apache.iceberg.spark.SparkCatalog")
-    .config("spark.sql.catalog.hanas.type", "hadoop")
-    .config("spark.sql.catalog.hanas.warehouse", "s3a://warehouse/")
+    # ── Iceberg Extensions ──
+    .config("spark.sql.extensions", "org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions")
+    # ── Iceberg Catalog: demo (Hive Metastore) ──
+    .config("spark.sql.catalog.demo", "org.apache.iceberg.spark.SparkCatalog")
+    .config("spark.sql.catalog.demo.type", "hive")
+    .config("spark.sql.catalog.demo.uri", "thrift://hive-metastore:9083")
+    .config("spark.sql.catalog.demo.io-impl", "org.apache.iceberg.aws.s3.S3FileIO")
+    .config("spark.sql.catalog.demo.s3.endpoint", "http://minio:9000")
+    .config("spark.sql.catalog.demo.warehouse", "s3a://data/warehouse/")
+    .config("spark.sql.defaultCatalog", "demo")
+    # ── S3/MinIO (credentials qua env vars từ K8s Secrets) ──
     .config("spark.hadoop.fs.s3a.endpoint", "http://minio:9000")
-    .config("spark.hadoop.fs.s3a.access.key", "admin")
-    .config("spark.hadoop.fs.s3a.secret.key", "minio_secret_2024")
+    .config("spark.hadoop.fs.s3a.access.key", os.environ.get("AWS_ACCESS_KEY_ID"))
+    .config("spark.hadoop.fs.s3a.secret.key", os.environ.get("AWS_SECRET_ACCESS_KEY"))
     .config("spark.hadoop.fs.s3a.path.style.access", "true")
     .config("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
     .getOrCreate())
@@ -308,8 +320,8 @@ df_hub = (df_landing
     .withColumn("record_source", lit("CSV_CUSTOMERS"))
     .dropDuplicates(["customer_id"]))
 
-# 3. Ghi vào Iceberg table
-df_hub.writeTo("hanas.raw_vault.hub_customer").createOrReplace()
+# 3. Ghi vào Iceberg table (catalog demo)
+df_hub.writeTo("demo.raw_vault.hub_customer").createOrReplace()
 
 # 4. Tạo Satellite Customer (Raw Vault)
 df_sat = (df_landing
@@ -318,10 +330,10 @@ df_sat = (df_landing
     .withColumn("record_source", lit("CSV_CUSTOMERS"))
     .withColumn("hash_diff", md5(concat_ws("||", "name", "email", "phone", "city"))))
 
-df_sat.writeTo("hanas.raw_vault.sat_customer_details").createOrReplace()
+df_sat.writeTo("demo.raw_vault.sat_customer_details").createOrReplace()
 
 print("✅ Raw Vault tables created successfully!")
-spark.sql("SELECT * FROM hanas.raw_vault.hub_customer").show()
+spark.sql("SELECT * FROM demo.raw_vault.hub_customer").show()
 spark.stop()
 ```
 

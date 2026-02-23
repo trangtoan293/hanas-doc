@@ -9,29 +9,35 @@ Hướng dẫn cách Spark đọc/ghi dữ liệu dưới dạng Iceberg tables 
 ## 1. Cấu Hình SparkSession Cho Iceberg + MinIO
 
 ```python
+import os
 from pyspark.sql import SparkSession
 
 spark = (SparkSession.builder
     .appName("hanas-iceberg-operations")
-    # ── Iceberg Catalog ──
-    .config("spark.sql.catalog.hanas", "org.apache.iceberg.spark.SparkCatalog")
-    .config("spark.sql.catalog.hanas.type", "hadoop")
-    .config("spark.sql.catalog.hanas.warehouse", "s3a://warehouse/")
-    # ── S3/MinIO ──
-    .config("spark.hadoop.fs.s3a.endpoint", "http://minio:9000")
-    .config("spark.hadoop.fs.s3a.access.key", "admin")
-    .config("spark.hadoop.fs.s3a.secret.key", "minio_secret_2024")
+    # ── Iceberg Extensions ──
+    .config("spark.sql.extensions", "org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions")
+    # ── Iceberg Catalog: demo (Hive Metastore) ──
+    .config("spark.sql.catalog.demo", "org.apache.iceberg.spark.SparkCatalog")
+    .config("spark.sql.catalog.demo.type", "hive")
+    .config("spark.sql.catalog.demo.uri", "thrift://<HIVE_HOST>:9083")
+    .config("spark.sql.catalog.demo.io-impl", "org.apache.iceberg.aws.s3.S3FileIO")
+    .config("spark.sql.catalog.demo.s3.endpoint", "http://<MINIO_HOST>:9000")
+    .config("spark.sql.catalog.demo.warehouse", "s3a://data/warehouse/")
+    .config("spark.sql.defaultCatalog", "demo")
+    # ── S3/MinIO (credentials qua K8s Secrets → env vars) ──
+    .config("spark.hadoop.fs.s3a.endpoint", "http://<MINIO_HOST>:9000")
+    .config("spark.hadoop.fs.s3a.access.key", os.environ.get("AWS_ACCESS_KEY_ID"))
+    .config("spark.hadoop.fs.s3a.secret.key", os.environ.get("AWS_SECRET_ACCESS_KEY"))
     .config("spark.hadoop.fs.s3a.path.style.access", "true")
     .config("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
     .config("spark.hadoop.fs.s3a.connection.maximum", "100")
-    # ── Iceberg Extensions ──
-    .config("spark.sql.extensions", "org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions")
-    .config("spark.sql.catalog.hanas.io-impl", "org.apache.iceberg.aws.s3.S3FileIO")
     # ── Performance ──
     .config("spark.sql.adaptive.enabled", "true")
     .config("spark.sql.adaptive.coalescePartitions.enabled", "true")
     .getOrCreate())
 ```
+
+> **Lưu ý**: Khi chạy trên K8s, cấu hình này đã được khai báo trong `sparkConf` của SparkApplication manifest. Credentials được inject qua `envFrom` + K8s Secrets.
 
 ---
 
@@ -40,16 +46,16 @@ spark = (SparkSession.builder
 ### 2.1 Tạo Database (Namespace)
 
 ```python
-spark.sql("CREATE DATABASE IF NOT EXISTS hanas.raw_vault")
-spark.sql("CREATE DATABASE IF NOT EXISTS hanas.business_vault")
-spark.sql("CREATE DATABASE IF NOT EXISTS hanas.information_mart")
+spark.sql("CREATE DATABASE IF NOT EXISTS demo.raw_vault")
+spark.sql("CREATE DATABASE IF NOT EXISTS demo.business_vault")
+spark.sql("CREATE DATABASE IF NOT EXISTS demo.information_mart")
 ```
 
 ### 2.2 Tạo Hub Table
 
 ```python
 spark.sql("""
-    CREATE TABLE IF NOT EXISTS hanas.raw_vault.hub_customer (
+    CREATE TABLE IF NOT EXISTS demo.raw_vault.hub_customer (
         hub_customer_hk   STRING    COMMENT 'Hash key (MD5 of business key)',
         customer_id       STRING    COMMENT 'Business key',
         load_dts          TIMESTAMP COMMENT 'Load datetime',
@@ -70,7 +76,7 @@ spark.sql("""
 
 ```python
 spark.sql("""
-    CREATE TABLE IF NOT EXISTS hanas.raw_vault.lnk_customer_account (
+    CREATE TABLE IF NOT EXISTS demo.raw_vault.lnk_customer_account (
         lnk_customer_account_hk  STRING    COMMENT 'Hash of combined keys',
         hub_customer_hk           STRING    COMMENT 'FK to hub_customer',
         hub_account_hk            STRING    COMMENT 'FK to hub_account',
@@ -86,7 +92,7 @@ spark.sql("""
 
 ```python
 spark.sql("""
-    CREATE TABLE IF NOT EXISTS hanas.raw_vault.sat_customer_details (
+    CREATE TABLE IF NOT EXISTS demo.raw_vault.sat_customer_details (
         hub_customer_hk  STRING    COMMENT 'FK to hub_customer',
         load_dts         TIMESTAMP COMMENT 'Load datetime',
         load_end_dts     TIMESTAMP COMMENT 'End datetime (NULL = current)',
@@ -126,7 +132,7 @@ df_hub = (df_landing
     .withColumn("record_source", lit("ORACLE.SRC_CUSTOMERS")))
 
 # Ghi append mode
-df_hub.writeTo("hanas.raw_vault.hub_customer").append()
+df_hub.writeTo("demo.raw_vault.hub_customer").append()
 ```
 
 ### 3.2 MERGE — Upsert (chỉ insert nếu chưa có)
@@ -136,7 +142,7 @@ df_hub.writeTo("hanas.raw_vault.hub_customer").append()
 df_hub.createOrReplaceTempView("staging_hub_customer")
 
 spark.sql("""
-    MERGE INTO hanas.raw_vault.hub_customer AS target
+    MERGE INTO demo.raw_vault.hub_customer AS target
     USING staging_hub_customer AS source
     ON target.hub_customer_hk = source.hub_customer_hk
     WHEN NOT MATCHED THEN INSERT *
@@ -159,7 +165,7 @@ df_sat_new = (df_landing
     .withColumn("record_source", lit("ORACLE.SRC_CUSTOMERS")))
 
 # So sánh hash: chỉ ghi nếu dữ liệu thay đổi
-df_existing = spark.table("hanas.raw_vault.sat_customer_details") \
+df_existing = spark.table("demo.raw_vault.sat_customer_details") \
     .filter(col("load_end_dts").isNull()) \
     .select("hub_customer_hk", col("hash_diff").alias("existing_hash"))
 
@@ -172,7 +178,7 @@ df_changed = (df_sat_new
     .drop("existing_hash"))
 
 # Append chỉ các bản ghi mới/thay đổi
-df_changed.writeTo("hanas.raw_vault.sat_customer_details").append()
+df_changed.writeTo("demo.raw_vault.sat_customer_details").append()
 
 print(f"✅ Inserted {df_changed.count()} changed/new records")
 ```
@@ -186,7 +192,7 @@ print(f"✅ Inserted {df_changed.count()} changed/new records")
 ### 4.1 Đọc toàn bộ bảng
 
 ```python
-df = spark.table("hanas.raw_vault.hub_customer")
+df = spark.table("demo.raw_vault.hub_customer")
 df.show()
 ```
 
@@ -196,12 +202,11 @@ df.show()
 # Đọc snapshot tại thời điểm cụ thể
 df_past = (spark.read
     .option("as-of-timestamp", "2024-01-15T00:00:00+07:00")
-    .table("hanas.raw_vault.sat_customer_details"))
+    .table("demo.raw_vault.sat_customer_details"))
 
 # Đọc snapshot cụ thể
 df_snapshot = (spark.read
-    .option("snapshot-id", 1234567890)
-    .table("hanas.raw_vault.sat_customer_details"))
+    .table("demo.raw_vault.sat_customer_details"))
 ```
 
 ### 4.3 Incremental Read — Chỉ đọc thay đổi
@@ -211,7 +216,7 @@ df_snapshot = (spark.read
 df_changes = (spark.read
     .option("start-snapshot-id", "11111")
     .option("end-snapshot-id", "22222")
-    .table("hanas.raw_vault.sat_customer_details"))
+    .table("demo.raw_vault.sat_customer_details"))
 ```
 
 ---
@@ -223,7 +228,7 @@ df_changes = (spark.read
 ```python
 # Gom file nhỏ → file lớn hơn (128MB target)
 spark.sql("""
-    CALL hanas.system.rewrite_data_files(
+    CALL demo.system.rewrite_data_files(
         table => 'raw_vault.hub_customer',
         options => map('target-file-size-bytes', '134217728')
     )
@@ -235,7 +240,7 @@ spark.sql("""
 ```python
 # Giữ lại snapshot 7 ngày gần nhất
 spark.sql("""
-    CALL hanas.system.expire_snapshots(
+    CALL demo.system.expire_snapshots(
         table => 'raw_vault.hub_customer',
         older_than => TIMESTAMP '2024-01-08 00:00:00',
         retain_last => 5
@@ -247,7 +252,7 @@ spark.sql("""
 
 ```python
 spark.sql("""
-    CALL hanas.system.remove_orphan_files(
+    CALL demo.system.remove_orphan_files(
         table => 'raw_vault.hub_customer',
         older_than => TIMESTAMP '2024-01-01 00:00:00'
     )

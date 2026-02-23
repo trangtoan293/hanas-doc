@@ -86,11 +86,15 @@ mc du myminio/warehouse
 ### Kiểm tra
 
 ```bash
-# Spark UI → check failed stages
-open http://spark-master:8080
+# Spark UI → port-forward tới Driver pod trên K8s
+kubectl port-forward -n spark-jobs <driver-pod> 4040:4040
+open http://localhost:4040
 
 # Spark driver logs
-kubectl logs -f spark-driver-pod -n spark-jobs
+kubectl logs -f <driver-pod> -n spark-jobs
+
+# Liệt kê SparkApplications
+kubectl get sparkapplications -n spark-jobs
 ```
 
 ### Tối ưu thường dùng
@@ -101,7 +105,7 @@ spark.conf.set("spark.sql.adaptive.enabled", "true")
 spark.conf.set("spark.sql.adaptive.coalescePartitions.enabled", "true")
 
 # Iceberg write optimization
-spark.conf.set("spark.sql.catalog.hanas.write.target-file-size-bytes", "134217728")  # 128MB
+spark.conf.set("spark.sql.catalog.demo.write.target-file-size-bytes", "134217728")  # 128MB
 ```
 
 ---
