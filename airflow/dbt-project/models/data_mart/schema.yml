@@ -1,0 +1,577 @@
+version: 2
+
+models:
+  - name: dim_time
+    description: "Lưu các chiều thông tin chi tiết về các mốc thời gian, phục vụ cho việc phân tích thông qua liên kết với các bảng fact"
+    columns:
+      - name: BOH_DATE
+        description: "{{ doc('boh_date') }}"
+      - name: BOH_FLAG
+        description: "{{ doc('boh_flag') }}"
+      - name: BOM_DATE
+        description: "{{ doc('bom_date') }}"
+      - name: BOM_FLAG
+        description: "{{ doc('bom_flag') }}"
+      - name: BOQ_DATE
+        description: "{{ doc('boq_date') }}"
+      - name: BOQ_FLAG
+        description: "{{ doc('boq_flag') }}"
+      - name: BOW_DATE
+        description: "{{ doc('bow_date') }}"
+      - name: BOW_FLAG
+        description: "{{ doc('bow_flag') }}"
+      - name: BOY_DATE
+        description: "{{ doc('boy_date') }}"
+      - name: BOY_FLAG
+        description: "{{ doc('boy_flag') }}"
+      - name: CALENDAR_DATE_VAR
+        description: "{{ doc('calendar_date_var') }}"
+      - name: COB_DATE
+        description: "{{ doc('cob_date') }}"
+      - name: DAY_AGO
+        description: "{{ doc('day_ago') }}"
+      - name: DAY_IN_HALF
+        description: "{{ doc('day_in_half') }}"
+      - name: DAY_IN_MONTH
+        description: "{{ doc('day_in_month') }}"
+      - name: DAY_IN_QUARTER
+        description: "{{ doc('day_in_quarter') }}"
+      - name: DAY_IN_WEEK
+        description: "{{ doc('day_in_week') }}"
+      - name: DAY_IN_YEAR
+        description: "{{ doc('day_in_year') }}"
+      - name: DAY_KEY
+        description: "{{ doc('day_key') }}"
+      - name: DAY_NAME
+        description: "{{ doc('day_name') }}"
+      - name: ELH_DATE
+        description: "{{ doc('elh_date') }}"
+      - name: ELM_DATE
+        description: "{{ doc('elm_date') }}"
+      - name: ELQ_DATE
+        description: "{{ doc('elq_date') }}"
+      - name: ELW_DATE
+        description: "{{ doc('elw_date') }}"
+      - name: ELY_DATE
+        description: "{{ doc('ely_date') }}"
+      - name: EOH_DATE
+        description: "{{ doc('eoh_date') }}"
+      - name: EOH_FLAG
+        description: "{{ doc('eoh_flag') }}"
+      - name: EOM_DATE
+        description: "{{ doc('eom_date') }}"
+      - name: EOM_FLAG
+        description: "{{ doc('eom_flag') }}"
+      - name: EOQ_DATE
+        description: "{{ doc('eoq_date') }}"
+      - name: EOQ_FLAG
+        description: "{{ doc('eoq_flag') }}"
+      - name: EOW_DATE
+        description: "{{ doc('eow_date') }}"
+      - name: EOW_FLAG
+        description: "{{ doc('eow_flag') }}"
+      - name: EOY_DATE
+        description: "{{ doc('eoy_date') }}"
+      - name: EOY_FLAG
+        description: "{{ doc('eoy_flag') }}"
+      - name: FULL_MONTH_KEY
+        description: "{{ doc('full_month_key') }}"
+      - name: FULL_MONTH_NAME
+        description: "{{ doc('full_month_name') }}"
+      - name: HALF_AGO
+        description: "{{ doc('half_ago') }}"
+      - name: HALF_ID
+        description: "{{ doc('half_id') }}"
+      - name: HALF_KEY
+        description: "{{ doc('half_key') }}"
+      - name: HALF_NAME
+        description: "{{ doc('half_name') }}"
+      - name: HOLIDAY
+        description: "{{ doc('holiday') }}"
+      - name: LOAD_DATE
+        description: "{{ doc('load_date') }}"
+      - name: MONTH_AGO
+        description: "{{ doc('month_ago') }}"
+      - name: MONTH_ID
+        description: "{{ doc('month_id') }}"
+      - name: MONTH_KEY
+        description: "{{ doc('month_key') }}"
+      - name: MONTH_NAME
+        description: "{{ doc('month_name') }}"
+      - name: NEXT_COB_DATE
+        description: "{{ doc('next_cob_date') }}"
+      - name: PRE_HALF_SAME_PERD
+        description: "{{ doc('pre_half_same_perd') }}"
+      - name: PRE_MTH_SAME_PERD
+        description: "{{ doc('pre_mth_same_perd') }}"
+      - name: PRE_QUATR_SAME_PERD
+        description: "{{ doc('pre_quatr_same_perd') }}"
+      - name: PRE_YEAR_SAME_PERD
+        description: "{{ doc('pre_year_same_perd') }}"
+      - name: QUARTER_ID
+        description: "{{ doc('quarter_id') }}"
+      - name: QUARTER_KEY
+        description: "{{ doc('quarter_key') }}"
+      - name: QUATER_AGO
+        description: "{{ doc('quater_ago') }}"
+      - name: QUATER_NAME
+        description: "{{ doc('quater_name') }}"
+      - name: TOTAL_DAY_HALF
+        description: "{{ doc('total_day_half') }}"
+      - name: TOTAL_DAY_MONTH
+        description: "{{ doc('total_day_month') }}"
+      - name: TOTAL_DAY_QUARTER
+        description: "{{ doc('total_day_quarter') }}"
+      - name: TOTAL_DAY_YEAR
+        description: "{{ doc('total_day_year') }}"
+      - name: WEEK_AGO
+        description: "{{ doc('week_ago') }}"
+      - name: WEEK_ID
+        description: "{{ doc('week_id') }}"
+      - name: WEEK_KEY
+        description: "{{ doc('week_key') }}"
+      - name: WEEK_NAME
+        description: "{{ doc('week_name') }}"
+      - name: WORKING_DAY
+        description: "{{ doc('working_day') }}"
+      - name: YEAR_AGO
+        description: "{{ doc('year_ago') }}"
+      - name: YEAR_KEY
+        description: "{{ doc('year_key') }}"
+
+  - name: dim_branch
+    description: "Lưu các thông tin chi tiết về chi nhánh, phục vụ cho việc phân tích thông qua liên kết với các bảng fact"
+    columns:
+      - name: BRANCH_CODE
+        description: "{{ doc('branch_code') }}"
+      - name: BRANCH_NAME
+        description: "{{ doc('branch_name') }}"
+      - name: D_BRANCH_ID
+        description: "{{ doc('d_branch_id') }}"
+      - name: EFF_FR_DT
+        description: "{{ doc('eff_fr_dt') }}"
+      - name: EFF_TO_DT
+        description: "{{ doc('eff_to_dt') }}"
+      - name: IN_USE_STATUS
+        description: "{{ doc('in_use_status') }}"
+      - name: KV_NAME
+        description: "{{ doc('kv_name') }}"
+      - name: LAST_MODIFY_TIME
+        description: "{{ doc('last_modify_time') }}"
+      - name: NBR_STAFF
+        description: "{{ doc('nbr_staff') }}"
+      - name: PARENT_CODE
+        description: "{{ doc('parent_code') }}"
+      - name: PARENT_NAME
+        description: "{{ doc('parent_name') }}"
+
+  - name: dim_pl_item
+    description: "Lưu các thông tin chi tiết về các khoản mục tài chính"
+    columns:
+      - name: PL_CODE
+        description: "{{ doc('pl_code') }}"
+      - name: PL_ID
+        description: "{{ doc('pl_id') }}"
+      - name: PL_MAIN_CODE
+        description: "{{ doc('pl_main_code') }}"
+      - name: PL_MAIN_NAME
+        description: "{{ doc('pl_main_name') }}"
+      - name: PL_NAME
+        description: "{{ doc('pl_name') }}"
+
+  - name: fact_dp_detail
+    description: "Lưu các thông tin cần xử lý, tính toán của huy động"
+    columns:
+      - name: ACCOUNT_TYPE
+        description: "{{ doc('account_type') }}"
+      - name: BRANCH_CODE
+        description: "{{ doc('branch_code') }}"
+      - name: COB_DATE
+        description: "{{ doc('cob_date') }}"
+      - name: CUSTOMER_TYPE
+        description: "{{ doc('customer_type') }}"
+      - name: D_BRANCH_ID
+        description: "{{ doc('d_branch_id') }}"
+      - name: FCY_CURR_BALANCE
+        description: "{{ doc('fcy_curr_balance') }}"
+      - name: LCY_CURR_BALANCE
+        description: "{{ doc('lcy_curr_balance') }}"
+
+  - name: fact_dp_summary
+    description: "Bảng tổng hợp dữ liệu huy động theo nhóm khách hàng, loại hình tiền gửi của từng chi nhánh/PGD"
+    columns:
+      - name: ACCOUNT_TYPE
+        description: "{{ doc('account_type') }}"
+      - name: AVG_BAL_MTD
+        description: "{{ doc('avg_bal_mtd') }}"
+      - name: BAL_DAGO
+        description: "{{ doc('bal_dago') }}"
+      - name: BAL_ELM
+        description: "{{ doc('bal_elm') }}"
+      - name: BAL_ELY
+        description: "{{ doc('bal_ely') }}"
+      - name: BAL_MTD
+        description: "{{ doc('bal_mtd') }}"
+      - name: BAL_TODAY
+        description: "{{ doc('bal_today') }}"
+      - name: BOM_DATE
+        description: "{{ doc('bom_date') }}"
+      - name: BRANCH_CODE
+        description: "{{ doc('branch_code') }}"
+      - name: BRANCH_NAME
+        description: "{{ doc('branch_name') }}"
+      - name: COB_DATE
+        description: "{{ doc('cob_date') }}"
+      - name: CUSTOMER_TYPE
+        description: "{{ doc('customer_type') }}"
+      - name: DAY_AGO
+        description: "{{ doc('day_ago') }}"
+      - name: DAY_IN_MONTH
+        description: "{{ doc('day_in_month') }}"
+      - name: D_BRANCH_ID
+        description: "{{ doc('d_branch_id') }}"
+      - name: ELM_DATE
+        description: "{{ doc('elm_date') }}"
+      - name: ELY_DATE
+        description: "{{ doc('ely_date') }}"
+      - name: KV_NAME
+        description: "{{ doc('kv_name') }}"
+      - name: PARENT_CODE
+        description: "{{ doc('parent_code') }}"
+      - name: PARENT_NAME
+        description: "{{ doc('parent_name') }}"
+
+  - name: fact_ln_detail
+    description: "Lưu các thông tin cần xử lý, tính toán của huy động"
+    columns:
+      - name: ACCOUNT_TYPE
+        description: "{{ doc('account_type') }}"
+      - name: BRANCH_CODE
+        description: "{{ doc('branch_code') }}"
+      - name: COB_DATE
+        description: "{{ doc('cob_date') }}"
+      - name: CUSTOMER_TYPE
+        description: "{{ doc('customer_type') }}"
+      - name: DEBT_GRP
+        description: "{{ doc('debt_grp') }}"
+      - name: D_BRANCH_ID
+        description: "{{ doc('d_branch_id') }}"
+      - name: FCY_OUTSTND
+        description: "{{ doc('fcy_outstnd') }}"
+      - name: LCY_OUTSTND
+        description: "{{ doc('lcy_outstnd') }}"
+
+  - name: fact_ln_summary
+    description: "Bảng tổng hợp dữ liệu cho vay theo nhóm khách hàng, loại kỳ hạn vay của từng chi nhánh/PGD"
+    columns:
+      - name: ACCOUNT_TYPE
+        description: "{{ doc('account_type') }}"
+      - name: AVG_OUTSTND_MTD
+        description: "{{ doc('avg_outstnd_mtd') }}"
+      - name: BOM_DATE
+        description: "{{ doc('bom_date') }}"
+      - name: BRANCH_CODE
+        description: "{{ doc('branch_code') }}"
+      - name: BRANCH_NAME
+        description: "{{ doc('branch_name') }}"
+      - name: COB_DATE
+        description: "{{ doc('cob_date') }}"
+      - name: CUSTOMER_TYPE
+        description: "{{ doc('customer_type') }}"
+      - name: DAY_AGO
+        description: "{{ doc('day_ago') }}"
+      - name: DAY_IN_MONTH
+        description: "{{ doc('day_in_month') }}"
+      - name: D_BRANCH_ID
+        description: "{{ doc('d_branch_id') }}"
+      - name: ELM_DATE
+        description: "{{ doc('elm_date') }}"
+      - name: ELY_DATE
+        description: "{{ doc('ely_date') }}"
+      - name: KV_NAME
+        description: "{{ doc('kv_name') }}"
+      - name: NPL_ELM
+        description: "{{ doc('npl_elm') }}"
+      - name: NPL_ELY
+        description: "{{ doc('npl_ely') }}"
+      - name: NPL_TODAY
+        description: "{{ doc('npl_today') }}"
+      - name: OUTSTND_DAGO
+        description: "{{ doc('outstnd_dago') }}"
+      - name: OUTSTND_ELM
+        description: "{{ doc('outstnd_elm') }}"
+      - name: OUTSTND_ELY
+        description: "{{ doc('outstnd_ely') }}"
+      - name: OUTSTND_MTD
+        description: "{{ doc('outstnd_mtd') }}"
+      - name: OUTSTND_TODAY
+        description: "{{ doc('outstnd_today') }}"
+      - name: OVD_ELM
+        description: "{{ doc('ovd_elm') }}"
+      - name: OVD_ELY
+        description: "{{ doc('ovd_ely') }}"
+      - name: OVD_TODAY
+        description: "{{ doc('ovd_today') }}"
+      - name: PARENT_CODE
+        description: "{{ doc('parent_code') }}"
+      - name: PARENT_NAME
+        description: "{{ doc('parent_name') }}"
+
+  - name: fact_pl_detail
+    description: "Lưu các thông tin cần xử lý, tính toán của CPQL, Lợi nhuận, TNT, DPRR"
+    columns:
+      - name: BRANCH_CODE
+        description: "{{ doc('branch_code') }}"
+      - name: COB_DATE
+        description: "{{ doc('cob_date') }}"
+      - name: D_BRANCH_ID
+        description: "{{ doc('d_branch_id') }}"
+      - name: FCY_OUTSTND
+        description: "{{ doc('fcy_outstnd') }}"
+      - name: LCY_OUTSTND
+        description: "{{ doc('lcy_outstnd') }}"
+      - name: PL_CODE
+        description: "{{ doc('pl_code') }}"
+
+  - name: fact_pl_summary
+    description: "Bảng tổng hợp các chỉ tiêu liên quan kết quả kinh doanh: Chi phí HDQL, Thu nhập thuần, Chi phí dự phòng rủi ro, Lợi nhuận của từng chi nhánh/PGD"
+    columns:
+      - name: BAL_DAGO
+        description: "{{ doc('bal_dago') }}"
+      - name: BAL_ELM
+        description: "{{ doc('bal_elm') }}"
+      - name: BAL_ELY
+        description: "{{ doc('bal_ely') }}"
+      - name: BAL_TODAY
+        description: "{{ doc('bal_today') }}"
+      - name: BOM_DATE
+        description: "{{ doc('bom_date') }}"
+      - name: BRANCH_CODE
+        description: "{{ doc('branch_code') }}"
+      - name: BRANCH_NAME
+        description: "{{ doc('branch_name') }}"
+      - name: COB_DATE
+        description: "{{ doc('cob_date') }}"
+      - name: DAY_AGO
+        description: "{{ doc('day_ago') }}"
+      - name: DAY_IN_MONTH
+        description: "{{ doc('day_in_month') }}"
+      - name: D_BRANCH_ID
+        description: "{{ doc('d_branch_id') }}"
+      - name: ELM_DATE
+        description: "{{ doc('elm_date') }}"
+      - name: ELY_DATE
+        description: "{{ doc('ely_date') }}"
+      - name: KV_NAME
+        description: "{{ doc('kv_name') }}"
+      - name: NBR_STAFF
+        description: "{{ doc('nbr_staff') }}"
+      - name: PARENT_CODE
+        description: "{{ doc('parent_code') }}"
+      - name: PARENT_NAME
+        description: "{{ doc('parent_name') }}"
+      - name: PL_CODE
+        description: "{{ doc('pl_code') }}"
+      - name: PL_GRP
+        description: "{{ doc('pl_grp') }}"
+      - name: PL_NAME
+        description: "{{ doc('pl_name') }}"
+
+  - name: fact_dp_detail_backdate
+    description: "Lưu các thông tin cần xử lý, tính toán của huy động (for backdate)"
+    columns:
+      - name: ACCOUNT_TYPE
+        description: "{{ doc('account_type') }}"
+      - name: BRANCH_CODE
+        description: "{{ doc('branch_code') }}"
+      - name: COB_DATE
+        description: "{{ doc('cob_date') }}"
+      - name: CUSTOMER_TYPE
+        description: "{{ doc('customer_type') }}"
+      - name: D_BRANCH_ID
+        description: "{{ doc('d_branch_id') }}"
+      - name: FCY_CURR_BALANCE
+        description: "{{ doc('fcy_curr_balance') }}"
+      - name: LCY_CURR_BALANCE
+        description: "{{ doc('lcy_curr_balance') }}"
+
+  - name: fact_dp_summary_backdate
+    description: "Bảng tổng hợp dữ liệu huy động theo nhóm khách hàng, loại hình tiền gửi của từng chi nhánh/PGD (for backdate)"
+    columns:
+      - name: ACCOUNT_TYPE
+        description: "{{ doc('account_type') }}"
+      - name: AVG_BAL_MTD
+        description: "{{ doc('avg_bal_mtd') }}"
+      - name: BAL_DAGO
+        description: "{{ doc('bal_dago') }}"
+      - name: BAL_ELM
+        description: "{{ doc('bal_elm') }}"
+      - name: BAL_ELY
+        description: "{{ doc('bal_ely') }}"
+      - name: BAL_MTD
+        description: "{{ doc('bal_mtd') }}"
+      - name: BAL_TODAY
+        description: "{{ doc('bal_today') }}"
+      - name: BOM_DATE
+        description: "{{ doc('bom_date') }}"
+      - name: BRANCH_CODE
+        description: "{{ doc('branch_code') }}"
+      - name: BRANCH_NAME
+        description: "{{ doc('branch_name') }}"
+      - name: COB_DATE
+        description: "{{ doc('cob_date') }}"
+      - name: CUSTOMER_TYPE
+        description: "{{ doc('customer_type') }}"
+      - name: DAY_AGO
+        description: "{{ doc('day_ago') }}"
+      - name: DAY_IN_MONTH
+        description: "{{ doc('day_in_month') }}"
+      - name: D_BRANCH_ID
+        description: "{{ doc('d_branch_id') }}"
+      - name: ELM_DATE
+        description: "{{ doc('elm_date') }}"
+      - name: ELY_DATE
+        description: "{{ doc('ely_date') }}"
+      - name: KV_NAME
+        description: "{{ doc('kv_name') }}"
+      - name: PARENT_CODE
+        description: "{{ doc('parent_code') }}"
+      - name: PARENT_NAME
+        description: "{{ doc('parent_name') }}"
+
+  - name: fact_ln_detail_backdate
+    description: "Lưu các thông tin cần xử lý, tính toán của huy động (for backdate)"
+    columns:
+      - name: ACCOUNT_TYPE
+        description: "{{ doc('account_type') }}"
+      - name: BRANCH_CODE
+        description: "{{ doc('branch_code') }}"
+      - name: COB_DATE
+        description: "{{ doc('cob_date') }}"
+      - name: CUSTOMER_TYPE
+        description: "{{ doc('customer_type') }}"
+      - name: DEBT_GRP
+        description: "{{ doc('debt_grp') }}"
+      - name: D_BRANCH_ID
+        description: "{{ doc('d_branch_id') }}"
+      - name: FCY_OUTSTND
+        description: "{{ doc('fcy_outstnd') }}"
+      - name: LCY_OUTSTND
+        description: "{{ doc('lcy_outstnd') }}"
+
+  - name: fact_ln_summary_backdate
+    description: "Bảng tổng hợp dữ liệu cho vay theo nhóm khách hàng, loại kỳ hạn vay của từng chi nhánh/PGD (for backdate)"
+    columns:
+      - name: ACCOUNT_TYPE
+        description: "{{ doc('account_type') }}"
+      - name: AVG_OUTSTND_MTD
+        description: "{{ doc('avg_outstnd_mtd') }}"
+      - name: BOM_DATE
+        description: "{{ doc('bom_date') }}"
+      - name: BRANCH_CODE
+        description: "{{ doc('branch_code') }}"
+      - name: BRANCH_NAME
+        description: "{{ doc('branch_name') }}"
+      - name: COB_DATE
+        description: "{{ doc('cob_date') }}"
+      - name: CUSTOMER_TYPE
+        description: "{{ doc('customer_type') }}"
+      - name: DAY_AGO
+        description: "{{ doc('day_ago') }}"
+      - name: DAY_IN_MONTH
+        description: "{{ doc('day_in_month') }}"
+      - name: D_BRANCH_ID
+        description: "{{ doc('d_branch_id') }}"
+      - name: ELM_DATE
+        description: "{{ doc('elm_date') }}"
+      - name: ELY_DATE
+        description: "{{ doc('ely_date') }}"
+      - name: KV_NAME
+        description: "{{ doc('kv_name') }}"
+      - name: NPL_ELM
+        description: "{{ doc('npl_elm') }}"
+      - name: NPL_ELY
+        description: "{{ doc('npl_ely') }}"
+      - name: NPL_TODAY
+        description: "{{ doc('npl_today') }}"
+      - name: OUTSTND_DAGO
+        description: "{{ doc('outstnd_dago') }}"
+      - name: OUTSTND_ELM
+        description: "{{ doc('outstnd_elm') }}"
+      - name: OUTSTND_ELY
+        description: "{{ doc('outstnd_ely') }}"
+      - name: OUTSTND_MTD
+        description: "{{ doc('outstnd_mtd') }}"
+      - name: OUTSTND_TODAY
+        description: "{{ doc('outstnd_today') }}"
+      - name: OVD_ELM
+        description: "{{ doc('ovd_elm') }}"
+      - name: OVD_ELY
+        description: "{{ doc('ovd_ely') }}"
+      - name: OVD_TODAY
+        description: "{{ doc('ovd_today') }}"
+      - name: PARENT_CODE
+        description: "{{ doc('parent_code') }}"
+      - name: PARENT_NAME
+        description: "{{ doc('parent_name') }}"
+
+  - name: fact_pl_detail_backdate
+    description: "Lưu các thông tin cần xử lý, tính toán của CPQL, Lợi nhuận, TNT, DPRR (for backdate)"
+    columns:
+      - name: BRANCH_CODE
+        description: "{{ doc('branch_code') }}"
+      - name: COB_DATE
+        description: "{{ doc('cob_date') }}"
+      - name: D_BRANCH_ID
+        description: "{{ doc('d_branch_id') }}"
+      - name: FCY_OUTSTND
+        description: "{{ doc('fcy_outstnd') }}"
+      - name: LCY_OUTSTND
+        description: "{{ doc('lcy_outstnd') }}"
+      - name: PL_CODE
+        description: "{{ doc('pl_code') }}"
+
+  - name: fact_pl_summary_backdate
+    description: "Bảng tổng hợp các chỉ tiêu liên quan kết quả kinh doanh: Chi phí HDQL, Thu nhập thuần, Chi phí dự phòng rủi ro, Lợi nhuận của từng chi nhánh/PGD (for backdate)"
+    columns:
+      - name: BAL_DAGO
+        description: "{{ doc('bal_dago') }}"
+      - name: BAL_ELM
+        description: "{{ doc('bal_elm') }}"
+      - name: BAL_ELY
+        description: "{{ doc('bal_ely') }}"
+      - name: BAL_TODAY
+        description: "{{ doc('bal_today') }}"
+      - name: BOM_DATE
+        description: "{{ doc('bom_date') }}"
+      - name: BRANCH_CODE
+        description: "{{ doc('branch_code') }}"
+      - name: BRANCH_NAME
+        description: "{{ doc('branch_name') }}"
+      - name: COB_DATE
+        description: "{{ doc('cob_date') }}"
+      - name: DAY_AGO
+        description: "{{ doc('day_ago') }}"
+      - name: DAY_IN_MONTH
+        description: "{{ doc('day_in_month') }}"
+      - name: D_BRANCH_ID
+        description: "{{ doc('d_branch_id') }}"
+      - name: ELM_DATE
+        description: "{{ doc('elm_date') }}"
+      - name: ELY_DATE
+        description: "{{ doc('ely_date') }}"
+      - name: KV_NAME
+        description: "{{ doc('kv_name') }}"
+      - name: NBR_STAFF
+        description: "{{ doc('nbr_staff') }}"
+      - name: PARENT_CODE
+        description: "{{ doc('parent_code') }}"
+      - name: PARENT_NAME
+        description: "{{ doc('parent_name') }}"
+      - name: PL_CODE
+        description: "{{ doc('pl_code') }}"
+      - name: PL_GRP
+        description: "{{ doc('pl_grp') }}"
+      - name: PL_NAME
+        description: "{{ doc('pl_name') }}"
+

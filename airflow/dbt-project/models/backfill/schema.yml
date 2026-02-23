@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: fact_ln_detail_backfill
+    description: >
+      Backfill version of fact_ln_detail for data correction workflow.
+      Filters data from backfill_start_date to current date, reading from rebuilt sat_gl.
+    config:
+      materialized: table
+      file_format: iceberg
+      
+  - name: fact_ln_summary_backfill
+    description: >
+      Backfill version of fact_ln_summary.
+      Aggregates data from fact_ln_detail_backfill with time dimension comparisons.
+    config:
+      materialized: table
+      file_format: iceberg
+      
+  - name: fact_dp_detail_backfill
+    description: >
+      Backfill version of fact_dp_detail for data correction workflow.
+      Filters data from backfill_start_date to current date, reading from rebuilt sat_gl.
+    config:
+      materialized: table
+      file_format: iceberg
+      
+  - name: fact_dp_summary_backfill
+    description: >
+      Backfill version of fact_dp_summary.
+      Aggregates data from fact_dp_detail_backfill with time dimension comparisons.
+    config:
+      materialized: table
+      file_format: iceberg
+      
+  - name: fact_pl_detail_backfill
+    description: >
+      Backfill version of fact_pl_detail for data correction workflow.
+      Filters data from backfill_start_date to current date, reading from rebuilt sat_snp_gl.
+    config:
+      materialized: table
+      file_format: iceberg
+      
+  - name: fact_pl_summary_backfill
+    description: >
+      Backfill version of fact_pl_summary.
+      Aggregates data from fact_pl_detail_backfill with time dimension comparisons.
+    config:
+      materialized: table
+      file_format: iceberg

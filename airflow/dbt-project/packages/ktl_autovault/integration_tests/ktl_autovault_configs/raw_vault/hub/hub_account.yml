@@ -1,0 +1,24 @@
+collision_code: mdm
+target_entity_type: hub
+target_schema: duytk_test
+target_table: hub_account
+source_schema: duytk_test
+source_table: psa_loan_info
+columns:
+  - target: dv_hkey_hub_account
+    dtype: binary
+    key_type: hash_key_hub
+    source:
+      - ln_ac_nbr
+  - target: ln_ac_nbr
+    dtype: string
+    key_type: biz_key
+    source:
+      name: ln_ac_nbr
+      dtype: string
+
+# init_model: true
+# macro: ktl_autovault.hub_transform
+# extra_args:
+#   dv_system: var('dv_system')
+#   from_psa_model: true

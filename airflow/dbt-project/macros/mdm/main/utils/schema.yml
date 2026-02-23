@@ -1,0 +1,136 @@
+version: 1.0.0
+
+macro:
+  - name: ktl_mdm_utils_metadata_get_all_metadata_config
+    description: Retrieves all metadata configuration of a given project
+    arguments: 
+      - name: metadata_conf
+        type: dictionary
+        description: Dictionary of metadata config
+      - name: project_name
+        type: string
+        description: The name of project to get Metadata Config
+  
+  - name: ktl_mdm_utils_metadata_get_metadata_config
+    description: Retrieves the metadata configuration for a specific product, source within a project
+    arguments: 
+      - name: metadata_conf
+        type: dictionary
+        description: Dictionary of metadata config
+      - name: project_name
+        type: string 
+        description: The name of project to get Metadata Config
+      - name: product_name
+        type: string
+        description: The name of product to get Metadata Config
+      - name: source
+        type: string
+        description: The name of source system to get Metadata Config
+      - name: default
+        type: string
+        description: Default 'KTL_MDM' value of config.
+
+  - name: ktl_mdm_utils_metadata_get_metadata_column_lst
+    description: Retrieves a list of all column in metadata config
+    arguments: 
+      - name: metadata_conf
+        type: dictionary
+        description: Dictionary of metadata config
+      - name: alias
+        type: string
+        description: Alias of column's table name. Default no alias.
+
+  - name: ktl_mdm_utils_metadata_get_master_column_lst
+    description: Retrieves a list of master key column in metadata config. EX KDI2,KDI3,...
+    arguments: 
+      - name: metadata_conf
+        type: dictionary
+        description: Dictionary of metadata config
+      - name: alias
+        type: string
+        description: Alias of column's table name. Default no alias.
+
+  - name: ktl_mdm_utils_metadata_does_column_have_cdt
+    description: Checks if a given column has a change date time column (CDT) in metadata config.
+    arguments: 
+      - name: metadata_conf
+        type: dictionary
+        description: Dictionary of metadata config
+      - name: p_col
+        type: dictionary
+        description: Dictionary of metadata config
+
+  - name: ktl_mdm_utils_metadata_get_cdt_column_lst
+    description: Retrieves a list of change date time column (CDT) in metadata config with specified alias if any.
+    arguments: 
+      - name: metadata_conf
+        type: dictionary
+        description: Dictionary of metadata config
+      - name: alias
+        type: string
+        description: Alias of column's table name. Default no alias.
+
+  - name: ktl_mdm_utils_metadata_get_errcnt_column_lst
+    description:
+    arguments: 
+      - name: metadata_conf
+        type: dictionary
+        description: Dictionary of metadata config
+      - name: alias
+        type: string
+        description: Alias of column's table name. Default no alias.
+      - name: with_total_err_cnt
+        type: boolean
+        description: If true, total_err_cnt column will exist in result list. Default true
+
+  - name: ktl_mdm_utils_metadata_get_master_with_cdt_errcnt_lst
+    description: 
+    arguments: 
+      - name: metadata_conf
+        type: dictionary
+        description: Dictionary of metadata config
+      - name: alias
+        type: string
+        description: Alias of column's table name. Default no alias.
+      - name: with_total_err_cnt
+        type: boolean
+        description: If true, total_err_cnt column will exist in result list. Default true
+
+  - name: ktl_mdm_utils_metadata_get_pk_col
+    description: Get primary key (Ex CIF) column name from metadata config
+    arguments: 
+      - name: metadata_conf
+        type: dictionary
+        description: Dictionary of metadata config
+      - name: alias
+        type: string
+        description: Alias of column's table name. Default no alias.
+
+  - name: ktl_mdm_utils_metadata_get_cob_col
+    description: Get close of batch (cob) column name from metadata config
+    arguments: 
+      - name: metadata_conf
+        type: dictionary
+        description: Dictionary of metadata config
+      - name: alias
+        type: string
+        description: Alias of column's table name. Default no alias.
+
+  - name: ktl_mdm_utils_metadata_get_ldt_col
+    description: Get load date time (ldt) column name from metadata config
+    arguments: 
+      - name: metadata_conf
+        type: dictionary
+        description: Dictionary of metadata config
+      - name: alias
+        type: string
+        description: Alias of column's table name. Default no alias.
+
+  - name: ktl_mdm_utils_metadata_get_ldt_statement
+    description: Generate statement current timestamp for ldt column; Ex with Oracle SYSTIMESTAMP as ldt_col
+    arguments: 
+      - name: ldt_col
+        type: string
+        description: Name of load date time column
+
+

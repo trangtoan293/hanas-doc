@@ -1,0 +1,26 @@
+source_schema: landing
+source_table: gl_pos_streaming
+target_entity_type: lnk
+target_schema: integration
+target_table: lnk_branch_parent
+description: ''
+collision_code: demo
+columns:
+  - target: dv_hkey_lnk_branch_parent
+    key_type: hash_key_lnk
+    dtype: string
+    source:
+      - POS_CD
+      - MAIN_POS
+  - target: dv_hkey_hub_branch
+    key_type: hash_key_hub
+    parent: hub_branch
+    dtype: string
+    source:
+      - POS_CD
+  - target: dv_hkey_hub_branch_parent
+    key_type: hash_key_hub
+    parent: hub_branch
+    dtype: string
+    source:
+      - MAIN_POS

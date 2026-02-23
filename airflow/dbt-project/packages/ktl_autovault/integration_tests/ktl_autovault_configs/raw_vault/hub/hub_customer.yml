@@ -1,0 +1,34 @@
+target_entity_type: hub
+target_schema: duytk_test
+target_table: hub_customer
+
+sources:
+  - collision_code: loan
+    source_schema: duytk_test
+    source_table: psa_loan_info
+    columns:
+      - target: dv_hkey_hub_customer
+        key_type: hash_key_hub
+        source:
+          - cst_no
+      - target: cst_no
+        dtype: double
+        key_type: biz_key
+        source:
+          name: cst_no
+          dtype: string
+
+  - collision_code: loan_1
+    source_schema: duytk_test
+    source_table: psa_loan_info_1
+    columns:
+      - target: dv_hkey_hub_customer
+        key_type: hash_key_hub
+        source:
+          - cst_no
+      - target: cst_no
+        dtype: double
+        key_type: biz_key
+        source:
+          name: cst_no
+          dtype: string

@@ -1,0 +1,63 @@
+source_schema: landing
+source_table: gl_poc_streaming
+target_entity_type: sat
+target_schema: integration
+target_table: sat_gl
+description: ''
+parent_table: hub_gl
+collision_code: demo
+columns:
+  - target: dv_hkey_sat_gl
+    key_type: hash_key_sat
+    dtype: string
+  - target: dv_hkey_hub_gl
+    key_type: hash_key_hub
+    dtype: string
+    source:
+      - AC_NO
+  - target: dv_hsh_dif
+    dtype: string
+    key_type: hash_diff
+  - target: EOD_DATE
+    key_type: dependent_key
+    dtype: timestamp
+    source:
+      name: EOD_DATE
+      dtype: timestamp
+  - target: AC_NO
+    key_type: dependent_key
+    dtype: string
+    source:
+      name: AC_NO
+      dtype: string
+  - target: POS_CD
+    key_type: dependent_key
+    dtype: string
+    source:
+      name: POS_CD
+      dtype: string
+  - target: DR_CR_FLG
+    key_type: dependent_key
+    dtype: string
+    source:
+      name: DR_CR_FLG
+      dtype: string
+  - target: LCY_AMT
+    key_type: dependent_key
+    dtype: decimal(38,5)
+    source:
+      name: LCY_AMT
+      dtype: decimal(38,5)
+  - target: FCY_AMT
+    key_type: dependent_key
+    dtype: decimal(38,5)
+    source:
+      name: FCY_AMT
+      dtype: decimal(38,5)
+  - target: NUM_DUPLICATES
+    key_type: dependent_key
+    dtype: integer
+    source:
+      name: NUM_DUPLICATES
+      dtype: integer
+      

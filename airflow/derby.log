@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Wed May 29 11:27:41 ICT 2024:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-018f-c29a-9247-000028ce04b0 
+on database directory /home/dev/de-team/airfow/metastore_db with class loader sun.misc.Launcher$AppClassLoader@7daf6ecc 
+Loaded from file:/data/spark-3.5.1-bin-hadoop3/jars/derby-10.14.2.0.jar
+java.vendor=Red Hat, Inc.
+java.runtime.version=1.8.0_312-b07
+user.dir=/home/dev/de-team/airfow
+os.name=Linux
+os.arch=amd64
+os.version=4.18.0-348.7.1.el8_5.x86_64
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

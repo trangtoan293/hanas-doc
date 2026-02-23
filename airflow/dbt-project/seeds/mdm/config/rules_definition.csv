@@ -1,0 +1,23 @@
+RULE_CODE,RULE_TYPE,RULE_DEFINITION,COLUMN_APPLY
+CL1,Clean,Chuẩn hóa danh mục quốc tịch,QUOC_TICH
+CL2,Clean,Chuẩn hóa danh mục loại GTTT,LOAI_GTTT
+CL3,Clean,Trường lưu trữ nơi cấp GTTT chứa ký tự đặc biệt không có ý nghĩa,NOI_CAP_GTTT
+V1,Validate,Format các cột kiểu ngày không đúng kiểu giá trị ngày/tháng/năm hoặc không chuyển sang kiểu ngày được,PASS_E_DT
+CL4,Clean,Format các cột kiểu ngày không đúng kiểu giá trị ngày/tháng/năm hoặc không chuyển sang kiểu ngày được,PASS_E_DT
+V2,Validate,Trường lưu trữ số điện thoại chứa ký tự không phải là số,MOBILE
+CL5,Clean,Trường lưu trữ số điện thoại chứa ký tự không phải là số,MOBILE|RES_PH_NO_1|RES_PH_NO_2
+V3,Validate,"Kiểm tra chuỗi có độ dài nằm trong khoản [a,b]: số điện thoại di động nằm trong khoảng cố định như sau:
+- Số bắt đầu bằng 0: 10 ký tự
+- Số bắt đầu chuỗi [3|5|7|8|9]: 9 ký tự",MOBILE
+V4,Validate,"Kiểm tra chuỗi có độ dài nằm trong khoản [a,b]: 
+- Cấu trúc CCCD: 12 ký tự số
+- Cấu trúc CMT: 9 hoặc 12 ký tự số",PASS_NO
+V5,Validate,"Kiểm tra trường ""LOAI_GTTT"" không nằm trong danh mục cho phép: CMTND/ CCDC/ Hộ chiếu",LOAI_GTTT
+V6,Validate,"Trường ""Ngày hết hạn"" GTTT là CCDC: <> ngày cấp + 15 năm",PASS_E_DT
+V7,Validate,"Trường ""Ngày cấp"" GTTT: trước ngày sinh hoặc sau ngày mở CIF",PASS_I_DT
+V8,Validate,"Trường ""Quốc tịch"" KH có nằm trong các giá trị cần kiểm soát đặc biệt (Afganistan, ...)",QUOC_TICH
+M1,Match,Trùng lặp các thông tin nhận dạng trong core,LOAI_GTTT|PASS_NO
+M2,Match,Trùng lặp các thông tin nhận dạng trong core của khách hàng cá nhân,F_NAME|M_NAME|L_NAME|D_O_B|SEX_CD|CUSTOMER_TYPE
+M3,Merge,Merge thông tin address của Thẻ và Core. Ưu tiên address của thẻ,RES_ADD_1
+M4,Merge,Merge các dòng thông tin khách hàng bị duplicate theo rule M1,None
+G1,Golden Record,Nhận dạng thông tin Golden record,None

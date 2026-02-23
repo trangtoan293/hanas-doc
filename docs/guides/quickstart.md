@@ -1,0 +1,354 @@
+# Quickstart — Bắt Đầu Với Hanas Data Platform
+
+## Mục Tiêu
+
+Sau khi hoàn thành quickstart, bạn sẽ:
+- Có môi trường dev hoạt động đầy đủ các service
+- Hiểu cách các service kết nối với nhau
+- Chạy được luồng dữ liệu đầu tiên: File CSV → MinIO → Spark → Iceberg → Dremio
+
+---
+
+## 1. Yêu Cầu Môi Trường
+
+### Phần cứng tối thiểu (dev/test)
+- **CPU**: 8 cores
+- **RAM**: 32 GB
+- **Disk**: 100 GB SSD
+- **OS**: Linux (Ubuntu 22.04+ khuyến nghị) hoặc macOS
+
+### Phần mềm cần cài
+```bash
+# Docker & Docker Compose
+docker --version        # >= 24.0
+docker compose version  # >= 2.20
+
+# kubectl (nếu dùng K8s)
+kubectl version --client
+
+# Python (cho Airflow DAGs, PySpark)
+python3 --version  # >= 3.9
+
+# Java (cho Spark)
+java -version  # >= 11
+```
+
+---
+
+## 2. Khởi Tạo Môi Trường
+
+### 2.1 Cấu trúc thư mục dự án
+
+```bash
+mkdir -p hanas-platform/{config,data,logs,dags,dbt}
+cd hanas-platform
+```
+
+```
+hanas-platform/
+├── docker-compose.yml      # Định nghĩa toàn bộ services
+├── .env                    # Biến môi trường
+├── config/
+│   ├── minio/              # MinIO configuration
+│   ├── spark/              # Spark configuration
+│   ├── airflow/            # Airflow configuration
+│   └── dremio/             # Dremio configuration
+├── data/                   # Dữ liệu mẫu
+├── dags/                   # Airflow DAGs
+├── dbt/                    # dbt project
+└── logs/                   # Log files
+```
+
+### 2.2 File `.env`
+
+```env
+# ===== MinIO =====
+MINIO_ROOT_USER=admin
+MINIO_ROOT_PASSWORD=minio_secret_2024
+MINIO_ENDPOINT=http://minio:9000
+
+# ===== Airflow =====
+AIRFLOW__CORE__EXECUTOR=LocalExecutor
+AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres-airflow:5432/airflow
+AIRFLOW__CORE__FERNET_KEY=your-fernet-key-here
+AIRFLOW__CORE__DAGS_FOLDER=/opt/airflow/dags
+AIRFLOW__CORE__LOAD_EXAMPLES=false
+
+# ===== Spark =====
+SPARK_MASTER_URL=spark://spark-master:7077
+
+# ===== PostgreSQL (shared) =====
+POSTGRES_USER=admin
+POSTGRES_PASSWORD=admin_secret_2024
+```
+
+### 2.3 Docker Compose (Core Services)
+
+```yaml
+# docker-compose.yml
+version: '3.8'
+
+x-common-env: &common-env
+  MINIO_ENDPOINT: http://minio:9000
+  MINIO_ACCESS_KEY: ${MINIO_ROOT_USER}
+  MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD}
+
+services:
+  # ========== STORAGE LAYER ==========
+  minio:
+    image: minio/minio:latest
+    container_name: hanas-minio
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"   # API
+      - "9001:9001"   # Console
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # MinIO bucket initialization
+  minio-init:
+    image: minio/mc:latest
+    container_name: hanas-minio-init
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: |
+      /bin/sh -c "
+      mc alias set myminio http://minio:9000 ${MINIO_ROOT_USER} ${MINIO_ROOT_PASSWORD};
+      mc mb --ignore-existing myminio/landing;
+      mc mb --ignore-existing myminio/raw-vault;
+      mc mb --ignore-existing myminio/business-vault;
+      mc mb --ignore-existing myminio/information-mart;
+      mc mb --ignore-existing myminio/warehouse;
+      echo 'Buckets created successfully';
+      "
+
+  # ========== DATABASE (shared) ==========
+  postgres:
+    image: postgres:15
+    container_name: hanas-postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./config/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ========== PROCESSING LAYER ==========
+  spark-master:
+    image: bitnami/spark:3.5
+    container_name: hanas-spark-master
+    environment:
+      - SPARK_MODE=master
+      - SPARK_MASTER_HOST=spark-master
+    ports:
+      - "8080:8080"   # Spark UI
+      - "7077:7077"   # Spark Master
+    volumes:
+      - ./config/spark/spark-defaults.conf:/opt/bitnami/spark/conf/spark-defaults.conf
+      - ./data:/data
+
+  spark-worker:
+    image: bitnami/spark:3.5
+    container_name: hanas-spark-worker
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_WORKER_MEMORY=4g
+      - SPARK_WORKER_CORES=2
+    depends_on:
+      - spark-master
+    volumes:
+      - ./data:/data
+
+  # ========== ORCHESTRATION ==========
+  airflow-webserver:
+    image: apache/airflow:2.8.1
+    container_name: hanas-airflow-webserver
+    command: webserver
+    environment:
+      <<: *common-env
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs/airflow:/opt/airflow/logs
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  airflow-scheduler:
+    image: apache/airflow:2.8.1
+    container_name: hanas-airflow-scheduler
+    command: scheduler
+    environment:
+      <<: *common-env
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs/airflow:/opt/airflow/logs
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # ========== QUERY ENGINE ==========
+  dremio:
+    image: dremio/dremio-oss:latest
+    container_name: hanas-dremio
+    ports:
+      - "9047:9047"   # UI
+      - "31010:31010" # ODBC/JDBC
+      - "32010:32010" # Arrow Flight
+    volumes:
+      - dremio_data:/opt/dremio/data
+
+volumes:
+  minio_data:
+  postgres_data:
+  dremio_data:
+```
+
+### 2.4 Khởi động
+
+```bash
+# Khởi động toàn bộ services
+docker compose up -d
+
+# Kiểm tra trạng thái
+docker compose ps
+
+# Xem log nếu có lỗi
+docker compose logs -f <service-name>
+```
+
+### 2.5 Kiểm tra các service
+
+| Service | URL | Credentials |
+|---|---|---|
+| **MinIO Console** | http://localhost:9001 | admin / minio_secret_2024 |
+| **Spark Master UI** | http://localhost:8080 | — |
+| **Airflow UI** | http://localhost:8081 | airflow / airflow |
+| **Dremio UI** | http://localhost:9047 | (setup lần đầu) |
+
+---
+
+## 3. Chạy Data Flow Đầu Tiên
+
+### 3.1 Chuẩn bị dữ liệu mẫu
+
+```bash
+# Tạo file CSV mẫu
+cat > data/customers.csv << 'EOF'
+customer_id,name,email,phone,city,created_at
+C001,Nguyen Van A,a@example.com,0901234567,Ha Noi,2024-01-15
+C002,Tran Thi B,b@example.com,0912345678,Ho Chi Minh,2024-02-20
+C003,Le Van C,c@example.com,0923456789,Da Nang,2024-03-10
+C004,Pham Thi D,d@example.com,0934567890,Hai Phong,2024-04-05
+C005,Hoang Van E,e@example.com,0945678901,Can Tho,2024-05-22
+EOF
+```
+
+### 3.2 Upload vào MinIO (Landing Zone)
+
+```bash
+# Dùng mc (MinIO Client)
+docker exec hanas-minio-init mc cp /data/customers.csv myminio/landing/customers/
+
+# Hoặc dùng AWS CLI compatible
+aws --endpoint-url http://localhost:9000 \
+    s3 cp data/customers.csv s3://landing/customers/customers.csv
+```
+
+### 3.3 Xử lý bằng Spark → Ghi Iceberg
+
+```python
+# spark_quickstart.py — Submit vào Spark container
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import current_timestamp, md5, concat_ws, lit
+
+spark = (SparkSession.builder
+    .appName("quickstart-landing-to-vault")
+    .config("spark.sql.catalog.hanas", "org.apache.iceberg.spark.SparkCatalog")
+    .config("spark.sql.catalog.hanas.type", "hadoop")
+    .config("spark.sql.catalog.hanas.warehouse", "s3a://warehouse/")
+    .config("spark.hadoop.fs.s3a.endpoint", "http://minio:9000")
+    .config("spark.hadoop.fs.s3a.access.key", "admin")
+    .config("spark.hadoop.fs.s3a.secret.key", "minio_secret_2024")
+    .config("spark.hadoop.fs.s3a.path.style.access", "true")
+    .config("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
+    .getOrCreate())
+
+# 1. Đọc từ Landing
+df_landing = spark.read.option("header", True).csv("s3a://landing/customers/")
+
+# 2. Tạo Hub Customer (Raw Vault)
+df_hub = (df_landing
+    .select("customer_id")
+    .withColumn("hub_customer_hk", md5(concat_ws("||", "customer_id")))
+    .withColumn("load_dts", current_timestamp())
+    .withColumn("record_source", lit("CSV_CUSTOMERS"))
+    .dropDuplicates(["customer_id"]))
+
+# 3. Ghi vào Iceberg table
+df_hub.writeTo("hanas.raw_vault.hub_customer").createOrReplace()
+
+# 4. Tạo Satellite Customer (Raw Vault)
+df_sat = (df_landing
+    .withColumn("hub_customer_hk", md5(concat_ws("||", "customer_id")))
+    .withColumn("load_dts", current_timestamp())
+    .withColumn("record_source", lit("CSV_CUSTOMERS"))
+    .withColumn("hash_diff", md5(concat_ws("||", "name", "email", "phone", "city"))))
+
+df_sat.writeTo("hanas.raw_vault.sat_customer_details").createOrReplace()
+
+print("✅ Raw Vault tables created successfully!")
+spark.sql("SELECT * FROM hanas.raw_vault.hub_customer").show()
+spark.stop()
+```
+
+### 3.4 Kết nối Dremio → Truy vấn
+
+1. Mở Dremio UI: http://localhost:9047
+2. Add Source → **Amazon S3** (hoặc **NAS**)
+   - Endpoint: `minio:9000`
+   - Access Key: `admin`
+   - Secret Key: `minio_secret_2024`
+   - Connection Properties: `fs.s3a.path.style.access = true`
+3. Browse đến `warehouse/raw_vault/`
+4. Truy vấn:
+
+```sql
+SELECT h.customer_id, s.name, s.email, s.city
+FROM raw_vault.hub_customer h
+JOIN raw_vault.sat_customer_details s
+  ON h.hub_customer_hk = s.hub_customer_hk
+ORDER BY h.customer_id;
+```
+
+---
+
+## 4. Bước Tiếp Theo
+
+Sau khi quickstart thành công, tiếp tục với:
+1. [End-to-End Tutorial](end-to-end-tutorial.md) — Luồng hoàn chỉnh với Airflow orchestration
+2. [Integration Guides](integration/) — Chi tiết tích hợp từng cặp service
+3. [Code Examples](examples/) — Templates và mẫu code production-ready

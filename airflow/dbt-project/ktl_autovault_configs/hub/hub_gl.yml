@@ -1,0 +1,19 @@
+source_schema: landing
+source_table: gl_sbv_streaming
+target_entity_type: hub
+target_schema: integration
+target_table: hub_gl
+description: ''
+collision_code: demo
+columns:
+- target: dv_hkey_hub_gl
+  key_type: hash_key_hub
+  dtype: string
+  source:
+  - BANK_AC
+- target: AC_NO
+  key_type: biz_key
+  dtype: string
+  source:
+    name: BANK_AC
+    dtype: string

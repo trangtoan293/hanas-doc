@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: duytk_test
+    schema: duytk_test
+    tables:
+      - name: loan_info
+      - name: loan_info_1
+      - name: ref_eod

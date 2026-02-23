@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: lnk_customer_account
+    columns:
+      - name: dv_hkey_lnk_customer_account
+        tests:
+          - unique
+          - not_null
+          
+      - name: dv_hkey_hub_customer
+        tests:
+          - relationships:
+              to: ref('hub_customer')
+              field: dv_hkey_hub_customer
+
+      - name: dv_hkey_hub_account
+        tests:
+          - relationships:
+              to: ref('hub_account')
+              field: dv_hkey_hub_account
+                      

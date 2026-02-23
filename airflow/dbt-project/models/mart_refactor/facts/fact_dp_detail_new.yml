@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: fact_dp_detail_new
+    description: |
+      Fact table for Deposit Detail (Daily Snapshot).
+      Partitioned by COB_DATE with point-in-time dimension joins.
+      Built using the generic fact_snapshot_transform macro.
+    columns:
+      - name: COB_DATE
+        description: Close of Business Date (Partition Key)
+        tests:
+          - not_null
+      - name: D_BRANCH_ID
+        description: Foreign Key to dim_branch (point-in-time)
+        tests:
+          - not_null
+      - name: CUSTOMER_TYPE
+        description: Customer Type (CN = Cá nhân, TCKT = Tổ chức)
+      - name: ACCOUNT_TYPE
+        description: Account Type (KKH = Không kỳ hạn, CKH = Có kỳ hạn)
+      - name: FCY_CURR_BALANCE
+        description: Balance in Foreign Currency
+      - name: LCY_CURR_BALANCE
+        description: Balance in Local Currency
