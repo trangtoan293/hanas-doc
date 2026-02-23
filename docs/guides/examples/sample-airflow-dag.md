@@ -71,7 +71,7 @@ def _var(name: str, default: Optional[str] = None) -> Optional[str]:
 default_args = {
     "owner": "data-engineering",
     "depends_on_past": False,
-    "start_date": pendulum.datetime(2024, 1, 1, tz="UTC"),
+    "start_date": pendulum.datetime(2025, 1, 1, tz="UTC"),
     "email_on_failure": True,
     "email_on_retry": False,
     "retries": 3,

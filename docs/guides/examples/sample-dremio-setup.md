@@ -9,7 +9,7 @@
 ```
 Name: lakehouse
 Type: Amazon S3
-Auth: Access Key (admin / minio_secret_2024)
+Auth: Access Key (admin / minio_secret_2025)
 Properties:
   fs.s3a.endpoint = http://minio:9000
   fs.s3a.path.style.access = true
