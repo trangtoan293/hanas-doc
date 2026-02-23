@@ -33,7 +33,7 @@ export default function Home(): ReactNode {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
+      title="Hanas Data Platform"
       description="Tài liệu kỹ thuật toàn diện cho Nền tảng Dữ liệu Hanas - Data Lakehouse Platform với NiFi, Kafka, Spark, Airflow, Iceberg, MinIO, dbt, Dremio và DataHub">
       <HomepageHeader />
       <main>
