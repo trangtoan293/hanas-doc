@@ -1,0 +1,134 @@
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'integration_tests'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'integration_tests'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+asset-paths: ["target"]
+
+# directories to be removed by `dbt clean`
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+vars:
+  # ref_eod_table: name of table that raw vault models get EOD time from, it should have 4 columns cob_date, last_cob_date, run_time, last_run_time
+  # initial_cob_date: cob date value that raw vault models will use to query run_time for initial load
+  #                   if not specify, query the latest run_time
+  # cob_date: cob date value that raw vault models will use to query run_time as incre_end_date, and last_run_time as incre_start_date for incremental load
+  #           if not specify, query the latest run_time
+  # if not specify ref_eod_table, use 3 vars initial_date, incre_start_date, incre_end_date instead
+  ref_eod_table: vw_ref_eod
+  initial_cob_date: "2024-11-04"
+  # cob_date: 
+
+  # start date of raw vault batch initial load
+  # initial_date: "2024-01-01"
+  
+  # start date value for EOD (default: no start date or 1900-01-01)
+  # incre_start_date:
+
+  # end date value for EOD (default: current date)
+  # incre_end_date:
+
+  dv_hash_key_dtype: binary
+
+  # all of data vault column system
+  dv_system:
+    columns:
+      # - target: dv_kaf_ldt
+      #   dtype: timestamp
+      #   description: 'Thời điểm dữ liệu được load từ kafka'
+      #   source:
+      #     name: current_timestamp()
+      #     dtype: timestamp
+
+      # - target: dv_kaf_ofs
+      #   dtype: bigint
+      #   description: 'số offset của kafka'
+      #   source:
+      #     name: "1"
+      #     dtype: bigint
+
+      - target: dv_src_ldt
+        dtype: timestamp
+        description: 'Thời điểm dữ liệu được insert từ source'
+        source:
+          name: load_datetime
+          dtype: timestamp
+
+      - target: dv_src_rec
+        dtype: string
+        description: 'Tên bảng source của dữ liệu'
+        source:
+          name: record_source
+          dtype: string
+          
+      - target: dv_cdc_ops
+        dtype: string
+        description: 'loại CDC (change data capture) bao gồm :"R"="read", "I"="insert", "U"="update" và "D"="delete"'
+        source:
+          name: cdc_operation
+          dtype: string
+
+      - target: dv_ldt
+        dtype: timestamp
+        description: 'Thời điểm dữ liệu được load từ vùng raw vault'
+        source:
+          name: current_timestamp()
+          dtype: timestamp
+
+# Configuring models
+# Full documentation: https://docs.getdbt.com/docs/configuring-models
+
+# In this example config, we tell dbt to build all models in the example/
+# directory as views. These settings can be overridden in the individual model
+# files using the `{{ config(...) }}` macro.
+models:
+  integration_tests:
+    psa:
+      +materialized: incremental
+      +file_format: iceberg
+
+    integration:
+      +materialized: table
+      +file_format: iceberg
+
+      raw_vault:
+        stream:
+          +materialized: streaming
+          # +submission_method: spark_session
+          # +streaming_checkpoint_path: /home/dev/dbt/ktl_autovault/integration_tests/checkpoints
+          +streaming_checkpoint_path: s3a://data/duytk/checkpoints
+          # +streaming_processingtime: '10 seconds'
+          # +streaming_timeout: 360
+          +streaming_max_num_partitions: 10
+        batch:
+          +materialized: incremental
+      
+      biz_vault:
+        +materialized: table
+
+seeds:
+  integration_tests:
+    +file_format: iceberg
+    loan_info:
+      +column_types:
+        TEN_SP_KSP: string
+    loan_info_1:
+      +column_types:
+        TEN_SP_KSP: string

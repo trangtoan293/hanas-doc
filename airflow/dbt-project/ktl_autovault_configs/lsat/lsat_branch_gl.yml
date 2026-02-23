@@ -1,0 +1,46 @@
+source_schema: landing
+source_table: gl_poc_streaming
+target_entity_type: lsat
+target_schema: integration
+target_table: lsat_branch_gl
+description: ''
+parent_table: lnk_branch_gl
+collision_code: demo
+columns:
+- target: dv_hkey_lsat_branch_gl
+  dtype: binary
+  key_type: hash_key_sat
+- target: dv_hkey_lnk_branch_gl
+  dtype: binary
+  key_type: hash_key_lnk
+  source:
+  - POS_CD
+  - AC_NO
+- target: dv_hsh_dif
+  dtype: binary
+  key_type: hash_diff
+- target: EOD_DATE
+  dtype: timestamp
+  source:
+    name: EOD_DATE
+    dtype: timestamp
+- target: DR_CR_FLG
+  dtype: string
+  source:
+    name: DR_CR_FLG
+    dtype: string
+- target: LCY_AMT
+  dtype: decimal(38,5)
+  source:
+    name: LCY_AMT
+    dtype: decimal(38,5)
+- target: FCY_AMT
+  dtype: decimal(38,5)
+  source:
+    name: FCY_AMT
+    dtype: decimal(38,5)
+- target: NUM_DUPLICATES
+  dtype: integer
+  source:
+    name: NUM_DUPLICATES
+    dtype: integer

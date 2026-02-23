@@ -1,0 +1,26 @@
+    {% set has_conf_eod = dag_run and dag_run.conf and (
+        dag_run.conf.get('cob_date') is not none
+        or dag_run.conf.get('ref_eod_table') is not none
+        or dag_run.conf.get('eod_ref_model') is not none
+    ) %}
+    {% set has_param_eod = (params.get('ref_eod_table') is not none) or (params.get('cob_date') is not none) %}
+    {% if has_conf_eod or has_param_eod %}
+    {%   set ref_eod_from_param = params.get('ref_eod_table') %}
+    {%   set ref_eod_from_conf_model = dag_run.conf.get('eod_ref_model') if dag_run and dag_run.conf and dag_run.conf.get('eod_ref_model') is not none else none %}
+    {%   set ref_eod_from_conf = dag_run.conf.get('ref_eod_table') if dag_run and dag_run.conf and dag_run.conf.get('ref_eod_table') is not none else none %}
+    {%   set eod_table = ref_eod_from_param or ref_eod_from_conf_model or ref_eod_from_conf or 'vw_ref_eod' %}
+    {%   set cob_from_param = params.get('cob_date') %}
+    {%   set cob_from_conf = dag_run.conf.get('cob_date') if dag_run and dag_run.conf and dag_run.conf.get('cob_date') is not none else none %}
+    {%   set cob_value = cob_from_param or cob_from_conf %}
+    {%   set dbt_vars = {} %}
+    {%   if eod_table %}
+    {%     set _ = dbt_vars.update({'ref_eod_table': eod_table}) %}
+    {%   endif %}
+    {%   if cob_value %}
+    {%     set _ = dbt_vars.update({'cob_date': cob_value}) %}
+    {%   endif %}
+    {%   if dbt_vars %}
+    - "--vars"
+    - '{{ dbt_vars | tojson }}'
+    {%   endif %}
+    {% endif %}

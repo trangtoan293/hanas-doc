@@ -1,0 +1,19 @@
+source_schema: landing
+source_table: card_addr_streaming
+target_entity_type: hub
+target_schema: integration
+target_table: hub_card
+description: ''
+collision_code: demo
+columns:
+- target: dv_hkey_hub_card
+  key_type: hash_key_hub
+  dtype: string
+  source:
+  - CIF_NO
+- target: CIF_NO
+  key_type: biz_key
+  dtype: string
+  source:
+    name: CIF_NO
+    dtype: string

@@ -1,0 +1,9 @@
+
+target/
+dbt_packages/
+logs/
+
+spark_warehouse/
+metastore_db/
+derby.log
+checkpoints/

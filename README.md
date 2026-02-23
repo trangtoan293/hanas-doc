@@ -1,92 +1,77 @@
-# hanas-docs
+# Hanas Data Platform - Tài Liệu Kỹ Thuật
 
+> Bộ tài liệu kỹ thuật chuẩn cho Nền tảng Dữ liệu Hanas (Data Lakehouse Platform)
 
+---
 
-## Getting started
+## Mục Lục
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+### [00 - Tổng Quan Platform](docs/00-overview/README.md)
+Giới thiệu chung, kiến trúc tổng thể, mục tiêu và từ điển thuật ngữ.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+### [01 - Lớp Thu Thập Dữ Liệu (Data Ingestion)](docs/01-ingestion/README.md)
+- [Apache NiFi](docs/01-ingestion/apache-nifi/README.md) — Thu thập batch, ETL visual
+- [Apache Kafka](docs/01-ingestion/apache-kafka/README.md) — Streaming, real-time
 
-## Add your files
+### [02 - Lớp Lưu Trữ Dữ Liệu (Data Storage)](docs/02-storage/README.md)
+- [MinIO](docs/02-storage/minio/README.md) — Object Storage (S3-compatible)
+- [Apache Iceberg](docs/02-storage/apache-iceberg/README.md) — Open Table Format
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+### [03 - Lớp Xử Lý Dữ Liệu (Data Processing)](docs/03-processing/README.md)
+- [Apache Airflow](docs/03-processing/apache-airflow/README.md) — Orchestration & Scheduling
+- [Apache Spark](docs/03-processing/apache-spark/README.md) — Distributed Compute Engine
 
-```
-cd existing_repo
-git remote add origin https://gitlab.katalyst.vn:7979/de-team/hanas-docs.git
-git branch -M main
-git push -uf origin main
-```
+### [04 - Lớp Mô Hình Dữ Liệu (Data Model)](docs/04-data-model/README.md)
+- [dbt](docs/04-data-model/dbt/README.md) — SQL-based Transformation
+- [Data Vault 2.0](docs/04-data-model/data-vault/README.md) — Phương pháp mô hình hóa dữ liệu
 
-## Integrate with your tools
+### [05 - Lớp Quản Trị Dữ Liệu (Data Governance)](docs/05-governance/README.md)
+- [DataHub](docs/05-governance/datahub/README.md) — Metadata, Catalog, Lineage
 
-- [ ] [Set up project integrations](https://gitlab.katalyst.vn:7979/de-team/hanas-docs/-/settings/integrations)
+### [06 - Lớp Liên Kết Dữ Liệu (Data Federation)](docs/06-federation/README.md)
+- [Dremio](docs/06-federation/dremio/README.md) — Query Engine, Semantic Layer
 
-## Collaborate with your team
+### [07 - Lớp Quản Trị Hệ Thống (System Management)](docs/07-system-management/README.md)
+- [OpenObserve](docs/07-system-management/openobserve/README.md) — Logging, Metrics, Tracing
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+### [08 - Hạ Tầng & Triển Khai (Infrastructure)](docs/08-infrastructure/README.md)
+- [Kubernetes](docs/08-infrastructure/kubernetes/README.md) — Container Orchestration
+- [DC-DR](docs/08-infrastructure/dc-dr/README.md) — Disaster Recovery
 
-## Test and Deploy
+### [09 - An Toàn Thông Tin (Security)](docs/09-security/README.md)
+- [Apache Ranger](docs/09-security/apache-ranger/README.md) — Authorization & Access Control
+- [HashiCorp Vault](docs/09-security/hashicorp-vault/README.md) — Secrets Management
 
-Use the built-in continuous integration in GitLab.
+### [10 - Đào Tạo & Chuyển Giao (Training)](docs/10-training/README.md)
+Quản trị hệ thống, quản trị dữ liệu, xử lý dữ liệu, khai thác dữ liệu.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+### [11 - Bảo Hành & Bảo Trì (Maintenance)](docs/11-maintenance/README.md)
+Quy trình bảo hành, bảo trì và SLA.
 
-***
+### [📘 Hướng Dẫn Thực Hành (Guides)](docs/guides/README.md)
+- [Quickstart](docs/guides/quickstart.md) — Dựng environment + data flow đầu tiên
+- [End-to-End Tutorial](docs/guides/end-to-end-tutorial.md) — Oracle → NiFi → Spark → dbt → Dremio → BI
+- [Integration Guides](docs/guides/integration/) — Cách các service kết nối nhau
+- [Code Examples](docs/guides/examples/) — DAG, dbt models, Spark jobs mẫu (từ production)
+- [Troubleshooting](docs/guides/troubleshooting.md) — Xử lý sự cố thường gặp
 
-# Editing this README
+---
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+## Danh Mục Services
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+| Lớp | Service | Vai Trò | Version |
+|---|---|---|---|
+| Ingestion | Apache NiFi | Thu thập batch, ETL visual | TBD |
+| Ingestion | Apache Kafka | Streaming, real-time | TBD |
+| Storage | MinIO | Object Storage (S3-compatible) | TBD |
+| Storage | Apache Iceberg | Open Table Format | TBD |
+| Processing | Apache Airflow | Orchestration, scheduling | TBD |
+| Processing | Apache Spark | Distributed compute engine | TBD |
+| Data Model | dbt | SQL-based transformation | TBD |
+| Governance | DataHub | Metadata, catalog, lineage | TBD |
+| Federation | Dremio | Query engine, semantic layer | TBD |
+| System Mgmt | OpenObserve | Logging, metrics, tracing | TBD |
+| Security | Apache Ranger | Authorization, access control | TBD |
+| Security | HashiCorp Vault | Secrets management | TBD |
+| Infra | Kubernetes | Container orchestration | TBD |
+| Infra | Velero | K8s backup & recovery | TBD |

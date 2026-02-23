@@ -1,0 +1,9 @@
+version: 2
+
+seeds:
+  - name: ref_eod
+    config:
+      schema: source
+      column_types:
+        cob_date: date
+        optime: timestamp

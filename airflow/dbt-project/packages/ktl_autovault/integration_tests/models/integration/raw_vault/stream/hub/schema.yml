@@ -1,0 +1,16 @@
+version: 2
+
+models:
+    - name: hub_account
+      columns:
+        - name: dv_hkey_hub_account
+          tests:
+            - unique
+            - not_null
+
+    - name: hub_customer
+      columns:
+        - name: dv_hkey_hub_customer
+          tests:
+            - unique
+            - not_null

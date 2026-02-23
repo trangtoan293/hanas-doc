@@ -1,0 +1,72 @@
+version: 2
+
+models:
+    - name: lnk_branch_gl
+      description: "{{ doc('lnk_branch_gl') }}"
+      columns:
+        - name: dv_hkey_lnk_branch_gl
+          description: "{{ doc('dv_hkey_lnk_branch_gl') }}"
+          tests:
+            - unique
+            - not_null
+        - name: dv_hkey_hub_branch
+          description: "{{ doc('dv_hkey_hub_branch') }}"
+          tests:
+            - relationships:
+                  to: ref('hub_branch')
+                  field: dv_hkey_hub_branch
+        - name: dv_hkey_hub_gl
+          description: "{{ doc('dv_hkey_hub_gl') }}"
+          tests:
+            - relationships:
+                  to: ref('hub_gl')
+                  field: dv_hkey_hub_gl
+        - name: dv_kaf_ldt
+          description: "{{ doc('dv_kaf_ldt') }}"
+        - name: dv_kaf_ofs
+          description: "{{ doc('dv_kaf_ofs') }}"
+        - name: dv_cdc_ops
+          description: "{{ doc('dv_cdc_ops') }}"
+        - name: dv_src_ldt
+          description: "{{ doc('dv_src_ldt') }}"
+        - name: dv_src_rec
+          description: "{{ doc('dv_src_rec') }}"
+        - name: dv_ldt
+          description: "{{ doc('dv_ldt') }}"
+        - name: dv_ccd
+          description: "{{ doc('dv_ccd') }}"
+
+    - name: lnk_branch_parent
+      description: "{{ doc('lnk_branch_parent') }}"
+      columns:
+        - name: dv_hkey_lnk_branch_parent
+          description: "{{ doc('dv_hkey_lnk_branch_parent') }}"
+          tests:
+            - unique
+            - not_null
+        - name: dv_hkey_hub_branch
+          description: "{{ doc('dv_hkey_hub_branch') }}"
+          tests:
+            - relationships:
+                  to: ref('hub_branch')
+                  field: dv_hkey_hub_branch
+        - name: dv_hkey_hub_branch_parent
+          description: "{{ doc('dv_hkey_hub_branch_parent') }}"
+          tests:
+            - relationships:
+                  to: ref('hub_branch')
+                  field: dv_hkey_hub_branch
+        - name: dv_kaf_ldt
+          description: "{{ doc('dv_kaf_ldt') }}"
+        - name: dv_kaf_ofs
+          description: "{{ doc('dv_kaf_ofs') }}"
+        - name: dv_cdc_ops
+          description: "{{ doc('dv_cdc_ops') }}"
+        - name: dv_src_ldt
+          description: "{{ doc('dv_src_ldt') }}"
+        - name: dv_src_rec
+          description: "{{ doc('dv_src_rec') }}"
+        - name: dv_ldt
+          description: "{{ doc('dv_ldt') }}"
+        - name: dv_ccd
+          description: "{{ doc('dv_ccd') }}"

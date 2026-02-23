@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: int_dim_branch_new
+    description: |
+      Intermediate (staging) model for Branch dimension.
+      Flattens Hub + Sat + Link into a single table with validity windows.
+    config:
+      materialized: view
+
+  - name: int_fact_dp_new
+    description: |
+      Intermediate (staging) model for Deposit Fact.
+      Aggregates and classifies deposit data from sat_gl.
+    config:
+      materialized: view
+
+  - name: int_fact_ln_new
+    description: |
+      Intermediate (staging) model for Loan Fact.
+      Aggregates and classifies loan data by type (NGAN_HAN, TRUNG_DAI_HAN) and debt group (N1, N2, NPL).
+    config:
+      materialized: view
+
+  - name: int_fact_pl_new
+    description: |
+      Intermediate (staging) model for P&L Fact.
+      Aggregates and classifies P&L items by PL_CODE (7.1, 7.2, 7.3, etc.).
+    config:
+      materialized: view

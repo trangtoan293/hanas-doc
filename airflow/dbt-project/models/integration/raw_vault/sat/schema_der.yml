@@ -1,0 +1,234 @@
+version: 2
+
+models:
+
+    - name: sat_der_branch
+      description: "{{ doc('sat_der_branch') }}"
+      columns:
+        - name: dv_hkey_sat_branch
+          description: "{{ doc('dv_hkey_sat_branch') }}"
+          tests:
+            - unique
+            - not_null
+        - name: dv_hkey_hub_branch
+          description: "{{ doc('dv_hkey_hub_branch') }}"
+          tests:
+            - relationships:
+                to: ref('hub_branch')
+                field: dv_hkey_hub_branch
+        - name: dv_hsh_dif
+          description: "{{ doc('dv_hsh_dif') }}"
+        - name: STAFF_NUM
+          description: "{{ doc('STAFF_NUM') }}"
+        - name: dv_kaf_ldt
+          description: "{{ doc('dv_kaf_ldt') }}"
+        - name: dv_kaf_ofs
+          description: "{{ doc('dv_kaf_ofs') }}"
+        - name: dv_cdc_ops
+          description: "{{ doc('dv_cdc_ops') }}"
+        - name: dv_src_ldt
+          description: "{{ doc('dv_src_ldt') }}"
+        - name: dv_src_rec
+          description: "{{ doc('dv_src_rec') }}"
+        - name: dv_ldt
+          description: "{{ doc('dv_ldt') }}"
+
+    - name: sat_der_card
+      description: "{{ doc('sat_der_card') }}"
+      columns:
+        - name: dv_hkey_sat_card
+          description: "{{ doc('dv_hkey_sat_card') }}"
+          tests:
+            - unique
+            - not_null
+        - name: dv_hkey_hub_card
+          description: "{{ doc('dv_hkey_hub_card') }}"
+          tests:
+            - relationships:
+                to: ref('hub_card')
+                field: dv_hkey_hub_card
+        - name: dv_hsh_dif
+          description: "{{ doc('dv_hsh_dif') }}"
+        - name: ADDR
+          description: "{{ doc('ADDR') }}"
+        - name: dv_kaf_ldt
+          description: "{{ doc('dv_kaf_ldt') }}"
+        - name: dv_kaf_ofs
+          description: "{{ doc('dv_kaf_ofs') }}"
+        - name: dv_cdc_ops
+          description: "{{ doc('dv_cdc_ops') }}"
+        - name: dv_src_ldt
+          description: "{{ doc('dv_src_ldt') }}"
+        - name: dv_src_rec
+          description: "{{ doc('dv_src_rec') }}"
+        - name: dv_ldt
+          description: "{{ doc('dv_ldt') }}"
+
+    - name: sat_der_customer
+      description: "{{ doc('sat_der_customer') }}"
+      columns:
+        - name: dv_hkey_sat_customer
+          description: "{{ doc('dv_hkey_sat_customer') }}"
+          tests:
+            - unique
+            - not_null
+        - name: dv_hkey_hub_customer
+          description: "{{ doc('dv_hkey_hub_customer') }}"
+          tests:
+            - relationships:
+                to: ref('hub_customer')
+                field: dv_hkey_hub_customer
+        - name: dv_hsh_dif
+          description: "{{ doc('dv_hsh_dif') }}"
+        - name: CUSTOMER_TYPE
+          description: "{{ doc('CUSTOMER_TYPE') }}"
+        - name: F_NAME
+          description: "{{ doc('F_NAME') }}"
+        - name: M_NAME
+          description: "{{ doc('M_NAME') }}"
+        - name: L_NAME
+          description: "{{ doc('L_NAME') }}"
+        - name: CO_NAME
+          description: "{{ doc('CO_NAME') }}"
+        - name: POS_CD
+          description: "{{ doc('POS_CD') }}"
+        - name: SEX_CD
+          description: "{{ doc('SEX_CD') }}"
+        - name: D_O_B
+          description: "{{ doc('D_O_B') }}"
+        - name: PASS_NO
+          description: "{{ doc('PASS_NO') }}"
+        - name: PASS_I_DT
+          description: "{{ doc('PASS_I_DT') }}"
+        - name: PASS_E_DT
+          description: "{{ doc('PASS_E_DT') }}"
+        - name: NOI_CAP_GTTT
+          description: "{{ doc('NOI_CAP_GTTT') }}"
+        - name: LOAI_GTTT
+          description: "{{ doc('LOAI_GTTT') }}"
+        - name: SO_THI_THUC
+          description: "{{ doc('SO_THI_THUC') }}"
+        - name: VISA_ISSUE_DT
+          description: "{{ doc('VISA_ISSUE_DT') }}"
+        - name: VISA_EXPIRY_DT
+          description: "{{ doc('VISA_EXPIRY_DT') }}"
+        - name: NOI_CAP_THI_THUC
+          description: "{{ doc('NOI_CAP_THI_THUC') }}"
+        - name: QUOC_TICH
+          description: "{{ doc('QUOC_TICH') }}"
+        - name: LEG_ST
+          description: "{{ doc('LEG_ST') }}"
+        - name: RES_ADD_1
+          description: "{{ doc('RES_ADD_1') }}"
+        - name: RES_CNTRY_CD
+          description: "{{ doc('RES_CNTRY_CD') }}"
+        - name: OFF_ADD_2
+          description: "{{ doc('OFF_ADD_2') }}"
+        - name: OFF_CNTRY_CD
+          description: "{{ doc('OFF_CNTRY_CD') }}"
+        - name: QUOC_GIA_NUOC_NGOAI
+          description: "{{ doc('QUOC_GIA_NUOC_NGOAI') }}"
+        - name: RES_PH_NO_1
+          description: "{{ doc('RES_PH_NO_1') }}"
+        - name: RES_PH_NO_2
+          description: "{{ doc('RES_PH_NO_2') }}"
+        - name: MOBILE
+          description: "{{ doc('MOBILE') }}"
+        - name: EMAIL_ID1
+          description: "{{ doc('EMAIL_ID1') }}"
+        - name: EMAIL_ID2
+          description: "{{ doc('EMAIL_ID2') }}"
+        - name: dv_kaf_ldt
+          description: "{{ doc('dv_kaf_ldt') }}"
+        - name: dv_kaf_ofs
+          description: "{{ doc('dv_kaf_ofs') }}"
+        - name: dv_cdc_ops
+          description: "{{ doc('dv_cdc_ops') }}"
+        - name: dv_src_ldt
+          description: "{{ doc('dv_src_ldt') }}"
+        - name: dv_src_rec
+          description: "{{ doc('dv_src_rec') }}"
+        - name: dv_ldt
+          description: "{{ doc('dv_ldt') }}"
+
+    - name: sat_der_gl
+      description: "{{ doc('sat_der_gl') }}"
+      columns:
+        - name: dv_hkey_sat_gl
+          description: "{{ doc('dv_hkey_sat_gl') }}"
+          tests:
+            - unique
+            - not_null
+        - name: dv_hkey_hub_gl
+          description: "{{ doc('dv_hkey_hub_gl') }}"
+          tests:
+            - relationships:
+                to: ref('hub_gl')
+                field: dv_hkey_hub_gl
+        - name: dv_hsh_dif
+          description: "{{ doc('dv_hsh_dif') }}"
+        - name: EOD_DATE
+          description: "{{ doc('EOD_DATE') }}"
+        - name: AC_NO
+          description: "{{ doc('AC_NO') }}"
+        - name: POS_CD
+          description: "{{ doc('POS_CD') }}"
+        - name: DR_CR_FLG
+          description: "{{ doc('DR_CR_FLG') }}"
+        - name: LCY_AMT
+          description: "{{ doc('LCY_AMT') }}"
+        - name: FCY_AMT
+          description: "{{ doc('FCY_AMT') }}"
+        - name: NUM_DUPLICATES
+          description: "{{ doc('NUM_DUPLICATES') }}"
+        - name: dv_kaf_ldt
+          description: "{{ doc('dv_kaf_ldt') }}"
+        - name: dv_kaf_ofs
+          description: "{{ doc('dv_kaf_ofs') }}"
+        - name: dv_cdc_ops
+          description: "{{ doc('dv_cdc_ops') }}"
+        - name: dv_src_ldt
+          description: "{{ doc('dv_src_ldt') }}"
+        - name: dv_src_rec
+          description: "{{ doc('dv_src_rec') }}"
+        - name: dv_ldt
+          description: "{{ doc('dv_ldt') }}"
+
+    - name: sat_der_gl_sbv
+      description: "{{ doc('sat_der_gl_sbv') }}"
+      columns:
+        - name: dv_hkey_sat_gl_sbv
+          description: "{{ doc('dv_hkey_sat_gl_sbv') }}"
+          tests:
+            - unique
+            - not_null
+        - name: dv_hkey_hub_gl
+          description: "{{ doc('dv_hkey_hub_gl') }}"
+          tests:
+            - relationships:
+                to: ref('hub_gl')
+                field: dv_hkey_hub_gl
+        - name: dv_hsh_dif
+          description: "{{ doc('dv_hsh_dif') }}"
+        - name: BANK_AC
+          description: "{{ doc('BANK_AC') }}"
+        - name: CCY_CD
+          description: "{{ doc('CCY_CD') }}"
+        - name: POS_CD
+          description: "{{ doc('POS_CD') }}"
+        - name: GL_SL
+          description: "{{ doc('GL_SL') }}"
+        - name: SBV_GL_SL
+          description: "{{ doc('SBV_GL_SL') }}"
+        - name: dv_kaf_ldt
+          description: "{{ doc('dv_kaf_ldt') }}"
+        - name: dv_kaf_ofs
+          description: "{{ doc('dv_kaf_ofs') }}"
+        - name: dv_cdc_ops
+          description: "{{ doc('dv_cdc_ops') }}"
+        - name: dv_src_ldt
+          description: "{{ doc('dv_src_ldt') }}"
+        - name: dv_src_rec
+          description: "{{ doc('dv_src_rec') }}"
+        - name: dv_ldt
+          description: "{{ doc('dv_ldt') }}"

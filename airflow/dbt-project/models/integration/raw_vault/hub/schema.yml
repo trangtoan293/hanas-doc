@@ -1,0 +1,103 @@
+version: 2
+
+models:
+
+    - name: hub_branch
+      description: "{{ doc('hub_branch') }}"
+      columns:
+        - name: dv_hkey_hub_branch
+          description: "{{ doc('dv_hkey_hub_branch') }}"
+          tests:
+            - unique
+            - not_null
+        - name: POS_CD
+          description: "{{ doc('POS_CD') }}"
+        - name: dv_kaf_ldt
+          description: "{{ doc('dv_kaf_ldt') }}"
+        - name: dv_kaf_ofs
+          description: "{{ doc('dv_kaf_ofs') }}"
+        - name: dv_cdc_ops
+          description: "{{ doc('dv_cdc_ops') }}"
+        - name: dv_src_ldt
+          description: "{{ doc('dv_src_ldt') }}"
+        - name: dv_src_rec
+          description: "{{ doc('dv_src_rec') }}"
+        - name: dv_ldt
+          description: "{{ doc('dv_ldt') }}"
+        - name: dv_ccd
+          description: "{{ doc('dv_ccd') }}"
+    
+    - name: hub_card
+      description: "{{ doc('hub_card') }}"
+      columns:
+        - name: dv_hkey_hub_card
+          description: "{{ doc('dv_hkey_hub_card') }}"
+          tests:
+            - unique
+            - not_null              
+        - name: CIF_NO
+          description: "{{ doc('CIF_NO') }}"
+        - name: dv_kaf_ldt
+          description: "{{ doc('dv_kaf_ldt') }}"
+        - name: dv_kaf_ofs
+          description: "{{ doc('dv_kaf_ofs') }}"
+        - name: dv_cdc_ops
+          description: "{{ doc('dv_cdc_ops') }}"
+        - name: dv_src_ldt
+          description: "{{ doc('dv_src_ldt') }}"
+        - name: dv_src_rec
+          description: "{{ doc('dv_src_rec') }}"
+        - name: dv_ldt
+          description: "{{ doc('dv_ldt') }}"
+        - name: dv_ccd
+          description: "{{ doc('dv_ccd') }}"
+
+    - name: hub_customer
+      description: "{{ doc('hub_customer') }}"
+      columns:
+        - name: dv_hkey_hub_customer
+          description: "{{ doc('dv_hkey_hub_customer') }}"
+          tests:
+            - unique
+            - not_null
+        - name: CIF_NO
+          description: "{{ doc('CIF_NO') }}"
+        - name: dv_kaf_ldt
+          description: "{{ doc('dv_kaf_ldt') }}"
+        - name: dv_kaf_ofs
+          description: "{{ doc('dv_kaf_ofs') }}"
+        - name: dv_cdc_ops
+          description: "{{ doc('dv_cdc_ops') }}"
+        - name: dv_src_ldt
+          description: "{{ doc('dv_src_ldt') }}"
+        - name: dv_src_rec
+          description: "{{ doc('dv_src_rec') }}"
+        - name: dv_ldt
+          description: "{{ doc('dv_ldt') }}"
+        - name: dv_ccd
+          description: "{{ doc('dv_ccd') }}"
+
+    - name: hub_gl
+      description: "{{ doc('hub_gl') }}"
+      columns:
+        - name: dv_hkey_hub_gl
+          description: "{{ doc('dv_hkey_hub_gl') }}"
+          tests:
+            - unique
+            - not_null
+        - name: BANK_AC
+          description: "{{ doc('BANK_AC') }}"
+        - name: dv_kaf_ldt
+          description: "{{ doc('dv_kaf_ldt') }}"
+        - name: dv_kaf_ofs
+          description: "{{ doc('dv_kaf_ofs') }}"
+        - name: dv_cdc_ops
+          description: "{{ doc('dv_cdc_ops') }}"
+        - name: dv_src_ldt
+          description: "{{ doc('dv_src_ldt') }}"
+        - name: dv_src_rec
+          description: "{{ doc('dv_src_rec') }}"
+        - name: dv_ldt
+          description: "{{ doc('dv_ldt') }}"
+        - name: dv_ccd
+          description: "{{ doc('dv_ccd') }}"

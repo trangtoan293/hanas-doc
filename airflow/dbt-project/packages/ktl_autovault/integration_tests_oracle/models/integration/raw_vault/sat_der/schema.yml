@@ -1,0 +1,15 @@
+version: 2
+
+models:
+    - name: sat_der_account
+      columns:
+        - name: dv_hkey_sat_account
+          tests:
+            - unique
+            - not_null
+        
+        - name: dv_hkey_hub_account
+          tests:
+            - relationships:
+                to: ref('hub_account')
+                field: dv_hkey_hub_account

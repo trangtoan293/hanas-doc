@@ -1,0 +1,12 @@
+version: 2
+
+macros:
+  - name: ktl_autovault_configs
+    docs:
+      show: false
+  - name: ktl_mdm_configs
+    docs:
+      show: false
+  - name: simple_cte 
+    docs:
+      show: false

@@ -1,0 +1,16 @@
+version: 2
+
+models:
+    - name: lsat_der_customer_account
+      columns:
+        - name: dv_hkey_lsat_customer_account
+          tests:
+            - unique
+            - not_null
+
+        - name: dv_hkey_lnk_customer_account
+          tests:
+            - not_null
+            - relationships:
+                to: ref('lnk_customer_account')
+                field: dv_hkey_lnk_customer_account
