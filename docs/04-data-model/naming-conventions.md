@@ -26,4 +26,4 @@
 | `business_vault` | Business Vault |
 | `information_mart` | Mart phục vụ BI |
 
-<-r TODO: Bổ sung quy ước đặt tên chi tiết -->
+[TODO: Bổ sung quy ước đặt tên chi tiết -->

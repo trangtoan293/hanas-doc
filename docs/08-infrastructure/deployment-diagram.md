@@ -2,7 +2,7 @@
 
 ## Tổng Quan
 
-<-r TODO: Thêm hình sơ đồ triển khai thực tế -->
+[TODO: Thêm hình sơ đồ triển khai thực tế -->
 
 ## Mô Tả
 

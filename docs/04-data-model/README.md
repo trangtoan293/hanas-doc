@@ -6,17 +6,32 @@ Lớp mô hình dữ liệu chịu trách nhiệm tổ chức, cấu trúc hóa 
 
 ## Kiến Trúc Ba Lớp
 
-```
-┌────────────────────────────────────────────────┐
-│              Information Mart                   │
-│  (Star Schema, Wide Table, Analytical Views)    │  ← BI, Báo cáo
-├────────────────────────────────────────────────┤
-│              Business Vault                     │
-│  (PIT, Bridge, Business Satellite)              │  ← Logic nghiệp vụ
-├────────────────────────────────────────────────┤
-│              Raw Vault                          │
-│  (Hub, Link, Satellite)                         │  ← Dữ liệu gốc
-└────────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph InfoMart["📊 Information Mart"]
+        IM["Star Schema, Wide Table<br/>Analytical Views"]
+        IM_NOTE["<i>Phục vụ BI, Báo cáo</i> ➜"]
+    end
+    
+    subgraph BusinessVault["🏢 Business Vault"]
+        BV["PIT, Bridge<br/>Business Satellite"]
+        BV_NOTE["<i>Logic nghiệp vụ nâng cao</i> ➜"]
+    end
+    
+    subgraph RawVault["📦 Raw Vault"]
+        RV["Hub, Link, Satellite"]
+        RV_NOTE["<i>Dữ liệu gốc đã chuẩn hóa</i> ➜"]
+    end
+    
+    RawVault --> BusinessVault
+    BusinessVault --> InfoMart
+    
+    style InfoMart fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style BusinessVault fill:#fff3e0,stroke:#ef6c00,stroke-width:3px
+    style RawVault fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style IM_NOTE fill:none,stroke:none
+    style BV_NOTE fill:none,stroke:none
+    style RV_NOTE fill:none,stroke:none
 ```
 
 ## Tại Sao Data Vault 2.0?

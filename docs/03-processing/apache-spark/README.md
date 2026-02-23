@@ -6,31 +6,44 @@ Apache Spark là engine xử lý dữ liệu phân tán trong bộ nhớ, đảm
 
 ## Kiến Trúc
 
-```
-┌──────────────────────────────────────────────────────────┐
-│                    Kubernetes Cluster                      │
-│                                                            │
-│  ┌────────────────┐    ┌──────────────────────────────┐   │
-│  │ Spark Operator  │───▶│     SparkApplication CRD      │   │
-│  │  (spark-operator│    │  (spark-jobs namespace)        │   │
-│  │   namespace)    │    │                                │   │
-│  └────────────────┘    │  ┌──────────┐  ┌───────────┐  │   │
-│                         │  │  Driver   │  │ Executor  │  │   │
-│                         │  │  Pod      │  │ Pod (1..N)│  │   │
-│                         │  │          │  │           │  │   │
-│                         │  │ git-sync │  │           │  │   │
-│                         │  │ (sidecar)│  │           │  │   │
-│                         │  └────┬─────┘  └─────┬─────┘  │   │
-│                         └───────┼──────────────┼────────┘   │
-│                                 │              │             │
-│  ┌──────────────────────────────┼──────────────┼──────────┐ │
-│  │            External Services │              │          │ │
-│  │  ┌──────────┐  ┌──────────┐ │  ┌─────────┐ │          │ │
-│  │  │   Hive   │  │  MinIO   │◀┘  │  Git    │◀┘          │ │
-│  │  │Metastore │  │  (S3)    │    │  Repo   │            │ │
-│  │  └──────────┘  └──────────┘    └─────────┘            │ │
-│  └───────────────────────────────────────────────────────┘ │
-└──────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph K8s["☸️ Kubernetes Cluster"]
+        subgraph SparkOp["Spark Operator Namespace"]
+            SO[Spark Operator]
+        end
+        
+        subgraph SparkJobs["spark-jobs Namespace"]
+            subgraph App["SparkApplication CRD"]
+                Driver[Driver Pod
+                <br/>- Main App
+                <br/>- git-sync sidecar]
+                Executor[Executor Pod
+                <br/>1..N replicas]
+            end
+        end
+    end
+    
+    subgraph External["🌐 External Services"]
+        HMS[Hive Metastore]
+        MinIO[(MinIO S3)]
+        Git[(Git Repo)]
+    end
+    
+    SO -->|Creates| App
+    Driver -->|Manages| Executor
+    
+    Driver -->|Read/Write| HMS
+    Driver -->|Clone| Git
+    Executor -->|S3 Data| MinIO
+    
+    style K8s fill:#e3f2fd,stroke:#1976d2
+    style SparkOp fill:#fff3e0,stroke:#ef6c00
+    style SparkJobs fill:#fff8e1,stroke:#f57c00
+    style App fill:#ffe0b2,stroke:#e65100
+    style Driver fill:#ffcc80,stroke:#ef6c00
+    style Executor fill:#ffe0b2,stroke:#e65100
+    style External fill:#e8f5e9,stroke:#388e3c
 ```
 
 ### Mô Hình Đóng Gói
@@ -47,6 +60,28 @@ Spark được đóng gói thành **một Docker image chuẩn** chứa toàn b�
 **Luồng code dbt-project**: Không baked vào image, mà được pull runtime qua **git-sync sidecar** (init container) khi submit SparkApplication. Code dbt nằm ở `/opt/spark/work-dir/dbt-project/`.
 
 ### Luồng Xử Lý
+
+```mermaid
+sequenceDiagram
+    participant Airflow as Apache Airflow
+    participant SO as Spark Operator
+    participant Driver as Spark Driver
+    participant Git as Git Repo
+    participant Exec as Spark Executors
+    participant MinIO as MinIO S3
+    participant HMS as Hive Metastore
+    
+    Airflow->>SO: Submit SparkApplication CRD
+    SO->>Driver: Create Driver Pod
+    Driver->>Git: git-sync: Clone dbt-project
+    Git-->>Driver: Code downloaded
+    Driver->>Exec: Create Executor Pods
+    Driver->>Exec: Distribute tasks
+    Exec->>MinIO: Read/Write S3 data
+    Exec->>HMS: Read/Write Iceberg metadata
+    Exec-->>Driver: Return results
+    Driver-->>Airflow: Job complete
+```
 
 1. **Airflow** trigger `SparkKubernetesOperator` → submit `SparkApplication` manifest
 2. **Spark Operator** tạo Driver Pod + Executor Pods

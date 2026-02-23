@@ -17,8 +17,8 @@ Velero đẩy backup vào MinIO → tự động đồng bộ qua Site Replicati
 
 ## Cấu Hình
 
-<-r TODO: Velero schedule, backup policy -->
+[TODO: Velero schedule, backup policy -->
 
 ## Lịch Backup
 
-<-r TODO: Tần suất, retention policy -->
+[TODO: Tần suất, retention policy -->

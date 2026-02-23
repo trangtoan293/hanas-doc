@@ -1,1 +1,0 @@
-{{ ktl_autovault.hub_transform(model=dv_config('hub_account'), dv_system=var('dv_system'), from_psa_model=true) }}

@@ -12,8 +12,8 @@ MinIO Site Replication đồng bộ tự động dữ liệu giữa Site DC và 
 
 ## Cấu Hình
 
-<-r TODO: Chi tiết cấu hình Site Replication -->
+[TODO: Chi tiết cấu hình Site Replication -->
 
 ## Monitoring
 
-<-r TODO: Giám sát trạng thái đồng bộ -->
+[TODO: Giám sát trạng thái đồng bộ -->

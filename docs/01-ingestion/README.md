@@ -11,13 +11,36 @@ Lớp thu thập dữ liệu chịu trách nhiệm kéo dữ liệu thô từ c�
 
 ## Kiến Trúc
 
-```
-┌─────────────────┐     ┌──────────────┐     ┌──────────────────┐
-│   Data Sources   │────▶│  Apache NiFi │────▶│                  │
-│  (DB, File, API) │     └──────────────┘     │   Data Lake      │
-│                  │     ┌──────────────┐     │   (MinIO)        │
-│  (CDC, Events)   │────▶│ Apache Kafka │────▶│                  │
-└─────────────────┘     └──────────────┘     └──────────────────┘
+```mermaid
+flowchart LR
+    subgraph Sources["Data Sources"]
+        DB[(Database)]
+        File[File]
+        API[API]
+        CDC[CDC]
+        Events[Events]
+    end
+    
+    subgraph Ingestion["Lớp Thu Thập"]
+        NiFi[Apache NiFi<br/>Batch ETL]
+        Kafka[Apache Kafka<br/>Streaming]
+    end
+    
+    subgraph Storage["Lớp Lưu Trữ"]
+        MinIO[(Data Lake<br/>MinIO)]
+    end
+    
+    DB --> NiFi
+    File --> NiFi
+    API --> NiFi
+    CDC --> Kafka
+    Events --> Kafka
+    NiFi --> MinIO
+    Kafka --> MinIO
+    
+    style Sources fill:#e1f5fe
+    style Ingestion fill:#fff3e0
+    style Storage fill:#e8f5e9
 ```
 
 ## Services

@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  # Development service - hot reload
+  docs-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: hanas-docs-dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./website:/app/website
+      - ./docs:/app/docs
+      - /app/website/node_modules
+    environment:
+      - NODE_ENV=development
+      - HOST=0.0.0.0
+    networks:
+      - hanas-docs-network
+    profiles:
+      - dev
+
+  # Production build
+  docs-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: hanas-docs-prod
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    networks:
+      - hanas-docs-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    profiles:
+      - prod
+
+networks:
+  hanas-docs-network:
+    driver: bridge
