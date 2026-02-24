@@ -4,6 +4,8 @@
 
 Hanas Data Platform là nền tảng dữ liệu hợp nhất (Data Lakehouse), được thiết kế để tiếp nhận, lưu trữ, xử lý và quản trị dữ liệu một cách thống nhất. Nền tảng kết hợp linh hoạt giữa lưu trữ Data Lake và quản trị Data Warehouse, phân tách thành nhiều lớp từ thu thập đến tiêu thụ dữ liệu.
 
+![Kiến trúc tổng thể Hanas Data Platform](hanas_architect.png)
+
 ## Kiến Trúc 7 Lớp
 
 | # | Lớp | Mô Tả | Services |
