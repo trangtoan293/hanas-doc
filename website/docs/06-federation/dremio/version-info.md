@@ -54,7 +54,7 @@
 
 ## Dremio Editions
 
-| Feature | Community Edition (OSS) | Enterprise Edition |
+| Feature | Community Edition (OSS) | Hanas Platform Edition |
 |---|---|---|
 | Query Engine | ✅ | ✅ |
 | Reflections | ✅ | ✅ |
@@ -67,8 +67,6 @@
 | **Row Filtering** | ❌ | ✅ |
 | **Audit Logging** | ❌ | ✅ |
 | **Enterprise Support** | ❌ | ✅ |
-
-> **Hanas Platform:** Hiện sử dụng **Community Edition (OSS)**. Nâng cấp Enterprise khi cần HA coordinator, column masking, hoặc audit logging.
 
 ---
 
@@ -85,7 +83,7 @@
 | Partition Pruning | ✅ | Tự động dựa trên WHERE clause |
 | Hidden Partitioning | ✅ | Transparent cho user |
 | Metadata Pruning | ✅ | Min/max file statistics |
-| Table Maintenance | ⚠️ Limited | Compaction/expire → dùng Spark |
+
 
 ---
 
