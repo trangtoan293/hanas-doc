@@ -1,0 +1,200 @@
+.ctaBanner {
+  background-color: #003545;
+  padding: 80px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ctaBanner::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 60%;
+  height: 200%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.03) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.content {
+  text-align: center;
+}
+
+.title {
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0 0 32px 0;
+  line-height: 1.2;
+}
+
+.checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 40px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.checklistItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #E8F4F8;
+  font-size: 16px;
+}
+
+.checkIcon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: #00D9FF;
+}
+
+.checklistText {
+  font-weight: 500;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+
+.buttonPrimary {
+  padding: 16px 32px;
+  background-color: #00D9FF;
+  color: #003545;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.buttonPrimary:hover {
+  background-color: #33E1FF;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 217, 255, 0.3);
+}
+
+.buttonSecondary {
+  padding: 16px 32px;
+  background-color: transparent;
+  color: #FFFFFF;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.buttonSecondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.newsletter {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 40px;
+  text-align: center;
+}
+
+.newsletterText {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  margin: 0 0 16px 0;
+}
+
+.newsletterForm {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.emailInput {
+  flex: 1;
+  padding: 14px 16px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #FFFFFF;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+  min-width: 0;
+}
+
+.emailInput::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.emailInput:focus {
+  border-color: rgba(0, 217, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.newsletterButton {
+  padding: 14px 24px;
+  background-color: transparent;
+  color: #00D9FF;
+  border: 2px solid #00D9FF;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.newsletterButton:hover {
+  background-color: #00D9FF;
+  color: #003545;
+}
+
+@media (max-width: 480px) {
+  .ctaBanner {
+    padding: 60px 20px;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .buttonPrimary,
+  .buttonSecondary {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .newsletterForm {
+    flex-direction: column;
+  }
+
+  .newsletterButton {
+    width: 100%;
+  }
+}
