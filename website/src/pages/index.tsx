@@ -1,43 +1,25 @@
 import type {ReactNode} from 'react';
-import clsx from 'clsx';
-import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
-import HomepageFeatures from '@site/src/components/HomepageFeatures';
-import Heading from '@theme/Heading';
 
-import styles from './index.module.css';
-
-function HomepageHeader() {
-  const {siteConfig} = useDocusaurusContext();
-  return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className="container">
-        <Heading as="h1" className="hero__title">
-          {siteConfig.title}
-        </Heading>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/guides/quickstart">
-            Bắt Đầu Ngay - 5 Phút ⏱️
-          </Link>
-        </div>
-      </div>
-    </header>
-  );
-}
+import HeroSection from '@site/src/components/HeroSection';
+import PlatformGrid from '@site/src/components/PlatformGrid';
+import TabNavigation from '@site/src/components/TabNavigation';
+import CaseStudySection from '@site/src/components/CaseStudySection';
+import CTABanner from '@site/src/components/CTABanner';
 
 export default function Home(): ReactNode {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title="Hanas Data Platform"
-      description="Tài liệu kỹ thuật toàn diện cho Nền tảng Dữ liệu Hanas - Data Lakehouse Platform với NiFi, Kafka, Spark, Airflow, Iceberg, MinIO, dbt, Dremio và DataHub">
-      <HomepageHeader />
+      title={`${siteConfig.title} - Nền tảng Dữ liệu Hợp nhất`}
+      description="Hanas Data Platform - Data Lakehouse Platform với NiFi, Kafka, Spark, Airflow, Iceberg, MinIO, dbt, Dremio và DataHub">
       <main>
-        <HomepageFeatures />
+        <HeroSection />
+        <PlatformGrid />
+        <TabNavigation />
+        <CaseStudySection />
+        <CTABanner />
       </main>
     </Layout>
   );

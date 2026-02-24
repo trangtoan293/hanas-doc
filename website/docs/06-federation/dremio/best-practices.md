@@ -99,15 +99,15 @@ Reflection Decision Flow:
 Query chậm? ──▶ Kiểm tra Query Profile
                     │
               ┌─────┴──────┐
-              │ Full scan?  │
+              │ Full scan? │
               └─────┬──────┘
                     │ YES
               ┌─────┴──────────────┐
               │ Cần tất cả columns?│
               └─────┬──────────────┘
                     │
-              ┌─────┴──────┐──── YES ──▶ Raw Reflection
-              │     NO     │
+              ┌─────┴──────┐
+              │     NO     │──── YES ──▶ Raw Reflection
               └─────┬──────┘
                     │
               Aggregation Reflection

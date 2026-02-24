@@ -10,14 +10,14 @@ Trong kiến trúc 7 lớp của Hanas Platform, Dremio nằm ở **Layer 6 — 
 
 ```mermaid
 flowchart TB
-    subgraph BI["📊 BI / Analytics"]
+    subgraph BI["BI / Analytics"]
         Superset[Superset]
         Tableau[Tableau]
         PowerBI[PowerBI]
         Custom[Custom Apps]
     end
     
-    subgraph DremioCluster["🚀 DREMIO CLUSTER"]
+    subgraph DremioCluster["DREMIO CLUSTER"]
         subgraph Coord["Coordinator"]
             C1[Query Planning]
             C2[UI/API]
@@ -29,7 +29,7 @@ flowchart TB
             E2[C3 Cache]
         end
         
-        subgraph Reflections["💡 Reflections"]
+        subgraph Reflections["Reflections"]
             R1[Raw Reflections]
             R2[Aggregation Reflections]
         end
@@ -42,7 +42,7 @@ flowchart TB
         end
     end
     
-    subgraph Sources["🗄️ Data Sources"]
+    subgraph Sources["Data Sources"]
         MIN[(MinIO)]
         HMS[Hive Metastore]
         RDB[(RDBMS)]

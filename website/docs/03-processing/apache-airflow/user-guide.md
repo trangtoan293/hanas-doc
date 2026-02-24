@@ -127,9 +127,9 @@ start → create_backdate_table → run_dbt_backdate_models → end
 Mỗi ETL TaskGroup trong pipeline gồm 2 sub-groups:
 
 ```
-┌─────────────────── TaskGroup: <group_id> ─────────────────────┐
+┌─────────────────── TaskGroup: <group_id> ──────────────────────┐
 │                                                                │
-│  ┌── load_and_logging ──────┐   ┌── publish_datahub ────────┐ │
+│  ┌── load_and_logging ──────┐   ┌── publish_datahub ─────────┐ │
 │  │                          │   │                            │ │
 │  │  load_job (dbt run)      │   │  extract_dbt_catalog       │ │
 │  │       ↓                  │   │       ↓                    │ │
@@ -138,7 +138,7 @@ Mỗi ETL TaskGroup trong pipeline gồm 2 sub-groups:
 │  │  logging_job (metrics)   │   │  publish_iceberg_metadata  │ │
 │  │                          │   │       ↓                    │ │
 │  └──────────────────────────┘   │  publish_dbt_tests         │ │
-│                                  └────────────────────────────┘ │
+│                                 └────────────────────────────┘ │
 └────────────────────────────────────────────────────────────────┘
 ```
 

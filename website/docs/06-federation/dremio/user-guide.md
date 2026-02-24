@@ -14,15 +14,15 @@
 
 ```
 ┌──────────────────────────────────────────────────┐
-│  Dremio UI                                        │
+│  Dremio UI                                       │
 ├──────────┬───────────────────────────────────────┤
-│          │                                         │
-│  Sources │   Main Content Area                    │
-│  Spaces  │   (Dataset browser / SQL Runner /       │
-│  Home    │    Job History / Reflections)           │
-│          │                                         │
+│          │                                       │
+│  Sources │   Main Content Area                   │
+│  Spaces  │   (Dataset browser / SQL Runner /     │
+│  Home    │    Job History / Reflections)         │
+│          │                                       │
 ├──────────┴───────────────────────────────────────┤
-│  Navigation: Datasets │ SQL Runner │ Jobs          │
+│  Navigation: Datasets │ SQL Runner │ Jobs        │
 └──────────────────────────────────────────────────┘
 ```
 

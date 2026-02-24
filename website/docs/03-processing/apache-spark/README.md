@@ -8,7 +8,7 @@ Apache Spark là engine xử lý dữ liệu phân tán trong bộ nhớ, đảm
 
 ```mermaid
 flowchart TB
-    subgraph K8s["☸️ Kubernetes Cluster"]
+    subgraph K8s["Kubernetes Cluster"]
         subgraph SparkOp["Spark Operator Namespace"]
             SO[Spark Operator]
         end
@@ -24,7 +24,7 @@ flowchart TB
         end
     end
     
-    subgraph External["🌐 External Services"]
+    subgraph External["External Services"]
         HMS[Hive Metastore]
         MinIO[(MinIO S3)]
         Git[(Git Repo)]
