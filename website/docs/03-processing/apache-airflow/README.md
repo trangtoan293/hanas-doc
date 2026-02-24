@@ -8,26 +8,26 @@ Apache Airflow là nền tảng điều phối (orchestration) trung tâm của 
 
 ```mermaid
 flowchart TB
-    subgraph AirflowLayer["🎛️ Airflow Orchestration"]
+    subgraph AirflowLayer["Airflow Orchestration"]
         AF[Airflow Scheduler]
     end
     
-    subgraph ProcessingLayer["⚡ Processing Layer"]
+    subgraph ProcessingLayer["Processing Layer"]
         SPK[Spark on Kubernetes]
         DBT[dbt Project]
     end
     
-    subgraph StorageLayer["💾 Storage Layer"]
+    subgraph StorageLayer["Storage Layer"]
         ICE[Iceberg Tables]
         MIN[(MinIO Warehouse)]
         HMS[Hive Metastore]
     end
     
-    subgraph Notification["📢 Notifications"]
+    subgraph Notification["Notifications"]
         SLACK[Slack / Maileroo]
     end
     
-    subgraph Governance["🔍 Governance"]
+    subgraph Governance["Governance"]
         DH[DataHub]
     end
     
