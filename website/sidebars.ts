@@ -1,15 +1,15 @@
-import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
+import type { SidebarsConfig } from '@docusaurus/plugin-content-docs';
 
 const sidebars: SidebarsConfig = {
   docsSidebar: [
     {
       type: 'doc',
       id: 'README',
-      label: '🏠 Trang Chủ',
+      label: 'Trang Chủ',
     },
     {
       type: 'category',
-      label: '📋 00 - Tổng Quan',
+      label: 'Tổng Quan',
       collapsed: false,
       link: {
         type: 'doc',
@@ -24,7 +24,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '📥 01 - Thu Thập Dữ Liệu',
+      label: 'Thu Thập Dữ Liệu',
       collapsed: true,
       link: {
         type: 'doc',
@@ -60,7 +60,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '💾 02 - Lưu Trữ Dữ Liệu',
+      label: 'Lưu Trữ Dữ Liệu',
       collapsed: true,
       link: {
         type: 'doc',
@@ -96,7 +96,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '⚡ 03 - Xử Lý Dữ Liệu',
+      label: 'Xử Lý Dữ Liệu',
       collapsed: true,
       link: {
         type: 'doc',
@@ -132,7 +132,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '🏗️ 04 - Mô Hình Dữ Liệu',
+      label: 'Mô Hình Dữ Liệu',
       collapsed: true,
       link: {
         type: 'doc',
@@ -167,7 +167,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '🔍 05 - Quản Trị Dữ Liệu',
+      label: 'Quản Trị Dữ Liệu',
       collapsed: true,
       link: {
         type: 'doc',
@@ -191,7 +191,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '🔗 06 - Liên Kết Dữ Liệu',
+      label: 'Liên Kết Dữ Liệu',
       collapsed: true,
       link: {
         type: 'doc',
@@ -215,7 +215,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '🛠️ 07 - Quản Trị Hệ Thống',
+      label: 'Quản Trị Hệ Thống',
       collapsed: true,
       link: {
         type: 'doc',
@@ -239,7 +239,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '☸️ 08 - Hạ Tầng',
+      label: 'Hạ Tầng',
       collapsed: true,
       link: {
         type: 'doc',
@@ -271,7 +271,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '🔒 09 - An Toàn Thông Tin',
+      label: 'An Toàn Thông Tin',
       collapsed: true,
       link: {
         type: 'doc',
@@ -306,7 +306,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '📚 10 - Đào Tạo',
+      label: 'Đào Tạo',
       collapsed: true,
       link: {
         type: 'doc',
@@ -322,7 +322,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '🔧 11 - Bảo Hành & Bảo Trì',
+      label: 'Bảo Hành & Bảo Trì',
       collapsed: true,
       link: {
         type: 'doc',
@@ -337,7 +337,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '📖 Hướng Dẫn Thực Hành',
+      label: 'Hướng Dẫn Thực Hành',
       collapsed: true,
       link: {
         type: 'doc',

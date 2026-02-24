@@ -4,91 +4,78 @@
 
 ```mermaid
 flowchart TB
-    subgraph Sources["🌐 Data Sources"]
+    subgraph Sources["Data Sources"]
         DB[(Databases)]
         Files[Files/APIs]
         CDC[CDC/Events]
     end
     
-    subgraph L1["📥 Lớp 1: Thu Thập (Ingestion)"]
+    subgraph L1["Lớp 1: Thu Thập (Ingestion)"]
         NiFi[Apache NiFi
         <br/>Batch ETL]
         Kafka[Apache Kafka
         <br/>Streaming]
     end
     
-    subgraph L2["💾 Lớp 2: Lưu Trữ (Storage)"]
+    subgraph L2["Lớp 2: Lưu Trữ (Storage)"]
         MinIO[(MinIO
         <br/>S3 Object Storage)]
         Iceberg[Apache Iceberg
         <br/>Open Table Format]
     end
     
-    subgraph L3["⚡ Lớp 3: Xử Lý (Processing)"]
+    subgraph L3["Lớp 3: Xử Lý (Processing)"]
         Airflow[Apache Airflow
         <br/>Orchestration]
         Spark[Apache Spark
         <br/>Distributed Compute]
     end
     
-    subgraph L4["🏗️ Lớp 4: Mô Hình (Data Model)"]
+    subgraph L4["Lớp 4: Mô Hình (Data Model)"]
         dbt[dbt
         <br/>SQL Transform]
         DV[Data Vault 2.0
         <br/>Hub/Link/Sat]
     end
     
-    subgraph L5["🔍 Lớp 5: Quản Trị (Governance)"]
+    subgraph L5["Lớp 5: Quản Trị (Governance)"]
         DataHub[DataHub
         <br/>Metadata & Lineage]
     end
     
-    subgraph L6["🔗 Lớp 6: Liên Kết (Federation)"]
+    subgraph L6["Lớp 6: Liên Kết (Federation)"]
         Dremio[Dremio
         <br/>Query Engine]
     end
     
-    subgraph L7["📊 Lớp 7: Tiêu Thụ (Consumption)"]
+    subgraph L7["Lớp 7: Tiêu Thụ (Consumption)"]
         BI[BI Tools
         <br/>Superset/Tableau]
         Apps[Applications]
     end
     
-    subgraph Security["🔒 Security Layer"]
+    subgraph Security["Security Layer"]
         Ranger[Apache Ranger
         <br/>Authorization]
         Vault[HashiCorp Vault
         <br/>Secrets]
     end
     
-    subgraph Infra["☸️ Infrastructure"]
+    subgraph Infra["Infrastructure"]
         K8s[Kubernetes]
         Velero[Velero Backup]
         OO[OpenObserve
         <br/>Monitoring]
     end
     
-    Sources --> NiFi
-    Sources --> Kafka
-    
-    NiFi --> MinIO
-    Kafka --> MinIO
-    
-    MinIO --> Iceberg
-    
-    Airflow --> Spark
-    Spark --> Iceberg
-    
-    Spark --> dbt
-    dbt --> DV
-    DV --> Iceberg
-    
-    Iceberg --> DataHub
-    
-    Iceberg --> Dremio
-    Dremio --> BI
-    Dremio --> Apps
-    
+    Sources --> L1
+    L1 --> L2
+    L2 --> L3
+    L3 --> L4
+    L4 --> L2
+    L2 --> L5
+    L2 --> L6
+    L6 --> L7
     K8s -.-> NiFi
     K8s -.-> Kafka
     K8s -.-> MinIO
@@ -96,8 +83,6 @@ flowchart TB
     K8s -.-> Spark
     K8s -.-> Dremio
     K8s -.-> DataHub
-    
-    style Sources fill:#e3f2fd,stroke:#1976d2
     style L1 fill:#fff3e0,stroke:#ef6c00
     style L2 fill:#e8f5e9,stroke:#388e3c
     style L3 fill:#fce4ec,stroke:#c2185b

@@ -44,6 +44,25 @@ const config: Config = {
   },
   themes: ['@docusaurus/theme-mermaid'],
 
+  // Performance optimized font loading
+  headTags: [
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://fonts.googleapis.com',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com',
+        crossorigin: 'anonymous',
+      },
+    },
+  ],
+
   presets: [
     [
       'classic',
@@ -95,17 +114,17 @@ const config: Config = {
         {
           title: 'Tài Liệu',
           items: [
-            { label: 'Tổng Quan', to: '/00-overview' },
-            { label: 'Kiến Trúc', to: '/00-overview/architecture' },
+            { label: 'Tổng Quan', to: '/overview' },
+            { label: 'Kiến Trúc', to: '/overview/architecture' },
             { label: 'Quickstart', to: '/guides/quickstart' },
           ],
         },
         {
           title: 'Các Lớp',
           items: [
-            { label: 'Thu Thập Dữ Liệu', to: '/01-ingestion' },
-            { label: 'Lưu Trữ', to: '/02-storage' },
-            { label: 'Xử Lý', to: '/03-processing' },
+            { label: 'Thu Thập Dữ Liệu', to: '/ingestion' },
+            { label: 'Lưu Trữ', to: '/storage' },
+            { label: 'Xử Lý', to: '/processing' },
           ],
         },
         {

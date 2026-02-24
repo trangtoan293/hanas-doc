@@ -1,30 +1,250 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+
 /**
  * Any CSS included here will be global. The classic template
  * bundles Infima by default. Infima is a CSS framework designed to
  * work well for content-centric websites.
  */
 
-/* You can override the default Infima variables here. */
+/* Snowflake Color Palette */
 :root {
-  --ifm-color-primary: #0066cc;
-  --ifm-color-primary-dark: #0052a3;
-  --ifm-color-primary-darker: #004080;
-  --ifm-color-primary-darkest: #003366;
-  --ifm-color-primary-light: #3385d6;
-  --ifm-color-primary-lighter: #66a3e0;
-  --ifm-color-primary-lightest: #99c2eb;
+  /* Primary Colors (Blue Scale) */
+  --ifm-color-primary: #29B5E8;        /* Snowflake Blue */
+  --ifm-color-primary-dark: #1DA1D1;
+  --ifm-color-primary-darker: #178EAF;
+  --ifm-color-primary-darkest: #116B85;
+  --ifm-color-primary-light: #4DC3ED;
+  --ifm-color-primary-lighter: #71D1F2;
+  --ifm-color-primary-lightest: #95DFF7;
+  
+  /* Secondary Colors */
+  --snowflake-star-blue: #71D3DC;
+  --snowflake-valencia-orange: #FF9F36;
+  --snowflake-purple-moon: #7D44CF;
+  --snowflake-first-light: #D45B90;
+  --snowflake-windy-city: #8A999E;
+  
+  /* Default Infima Variables */
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-font-family-base: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
+/* Dark Mode - Iceberg & Winter */
 [data-theme='dark'] {
-  --ifm-color-primary: #4da3ff;
-  --ifm-color-primary-dark: #1a8cff;
-  --ifm-color-primary-darker: #0077e6;
-  --ifm-color-primary-darkest: #005cb8;
-  --ifm-color-primary-light: #80bdff;
-  --ifm-color-primary-lighter: #b3d7ff;
-  --ifm-color-primary-lightest: #e6f2ff;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-color-primary: #4DC3ED;
+  --ifm-color-primary-dark: #29B5E8;
+  --ifm-color-primary-darker: #1DA1D1;
+  --ifm-color-primary-darkest: #178EAF;
+  --ifm-color-primary-light: #71D1F2;
+  --ifm-color-primary-lighter: #95DFF7;
+  --ifm-color-primary-lightest: #b8e6fa;
+  --ifm-background-color: #003545;      /* Iceberg */
+  --ifm-surface-color: #24323D;         /* Winter */
+  --ifm-navbar-background-color: #003545;
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1);
+}
+
+/* ========================================
+   SNOWFLAKE UI COMPONENTS
+   ======================================== */
+
+/* Pill Button Styles */
+.button--primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 80px;
+  padding: 12px 24px;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+  background-color: var(--ifm-color-primary);
+  color: white;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.button--primary:hover {
+  background-color: var(--ifm-color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(41, 181, 232, 0.3);
+}
+
+.button--primary:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+.button--primary:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.button--primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Secondary Outline Button */
+.button--secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 80px;
+  padding: 12px 24px;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+  background-color: transparent;
+  color: var(--ifm-color-primary);
+  border: 1px solid var(--ifm-color-primary);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.button--secondary:hover {
+  background-color: var(--ifm-color-primary);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.button--secondary:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+/* Link Button with Arrow */
+.button--link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.button--link:hover {
+  color: var(--ifm-color-primary-dark);
+}
+
+.button--link:hover .link-arrow {
+  transform: translateX(4px);
+}
+
+.link-arrow {
+  transition: transform 0.2s ease;
+}
+
+/* Card Component */
+.feature-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  transition: all 0.2s ease;
+  height: 100%;
+}
+
+.feature-card:hover {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+[data-theme='dark'] .feature-card {
+  background: var(--ifm-surface-color);
+}
+
+/* Accessibility - Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .button--primary,
+  .button--secondary,
+  .button--link,
+  .feature-card {
+    transition: none;
+  }
+  
+  .button--primary:hover,
+  .button--secondary:hover {
+    transform: none;
+  }
+  
+  .feature-card:hover {
+    transform: none;
+  }
+}
+
+/* ========================================
+   ANIMATIONS & ENHANCEMENTS
+   ======================================== */
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Fade in up animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Animation classes */
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* Stagger delay utilities */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+
+/* Section spacing */
+section {
+  padding: 80px 0;
+}
+
+/* Container max-width */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  section {
+    padding: 60px 0;
+  }
+  
+  .container {
+    padding: 0 16px;
+  }
 }
