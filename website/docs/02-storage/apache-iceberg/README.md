@@ -8,33 +8,49 @@ Trong Hanas Data Platform, Iceberg là **lớp table format** nằm giữa compu
 
 ## Kiến Trúc Trong Platform
 
-```
-┌─────────────────────────────────────────────────────┐
-│                   Query Engines                      │
-│   Spark  │  Dremio  │  Trino  │  dbt-spark          │
-└────────────────────┬────────────────────────────────┘
-                     │ Iceberg API (read/write)
-┌────────────────────▼────────────────────────────────┐
-│              Apache Iceberg (Table Format)           │
-│  ┌──────────┐  ┌────────────┐  ┌─────────────────┐  │
-│  │ Metadata │  │ Manifest   │  │ Snapshot         │  │
-│  │ Files    │  │ Lists      │  │ Management       │  │
-│  └──────────┘  └────────────┘  └─────────────────┘  │
-└────────────────────┬────────────────────────────────┘
-                     │
-┌────────────────────▼────────────────────────────────┐
-│          Hive Metastore (Catalog)                    │
-│  Quản lý metadata pointer → current metadata.json   │
-└────────────────────┬────────────────────────────────┘
-                     │
-┌────────────────────▼────────────────────────────────┐
-│              MinIO (Object Storage)                  │
-│  s3a://data/warehouse/                               │
-│  ├── <schema>/                                       │
-│  │   └── <table>/                                    │
-│  │       ├── metadata/    ← JSON + Avro metadata     │
-│  │       └── data/        ← Parquet data files       │
-└─────────────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph QueryEngines["Query Engines"]
+        Spark[Spark]
+        Dremio[Dremio]
+        Trino[Trino]
+        dbt_spark[dbt-spark]
+    end
+    
+    subgraph Iceberg["Apache Iceberg (Table Format)"]
+        direction TB
+        Meta[Metadata Files]
+        Manifest[Manifest Lists]
+        Snapshot[Snapshot Management]
+    end
+    
+    subgraph Catalog["Hive Metastore (Catalog)"]
+        direction TB
+        pointer["Quản lý metadata pointer<br/>→ current metadata.json"]
+    end
+    
+    subgraph Storage["MinIO (Object Storage)"]
+        direction TB
+        path["s3a://data/warehouse/"]
+        schema["<schema>/"]
+        table["<table>/"]
+        metadata["metadata/<br/>← JSON + Avro metadata"]
+        data["data/<br/>← Parquet data files"]
+        
+        path --> schema
+        schema --> table
+        table --> metadata
+        table --> data
+    end
+    
+    QueryEngines -->|Iceberg API<br/>read/write| Iceberg
+    Iceberg --> Catalog
+    Catalog --> Storage
+    
+    style QueryEngines fill:#e3f2fd,stroke:#1976d2
+    style Iceberg fill:#e0f7fa,stroke:#00838f
+    style Catalog fill:#fff3e0,stroke:#ef6c00
+    style Storage fill:#e8f5e9,stroke:#388e3c
 ```
 
 ## Vai Trò Trong Platform
