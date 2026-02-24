@@ -189,6 +189,5 @@ PARTITION BY RANGE (OP_TIME) (
 ## Tài Liệu Tham Khảo
 
 - [Data Vault 2.0](https://en.wikipedia.org/wiki/Data_vault_modeling) — Phương pháp mô hình hóa dữ liệu
-- [AutomateDV](https://automate-dv.readthedocs.io/) — dbt package cho Data Vault 2.0
 - [Data Vault Alliance](https://datavaultalliance.com/) — Tổ chức chuẩn hóa Data Vault
 - [Dan Linstedt](https://danlinstedt.com/) — Tác giả Data Vault
