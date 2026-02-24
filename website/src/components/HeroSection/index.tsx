@@ -8,7 +8,7 @@ export default function HeroSection(): JSX.Element {
         <div className={styles.heroInner}>
           <div className={styles.heroContent}>
             <h1 className={styles.heroTitle}>
-              Kho Dữ Liệu Thông Minh
+              Hanas Data Platform
               <br />
               Một Nền Tảng, Mọi Dữ Liệu
             </h1>
@@ -27,7 +27,11 @@ export default function HeroSection(): JSX.Element {
             </div>
           </div>
           <div className={styles.heroVisual}>
-            <div className={styles.visualPlaceholder} />
+            <img 
+              src="/img/hanas_platform.png" 
+              alt="Hanas Data Platform Architecture"
+              className={styles.heroImage}
+            />
           </div>
         </div>
       </div>

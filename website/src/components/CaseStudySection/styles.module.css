@@ -1,251 +1,50 @@
 .caseStudySection {
-  padding: 100px 0;
-  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-  color: #f8fafc;
+  padding: 80px 0;
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
 }
 
-.sectionHeader {
+.content {
   text-align: center;
-  margin-bottom: 56px;
 }
 
-.sectionTitle {
-  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-size: 48px;
-  font-weight: 800;
-  background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 16px;
-  letter-spacing: -0.02em;
-}
-
-.sectionSubtitle {
-  font-size: 18px;
-  color: #94a3b8;
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.6;
-}
-
-.tabsContainer {
+.stats {
   display: flex;
   justify-content: center;
-  gap: 12px;
-  margin-bottom: 48px;
-}
-
-.tabButton {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 24px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  color: #cbd5e1;
-  font-size: 15px;
-  font-weight: 500;
-}
-
-.tabButton:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
-  transform: translateY(-2px);
-}
-
-.tabButtonActive {
-  background: linear-gradient(135deg, rgba(56, 189, 248, 0.2) 0%, rgba(129, 140, 248, 0.2) 100%);
-  border-color: rgba(56, 189, 248, 0.5);
-  color: #f8fafc;
-  box-shadow: 0 4px 24px rgba(56, 189, 248, 0.2);
-}
-
-.tabLogo {
-  font-size: 20px;
-}
-
-.tabLabel {
-  font-weight: 600;
-}
-
-.contentWrapper {
-  display: flex;
-  gap: 64px;
-  align-items: center;
-}
-
-.contentColumn {
-  flex: 0 0 55%;
-}
-
-.imageColumn {
-  flex: 0 0 45%;
-}
-
-.caseTitle {
-  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-size: 32px;
-  font-weight: 700;
-  color: #f8fafc;
-  margin-bottom: 20px;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-}
-
-.caseDescription {
-  font-size: 16px;
-  color: #94a3b8;
-  line-height: 1.7;
-  margin-bottom: 32px;
-}
-
-.statsContainer {
-  display: flex;
-  gap: 48px;
-  margin-bottom: 40px;
-  padding: 24px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 80px;
+  flex-wrap: wrap;
 }
 
 .statItem {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .statValue {
-  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 48px;
-  font-weight: 800;
-  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-weight: 700;
+  color: #111827;
   line-height: 1;
   margin-bottom: 8px;
-  letter-spacing: -0.02em;
 }
 
 .statLabel {
-  font-size: 14px;
-  color: #64748b;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-weight: 500;
-}
-
-.readStoryLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: #38bdf8;
   font-size: 16px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.readStoryLink:hover {
-  color: #7dd3fc;
-  gap: 12px;
-}
-
-.arrowIcon {
-  transition: transform 0.3s ease;
-}
-
-.readStoryLink:hover .arrowIcon {
-  transform: translateX(4px);
-}
-
-.imagePlaceholder {
-  width: 100%;
-  aspect-ratio: 4/3;
-  background: linear-gradient(135deg, rgba(56, 189, 248, 0.1) 0%, rgba(129, 140, 248, 0.1) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  position: relative;
-  overflow: hidden;
-}
-
-.imagePlaceholder::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 30% 30%, rgba(56, 189, 248, 0.15) 0%, transparent 50%),
-              radial-gradient(circle at 70% 70%, rgba(129, 140, 248, 0.15) 0%, transparent 50%);
-  pointer-events: none;
-}
-
-.imageIcon {
-  font-size: 64px;
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
-}
-
-.imageCaption {
-  font-size: 14px;
-  color: #64748b;
+  color: #6b7280;
   font-weight: 500;
 }
 
 @media (max-width: 768px) {
   .caseStudySection {
-    padding: 64px 0;
+    padding: 60px 0;
   }
 
-  .sectionTitle {
-    font-size: 32px;
-  }
-
-  .sectionSubtitle {
-    font-size: 16px;
-    padding: 0 20px;
-  }
-
-  .tabsContainer {
-    flex-wrap: wrap;
-    padding: 0 20px;
-  }
-
-  .tabButton {
-    padding: 10px 18px;
-    font-size: 14px;
-  }
-
-  .contentWrapper {
-    flex-direction: column-reverse;
+  .stats {
     gap: 40px;
-    padding: 0 20px;
-  }
-
-  .contentColumn,
-  .imageColumn {
-    flex: 0 0 100%;
-    width: 100%;
-  }
-
-  .caseTitle {
-    font-size: 24px;
-  }
-
-  .statsContainer {
-    gap: 32px;
   }
 
   .statValue {
     font-size: 36px;
-  }
-
-  .imagePlaceholder {
-    aspect-ratio: 16/9;
   }
 }
