@@ -6,47 +6,56 @@
  * work well for content-centric websites.
  */
 
-/* Snowflake Color Palette */
+/* Unified White Theme */
 :root {
-  /* Primary Colors (Blue Scale) */
-  --ifm-color-primary: #29B5E8;        /* Snowflake Blue */
-  --ifm-color-primary-dark: #1DA1D1;
-  --ifm-color-primary-darker: #178EAF;
-  --ifm-color-primary-darkest: #116B85;
-  --ifm-color-primary-light: #4DC3ED;
-  --ifm-color-primary-lighter: #71D1F2;
-  --ifm-color-primary-lightest: #95DFF7;
+  /* Primary Colors - Neutral Gray */
+  --ifm-color-primary: #374151;
+  --ifm-color-primary-dark: #1f2937;
+  --ifm-color-primary-darker: #111827;
+  --ifm-color-primary-darkest: #000000;
+  --ifm-color-primary-light: #4b5563;
+  --ifm-color-primary-lighter: #6b7280;
+  --ifm-color-primary-lightest: #9ca3af;
   
-  /* Secondary Colors */
-  --snowflake-star-blue: #71D3DC;
-  --snowflake-valencia-orange: #FF9F36;
-  --snowflake-purple-moon: #7D44CF;
-  --snowflake-first-light: #D45B90;
-  --snowflake-windy-city: #8A999E;
+  /* Background Colors - White Theme */
+  --ifm-background-color: #ffffff;
+  --ifm-surface-color: #f9fafb;
+  --ifm-navbar-background-color: #ffffff;
+  
+  /* Text Colors */
+  --ifm-font-color-base: #111827;
+  --ifm-font-color-secondary: #6b7280;
+  --ifm-font-color-muted: #9ca3af;
+  
+  /* Border & Divider */
+  --ifm-border-color: #e5e7eb;
   
   /* Default Infima Variables */
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.05);
   --ifm-font-family-base: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 }
 
-/* Dark Mode - Iceberg & Winter */
+/* Dark Mode - Dark Gray Theme */
 [data-theme='dark'] {
-  --ifm-color-primary: #4DC3ED;
-  --ifm-color-primary-dark: #29B5E8;
-  --ifm-color-primary-darker: #1DA1D1;
-  --ifm-color-primary-darkest: #178EAF;
-  --ifm-color-primary-light: #71D1F2;
-  --ifm-color-primary-lighter: #95DFF7;
-  --ifm-color-primary-lightest: #b8e6fa;
-  --ifm-background-color: #003545;      /* Iceberg */
-  --ifm-surface-color: #24323D;         /* Winter */
-  --ifm-navbar-background-color: #003545;
+  --ifm-color-primary: #9ca3af;
+  --ifm-color-primary-dark: #d1d5db;
+  --ifm-color-primary-darker: #e5e7eb;
+  --ifm-color-primary-darkest: #f3f4f6;
+  --ifm-color-primary-light: #6b7280;
+  --ifm-color-primary-lighter: #4b5563;
+  --ifm-color-primary-lightest: #374151;
+  --ifm-background-color: #111827;
+  --ifm-surface-color: #1f2937;
+  --ifm-navbar-background-color: #111827;
+  --ifm-font-color-base: #f9fafb;
+  --ifm-font-color-secondary: #d1d5db;
+  --ifm-border-color: #374151;
   --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1);
 }
 
 /* ========================================
-   SNOWFLAKE UI COMPONENTS
+   UNIFIED WHITE THEME COMPONENTS
    ======================================== */
 
 /* Pill Button Styles */
@@ -61,7 +70,7 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   transition: all 0.2s ease;
-  background-color: var(--ifm-color-primary);
+  background-color: #111827;
   color: white;
   border: none;
   cursor: pointer;
@@ -69,13 +78,13 @@
 }
 
 .button--primary:hover {
-  background-color: var(--ifm-color-primary-dark);
+  background-color: #374151;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(41, 181, 232, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .button--primary:focus-visible {
-  outline: 2px solid var(--ifm-color-primary);
+  outline: 2px solid #374151;
   outline-offset: 2px;
 }
 
@@ -102,20 +111,20 @@
   letter-spacing: 0.5px;
   transition: all 0.2s ease;
   background-color: transparent;
-  color: var(--ifm-color-primary);
-  border: 1px solid var(--ifm-color-primary);
+  color: #374151;
+  border: 1px solid #d1d5db;
   cursor: pointer;
   text-decoration: none;
 }
 
 .button--secondary:hover {
-  background-color: var(--ifm-color-primary);
-  color: white;
+  background-color: #f3f4f6;
+  border-color: #9ca3af;
   transform: translateY(-1px);
 }
 
 .button--secondary:focus-visible {
-  outline: 2px solid var(--ifm-color-primary);
+  outline: 2px solid #374151;
   outline-offset: 2px;
 }
 
@@ -125,13 +134,13 @@
   align-items: center;
   gap: 8px;
   font-weight: 600;
-  color: var(--ifm-color-primary);
+  color: #374151;
   text-decoration: none;
   transition: all 0.2s ease;
 }
 
 .button--link:hover {
-  color: var(--ifm-color-primary-dark);
+  color: #111827;
 }
 
 .button--link:hover .link-arrow {
@@ -146,19 +155,20 @@
 .feature-card {
   background: white;
   border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
   padding: 24px;
   transition: all 0.2s ease;
   height: 100%;
 }
 
 .feature-card:hover {
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transform: translateY(-2px);
 }
 
 [data-theme='dark'] .feature-card {
-  background: var(--ifm-surface-color);
+  background: #1f2937;
+  border-color: #374151;
 }
 
 /* Accessibility - Respect user motion preferences */

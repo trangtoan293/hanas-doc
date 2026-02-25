@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  vllm-qwen3-coder-next:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ktl-vllm:latest
+    container_name: qwen3-coder-next
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    ports:
+      - "8011:8000"
+    volumes:
+      - /ephemeral/data/.cache/huggingface:/root/.cache/huggingface
+      # Mount thư mục chứa GGUF model nếu download riêng
+      - /ephemeral/data/models:/models
+    environment:
+      # ============================================
+      # GGUF Model Configuration
+      # ============================================
+      # Lưu ý: GGUF support trong vLLM còn experimental
+      # Model GGUF cần là single file (không phải multi-part)
+      # ============================================
+      
+      # Option 1: Dùng HuggingFace GGUF repo trực tiếp
+      - MODEL=Qwen/Qwen3-Coder-Next-GGUF
+      # Chỉ định file GGUF cụ thể trong repo
+      - GGUF_FILE=Qwen3-Coder-Next-Q4_K_M-00001-of-00003.gguf
+      
+      # Option 2: Dùng local path (nếu đã download)
+      # - MODEL=/models/Qwen3-Coder-Next-Q4_K_M.gguf
+      
+      # Tokenizer từ base model (QUAN TRỌNG - tránh lỗi tokenizer)
+      - TOKENIZER=Qwen/Qwen3-Coder-Next
+      
+      - TENSOR_PARALLEL_SIZE=1
+      - MAX_MODEL_LEN=32768  # Context length (có thể tăng nếu đủ VRAM)
+      - MAX_NUM_SEQS=8       # Giảm để tiết kiệm VRAM
+      - GPU_MEMORY_UTILIZATION=0.90
+      - FLASHINFER_DISABLE_VERSION_CHECK=1
+
+    ipc: host
+    ulimits:
+      memlock: -1
+      stack: 67108864
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/v1/models"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 120s  # GGUF load lâu hơn
+    # Command để serve GGUF model
+    command: []

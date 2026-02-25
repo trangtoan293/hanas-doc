@@ -238,7 +238,89 @@ spark.sql("""
 
 ---
 
-## 9. Quy Trình Escalation
+## 9. vLLM
+
+### Model không load / OOM
+
+| Triệu chứng | Nguyên nhân | Giải pháp |
+|---|---|---|
+| Container crash loop | VRAM không đủ | Giảm `GPU_MEMORY_UTILIZATION` hoặc `MAX_MODEL_LEN` |
+| `CUDA out of memory` | Tổng VRAM > GPU capacity | Giảm `MAX_NUM_SEQS`, dùng model quantized (AWQ) |
+| Model download chậm | First-time download từ HuggingFace | Pre-download: `huggingface-cli download <model>` |
+| `KeyError: architecture` | Model chưa được hỗ trợ | Update nightly vLLM + Transformers from source |
+
+### Kiểm tra
+
+```bash
+# Health check tất cả services
+for port in 8010 8017 8018; do
+  echo "Port $port: $(curl -sf http://localhost:$port/v1/models | jq -r '.data[0].id // "DOWN"')"
+done
+
+# GPU usage
+nvidia-smi
+
+# Container logs
+docker logs -f vllm-qwen3-14b-awq
+```
+
+---
+
+## 10. Dify
+
+### Workflow không hoạt động
+
+| Triệu chứng | Nguyên nhân | Giải pháp |
+|---|---|---|
+| Model provider error | Sai API Base URL / model name | Settings → Model Providers → verify URL |
+| Knowledge retrieval trả về rỗng | KB chưa indexed hoặc embedding fail | Check KB status, verify embedding model |
+| Agent không gọi tools | Tool config sai hoặc model không hỗ trợ | Verify tool endpoint, dùng Qwen3 + Hermes parser |
+| Workflow timeout | vLLM quá tải hoặc context quá lớn | Giảm `max_tokens`, check vLLM logs |
+| Import DSL fail | Version mismatch | Check DSL version compatibility |
+
+### Kiểm tra
+
+```bash
+# Dify health
+curl http://localhost/v1/health
+
+# Dify API logs
+docker compose logs -f api
+
+# Worker logs (async tasks)
+docker compose logs -f worker
+```
+
+---
+
+## 11. Langfuse
+
+### Traces không xuất hiện
+
+| Triệu chứng | Nguyên nhân | Giải pháp |
+|---|---|---|
+| No traces sau khi enable | Sai API keys | Verify Public Key + Secret Key trong Dify settings |
+| Traces delayed | Async ingestion lag | Check Langfuse server logs, PostgreSQL performance |
+| Missing spans | SDK version cũ | Upgrade: `pip install --upgrade langfuse` |
+| Dashboard error | Database connection | Check `DATABASE_URL` env var |
+
+### Kiểm tra
+
+```bash
+# Langfuse health
+curl http://localhost:3000/api/public/health
+
+# Test API key
+curl -X GET "http://localhost:3000/api/public/health" \
+  -H "Authorization: Basic $(echo -n 'pk-lf-xxx:sk-lf-xxx' | base64)"
+
+# Server logs
+docker logs -f langfuse
+```
+
+---
+
+## 12. Quy Trình Escalation
 
 | Level | Ai xử lý | Thời gian | Kênh |
 |---|---|---|---|

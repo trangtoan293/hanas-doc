@@ -1,6 +1,7 @@
 .hero {
   padding: 80px 0;
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .heroInner {
@@ -10,21 +11,21 @@
 }
 
 .heroContent {
-  flex: 0 0 60%;
+  flex: 0 0 55%;
 }
 
 .heroTitle {
   font-size: 48px;
   font-weight: 700;
   line-height: 1.2;
-  color: var(--ifm-color-primary-darkest);
+  color: #111827;
   margin-bottom: 24px;
 }
 
 .heroSubtitle {
   font-size: 18px;
   line-height: 1.6;
-  color: #4a5568;
+  color: #6b7280;
   margin-bottom: 32px;
 }
 
@@ -35,17 +36,21 @@
 }
 
 .heroVisual {
-  flex: 0 0 40%;
+  flex: 0 0 45%;
 }
 
-.visualPlaceholder {
+.heroImage {
   width: 100%;
-  height: 300px;
-  background: linear-gradient(135deg, var(--ifm-color-primary) 0%, var(--ifm-color-primary-light) 100%);
+  height: auto;
   border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 768px) {
+  .hero {
+    padding: 60px 0;
+  }
+  
   .heroInner {
     flex-direction: column;
     gap: 40px;

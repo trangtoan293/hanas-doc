@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  vllm-qwen3-14b-awq-balanced:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ktl-vllm:latest
+    container_name: vllm-qwen3-14b-awq-balanced
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    ports:
+      - "8012:8000"
+    volumes:
+      - /ephemeral/data/.cache/huggingface:/root/.cache/huggingface
+    environment:
+      - MODEL=Qwen/Qwen3-14B-AWQ
+      - TENSOR_PARALLEL_SIZE=1
+      - MAX_MODEL_LEN=16384  # 16K context cho prompt lớn
+      - MAX_NUM_SEQS=12  # Giảm để tiết kiệm VRAM
+      - GPU_MEMORY_UTILIZATION=0.55  # Cân bằng VRAM
+      - TRUST_REMOTE_CODE=True
+      - KV_CACHE_DTYPE=fp8  # FP8 KV cache tiết kiệm memory
+      - ENFORCE_EAGER=true  # Disable CUDA graphs
+      - MAX_NUM_BATCHED_TOKENS=8192  # Tune performance
+    ipc: host
+    ulimits:
+      memlock: -1
+      stack: 67108864
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/v1/models"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 180s

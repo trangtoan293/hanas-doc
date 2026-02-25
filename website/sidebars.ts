@@ -337,6 +337,54 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
+      label: 'AI Service',
+      collapsed: true,
+      link: {
+        type: 'doc',
+        id: 'ai-service/README',
+      },
+      items: [
+        'ai-service/README',
+        {
+          type: 'category',
+          label: 'Dify',
+          items: [
+            'ai-service/dify/README',
+            'ai-service/dify/installation',
+            'ai-service/dify/configuration',
+            'ai-service/dify/user-guide',
+            'ai-service/dify/best-practices',
+            'ai-service/dify/version-info',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'vLLM',
+          items: [
+            'ai-service/vllm/README',
+            'ai-service/vllm/installation',
+            'ai-service/vllm/configuration',
+            'ai-service/vllm/user-guide',
+            'ai-service/vllm/best-practices',
+            'ai-service/vllm/version-info',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Langfuse',
+          items: [
+            'ai-service/langfuse/README',
+            'ai-service/langfuse/installation',
+            'ai-service/langfuse/configuration',
+            'ai-service/langfuse/user-guide',
+            'ai-service/langfuse/best-practices',
+            'ai-service/langfuse/version-info',
+          ],
+        },
+      ],
+    },
+    {
+      type: 'category',
       label: 'Hướng Dẫn Thực Hành',
       collapsed: true,
       link: {
@@ -358,6 +406,7 @@ const sidebars: SidebarsConfig = {
             'guides/integration/dbt-data-vault',
             'guides/integration/dremio-lakehouse',
             'guides/integration/kafka-streaming-flow',
+            'guides/integration/dify-vllm-langfuse',
           ],
         },
         {
@@ -369,6 +418,7 @@ const sidebars: SidebarsConfig = {
             'guides/examples/sample-spark-job',
             'guides/examples/sample-dbt-models',
             'guides/examples/sample-dremio-setup',
+            'guides/examples/sample-dify-workflow',
           ],
         },
       ],
