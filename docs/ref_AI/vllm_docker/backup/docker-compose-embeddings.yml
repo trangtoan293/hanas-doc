@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  vllm-embeddings-bge-m3:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ktl-vllm:latest
+    container_name: vllm-embeddings-bge-m3  
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 2 # Số lượng GPU bạn muốn sử dụng
+              capabilities: [gpu]
+    ports:
+      - "8007:8000"
+    volumes:
+      - ~/.cache/huggingface:/root/.cache/huggingface
+    environment:
+      - MODEL=BAAI/bge-m3 # Thay bằng rerank model bạn muốn sử dụng
+      - TASK=score # Quan trọng: Đặt task là "score" cho reranking
+      - TENSOR_PARALLEL_SIZE=2  # Số GPU đơn vị parallel
+      - MAX_MODEL_LEN=4092  # Độ dài context tối đa
+      - MAX_NUM_SEQS=64  # Tăng số lượng sequences cho reranking batch
+      - QUANTIZATION= # Để trống nếu không dùng quantization, hoặc dùng "awq", "gptq", "sq"
+      - GPU_MEMORY_UTILIZATION=0.05  # Tỉ lệ sử dụng GPU memory (0.0-1.0)
+    ipc: host
+    ulimits:
+      memlock: -1
+      stack: 67108864
+    restart: always  # Đảm bảo luôn restart nếu container gặp sự cố
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/v1/models"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 240s  # Thời gian để container khởi động hoàn toàn

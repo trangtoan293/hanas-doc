@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  vllm-qwen3-14b:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ktl-vllm:latest
+    container_name: vllm-qwen3-14b
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 2 # Số lượng GPU bạn muốn sử dụng
+              capabilities: [gpu]
+    ports:
+      - "8010:8000"
+    volumes:
+      - ~/.cache/huggingface:/root/.cache/huggingface
+    environment:
+      - MODEL=Qwen/Qwen3-14B # Thay bằng model bạn muốn sử dụng
+      - TENSOR_PARALLEL_SIZE=2  # Số GPU đơn vị parallel
+      - MAX_MODEL_LEN=24576  # Độ dài context tối đa
+      - MAX_NUM_SEQS=16 # Số lượng sequences tối đa
+      - QUANTIZATION=  # Để trống nếu không dùng quantization, hoặc dùng "awq", "gptq", "sq"
+      - GPU_MEMORY_UTILIZATION=0.85  # Tỉ lệ sử dụng GPU memory (0.0-1.0)
+      - HUGGING_FACE_HUB_TOKEN=${HUGGING_FACE_HUB_TOKEN:-<YOUR_HF_TOKEN>}
+      - TRUST_REMOTE_CODE=True
+    ipc: host
+    ulimits:
+      memlock: -1
+      stack: 67108864
+    restart: always  # Đảm bảo luôn restart nếu container gặp sự cố
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/v1/models"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 240s  # Thời gian để container khởi động hoàn toàn

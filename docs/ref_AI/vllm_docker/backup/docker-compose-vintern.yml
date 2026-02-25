@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  vllm-vintern:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ktl-vllm:latest
+    container_name: vllm-vintern_3B
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 2 # Số lượng GPU bạn muốn sử dụng
+              capabilities: [gpu]
+    ports:
+      - "9000:8000"
+    volumes:
+      - ~/.cache/huggingface:/root/.cache/huggingface
+    environment:
+      - MODEL=5CD-AI/Vintern-3B-beta # Thay bằng model bạn muốn sử dụng
+      - TENSOR_PARALLEL_SIZE=2  # Số GPU đơn vị parallel
+      - MAX_MODEL_LEN=4096
+      - MAX_NUM_SEQS=16
+      - QUANTIZATION=  # Để trống nếu không dùng quantization, hoặc dùng "awq", "gptq", "sq"
+      - GPU_MEMORY_UTILIZATION=0.3 # Tỉ lệ sử dụng GPU memory (0.0-1.0)
+      - HUGGING_FACE_HUB_TOKEN=${HUGGING_FACE_HUB_TOKEN:-<YOUR_HF_TOKEN>}
+    ipc: host
+    ulimits:
+      memlock: -1
+      stack: 67108864
+    restart: always  # Đảm bảo luôn restart nếu container gặp sự cố
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/v1/models"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s  # Thời gian để container khởi động hoàn toàn
+    command: --tool-call-parser internlm --enable-auto-tool-choice
