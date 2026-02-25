@@ -82,6 +82,31 @@ const config: Config = {
     ],
   ],
 
+  // Local search plugin configuration
+  plugins: [
+    [
+      require.resolve('@easyops-cn/docusaurus-search-local'),
+      {
+        // Hashed filenames for cache busting
+        hashed: true,
+        // Language support: English and Vietnamese
+        language: ['en', 'vi'],
+        // Index documentation pages
+        indexDocs: true,
+        // Index blog pages (disabled since blog is false)
+        indexBlog: false,
+        // Index static pages
+        indexPages: false,
+        // Docs route base path
+        docsRouteBasePath: '/',
+        // Maximum search results to show
+        // Maximum search results to show
+        searchResultLimits: 10,
+      },
+    ],
+  ],
+
+
   themeConfig: {
     image: 'img/hanas-social-card.jpg',
     colorMode: {
