@@ -65,3 +65,24 @@
 | **ATTT** | An Toàn Thông Tin |
 | **TLS** | Transport Layer Security - mã hóa đường truyền |
 | **SASL** | Simple Authentication and Security Layer |
+
+## AI Service
+
+| Thuật ngữ | Giải thích |
+|---|---|
+| **LLM** | Large Language Model — mô hình ngôn ngữ lớn (e.g. Qwen3, GPT) |
+| **Inference** | Quá trình chạy model để sinh kết quả từ input |
+| **RAG** | Retrieval-Augmented Generation — kết hợp truy vấn tài liệu + LLM |
+| **Embedding** | Biểu diễn văn bản thành vector số học để tìm kiếm ngữ nghĩa |
+| **Reranking** | Sắp xếp lại kết quả tìm kiếm theo mức độ liên quan |
+| **Chatflow** | Luồng hội thoại AI dạng đồ thị (graph-based) |
+| **Agent** | AI có khả năng sử dụng tools và thực hiện actions |
+| **Tool Calling** | LLM gọi hàm/API bên ngoài để thực hiện tác vụ |
+| **Knowledge Base** | Kho tài liệu được index cho RAG retrieval |
+| **Prompt** | Đoạn text hướng dẫn LLM cách xử lý và trả lời |
+| **Token** | Đơn vị nhỏ nhất của text mà LLM xử lý |
+| **Quantization** | Kỹ thuật nén model (AWQ, GPTQ) để giảm VRAM |
+| **VRAM** | Video RAM — bộ nhớ GPU dùng cho inference |
+| **Trace** | Bản ghi chi tiết một lần gọi AI (input/output/latency/cost) |
+| **Observability** | Khả năng giám sát và phân tích hệ thống AI |
+
