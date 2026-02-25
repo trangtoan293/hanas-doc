@@ -97,6 +97,22 @@ const features: FeatureCard[] = [
     ),
     link: '/federation',
   },
+  {
+    id: 'ai',
+    title: 'Dịch Vụ AI',
+    description: 'Tích hợp AI với Dify, vLLM và Langfuse cho các tác vụ thông minh',
+    icon: (
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L4 6V12C4 16.4183 7.58172 20 12 22C16.4183 20 20 16.4183 20 12V6L12 2Z" stroke="#29B5E8" strokeWidth="2" strokeLinejoin="round"/>
+        <path d="M12 6V14" stroke="#4DC3ED" strokeWidth="2" strokeLinecap="round"/>
+        <path d="M9 11L12 14L15 11" stroke="#71D1F2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <circle cx="12" cy="16" r="2" fill="#FF9F36"/>
+        <path d="M8 8H10" stroke="#FF9F36" strokeWidth="2" strokeLinecap="round"/>
+        <path d="M14 8H16" stroke="#FF9F36" strokeWidth="2" strokeLinecap="round"/>
+      </svg>
+    ),
+    link: '/ai-service',
+  },
 ];
 
 const FeatureCardComponent: React.FC<FeatureCard> = ({ title, description, icon, link }) => (
