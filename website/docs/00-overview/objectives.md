@@ -36,8 +36,12 @@
 - Phát hiện sớm sự cố, đảm bảo tính sẵn sàng
 - Vận hành ổn định, liên tục, dễ mở rộng
 
-## 6. Mục Tiêu Về Khả Năng Mở Rộng Và Sẵn Sàng AI/ML
+## 6. Mục Tiêu Về AI Service
 
-- Không phụ thuộc cứng vào một hệ thống đơn lẻ
-- Tích hợp với nền tảng AI/ML trong tương lai
-- Nền tảng thống nhất phục vụ chuyển đổi số
+- Tích hợp AI Service layer khai thác dữ liệu Lakehouse cho ứng dụng AI
+- Host và vận hành LLM models (inference, embedding, reranking) trên GPU servers
+- Xây dựng AI workflows (chatbot, RAG, agent) phục vụ nghiệp vụ nội bộ
+- Giám sát chất lượng, hiệu suất và chi phí AI thông qua LLM observability
+- Không phụ thuộc cứng vào một mô hình đơn lẻ — hỗ trợ đa models và mở rộng trong tương lai
+- Nền tảng thống nhất phục vụ chuyển đổi số toàn diện (dữ liệu + AI)
+

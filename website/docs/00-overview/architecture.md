@@ -54,6 +54,15 @@ flowchart TB
         Apps[Applications]
     end
     
+    subgraph AI["AI Service Layer"]
+        vLLM[vLLM
+        <br/>LLM Inference]
+        Dify[Dify
+        <br/>AI Workflow]
+        Langfuse[Langfuse
+        <br/>Observability]
+    end
+    
     subgraph Security["Security Layer"]
         Ranger[Apache Ranger
         <br/>Authorization]
@@ -76,6 +85,10 @@ flowchart TB
     L2 --> L5
     L2 --> L6
     L6 --> L7
+    L2 --> AI
+    vLLM --> Dify
+    Dify --> Langfuse
+    Dify --> L7
     K8s -.-> NiFi
     K8s -.-> Kafka
     K8s -.-> MinIO
@@ -83,6 +96,7 @@ flowchart TB
     K8s -.-> Spark
     K8s -.-> Dremio
     K8s -.-> DataHub
+    K8s -.-> Dify
     style L1 fill:#fff3e0,stroke:#ef6c00
     style L2 fill:#e8f5e9,stroke:#388e3c
     style L3 fill:#fce4ec,stroke:#c2185b
@@ -90,6 +104,7 @@ flowchart TB
     style L5 fill:#fff8e1,stroke:#ff6f00
     style L6 fill:#e0f7fa,stroke:#00838f
     style L7 fill:#e8eaf6,stroke:#3f51b5
+    style AI fill:#fce4ec,stroke:#ad1457
     style Security fill:#ffebee,stroke:#c62828
     style Infra fill:#f5f5f5,stroke:#616161
 ```
@@ -134,6 +149,16 @@ Tổ chức dữ liệu theo phương pháp Data Vault 2.0:
 
 - **OpenObserve**: Thu thập log, metrics, traces; dashboard giám sát; cảnh báo sự cố
 
+### AI Service Layer
+
+Lớp AI Service mở rộng nền tảng với khả năng trí tuệ nhân tạo, khai thác dữ liệu từ Lakehouse:
+
+- **vLLM**: Inference engine cho LLM, Embedding và Reranker models — OpenAI-compatible API
+- **Dify**: AI Workflow Platform — visual builder cho chatbot, RAG, agent, workflow AI
+- **Langfuse**: LLM Observability — tracing, evaluation, prompt management
+
+Chi tiết tại [AI Service Documentation](../12-ai-service/README.md).
+
 ## Các Thành Phần Bổ Trợ
 
 | Thành phần | Vai trò |
@@ -170,6 +195,10 @@ sequenceDiagram
     
     L2->>L6: Query
     L6->>L7: Results
+    
+    L2->>AI: Documents + Data
+    AI->>L7: AI Insights
+    Note over AI: Dify + vLLM + Langfuse
 ```
 
 ## Nguyên Tắc Kiến Trúc
@@ -180,3 +209,4 @@ sequenceDiagram
 4. **Separation of concerns**: Tách biệt rõ ràng giữa các lớp
 5. **Scalability**: Mở rộng theo chiều ngang (horizontal scaling)
 6. **Security by design**: Bảo mật xuyên suốt từ thiết kế
+7. **AI-ready**: Tích hợp sẵn AI Service layer, khai thác dữ liệu Lakehouse cho ứng dụng AI
