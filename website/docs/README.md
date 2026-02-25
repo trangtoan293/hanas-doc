@@ -5,51 +5,51 @@ slug: /
 
 # Hanas Data Platform
 
-> **Nền tảng Dữ liệu Hợp nhất (Data Lakehouse)** - Giải pháp toàn diện cho quản trị dữ liệu doanh nghiệp
+> **Nền tảng Dữ liệu Hợp nhất (Data Lakehouse) + AI Service** - Giải pháp toàn diện cho quản trị dữ liệu và ứng dụng AI doanh nghiệp
 
-## 🎯 Tổng Quan
+## Tổng Quan
 
 Hanas Data Platform là nền tảng dữ liệu hợp nhất (Data Lakehouse), được thiết kế để tiếp nhận, lưu trữ, xử lý và quản trị dữ liệu một cách thống nhất. Nền tảng kết hợp linh hoạt giữa lưu trữ Data Lake và quản trị Data Warehouse, phân tách thành 7 lớp từ thu thập đến tiêu thụ dữ liệu.
 
-## 🏗️ Kiến Trúc 7 Lớp
+## Kiến Trúc 7 Lớp
 
 ```mermaid
 flowchart TB
-    subgraph Sources["🌐 Data Sources"]
+    subgraph Sources["Data Sources"]
         DB[(Databases)]
         Files[Files/APIs]
         CDC[CDC/Events]
     end
     
-    subgraph L1["📥 Lớp 1: Thu Thập"]
+    subgraph L1["Lớp 1: Thu Thập"]
         NiFi[Apache NiFi]
         Kafka[Apache Kafka]
     end
     
-    subgraph L2["💾 Lớp 2: Lưu Trữ"]
+    subgraph L2["Lớp 2: Lưu Trữ"]
         MinIO[(MinIO)]
         Iceberg[Apache Iceberg]
     end
     
-    subgraph L3["⚡ Lớp 3: Xử Lý"]
+    subgraph L3["Lớp 3: Xử Lý"]
         Airflow[Apache Airflow]
         Spark[Apache Spark]
     end
     
-    subgraph L4["🏗️ Lớp 4: Mô Hình"]
+    subgraph L4["Lớp 4: Mô Hình"]
         dbt[dbt]
         DV[Data Vault 2.0]
     end
     
-    subgraph L5["🔍 Lớp 5: Quản Trị"]
+    subgraph L5["Lớp 5: Quản Trị"]
         DataHub[DataHub]
     end
     
-    subgraph L6["🔗 Lớp 6: Liên Kết"]
+    subgraph L6["Lớp 6: Liên Kết"]
         Dremio[Dremio]
     end
     
-    subgraph L7["📊 Lớp 7: Tiêu Thụ"]
+    subgraph L7["Lớp 7: Tiêu Thụ"]
         BI[BI Tools]
         Apps[Applications]
     end
@@ -88,14 +88,15 @@ flowchart TB
 | **09** | [An Toàn Thông Tin](09-security/README.md) | Security & Access Control | Ranger, Vault |
 | **10** | [Đào Tạo](10-training/README.md) | Training materials | - |
 | **11** | [Bảo Hành & Bảo Trì](11-maintenance/README.md) | SLA & Maintenance | - |
+| **12** | [AI Service](12-ai-service/README.md) | AI Workflow, Inference & Observability | Dify, vLLM, Langfuse |
 
-## 🚀 Bắt Đầu Nhanh
+## Bắt Đầu Nhanh
 
 - [Quickstart Guide](guides/quickstart.md) - Dựng môi trường và chạy data flow đầu tiên
 - [End-to-End Tutorial](guides/end-to-end-tutorial.md) - Tutorial đầy đủ từ Source → BI
 - [Kiến Trúc Tổng Thể](00-overview/architecture.md) - Hiểu rõ kiến trúc 7 lớp
 
-## 🛠️ Công Nghệ Sử Dụng
+## Công Nghệ Sử Dụng
 
 ### Core Platform
 - **Apache NiFi** - Data ingestion và ETL visual
@@ -108,6 +109,11 @@ flowchart TB
 - **DataHub** - Metadata management
 - **Dremio** - Query engine và semantic layer
 
+### AI Service
+- **Dify** - AI workflow platform (chatbot, RAG, agent)
+- **vLLM** - LLM inference engine (OpenAI-compatible API)
+- **Langfuse** - LLM observability (tracing, evaluation, prompt management)
+
 ### Infrastructure & Security
 - **Kubernetes** - Container orchestration
 - **OpenObserve** - Observability platform
@@ -115,23 +121,15 @@ flowchart TB
 - **HashiCorp Vault** - Secrets management
 - **Velero** - Backup & disaster recovery
 
-## 📖 Hướng Dẫn Thực Hành
+## Hướng Dẫn Thực Hành
 
 | Loại | Nội Dung |
 |------|----------|
-| **Integration** | [NiFi → MinIO](guides/integration/nifi-to-minio.md), [Airflow + Spark](guides/integration/airflow-spark-pipeline.md), [dbt + Data Vault](guides/integration/dbt-data-vault.md) |
-| **Examples** | [NiFi Flow](guides/examples/sample-nifi-flow.md), [Airflow DAG](guides/examples/sample-airflow-dag.md), [Spark Job](guides/examples/sample-spark-job.md) |
+| **Integration** | [NiFi → MinIO](guides/integration/nifi-to-minio.md), [Airflow + Spark](guides/integration/airflow-spark-pipeline.md), [dbt + Data Vault](guides/integration/dbt-data-vault.md), [Dify + vLLM + Langfuse](guides/integration/dify-vllm-langfuse.md) |
+| **Examples** | [NiFi Flow](guides/examples/sample-nifi-flow.md), [Airflow DAG](guides/examples/sample-airflow-dag.md), [Spark Job](guides/examples/sample-spark-job.md), [Dify Workflow](guides/examples/sample-dify-workflow.md) |
 | **Troubleshooting** | [Xử lý sự cố](guides/troubleshooting.md) |
 
-## 🤝 Đóng Góp
-
-Tài liệu này được duy trì bởi đội ngũ Hanas. Nếu bạn tìm thấy lỗi hoặc muốn đóng góp, vui lòng:
-
-1. Fork repository
-2. Tạo branch mới
-3. Commit changes
-4. Tạo Pull Request
 
 ---
 
-**© 2025 Hanas Data Platform** - Built with ❤️ using [Docusaurus](https://docusaurus.io/)
+**© 2026 Hanas Data Platform** 

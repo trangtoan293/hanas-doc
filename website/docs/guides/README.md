@@ -23,6 +23,7 @@ Hướng dẫn cách các service kết nối và tương tác với nhau:
 | 4 | [dbt + Data Vault](integration/dbt-data-vault.md) | Build Raw Vault → Business Vault → Mart |
 | 5 | [Dremio + Lakehouse](integration/dremio-lakehouse.md) | Query engine + Semantic Layer |
 | 6 | [Kafka Streaming](integration/kafka-streaming-flow.md) | CDC/Streaming → Spark → Iceberg |
+| 7 | [Dify + vLLM + Langfuse](integration/dify-vllm-langfuse.md) | AI Stack — Inference + Workflow + Observability |
 
 ## Code Examples
 
@@ -33,6 +34,7 @@ Hướng dẫn cách các service kết nối và tương tác với nhau:
 | 3 | [Spark Job mẫu](examples/sample-spark-job.md) | PySpark ETL job |
 | 4 | [dbt Models mẫu](examples/sample-dbt-models.md) | Hub/Link/Satellite/Mart models |
 | 5 | [Dremio Setup mẫu](examples/sample-dremio-setup.md) | Virtual dataset, reflection, workspace |
+| 6 | [Dify Workflow mẫu](examples/sample-dify-workflow.md) | RAG Chatbot với vLLM + Knowledge Base |
 
 ## Xử Lý Sự Cố
 
