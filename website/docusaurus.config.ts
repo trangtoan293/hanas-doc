@@ -69,7 +69,8 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          editUrl: 'https://github.com/hanas/hanas-docs/tree/main/website/',
+          // Edit URL pointing to GitLab repository for contribution
+          editUrl: 'https://gitlab.katalyst.vn:7979/de-team/hanas-docs/-/blob/main/website/',
           routeBasePath: '/',
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
@@ -127,7 +128,7 @@ const config: Config = {
           label: 'Tài Liệu',
         },
         {
-          href: 'https://github.com/hanas/hanas-docs',
+          href: 'https://github.com/trangtoan293/hanas-doc',
           label: 'GitHub',
           position: 'right',
         },
