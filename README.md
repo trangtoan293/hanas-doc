@@ -142,20 +142,21 @@ AI Workflow, Inference & Observability — Mở rộng platform với khả năn
 
 | Lớp | Service | Vai Trò | Status |
 |---|---|---|---|
-| **Ingestion** | Apache NiFi | Thu thập batch, ETL visual | ✅ Documented |
-| **Ingestion** | Apache Kafka | Streaming, real-time | ✅ Documented |
-| **Storage** | MinIO | Object Storage (S3-compatible) | ✅ Documented |
+| **Ingestion** | Apache NiFi | Thu thập batch, ETL visual | Pending |
+| **Ingestion** | Apache Kafka | Streaming, real-time | Pending |
+| **Storage** | MinIO | Object Storage (S3-compatible) | Needed to update |
 | **Storage** | Apache Iceberg | Open Table Format | ✅ Documented |
 | **Processing** | Apache Airflow | Orchestration, scheduling | ✅ Documented |
 | **Processing** | Apache Spark | Distributed compute engine | ✅ Documented |
 | **Data Model** | dbt | SQL-based transformation | ✅ Documented |
+| **Data Model** | Data Vault 2.0 | Data Vault 2.0 Methodology | ✅ Documented |
 | **Governance** | DataHub | Metadata, catalog, lineage | ✅ Documented |
-| **Federation** | Dremio | Query engine, semantic layer | ✅ Documented |
-| **System Mgmt** | OpenObserve | Logging, metrics, tracing | ✅ Documented |
-| **Security** | Apache Ranger | Authorization, access control | ✅ Documented |
-| **Security** | HashiCorp Vault | Secrets management | ✅ Documented |
-| **Infra** | Kubernetes | Container orchestration | ✅ Documented |
-| **Infra** | Velero | K8s backup & recovery | ✅ Documented |
+| **Federation** | Dremio | Query engine, semantic layer | Needed to update |
+| **System Mgmt** | OpenObserve | Logging, metrics, tracing | Pending |
+| **Security** | Apache Ranger | Authorization, access control | Pending |
+| **Security** | HashiCorp Vault | Secrets management | Pending |
+| **Infra** | Kubernetes | Container orchestration | Pending |
+| **Infra** | Velero | K8s backup & recovery | Pending |
 | **AI Service** | Dify | AI Workflow Platform | ✅ Documented |
 | **AI Service** | vLLM | LLM Inference Engine | ✅ Documented |
 | **AI Service** | Langfuse | LLM Observability | ✅ Documented |
