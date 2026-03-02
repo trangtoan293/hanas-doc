@@ -33,10 +33,37 @@
 .card {
   display: flex;
   flex-direction: column;
+  padding: 28px;
+  background: var(--ifm-background-surface-color);
+  border-radius: 12px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-top: 3px solid transparent;
+  box-shadow: var(--ifm-shadow-sm);
+  transition: all 0.25s ease;
+}
+
+.card:hover {
+  border-top: 3px solid var(--ifm-color-accent);
+  box-shadow: var(--ifm-shadow-md);
+  transform: translateY(-4px);
 }
 
 .iconWrapper {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ifm-color-accent-subtle);
+  border-radius: 12px;
   margin-bottom: 20px;
+  color: var(--ifm-color-accent);
+}
+
+.iconWrapper svg {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
 }
 
 .cardTitle {
@@ -53,6 +80,30 @@
   margin-bottom: 20px;
   line-height: 1.6;
   flex-grow: 1;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ifm-color-accent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  color: var(--ifm-color-accent-hover);
+  text-decoration: none;
+}
+
+.linkArrow {
+  transition: transform 0.2s ease;
+}
+
+.link:hover .linkArrow {
+  transform: translateX(4px);
 }
 
 @media (max-width: 996px) {
@@ -91,11 +142,8 @@
   .header {
     margin-bottom: 40px;
   }
-}
 
-.cardIcon {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
-  display: block;
+  .card {
+    padding: 24px;
+  }
 }

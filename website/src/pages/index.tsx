@@ -8,6 +8,8 @@ import TabNavigation from '@site/src/components/TabNavigation';
 import CaseStudySection from '@site/src/components/CaseStudySection';
 import CTABanner from '@site/src/components/CTABanner';
 
+
+
 export default function Home(): ReactNode {
   const {siteConfig} = useDocusaurusContext();
   return (
@@ -17,8 +19,10 @@ export default function Home(): ReactNode {
       <main>
         <HeroSection />
         <PlatformGrid />
+
         <TabNavigation />
         <CaseStudySection />
+
         <CTABanner />
       </main>
     </Layout>

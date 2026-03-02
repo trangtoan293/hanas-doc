@@ -16,7 +16,6 @@ const sidebars: SidebarsConfig = {
         id: 'overview/README',
       },
       items: [
-        'overview/README',
         'overview/architecture',
         'overview/objectives',
         'overview/glossary',
@@ -31,7 +30,6 @@ const sidebars: SidebarsConfig = {
         id: 'ingestion/README',
       },
       items: [
-        'ingestion/README',
         {
           type: 'category',
           label: 'Apache NiFi',
@@ -67,7 +65,6 @@ const sidebars: SidebarsConfig = {
         id: 'storage/README',
       },
       items: [
-        'storage/README',
         {
           type: 'category',
           label: 'MinIO',
@@ -103,7 +100,6 @@ const sidebars: SidebarsConfig = {
         id: 'processing/README',
       },
       items: [
-        'processing/README',
         {
           type: 'category',
           label: 'Apache Airflow',
@@ -139,7 +135,6 @@ const sidebars: SidebarsConfig = {
         id: 'data-model/README',
       },
       items: [
-        'data-model/README',
         'data-model/naming-conventions',
         {
           type: 'category',
@@ -174,7 +169,6 @@ const sidebars: SidebarsConfig = {
         id: 'governance/README',
       },
       items: [
-        'governance/README',
         {
           type: 'category',
           label: 'DataHub',
@@ -198,7 +192,6 @@ const sidebars: SidebarsConfig = {
         id: 'federation/README',
       },
       items: [
-        'federation/README',
         {
           type: 'category',
           label: 'Dremio',
@@ -222,7 +215,6 @@ const sidebars: SidebarsConfig = {
         id: 'system-management/README',
       },
       items: [
-        'system-management/README',
         {
           type: 'category',
           label: 'OpenObserve',
@@ -237,38 +229,37 @@ const sidebars: SidebarsConfig = {
         },
       ],
     },
-    {
-      type: 'category',
-      label: 'Hạ Tầng',
-      collapsed: true,
-      link: {
-        type: 'doc',
-        id: 'infrastructure/README',
-      },
-      items: [
-        'infrastructure/README',
-        'infrastructure/deployment-diagram',
-        {
-          type: 'category',
-          label: 'Kubernetes',
-          items: [
-            'infrastructure/kubernetes/README',
-            'infrastructure/kubernetes/cluster-setup',
-            'infrastructure/kubernetes/best-practices',
-          ],
-        },
-        {
-          type: 'category',
-          label: 'DC-DR',
-          items: [
-            'infrastructure/dc-dr/README',
-            'infrastructure/dc-dr/minio-replication',
-            'infrastructure/dc-dr/velero-backup',
-            'infrastructure/dc-dr/recovery-workflow',
-          ],
-        },
-      ],
-    },
+    // {
+    //   type: 'category',
+    //   label: 'Hạ Tầng',
+    //   collapsed: true,
+    //   link: {
+    //     type: 'doc',
+    //     id: 'infrastructure/README',
+    //   },
+    //   items: [
+    //     'infrastructure/deployment-diagram',
+    //     {
+    //       type: 'category',
+    //       label: 'Kubernetes',
+    //       items: [
+    //         'infrastructure/kubernetes/README',
+    //         'infrastructure/kubernetes/cluster-setup',
+    //         'infrastructure/kubernetes/best-practices',
+    //       ],
+    //     },
+    //     {
+    //       type: 'category',
+    //       label: 'DC-DR',
+    //       items: [
+    //         'infrastructure/dc-dr/README',
+    //         'infrastructure/dc-dr/minio-replication',
+    //         'infrastructure/dc-dr/velero-backup',
+    //         'infrastructure/dc-dr/recovery-workflow',
+    //       ],
+    //     },
+    //   ],
+    // },
     {
       type: 'category',
       label: 'An Toàn Thông Tin',
@@ -278,10 +269,8 @@ const sidebars: SidebarsConfig = {
         id: 'security/README',
       },
       items: [
-        'security/README',
-        'security/authentication',
-        'security/authorization',
-        'security/security-assessment',
+        // 'security/authentication',
+        // 'security/authorization',
         {
           type: 'category',
           label: 'Apache Ranger',
@@ -304,37 +293,7 @@ const sidebars: SidebarsConfig = {
         },
       ],
     },
-    {
-      type: 'category',
-      label: 'Đào Tạo',
-      collapsed: true,
-      link: {
-        type: 'doc',
-        id: 'training/README',
-      },
-      items: [
-        'training/README',
-        'training/system-admin-training',
-        'training/data-governance-training',
-        'training/data-processing-training',
-        'training/data-consumer-training',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Bảo Hành & Bảo Trì',
-      collapsed: true,
-      link: {
-        type: 'doc',
-        id: 'maintenance/README',
-      },
-      items: [
-        'maintenance/README',
-        'maintenance/warranty-process',
-        'maintenance/maintenance-process',
-        'maintenance/sla',
-      ],
-    },
+
     {
       type: 'category',
       label: 'AI Service',
@@ -344,7 +303,6 @@ const sidebars: SidebarsConfig = {
         id: 'ai-service/README',
       },
       items: [
-        'ai-service/README',
         {
           type: 'category',
           label: 'Dify',
@@ -383,46 +341,7 @@ const sidebars: SidebarsConfig = {
         },
       ],
     },
-    {
-      type: 'category',
-      label: 'Hướng Dẫn Thực Hành',
-      collapsed: true,
-      link: {
-        type: 'doc',
-        id: 'guides/README',
-      },
-      items: [
-        'guides/README',
-        'guides/quickstart',
-        'guides/end-to-end-tutorial',
-        'guides/troubleshooting',
-        {
-          type: 'category',
-          label: 'Integration Guides',
-          items: [
-            'guides/integration/nifi-to-minio',
-            'guides/integration/airflow-spark-pipeline',
-            'guides/integration/spark-iceberg-operations',
-            'guides/integration/dbt-data-vault',
-            'guides/integration/dremio-lakehouse',
-            'guides/integration/kafka-streaming-flow',
-            'guides/integration/dify-vllm-langfuse',
-          ],
-        },
-        {
-          type: 'category',
-          label: 'Code Examples',
-          items: [
-            'guides/examples/sample-nifi-flow',
-            'guides/examples/sample-airflow-dag',
-            'guides/examples/sample-spark-job',
-            'guides/examples/sample-dbt-models',
-            'guides/examples/sample-dremio-setup',
-            'guides/examples/sample-dify-workflow',
-          ],
-        },
-      ],
-    },
+
   ],
 };
 
