@@ -111,45 +111,45 @@ flowchart TB
 
 ## Mô Tả Các Lớp
 
-### 1. Lớp Thu Thập Dữ Liệu (Data Ingestion) — [📖 Xem tài liệu](../01-ingestion/README.md)
+### [1. Lớp Thu Thập Dữ Liệu (Data Ingestion)](../01-ingestion/README.md)
 
 Kéo dữ liệu thô từ các nguồn dữ liệu vào Data Lakehouse thông qua hai cơ chế:
 - **Batch** (định kỳ): [Apache NiFi](../01-ingestion/apache-nifi/README.md) xử lý ETL visual, kết nối đa nguồn
 - **Streaming** (liên tục): [Apache Kafka](../01-ingestion/apache-kafka/README.md) truyền phát dữ liệu real-time, độ trễ thấp
 
-### 2. Lớp Lưu Trữ Dữ Liệu (Data Storage) — [📖 Xem tài liệu](../02-storage/README.md)
+### [2. Lớp Lưu Trữ Dữ Liệu (Data Storage)](../02-storage/README.md)
 
 Dữ liệu sau thu thập được đưa vào vùng Landing trên Data Lake:
 - **[MinIO](../02-storage/minio/README.md)**: Object Storage phân tán, S3-compatible, lưu trữ tập trung
 - **[Apache Iceberg](../02-storage/apache-iceberg/README.md)**: Open Table Format, ACID transactions, time travel, schema evolution
 
-### 3. Lớp Xử Lý Dữ Liệu (Data Processing) — [📖 Xem tài liệu](../03-processing/README.md)
+### [3. Lớp Xử Lý Dữ Liệu (Data Processing)](../03-processing/README.md)
 
 Điều phối và thực thi toàn bộ pipeline xử lý dữ liệu:
 - **[Apache Airflow](../03-processing/apache-airflow/README.md)**: Orchestration theo mô hình DAG, lập lịch, kiểm soát lỗi
 - **[Apache Spark](../03-processing/apache-spark/README.md)**: Compute engine phân tán, xử lý batch và streaming quy mô lớn
 
-### 4. Lớp Mô Hình Dữ Liệu (Data Model) — [📖 Xem tài liệu](../04-data-model/README.md)
+### [4. Lớp Mô Hình Dữ Liệu (Data Model)](../04-data-model/README.md)
 
 Tổ chức dữ liệu theo phương pháp Data Vault 2.0:
-- **Raw Vault**: Hub, Link, Satellite — lưu trữ dữ liệu gốc đã chuẩn hóa
-- **Business Vault**: Logic nghiệp vụ nâng cao (PIT, Bridge, Business Satellite)
-- **Information Mart**: Star Schema, Wide Table phục vụ BI và báo cáo
+- **[Raw Vault](../04-data-model/data-vault/raw-vault.md)**: Hub, Link, Satellite — lưu trữ dữ liệu gốc đã chuẩn hóa
+- **[Business Vault](../04-data-model/data-vault/business-vault.md)**: Logic nghiệp vụ nâng cao (PIT, Bridge, Business Satellite)
+- **[Information Mart](../04-data-model/data-vault/information-mart.md)**: Star Schema, Wide Table phục vụ BI và báo cáo
 - **[dbt](../04-data-model/dbt/README.md)**: Công cụ transformation SQL-based, quản lý mô hình dữ liệu
 
-### 5. Lớp Quản Trị Dữ Liệu (Data Governance) — [📖 Xem tài liệu](../05-governance/README.md)
+### [5. Lớp Quản Trị Dữ Liệu (Data Governance)](../05-governance/README.md)
 
 - **[DataHub](../05-governance/datahub/README.md)**: Metadata management, data catalog, data lineage, business glossary, data quality tracking
 
-### 6. Lớp Liên Kết Dữ Liệu (Data Federation) — [📖 Xem tài liệu](../06-federation/README.md)
+### [6. Lớp Liên Kết Dữ Liệu (Data Federation)](../06-federation/README.md)
 
 - **[Dremio](../06-federation/dremio/README.md)**: Query engine thống nhất, semantic layer, virtual datasets, acceleration layer, BI connectivity (JDBC/ODBC/REST)
 
-### 7. Lớp Quản Trị Hệ Thống (System Management) — [📖 Xem tài liệu](../07-system-management/README.md)
+### [7. Lớp Quản Trị Hệ Thống (System Management)](../07-system-management/README.md)
 
 - **[OpenObserve](../07-system-management/openobserve/README.md)**: Thu thập log, metrics, traces; dashboard giám sát; cảnh báo sự cố
 
-### AI Service Layer — [📖 Xem tài liệu](../12-ai-service/README.md)
+### [AI Service Layer](../12-ai-service/README.md)
 
 Lớp AI Service mở rộng nền tảng với khả năng trí tuệ nhân tạo, khai thác dữ liệu từ Lakehouse:
 

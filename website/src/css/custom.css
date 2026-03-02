@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
 
 /**
  * Any CSS included here will be global. The classic template
@@ -16,24 +16,24 @@
   --ifm-color-primary-light: #4b5563;
   --ifm-color-primary-lighter: #6b7280;
   --ifm-color-primary-lightest: #9ca3af;
-  
+
   /* Background Colors - White Theme */
   --ifm-background-color: #ffffff;
   --ifm-surface-color: #f9fafb;
   --ifm-navbar-background-color: #ffffff;
-  
+
   /* Text Colors */
   --ifm-font-color-base: #111827;
   --ifm-font-color-secondary: #6b7280;
   --ifm-font-color-muted: #9ca3af;
-  
+
   /* Border & Divider */
   --ifm-border-color: #e5e7eb;
-  
+
   /* Default Infima Variables */
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.05);
-  --ifm-font-family-base: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  --ifm-font-family-base: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 /* Dark Mode - Dark Gray Theme */
@@ -173,18 +173,19 @@
 
 /* Accessibility - Respect user motion preferences */
 @media (prefers-reduced-motion: reduce) {
+
   .button--primary,
   .button--secondary,
   .button--link,
   .feature-card {
     transition: none;
   }
-  
+
   .button--primary:hover,
   .button--secondary:hover {
     transform: none;
   }
-  
+
   .feature-card:hover {
     transform: none;
   }
@@ -205,6 +206,7 @@ html {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -215,6 +217,7 @@ html {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -230,11 +233,25 @@ html {
 }
 
 /* Stagger delay utilities */
-.delay-100 { animation-delay: 0.1s; }
-.delay-200 { animation-delay: 0.2s; }
-.delay-300 { animation-delay: 0.3s; }
-.delay-400 { animation-delay: 0.4s; }
-.delay-500 { animation-delay: 0.5s; }
+.delay-100 {
+  animation-delay: 0.1s;
+}
+
+.delay-200 {
+  animation-delay: 0.2s;
+}
+
+.delay-300 {
+  animation-delay: 0.3s;
+}
+
+.delay-400 {
+  animation-delay: 0.4s;
+}
+
+.delay-500 {
+  animation-delay: 0.5s;
+}
 
 /* Section spacing */
 section {
@@ -253,7 +270,7 @@ section {
   section {
     padding: 60px 0;
   }
-  
+
   .container {
     padding: 0 16px;
   }
