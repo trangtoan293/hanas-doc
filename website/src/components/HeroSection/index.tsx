@@ -17,7 +17,7 @@ export default function HeroSection(): JSX.Element {
               giúp doanh nghiệp quản lý và khai thác dữ liệu hiệu quả.
             </p>
             <div className={styles.heroButtons}>
-              <a href="/" className="button--primary">
+              <a href="https://portal.hanas.io/portal/home/dashboard" className="button--primary">
                 KHÁM PHÁ NGAY
               </a>
               <a href="/overview/architecture" className="button--link">
@@ -27,8 +27,8 @@ export default function HeroSection(): JSX.Element {
             </div>
           </div>
           <div className={styles.heroVisual}>
-            <img 
-              src="/img/hanas_platform.png" 
+            <img
+              src="/img/hanas_platform.png"
               alt="Hanas Data Platform Architecture"
               className={styles.heroImage}
             />
