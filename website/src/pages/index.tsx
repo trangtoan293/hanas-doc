@@ -7,6 +7,8 @@ import PlatformGrid from '@site/src/components/PlatformGrid';
 import TabNavigation from '@site/src/components/TabNavigation';
 import CaseStudySection from '@site/src/components/CaseStudySection';
 import CTABanner from '@site/src/components/CTABanner';
+import ArchitectureSection from '@site/src/components/ArchitectureSection';
+import TechStackSection from '@site/src/components/TechStackSection';
 
 export default function Home(): ReactNode {
   const {siteConfig} = useDocusaurusContext();
@@ -17,8 +19,10 @@ export default function Home(): ReactNode {
       <main>
         <HeroSection />
         <PlatformGrid />
+        <ArchitectureSection />
         <TabNavigation />
         <CaseStudySection />
+        <TechStackSection />
         <CTABanner />
       </main>
     </Layout>
