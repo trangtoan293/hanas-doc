@@ -32,7 +32,7 @@ const tabs: Tab[] = [
   }
 ];
 
-export default function TabNavigation(): JSX.Element {
+export default function TabNavigation(): React.JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('overview');
 
   const handleTabClick = (tabId: TabId) => {

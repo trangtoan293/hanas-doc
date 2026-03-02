@@ -48,7 +48,7 @@ Root Canvas
 
 ```mermaid
 flowchart LR
-    Source["Source\nProcessor"] -->|"Queue: 10K / 1GB"| Process["Processing\nProcessor"] -->|"Queue: 10K / 10GB"| Sink["Sink\nProcessor"]
+    Source["Source-Processor"] -->|"Queue: 10K / 1GB"| Process["Processing-Processor"] -->|"Queue: 10K / 10GB"| Sink["Sink-Processor"]
     
     style Source fill:#e1f5fe,stroke:#0288d1
     style Process fill:#fff3e0,stroke:#ef6c00
@@ -83,9 +83,9 @@ Trong `project_template.json`, back pressure mặc định:
 ```mermaid
 flowchart TB
     Process["Main Processor"] -->|success| Next["Next Step"]
-    Process -->|failure| Retry{"Retry\nCount > 0?"}
+    Process -->|failure| Retry{"Retry-Count > 0?"}
     Retry -->|Yes| Process
-    Retry -->|No| ErrorHandler["Error Handler\nLogAttribute + PutS3Object"]
+    Retry -->|No| ErrorHandler["Error Handler-LogAttribute + PutS3Object"]
     
     style Process fill:#e1f5fe,stroke:#0288d1
     style Next fill:#e8f5e9,stroke:#388e3c
@@ -181,7 +181,7 @@ kubectl create secret generic nifi-secrets \
 | Tip | Chi Tiết |
 |-----|----------|
 | **Concurrent Tasks = Partitions** | Đặt concurrent tasks bằng số Kafka partitions |
-| **Message Demarcator** | Để trống → 1 FlowFile/message. Đặt `\n` → batch nhiều messages |
+| **Message Demarcator** | Để trống → 1 FlowFile/message. Đặt `-` → batch nhiều messages |
 | **Group ID** | Dùng naming convention: `nifi-<project>-<flow>` |
 | **Auto Offset Reset** | `earliest` cho lần đầu, sau đó consumer tự quản lý offset |
 | **Max Poll Records** | Tăng nếu cần throughput cao |

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 /**
  * Any CSS included here will be global. The classic template
@@ -28,7 +28,25 @@
   --ifm-font-color-muted: #9ca3af;
 
   /* Border & Divider */
+  /* Border & Divider */
   --ifm-border-color: #e5e7eb;
+
+  /* Accent Colors - Blue */
+  --ifm-color-accent: #3B82F6;
+  --ifm-color-accent-dark: #2563EB;
+  --ifm-color-accent-light: #60A5FA;
+  --ifm-color-accent-subtle: #EFF6FF;
+  --ifm-color-indigo: #6366F1;
+
+  /* Shadows */
+  --ifm-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --ifm-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --ifm-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+  /* Border Radius */
+  --ifm-radius-sm: 4px;
+  --ifm-radius-md: 8px;
+  --ifm-radius-lg: 12px;
 
   /* Default Infima Variables */
   --ifm-code-font-size: 95%;
@@ -51,6 +69,23 @@
   --ifm-font-color-base: #f9fafb;
   --ifm-font-color-secondary: #d1d5db;
   --ifm-border-color: #374151;
+
+  /* Accent Colors - Dark Mode */
+  --ifm-color-accent: #3B82F6;
+  --ifm-color-accent-dark: #60A5FA;
+  --ifm-color-accent-light: #2563EB;
+  --ifm-color-accent-subtle: rgba(59, 130, 246, 0.12);
+  --ifm-color-indigo: #818CF8;
+
+  /* Shadows - Dark Mode */
+  --ifm-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --ifm-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --ifm-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+
+  /* Border Radius - Dark Mode */
+  --ifm-radius-sm: 4px;
+  --ifm-radius-md: 8px;
+  --ifm-radius-lg: 12px;
   --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1);
 }
 
@@ -70,7 +105,7 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   transition: all 0.2s ease;
-  background-color: #111827;
+  background-color: var(--ifm-color-accent);
   color: white;
   border: none;
   cursor: pointer;
@@ -78,6 +113,7 @@
 }
 
 .button--primary:hover {
+  background-color: var(--ifm-color-accent-dark);
   background-color: #374151;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
