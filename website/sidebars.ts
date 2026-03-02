@@ -229,37 +229,37 @@ const sidebars: SidebarsConfig = {
         },
       ],
     },
-    {
-      type: 'category',
-      label: 'Hạ Tầng',
-      collapsed: true,
-      link: {
-        type: 'doc',
-        id: 'infrastructure/README',
-      },
-      items: [
-        'infrastructure/deployment-diagram',
-        {
-          type: 'category',
-          label: 'Kubernetes',
-          items: [
-            'infrastructure/kubernetes/README',
-            'infrastructure/kubernetes/cluster-setup',
-            'infrastructure/kubernetes/best-practices',
-          ],
-        },
-        {
-          type: 'category',
-          label: 'DC-DR',
-          items: [
-            'infrastructure/dc-dr/README',
-            'infrastructure/dc-dr/minio-replication',
-            'infrastructure/dc-dr/velero-backup',
-            'infrastructure/dc-dr/recovery-workflow',
-          ],
-        },
-      ],
-    },
+    // {
+    //   type: 'category',
+    //   label: 'Hạ Tầng',
+    //   collapsed: true,
+    //   link: {
+    //     type: 'doc',
+    //     id: 'infrastructure/README',
+    //   },
+    //   items: [
+    //     'infrastructure/deployment-diagram',
+    //     {
+    //       type: 'category',
+    //       label: 'Kubernetes',
+    //       items: [
+    //         'infrastructure/kubernetes/README',
+    //         'infrastructure/kubernetes/cluster-setup',
+    //         'infrastructure/kubernetes/best-practices',
+    //       ],
+    //     },
+    //     {
+    //       type: 'category',
+    //       label: 'DC-DR',
+    //       items: [
+    //         'infrastructure/dc-dr/README',
+    //         'infrastructure/dc-dr/minio-replication',
+    //         'infrastructure/dc-dr/velero-backup',
+    //         'infrastructure/dc-dr/recovery-workflow',
+    //       ],
+    //     },
+    //   ],
+    // },
     {
       type: 'category',
       label: 'An Toàn Thông Tin',
@@ -269,8 +269,8 @@ const sidebars: SidebarsConfig = {
         id: 'security/README',
       },
       items: [
-        'security/authentication',
-        'security/authorization',
+        // 'security/authentication',
+        // 'security/authorization',
         {
           type: 'category',
           label: 'Apache Ranger',

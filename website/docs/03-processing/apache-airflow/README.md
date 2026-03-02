@@ -24,7 +24,7 @@ flowchart TB
     end
     
     subgraph Notification["Notifications"]
-        SLACK[Slack / Maileroo]
+        SLACK[Slack / SMTP ]
     end
     
     subgraph Governance["Governance"]
@@ -56,7 +56,7 @@ flowchart TB
 - **Điều phối pipeline ETL/ELT** end-to-end qua `SparkKubernetesOperator`
 - **Quản lý dbt transformations** trên Spark (Data Vault, Data Mart, MDM)
 - **Publishing metadata** tự động lên DataHub (lineage, schema, data quality)
-- **Email notifications** qua Maileroo API khi DAG hoàn thành
+- **Email notifications** qua SMTP khi DAG hoàn thành
 - **Alerting real-time** qua Slack/Teams khi task fail, retry, hoặc SLA breach
 
 ## Kiến Trúc Components
@@ -69,19 +69,6 @@ flowchart TB
 | **Metadata DB** | PostgreSQL lưu trạng thái DAG/task |
 | **Spark Operator** | Submit SparkApplication CRDs lên K8s cluster |
 
-## DAG Inventory
-
-| DAG | Mục đích | Schedule | Mode |
-|---|---|---|---|
-| `demo_data_pipeline_e2e_init` | Initial load: Raw Vault + Data Mart | Manual | Full refresh |
-| `demo_data_pipeline_e2e_incremental` | Daily load: Raw Vault + Data Mart | Manual/External | Incremental |
-| `demo_mdm_pipeline_e2e_incremental` | MDM pipeline: 6 steps tuần tự | Manual/External | Incremental |
-| `demo_mdm_pipeline_e2e_init` | MDM initial load | Manual | Full refresh |
-| `dbt_adhoc_etl` | Ad-hoc dbt runs (any model) | Manual | Configurable |
-| `backfill_etl_pipeline` | Data correction và rebuild | Manual | Backfill |
-| `backdate_etl_pipeline` | Backdate processing + Dremio views | Manual | Backdate |
-| `iceberg_maintenance` | Iceberg table maintenance | Scheduled | Maintenance |
-| `emit_bi_lineage_dag` | DataHub BI lineage ingestion | Manual | Metadata |
 
 ## Tài Liệu
 
