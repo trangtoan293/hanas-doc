@@ -4,19 +4,26 @@
 
 Hướng dẫn sử dụng dbt (`ktl_dbt`) để build Raw Vault, MDM, và Data Mart từ Landing Zone trên Iceberg. Guide này dựa trên codebase thực tế của project `ktl_dbt`.
 
-```
-Landing (Kafka Streaming)
-    │  source.yml
-    ▼
-Integration / Raw Vault ─── ktl_autovault macros ──▶ Hub / Link / Sat / LSat (Iceberg)
-    │                                                    ▲
-    │                                              ktl_autovault_configs/
-    │                                              (YAML per entity)
-    ▼
-MDM Pipeline ──▶ Source → Cleanse → Validate → Match → Merge → Golden Records
-    │
-    ▼
-Data Mart ──▶ Dimension + Fact Tables (BI-ready)
+```mermaid
+flowchart TB
+    Landing["Landing<br/>(Kafka Streaming)"] -->|"source.yml"| RawVault["Integration / Raw Vault"]
+    Config["ktl_autovault_configs/<br/>(YAML per entity)"] --> DV["Hub / Link / Sat / LSat<br/>(Iceberg)"]
+    RawVault -->|"ktl_autovault macros"| DV
+    
+    RawVault --> MDM["MDM Pipeline"]
+    MDM --> Golden["Source → Cleanse → Validate<br/>→ Match → Merge → Golden Records"]
+    
+    RawVault --> Mart["Data Mart"]
+    Mart --> BI["Dimension + Fact Tables<br/>(BI-ready)"]
+    
+    style Landing fill:#fff3e0,stroke:#ef6c00
+    style RawVault fill:#fce4ec,stroke:#c2185b
+    style DV fill:#e8f5e9,stroke:#388e3c
+    style Config fill:#e1f5fe,stroke:#0288d1
+    style MDM fill:#f3e5f5,stroke:#7b1fa2
+    style Golden fill:#f3e5f5,stroke:#7b1fa2
+    style Mart fill:#e0f7fa,stroke:#00838f
+    style BI fill:#e8eaf6,stroke:#3f51b5
 ```
 
 ---
@@ -354,14 +361,30 @@ Mỗi model chỉ cần vài dòng SQL, nhờ `ktl_autovault` macros:
 
 MDM xử lý dữ liệu khách hàng từ Raw Vault thành Golden Records:
 
-```
-hub_customer + sat_snp_customer         mdm_catalog_category (seed)
-        │                                        │
-        ▼                                        ▼
-mdm_source_corecif ──▶ mdm_corecif_cleansed ──▶ mdm_corecif_validate
-                                                        │
-                                                        ▼
-                       mdm_corecif_golden_records ◀── mdm_corecif_merge ◀── mdm_corecif_match
+```mermaid
+flowchart LR
+    subgraph Input["Input"]
+        Hub["hub_customer"]
+        Sat["sat_snp_customer"]
+        Catalog["mdm_catalog_category<br/>(seed)"]
+    end
+    
+    Hub --> Source["mdm_source_corecif"]
+    Sat --> Source
+    Source --> Cleansed["mdm_corecif_cleansed"]
+    Catalog --> Cleansed
+    Cleansed --> Validate["mdm_corecif_validate"]
+    Validate --> Match["mdm_corecif_match"]
+    Match --> Merge["mdm_corecif_merge"]
+    Merge --> Golden["mdm_corecif_golden_records"]
+    
+    style Input fill:#e1f5fe,stroke:#0288d1
+    style Source fill:#fff3e0,stroke:#ef6c00
+    style Cleansed fill:#fff3e0,stroke:#ef6c00
+    style Validate fill:#fce4ec,stroke:#c2185b
+    style Match fill:#f3e5f5,stroke:#7b1fa2
+    style Merge fill:#f3e5f5,stroke:#7b1fa2
+    style Golden fill:#e8f5e9,stroke:#388e3c
 ```
 
 ### 4.1 Source Staging
