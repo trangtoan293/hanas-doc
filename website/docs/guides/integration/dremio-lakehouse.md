@@ -4,10 +4,18 @@
 
 Hướng dẫn cấu hình Dremio như query engine thống nhất, kết nối Iceberg tables trên MinIO và phục vụ BI tools.
 
-```
-MinIO (Iceberg)  ──▶  Dremio  ──▶  BI Tools (Superset/Tableau/PowerBI)
-RDBMS (Oracle)   ──▶  (Query  ──▶  Applications (REST API)
-                       Engine)
+```mermaid
+flowchart LR
+    MinIO["MinIO<br/>(Iceberg)"] --> Dremio["Dremio<br/>(Query Engine)"]
+    Oracle["RDBMS<br/>(Oracle)"] --> Dremio
+    Dremio --> BI["BI Tools<br/>(Superset/Tableau/PowerBI)"]
+    Dremio --> Apps["Applications<br/>(REST API)"]
+    
+    style MinIO fill:#e8f5e9,stroke:#388e3c
+    style Oracle fill:#e1f5fe,stroke:#0288d1
+    style Dremio fill:#e0f7fa,stroke:#00838f
+    style BI fill:#e8eaf6,stroke:#3f51b5
+    style Apps fill:#e8eaf6,stroke:#3f51b5
 ```
 
 ---

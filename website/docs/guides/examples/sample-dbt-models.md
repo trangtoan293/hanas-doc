@@ -374,7 +374,22 @@ SELECT * FROM cleansed WHERE CIF_NO <> '0'
 {% endif %}
 ```
 
-> **MDM Pipeline**: `mdm_source_corecif` → `mdm_corecif_cleansed` → `mdm_corecif_validate` → `mdm_corecif_match` → `mdm_corecif_merge` → `mdm_corecif_golden_records`
+
+```mermaid
+flowchart LR
+    source["mdm_source_corecif"] --> cleansed["mdm_corecif_cleansed"]
+    cleansed --> validate["mdm_corecif_validate"]
+    validate --> match["mdm_corecif_match"]
+    match --> merge["mdm_corecif_merge"]
+    merge --> golden["mdm_corecif_golden_records"]
+    
+    style source fill:#fff3e0,stroke:#ef6c00
+    style cleansed fill:#fff3e0,stroke:#ef6c00
+    style validate fill:#fce4ec,stroke:#c2185b
+    style match fill:#f3e5f5,stroke:#7b1fa2
+    style merge fill:#f3e5f5,stroke:#7b1fa2
+    style golden fill:#e8f5e9,stroke:#388e3c
+```
 
 ---
 

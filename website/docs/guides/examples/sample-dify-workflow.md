@@ -180,12 +180,19 @@ print(answer)
 
 Sau khi tích hợp Langfuse, mỗi câu hỏi sẽ tạo trace với:
 
-```
-Trace: "Hanas Q&A Bot"
-  ├── Knowledge Retrieval — 200ms
-  │   ├── Embedding (BGE-M3) — 50ms, 128 tokens
-  │   └── Reranking (BGE-Reranker) — 80ms
-  └── LLM Response (Qwen3-14B) — 1.5s, 856 tokens
+```mermaid
+flowchart TB
+    Trace["Trace: Hanas Q&A Bot"]
+    Trace --> KB["Knowledge Retrieval — 200ms"]
+    KB --> Embed["Embedding BGE-M3 — 50ms, 128 tokens"]
+    KB --> Rerank["Reranking BGE-Reranker — 80ms"]
+    Trace --> LLM["LLM Response Qwen3-14B — 1.5s, 856 tokens"]
+    
+    style Trace fill:#e1f5fe,stroke:#0288d1
+    style KB fill:#fff3e0,stroke:#ef6c00
+    style Embed fill:#e8f5e9,stroke:#388e3c
+    style Rerank fill:#e8f5e9,stroke:#388e3c
+    style LLM fill:#fce4ec,stroke:#c2185b
 ```
 
 Sử dụng Langfuse để:

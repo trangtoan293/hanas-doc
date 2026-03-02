@@ -4,23 +4,38 @@
 
 Hướng dẫn cách Airflow điều phối Spark jobs trên Kubernetes để chạy dbt transformations, xử lý dữ liệu từ Landing Zone thành Raw Vault / Data Mart trên Iceberg tables.
 
-```
-┌──────────────┐  SparkKubernetesOperator  ┌──────────────────┐  Spark pods   ┌──────────────┐
-│   Airflow    │─────────────────────────▶│  Spark Operator  │─────────────▶│  Spark       │
-│  Scheduler   │  Submit SparkApplication  │  (K8s CRD)      │  create       │  Driver +    │
-└──────────────┘                          └──────────────────┘               │  Executors   │
-                                                                             └──────┬───────┘
-                                                                                    │
-                                            ┌──────────────┐                        │ dbt / ktl_dbt
-                                            │  Git Repo    │◀── git-sync ───────────┤
-                                            │  (dbt project)│   init container      │
-                                            └──────────────┘                        │
-                                                                                    ▼
-┌──────────────┐                          ┌──────────────┐               ┌──────────────┐
-│   DataHub    │◀── publish metadata ─────│  dbt Artifacts│◀── upload ───│    MinIO      │
-│  (Metadata)  │                          │  (S3)        │               │  (Iceberg     │
-└──────────────┘                          └──────────────┘               │   Warehouse)  │
-                                                                         └──────────────┘
+```mermaid
+flowchart TB
+    subgraph Airflow["Airflow"]
+        Scheduler["Airflow<br/>Scheduler"]
+    end
+    
+    subgraph K8s["Kubernetes"]
+        SparkOp["Spark Operator<br/>(K8s CRD)"]
+        Driver["Spark<br/>Driver + Executors"]
+    end
+    
+    subgraph Git["Source"]
+        Repo["Git Repo<br/>(dbt project)"]
+    end
+    
+    subgraph Storage["Storage & Metadata"]
+        MinIO["MinIO<br/>(Iceberg Warehouse)"]
+        Artifacts["dbt Artifacts<br/>(S3)"]
+        DataHub["DataHub<br/>(Metadata)"]
+    end
+    
+    Scheduler -->|"Submit SparkApplication"| SparkOp
+    SparkOp -->|"create Spark pods"| Driver
+    Repo -->|"git-sync<br/>init container"| Driver
+    Driver -->|"dbt / ktl_dbt"| MinIO
+    Driver -->|"upload"| Artifacts
+    Artifacts -->|"publish metadata"| DataHub
+    
+    style Airflow fill:#fff3e0,stroke:#ef6c00
+    style K8s fill:#fce4ec,stroke:#c2185b
+    style Git fill:#e1f5fe,stroke:#0288d1
+    style Storage fill:#e8f5e9,stroke:#388e3c
 ```
 
 ---
