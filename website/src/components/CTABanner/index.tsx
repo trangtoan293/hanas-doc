@@ -1,9 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './styles.module.css';
 
 interface CTABannerProps {
   title?: string;
 }
+
+const NewsletterForm: React.FC = () => {
+  const [email, setEmail] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email.trim()) {
+      setSubmitted(true);
+      setEmail('');
+      // Reset success message after 5 seconds
+      setTimeout(() => setSubmitted(false), 5000);
+    }
+  };
+
+  return (
+    <div className={styles.newsletter}>
+      <p className={styles.newsletterText}>
+        Nhận tin tức và cập nhật mới nhất
+      </p>
+      <p className={styles.newsletterSubtext}>
+        Đăng ký để nhận thông tin về sản phẩm và tài nguyên mới
+      </p>
+      <form className={styles.newsletterForm} onSubmit={handleSubmit}>
+        <input 
+          type="email" 
+          placeholder="Nhập email của bạn"
+          className={styles.emailInput}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <button type="submit" className={styles.newsletterButton}>
+          ĐĂNG KÝ
+        </button>
+      </form>
+      {submitted && (
+        <p className={styles.successMessage}>
+          Đăng ký thành công! Cảm ơn bạn.
+        </p>
+      )}
+    </div>
+  );
+};
 
 const CTABanner: React.FC<CTABannerProps> = ({ 
   title = "Bắt đầu với Hanas ngay hôm nay" 
@@ -44,30 +88,22 @@ const CTABanner: React.FC<CTABannerProps> = ({
           </ul>
 
           <div className={styles.buttonGroup}>
-            <button className={styles.buttonPrimary}>
+            <a 
+              href="https://portal.hanas.io/portal/home/dashboard"
+              className={styles.buttonPrimary}
+            >
               BẮT ĐẦU MIỄN PHÍ
-            </button>
-            <button className={styles.buttonSecondary}>
+            </a>
+            <a 
+              href="/overview"
+              className={styles.buttonSecondary}
+            >
               XEM DEMO
-            </button>
+            </a>
           </div>
         </div>
 
-        <div className={styles.newsletter}>
-          <p className={styles.newsletterText}>
-            Nhận tin tức và cập nhật mới nhất
-          </p>
-          <form className={styles.newsletterForm}>
-            <input 
-              type="email" 
-              placeholder="Nhập email của bạn"
-              className={styles.emailInput}
-            />
-            <button type="submit" className={styles.newsletterButton}>
-              ĐĂNG KÝ
-            </button>
-          </form>
-        </div>
+        <NewsletterForm />
       </div>
     </section>
   );

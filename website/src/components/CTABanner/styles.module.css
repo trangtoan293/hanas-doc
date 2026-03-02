@@ -1,5 +1,6 @@
 .ctaBanner {
-  background-color: #003545;
+  /* Dark slate background - replacing old teal #003545 */
+  background: linear-gradient(135deg, var(--cta-bg-primary) 0%, var(--cta-bg-secondary) 100%);
   padding: 80px 24px;
   position: relative;
   overflow: hidden;
@@ -21,20 +22,24 @@
 }
 
 .container {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
   position: relative;
   z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
 }
 
 .content {
-  text-align: center;
+  text-align: left;
 }
 
 .title {
-  font-size: clamp(32px, 5vw, 48px);
+  font-size: clamp(32px, 4vw, 44px);
   font-weight: 700;
-  color: #FFFFFF;
+  color: var(--cta-text-primary);
   margin: 0 0 32px 0;
   line-height: 1.2;
 }
@@ -46,14 +51,14 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .checklistItem {
   display: flex;
   align-items: center;
   gap: 12px;
-  color: #E8F4F8;
+  color: var(--cta-text-secondary);
   font-size: 16px;
 }
 
@@ -61,7 +66,7 @@
   width: 20px;
   height: 20px;
   flex-shrink: 0;
-  color: #00D9FF;
+  color: var(--ifm-color-accent);
 }
 
 .checklistText {
@@ -71,15 +76,17 @@
 .buttonGroup {
   display: flex;
   gap: 16px;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
-  margin-bottom: 48px;
 }
 
 .buttonPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 16px 32px;
-  background-color: #00D9FF;
-  color: #003545;
+  background-color: var(--ifm-color-accent);
+  color: var(--cta-bg-primary);
   border: none;
   border-radius: 8px;
   font-size: 14px;
@@ -87,79 +94,92 @@
   letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-decoration: none;
 }
 
 .buttonPrimary:hover {
-  background-color: #33E1FF;
+  background-color: var(--cta-accent-hover);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 217, 255, 0.3);
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
 }
 
 .buttonSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 16px 32px;
   background-color: transparent;
-  color: #FFFFFF;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: var(--cta-text-primary);
+  border: 2px solid var(--cta-border-subtle);
   border-radius: 8px;
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-decoration: none;
 }
 
 .buttonSecondary:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.5);
+  background-color: var(--cta-bg-hover);
+  border-color: var(--cta-border-hover);
 }
 
 .newsletter {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 40px;
+  background: var(--cta-card-bg);
+  border: 1px solid var(--cta-border-subtle);
+  border-radius: 16px;
+  padding: 40px;
   text-align: center;
 }
 
 .newsletterText {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--cta-text-primary);
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.newsletterSubtext {
+  color: var(--cta-text-muted);
   font-size: 14px;
-  margin: 0 0 16px 0;
+  margin: 0 0 24px 0;
 }
 
 .newsletterForm {
   display: flex;
+  flex-direction: column;
   gap: 12px;
-  justify-content: center;
-  max-width: 400px;
-  margin: 0 auto;
 }
 
 .emailInput {
-  flex: 1;
+  width: 100%;
   padding: 14px 16px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: var(--cta-input-bg);
+  border: 1px solid var(--cta-border-subtle);
   border-radius: 8px;
-  color: #FFFFFF;
+  color: var(--cta-text-primary);
   font-size: 14px;
   outline: none;
   transition: all 0.3s ease;
-  min-width: 0;
+  box-sizing: border-box;
 }
 
 .emailInput::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--cta-text-muted);
 }
 
 .emailInput:focus {
-  border-color: rgba(0, 217, 255, 0.5);
-  background-color: rgba(255, 255, 255, 0.15);
+  border-color: var(--ifm-color-accent);
+  background-color: var(--cta-input-focus);
 }
 
 .newsletterButton {
+  width: 100%;
   padding: 14px 24px;
   background-color: transparent;
-  color: #00D9FF;
-  border: 2px solid #00D9FF;
+  color: var(--ifm-color-accent);
+  border: 2px solid var(--ifm-color-accent);
   border-radius: 8px;
   font-size: 13px;
   font-weight: 700;
@@ -170,8 +190,46 @@
 }
 
 .newsletterButton:hover {
-  background-color: #00D9FF;
-  color: #003545;
+  background-color: var(--ifm-color-accent);
+  color: var(--cta-bg-primary);
+}
+
+.successMessage {
+  color: var(--ifm-color-accent);
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 16px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 900px) {
+  .container {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .content {
+    text-align: center;
+  }
+
+  .checklist {
+    align-items: center;
+  }
+
+  .buttonGroup {
+    justify-content: center;
+  }
 }
 
 @media (max-width: 480px) {
@@ -190,11 +248,7 @@
     max-width: 280px;
   }
 
-  .newsletterForm {
-    flex-direction: column;
-  }
-
-  .newsletterButton {
-    width: 100%;
+  .newsletter {
+    padding: 32px 24px;
   }
 }

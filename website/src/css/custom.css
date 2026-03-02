@@ -52,6 +52,24 @@
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.05);
   --ifm-font-family-base: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* CTA Banner - Light Mode Variables */
+  --cta-bg-primary: #0f172a;
+  --cta-bg-secondary: #1e293b;
+  --cta-bg-hover: rgba(255, 255, 255, 0.1);
+  --cta-card-bg: rgba(255, 255, 255, 0.05);
+  --cta-text-primary: #ffffff;
+  --cta-text-secondary: #e2e8f0;
+  --cta-text-muted: #94a3b8;
+  --cta-border-subtle: rgba(255, 255, 255, 0.2);
+  --cta-border-hover: rgba(255, 255, 255, 0.4);
+  --cta-input-bg: rgba(255, 255, 255, 0.1);
+  --cta-input-focus: rgba(255, 255, 255, 0.15);
+  --cta-accent-hover: #60A5FA;
+}
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.05);
+  --ifm-font-family-base: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 /* Dark Mode - Dark Gray Theme */
@@ -83,6 +101,25 @@
   --ifm-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
 
   /* Border Radius - Dark Mode */
+  --ifm-radius-sm: 4px;
+  --ifm-radius-md: 8px;
+  --ifm-radius-lg: 12px;
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1);
+
+  /* CTA Banner - Dark Mode Variables (same as light for dark slate theme) */
+  --cta-bg-primary: #0f172a;
+  --cta-bg-secondary: #1e293b;
+  --cta-bg-hover: rgba(255, 255, 255, 0.1);
+  --cta-card-bg: rgba(255, 255, 255, 0.05);
+  --cta-text-primary: #ffffff;
+  --cta-text-secondary: #e2e8f0;
+  --cta-text-muted: #94a3b8;
+  --cta-border-subtle: rgba(255, 255, 255, 0.2);
+  --cta-border-hover: rgba(255, 255, 255, 0.4);
+  --cta-input-bg: rgba(255, 255, 255, 0.1);
+  --cta-input-focus: rgba(255, 255, 255, 0.15);
+  --cta-accent-hover: #60A5FA;
+}
   --ifm-radius-sm: 4px;
   --ifm-radius-md: 8px;
   --ifm-radius-lg: 12px;
