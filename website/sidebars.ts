@@ -279,6 +279,8 @@ const sidebars: SidebarsConfig = {
             'security/apache-ranger/installation',
             'security/apache-ranger/configuration',
             'security/apache-ranger/user-guide',
+            'security/apache-ranger/best-practices',
+            'security/apache-ranger/version-info',
           ],
         },
         {
@@ -289,6 +291,8 @@ const sidebars: SidebarsConfig = {
             'security/hashicorp-vault/installation',
             'security/hashicorp-vault/configuration',
             'security/hashicorp-vault/user-guide',
+            'security/hashicorp-vault/best-practices',
+            'security/hashicorp-vault/version-info',
           ],
         },
       ],
