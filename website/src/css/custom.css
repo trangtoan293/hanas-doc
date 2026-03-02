@@ -347,3 +347,8 @@ section {
     padding: 0 16px;
   }
 }
+
+/* Hide heading anchor links (#) on hover */
+.hash-link {
+  display: none !important;
+}
