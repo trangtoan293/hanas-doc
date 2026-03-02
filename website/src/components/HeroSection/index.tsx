@@ -7,10 +7,10 @@ export default function HeroSection(): React.JSX.Element {
       <div className="container">
         <div className={styles.heroInner}>
           <div className={styles.heroContent}>
+            <span className={styles.badge}>Data Lakehouse Platform</span>
+            <h2 className={styles.heroEyebrow}>Hanas Data Platform</h2>
             <h1 className={styles.heroTitle}>
-              Hanas Data Platform
-              <br />
-              Một Nền Tảng, Mọi Dữ Liệu
+              Một Nền Tảng. Mọi Dữ Liệu.
             </h1>
             <p className={styles.heroSubtitle}>
               Hanas Data Platform kết hợp sức mạnh của Data Lake và Data Warehouse,
