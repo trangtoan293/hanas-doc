@@ -4,11 +4,24 @@
 
 Hướng dẫn từng bước xây dựng luồng dữ liệu production-grade:
 
-```
-Oracle DB ──▶ NiFi ──▶ MinIO (Landing) ──▶ Airflow + Spark ──▶ Iceberg (Data Vault) ──▶ Dremio ──▶ BI
-                                                  │
-                                                  ▼
-                                             dbt (Models)
+```mermaid
+flowchart LR
+    Oracle["Oracle DB"] --> NiFi["NiFi"]
+    NiFi --> MinIO["MinIO<br/>(Landing)"]
+    MinIO --> AS["Airflow + Spark"]
+    AS --> Iceberg["Iceberg<br/>(Data Vault)"]
+    Iceberg --> Dremio["Dremio"]
+    Dremio --> BI["BI"]
+    AS --> dbt["dbt<br/>(Models)"]
+    
+    style Oracle fill:#e1f5fe,stroke:#0288d1
+    style NiFi fill:#fff3e0,stroke:#ef6c00
+    style MinIO fill:#e8f5e9,stroke:#388e3c
+    style AS fill:#fce4ec,stroke:#c2185b
+    style Iceberg fill:#e8f5e9,stroke:#388e3c
+    style dbt fill:#f3e5f5,stroke:#7b1fa2
+    style Dremio fill:#e0f7fa,stroke:#00838f
+    style BI fill:#e8eaf6,stroke:#3f51b5
 ```
 
 Sau tutorial này, team sẽ nắm được cách:
@@ -94,16 +107,17 @@ MinIO Buckets:
 
 ### 2.1 Thiết kế Flow NiFi
 
-```
-┌─────────────────┐     ┌──────────────────┐     ┌──────────────┐
-│  QueryDatabase   │────▶│ ConvertAvroToJSON │────▶│ PutS3Object  │
-│  Table           │     │ (hoặc giữ Avro)  │     │ (→ MinIO)    │
-└─────────────────┘     └──────────────────┘     └──────────────┘
-        │                                               │
-        ▼                                               ▼
-  Oracle JDBC                                   s3://landing/oracle/
-  Connection Pool                               src_customers/
-                                                load_date=2024-01-15/
+```mermaid
+flowchart LR
+    A["QueryDatabaseTable"] -->|"Avro"| B["ConvertAvroToJSON<br/>(hoặc giữ Avro)"]
+    B --> C["PutS3Object<br/>(→ MinIO)"]
+    
+    A -.- D["Oracle JDBC<br/>Connection Pool"]
+    C -.- E["s3://landing/oracle/<br/>src_customers/<br/>load_date=2024-01-15/"]
+    
+    style A fill:#e1f5fe,stroke:#0288d1
+    style B fill:#fff3e0,stroke:#ef6c00
+    style C fill:#e8f5e9,stroke:#388e3c
 ```
 
 ### 2.2 Cấu hình JDBC Connection Pool
@@ -128,7 +142,7 @@ Database Connection Pooling Service: Oracle-JDBC-Pool
 Database Type: Oracle
 Table Name: SRC_CUSTOMERS
 Columns to Return: customer_id, full_name, email, phone, city, segment, created_at, updated_at
-Maximum-value Columns: updated_at                    # ← Incremental load
+Maximum-value Columns: updated_at                    # - Incremental load
 Max Rows Per Flow File: 10000
 Output Format: Avro
 ```
@@ -174,40 +188,36 @@ Run Schedule: 0 */30 * * * ?    # Chạy mỗi 30 phút
 
 ### 3.1 Kiến trúc DAG
 
-```
-                    ┌─────────────────────┐
-                    │  sensor_landing_data │  ← Chờ NiFi ghi xong
-                    └──────────┬──────────┘
-                               │
-                    ┌──────────▼──────────┐
-                    │   validate_landing   │  ← Kiểm tra chất lượng
-                    └──────────┬──────────┘
-                               │
-              ┌────────────────┼────────────────┐
-              ▼                ▼                ▼
-    ┌─────────────┐  ┌─────────────┐  ┌──────────────┐
-    │ load_hub_   │  │ load_hub_   │  │ load_lnk_    │
-    │ customer    │  │ account     │  │ cust_account  │
-    └──────┬──────┘  └──────┬──────┘  └──────┬───────┘
-           │                │                │
-    ┌──────▼──────┐  ┌──────▼──────┐  ┌──────▼──────┐
-    │ load_sat_   │  │ load_sat_   │  │ load_sat_   │
-    │ customer    │  │ account     │  │ transaction │
-    └──────┬──────┘  └──────┬──────┘  └──────┬──────┘
-           │                │                │
-           └────────────────┼────────────────┘
-                            │
-                 ┌──────────▼──────────┐
-                 │   run_dbt_models    │  ← Build Business Vault + Mart
-                 └──────────┬──────────┘
-                            │
-                 ┌──────────▼──────────┐
-                 │  quality_check_mart │  ← Kiểm tra sau xử lý
-                 └──────────┬──────────┘
-                            │
-                 ┌──────────▼──────────┐
-                 │  refresh_dremio     │  ← Refresh Dremio metadata
-                 └─────────────────────┘
+```mermaid
+flowchart TB
+    sensor["sensor_landing_data<br/>- Chờ NiFi ghi xong"] --> validate["validate_landing<br/>- Kiểm tra chất lượng"]
+    
+    validate --> hub_cust["load_hub_customer"]
+    validate --> hub_acct["load_hub_account"]
+    validate --> lnk["load_lnk_cust_account"]
+    
+    hub_cust --> sat_cust["load_sat_customer"]
+    hub_acct --> sat_acct["load_sat_account"]
+    lnk --> sat_txn["load_sat_transaction"]
+    
+    sat_cust --> dbt["run_dbt_models<br/>- Build Business Vault + Mart"]
+    sat_acct --> dbt
+    sat_txn --> dbt
+    
+    dbt --> quality["quality_check_mart<br/>- Kiểm tra sau xử lý"]
+    quality --> refresh["refresh_dremio<br/>- Refresh Dremio metadata"]
+    
+    style sensor fill:#fff3e0,stroke:#ef6c00
+    style validate fill:#e1f5fe,stroke:#0288d1
+    style hub_cust fill:#fce4ec,stroke:#c2185b
+    style hub_acct fill:#fce4ec,stroke:#c2185b
+    style lnk fill:#fce4ec,stroke:#c2185b
+    style sat_cust fill:#f3e5f5,stroke:#7b1fa2
+    style sat_acct fill:#f3e5f5,stroke:#7b1fa2
+    style sat_txn fill:#f3e5f5,stroke:#7b1fa2
+    style dbt fill:#e8f5e9,stroke:#388e3c
+    style quality fill:#fff8e1,stroke:#ff6f00
+    style refresh fill:#e0f7fa,stroke:#00838f
 ```
 
 ### 3.2 Airflow DAG hoàn chỉnh
@@ -610,27 +620,31 @@ Endpoint: grpc://dremio-host:32010
 
 ## Tổng Kết Luồng
 
-```
-┌──────────┐   Schedule    ┌──────────┐   Avro     ┌──────────┐
-│  Oracle  │──────────────▶│   NiFi   │──────────▶│  MinIO   │
-│  (RDBMS) │  30min/daily  │  (ETL)   │  files    │ (Landing)│
-└──────────┘               └──────────┘           └────┬─────┘
-                                                       │
-                                                       ▼
-┌──────────┐   Submit      ┌──────────┐   Iceberg  ┌──────────┐
-│ Airflow  │──────────────▶│  Spark   │──────────▶│  MinIO   │
-│  (DAG)   │  SparkK8sOp  │(K8s Pods)│  tables   │(Raw Vault)│
-└──────────┘               └──────────┘           └────┬─────┘
-                                                       │
-                                                       ▼
-                           ┌──────────┐   Iceberg  ┌──────────┐
-                           │   dbt    │──────────▶│  MinIO   │
-                           │ (Models) │  tables   │(Biz+Mart)│
-                           └──────────┘           └────┬─────┘
-                                                       │
-                                                       ▼
-┌──────────┐   JDBC/ODBC   ┌──────────┐   S3      ┌──────────┐
-│   BI     │◀──────────────│  Dremio  │◀─────────│  MinIO   │
-│(Superset)│   SQL query   │ (Query)  │  Iceberg  │(Warehouse)│
-└──────────┘               └──────────┘           └──────────┘
+```mermaid
+flowchart TB
+    subgraph Ingest["Thu Thập"]
+        Oracle["Oracle<br/>(RDBMS)"] -->|"Schedule<br/>30min/daily"| NiFi["NiFi<br/>(ETL)"]
+        NiFi -->|"Avro files"| Landing["MinIO<br/>(Landing)"]
+    end
+    
+    subgraph Process["Xử Lý"]
+        Landing --> Airflow["Airflow<br/>(DAG)"]
+        Airflow -->|"Submit<br/>SparkK8sOp"| Spark["Spark<br/>(K8s Pods)"]
+        Spark -->|"Iceberg tables"| RawVault["MinIO<br/>(Raw Vault)"]
+    end
+    
+    subgraph Transform["Mô Hình"]
+        RawVault --> dbt["dbt<br/>(Models)"]
+        dbt -->|"Iceberg tables"| BizMart["MinIO<br/>(Biz+Mart)"]
+    end
+    
+    subgraph Serve["Phục Vụ"]
+        BizMart -->|"S3 Iceberg"| Dremio["Dremio<br/>(Query)"]
+        Dremio -->|"JDBC/ODBC"| BI["BI<br/>(Superset)"]
+    end
+    
+    style Ingest fill:#fff3e0,stroke:#ef6c00
+    style Process fill:#fce4ec,stroke:#c2185b
+    style Transform fill:#f3e5f5,stroke:#7b1fa2
+    style Serve fill:#e0f7fa,stroke:#00838f
 ```
