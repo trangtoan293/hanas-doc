@@ -9,25 +9,43 @@
 
 ### 1.1 Execution Flow
 
-```
-start → build_vw_ref_eod → [raw_vault TaskGroup] → [data_mart TaskGroup] → end → notification
+```mermaid
+flowchart LR
+    start["start"] --> eod["build_vw_ref_eod"]
+    eod --> rv["raw_vault<br/>TaskGroup"]
+    rv --> dm["data_mart<br/>TaskGroup"]
+    dm --> fin["end"]
+    fin --> notif["notification"]
+    
+    style start fill:#e1f5fe,stroke:#0288d1
+    style eod fill:#fff3e0,stroke:#ef6c00
+    style rv fill:#fce4ec,stroke:#c2185b
+    style dm fill:#f3e5f5,stroke:#7b1fa2
+    style fin fill:#e1f5fe,stroke:#0288d1
+    style notif fill:#fff8e1,stroke:#ff6f00
 ```
 
 Mỗi TaskGroup gồm:
-```
-┌──────────────── TaskGroup: raw_vault ─────────────────────────┐
-│                                                                │
-│  ┌── load_and_logging ──┐   ┌── publish_datahub ────────────┐ │
-│  │                       │   │                                │ │
-│  │  load_job             │   │  extract_dbt_catalog           │ │
-│  │     ↓                 │   │     ↓                          │ │
-│  │  test_job             │──▶│  publish_dbt_transformation    │ │
-│  │     ↓                 │   │     ↓                          │ │
-│  │  logging_job          │   │  publish_iceberg_metadata      │ │
-│  │                       │   │     ↓                          │ │
-│  └───────────────────────┘   │  publish_dbt_tests             │ │
-│                               └────────────────────────────────┘ │
-└────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph TG["TaskGroup: raw_vault"]
+        subgraph LL["load_and_logging"]
+            load["load_job"] --> test["test_job"]
+            test --> logging["logging_job"]
+        end
+        
+        subgraph PD["publish_datahub"]
+            extract["extract_dbt_catalog"] --> pub_transform["publish_dbt_transformation"]
+            pub_transform --> pub_iceberg["publish_iceberg_metadata"]
+            pub_iceberg --> pub_tests["publish_dbt_tests"]
+        end
+        
+        LL --> PD
+    end
+    
+    style TG fill:#fff3e0,stroke:#ef6c00
+    style LL fill:#e1f5fe,stroke:#0288d1
+    style PD fill:#e8f5e9,stroke:#388e3c
 ```
 
 ### 1.2 DAG Code (Incremental)
@@ -305,11 +323,28 @@ with DAG(
     end >> notification
 ```
 
-```
-MDM Pipeline Flow:
-start → build_vw_ref_eod → mdm_source → mdm_cleansed → mdm_validated
-                                                              ↓
-notification ← end ←── mdm_golden ←── mdm_merge ←── mdm_match
+```mermaid
+flowchart LR
+    start["start"] --> eod["build_vw_ref_eod"]
+    eod --> source["mdm_source"]
+    source --> cleansed["mdm_cleansed"]
+    cleansed --> validated["mdm_validated"]
+    validated --> match["mdm_match"]
+    match --> merge["mdm_merge"]
+    merge --> golden["mdm_golden"]
+    golden --> fin["end"]
+    fin --> notif["notification"]
+    
+    style start fill:#e1f5fe,stroke:#0288d1
+    style eod fill:#fff3e0,stroke:#ef6c00
+    style source fill:#fce4ec,stroke:#c2185b
+    style cleansed fill:#fce4ec,stroke:#c2185b
+    style validated fill:#fce4ec,stroke:#c2185b
+    style match fill:#f3e5f5,stroke:#7b1fa2
+    style merge fill:#f3e5f5,stroke:#7b1fa2
+    style golden fill:#e8f5e9,stroke:#388e3c
+    style fin fill:#e1f5fe,stroke:#0288d1
+    style notif fill:#fff8e1,stroke:#ff6f00
 ```
 
 ---
