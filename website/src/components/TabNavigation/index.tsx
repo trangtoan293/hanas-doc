@@ -70,7 +70,7 @@ const tabs: Tab[] = [
     id: 'usecases',
     label: 'Use Cases',
     items: [
-      'Phân tích hành vi khách hàng trong thờigian thực',
+      'Phân tích hành vi khách hàng trong thời gian thực',
       'Dự báo xu hướng thị trường và nhu cầu sản phẩm',
       'Tối ưu hóa chuỗi cung ứng thông minh',
       'Phát hiện gian lận và bảo mật nâng cao',
@@ -103,7 +103,7 @@ export default function TabNavigation(): React.JSX.Element {
   return (
     <section className={styles.tabSection}>
       <div className={styles.tabContainer}>
-        <div 
+        <div
           className={styles.tabList}
           role="tablist"
           aria-label="Platform navigation tabs"
@@ -138,7 +138,7 @@ export default function TabNavigation(): React.JSX.Element {
             );
           })}
         </div>
-        
+
         <div className={styles.tabPanels}>
           {tabs.map((tab) => (
             <div

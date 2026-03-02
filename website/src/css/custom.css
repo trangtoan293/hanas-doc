@@ -249,12 +249,15 @@
   .button--primary,
   .button--secondary,
   .button--link,
-  .feature-card {
+  .feature-card,
+  .sidebar-expand-collapse-btn,
+  .sidebar-expand-collapse-btn__icon {
     transition: none;
   }
 
   .button--primary:hover,
-  .button--secondary:hover {
+  .button--secondary:hover,
+  .sidebar-expand-collapse-btn:hover {
     transform: none;
   }
 
@@ -351,4 +354,166 @@ section {
 /* Hide heading anchor links (#) on hover */
 .hash-link {
   display: none !important;
+}
+
+/* ========================================
+   SIDEBAR EXPAND / COLLAPSE ALL BUTTON
+   ======================================== */
+
+.sidebar-expand-collapse-btn-wrap {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  padding: 10px 12px;
+  background: var(--ifm-background-color);
+  border-top: 1px solid var(--ifm-border-color);
+}
+
+.sidebar-expand-collapse-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ifm-font-color-secondary);
+  background: transparent;
+  border: 1px solid var(--ifm-border-color);
+  border-radius: 80px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  font-family: var(--ifm-font-family-base);
+  line-height: 1;
+  letter-spacing: 0.2px;
+}
+
+.sidebar-expand-collapse-btn:hover {
+  color: var(--ifm-color-accent);
+  border-color: var(--ifm-color-accent);
+  background: var(--ifm-color-accent-subtle);
+  transform: translateY(-1px);
+  box-shadow: var(--ifm-shadow-sm);
+}
+
+.sidebar-expand-collapse-btn:focus-visible {
+  outline: 2px solid var(--ifm-color-accent);
+  outline-offset: 2px;
+}
+
+.sidebar-expand-collapse-btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.sidebar-expand-collapse-btn__icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+[data-theme='dark'] .sidebar-expand-collapse-btn {
+  color: var(--ifm-font-color-secondary);
+  border-color: var(--ifm-border-color);
+}
+
+[data-theme='dark'] .sidebar-expand-collapse-btn:hover {
+  color: var(--ifm-color-accent-dark);
+  border-color: var(--ifm-color-accent-dark);
+  background: var(--ifm-color-accent-subtle);
+}
+
+/* ========================================
+   SIDEBAR ACTIVE ITEM - VERTICAL INDICATOR
+   ======================================== */
+
+/* Active doc link - vertical left border indicator */
+.menu__link--active:not(.menu__link--sublist) {
+  position: relative;
+  color: var(--ifm-color-accent);
+  background: var(--ifm-color-accent-subtle);
+  font-weight: 600;
+  border-radius: 0 var(--ifm-radius-sm) var(--ifm-radius-sm) 0;
+}
+
+.menu__link--active:not(.menu__link--sublist)::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--ifm-color-accent);
+  border-radius: 0 2px 2px 0;
+}
+
+/* Active category label (parent of active doc) */
+.menu__link--sublist.menu__link--active {
+  color: var(--ifm-color-accent);
+  font-weight: 600;
+}
+
+/* Hover state - subtle preview of indicator */
+.menu__link:not(.menu__link--active):hover {
+  color: var(--ifm-color-accent);
+  background: var(--ifm-color-accent-subtle);
+}
+
+/* Dark mode overrides */
+[data-theme='dark'] .menu__link--active:not(.menu__link--sublist) {
+  background: var(--ifm-color-accent-subtle);
+}
+
+[data-theme='dark'] .menu__link:not(.menu__link--active):hover {
+  background: var(--ifm-color-accent-subtle);
+}
+
+/* ========================================
+   TOC RIGHT PANEL - ACTIVE ITEM HIGHLIGHT
+   ======================================== */
+
+/* TOC active link - vertical left border + color */
+.table-of-contents__link--active,
+.table-of-contents__link[aria-current] {
+  position: relative;
+  color: var(--ifm-color-accent) !important;
+  font-weight: 600;
+}
+
+.table-of-contents__link--active::before,
+.table-of-contents__link[aria-current]::before {
+  content: '';
+  position: absolute;
+  left: -12px;
+  top: 2px;
+  bottom: 2px;
+  width: 2px;
+  background: var(--ifm-color-accent);
+  border-radius: 2px;
+}
+
+/* TOC hover state */
+.table-of-contents__link:hover {
+  color: var(--ifm-color-accent) !important;
+  text-decoration: none;
+}
+
+/* TOC base link - smooth transition */
+.table-of-contents__link {
+  position: relative;
+  transition: color 0.15s ease;
+}
+
+/* Dark mode TOC */
+[data-theme='dark'] .table-of-contents__link--active,
+[data-theme='dark'] .table-of-contents__link[aria-current] {
+  color: var(--ifm-color-accent-dark) !important;
+}
+
+[data-theme='dark'] .table-of-contents__link--active::before,
+[data-theme='dark'] .table-of-contents__link[aria-current]::before {
+  background: var(--ifm-color-accent-dark);
 }
