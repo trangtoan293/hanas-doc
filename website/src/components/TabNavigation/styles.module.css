@@ -1,177 +1,503 @@
-/* Tab Section Wrapper */
+/* ========================================
+   TAB NAVIGATION — Premium Section
+   ======================================== */
+
+/* Section Wrapper — Gradient Background */
 .tabSection {
+  position: relative;
   width: 100%;
-  background: var(--ifm-surface-color, #f8fafc);
-  padding: 2rem 0;
+  padding: 80px 0;
+  background: linear-gradient(135deg,
+      var(--ifm-background-color) 0%,
+      #f0f4ff 40%,
+      #f5f0ff 70%,
+      var(--ifm-background-color) 100%);
+  overflow: hidden;
 }
 
-/* Tab Navigation Container */
+/* ---- Decorative Background Blobs ---- */
+.bgBlob1,
+.bgBlob2 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bgBlob1 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, transparent 70%);
+  top: -80px;
+  right: -60px;
+  animation: blobFloat1 18s ease-in-out infinite;
+}
+
+.bgBlob2 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
+  bottom: -100px;
+  left: -80px;
+  animation: blobFloat2 22s ease-in-out infinite;
+}
+
+@keyframes blobFloat1 {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(-30px, 20px) scale(1.08);
+  }
+}
+
+@keyframes blobFloat2 {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(25px, -15px) scale(1.05);
+  }
+}
+
+/* ---- Container ---- */
 .tabContainer {
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 0 24px;
 }
 
-/* Tab List - Horizontal navigation */
+/* ---- Section Header ---- */
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.sectionTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--ifm-heading-color);
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.gradientText {
+  background: linear-gradient(135deg, #3B82F6 0%, #6366F1 50%, #8B5CF6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sectionSubtitle {
+  font-size: 1.125rem;
+  color: var(--ifm-color-emphasis-700);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ---- Tab List — Card-Style Pills ---- */
 .tabList {
   display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 32px;
   flex-wrap: wrap;
-  gap: 0;
-  border-bottom: 2px solid var(--ifm-color-emphasis-200, #e2e8f0);
-  margin-bottom: 1.5rem;
-  position: relative;
 }
 
-/* Individual Tab Button */
+/* Individual Tab Button — Mini Card */
 .tabButton {
-  flex: 1;
-  min-width: 120px;
-  padding: 1rem 1.5rem;
-  background: transparent;
-  border: none;
-  border-bottom: 3px solid transparent;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #111827;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 28px;
+  min-width: 140px;
+  background: var(--ifm-background-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 16px;
+  box-shadow: var(--ifm-shadow-sm);
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
+  overflow: hidden;
 }
 
-/* Tab Icon */
+.tabButton::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #3B82F6, #6366F1, #8B5CF6);
+  border-radius: 3px 3px 0 0;
+  transition: width 0.3s ease;
+}
+
+.tabButton:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--ifm-shadow-md);
+  border-color: var(--ifm-color-accent-light);
+}
+
+.tabButton:hover::before {
+  width: 50%;
+}
+
+.tabButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2), var(--ifm-shadow-md);
+}
+
+/* Tab Icon — Gradient Circle Badge */
 .tabIcon {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--ifm-color-accent-subtle);
+  color: var(--ifm-color-accent);
+  transition: all 0.3s ease;
   flex-shrink: 0;
-  transition: color 0.3s ease;
+}
+
+.tabButton:hover .tabIcon {
+  background: linear-gradient(135deg, #3B82F6, #6366F1);
+  color: #fff;
+  transform: scale(1.08);
 }
 
 /* Tab Label */
 .tabLabel {
-  display: inline-block;
-}
-
-/* Tab Button Hover State */
-.tabButton:hover {
-  color: #111827;
-  background: rgba(226, 232, 240, 0.5);
-}
-
-/* Tab Button Focus State */
-.tabButton:focus {
-  outline: none;
-  box-shadow: inset 0 0 0 2px rgba(59, 130, 246, 0.3);
-  color: #111827;
-}
-
-/* Tab Button Active State - Blue Accent */
-.tabButtonActive {
-  color: #0066cc;
-  border-bottom: 3px solid #0066cc;
+  font-size: 0.875rem;
   font-weight: 600;
+  color: var(--ifm-font-color-secondary);
+  text-align: center;
+  transition: color 0.3s ease;
+  white-space: nowrap;
 }
 
-/* Active Tab Indicator Animation */
-.tabButtonActive::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: #0066cc;
-  animation: slideIn 0.3s ease-out;
+.tabButton:hover .tabLabel {
+  color: var(--ifm-font-color-base);
 }
 
-@keyframes slideIn {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
+/* ---- Active Tab State — Glowing ---- */
+.tabButtonActive {
+  border-color: rgba(59, 130, 246, 0.3);
+  box-shadow:
+    0 4px 20px rgba(59, 130, 246, 0.15),
+    0 0 0 1px rgba(59, 130, 246, 0.1);
+  transform: translateY(-2px);
 }
 
-/* Tab Panels Container */
+.tabButtonActive::before {
+  width: 60%;
+}
+
+.tabButtonActive .tabIcon {
+  background: linear-gradient(135deg, #3B82F6, #6366F1);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+}
+
+.tabButtonActive .tabLabel {
+  color: var(--ifm-color-accent);
+  font-weight: 700;
+}
+
+.tabButtonActive:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 8px 30px rgba(59, 130, 246, 0.2),
+    0 0 0 1px rgba(59, 130, 246, 0.15);
+}
+
+/* ---- Content Panel — Glassmorphism Card ---- */
 .tabPanels {
   position: relative;
-  min-height: 150px;
+  min-height: 200px;
 }
 
-/* Individual Tab Panel */
 .tabPanel {
   opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  transform: translateY(12px);
+  transition: opacity 0.35s ease-out, transform 0.35s ease-out;
   will-change: opacity, transform;
 }
 
-/* Active Tab Panel */
 .tabPanelActive {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Tab Content List */
 .tabContentList {
   list-style: none;
   padding: 0;
   margin: 0;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 20px;
+  padding: 12px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
-/* Tab Content Item */
+/* Content Item — Hover Card */
 .tabContentItem {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 1rem;
   line-height: 1.75;
-  color: #111827;
-  padding: 0.75rem 0;
-  padding-left: 1.5rem;
+  color: var(--ifm-font-color-base);
+  padding: 16px 20px 16px 48px;
   position: relative;
-  border-bottom: 1px solid var(--ifm-color-emphasis-100, rgba(226, 232, 240, 0.5));
+  border-radius: 12px;
+  transition: all 0.25s ease;
+  cursor: default;
+  opacity: 0;
+  animation: itemFadeIn 0.4s ease-out forwards;
 }
 
-.tabContentItem:last-child {
-  border-bottom: none;
+.tabContentItem:hover {
+  background: rgba(59, 130, 246, 0.04);
 }
 
-/* Bullet Point */
+.tabContentItem:hover::before {
+  transform: scale(1.4);
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.3);
+}
+
+/* Gradient Bullet Point */
 .tabContentItem::before {
   content: '';
   position: absolute;
-  left: 0;
-  top: 1.125rem;
-  width: 6px;
-  height: 6px;
-  background: #0066cc;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(135deg, #3B82F6, #6366F1);
   border-radius: 50%;
-  opacity: 0.6;
+  transition: all 0.3s ease;
 }
 
-/* Responsive Styles */
+/* Left accent bar on hover */
+.tabContentItem::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  background: linear-gradient(180deg, #3B82F6, #6366F1);
+  border-radius: 3px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.tabContentItem:hover::after {
+  opacity: 1;
+}
+
+/* Staggered animation for content items */
+@keyframes itemFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stagger0 {
+  animation-delay: 0s;
+}
+
+.stagger1 {
+  animation-delay: 0.06s;
+}
+
+.stagger2 {
+  animation-delay: 0.12s;
+}
+
+.stagger3 {
+  animation-delay: 0.18s;
+}
+
+.stagger4 {
+  animation-delay: 0.24s;
+}
+
+.stagger5 {
+  animation-delay: 0.30s;
+}
+
+/* Entrance animation */
+.animateIn {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: sectionFadeInUp 0.7s ease-out forwards;
+}
+
+@keyframes sectionFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.delay1 {
+  animation-delay: 0.1s;
+}
+
+.delay2 {
+  animation-delay: 0.2s;
+}
+
+.delay3 {
+  animation-delay: 0.3s;
+}
+
+/* ========================================
+   DARK MODE
+   ======================================== */
+:global([data-theme='dark']) .tabSection {
+  background: linear-gradient(135deg,
+      var(--ifm-background-color) 0%,
+      #131b2e 40%,
+      #1a1530 70%,
+      var(--ifm-background-color) 100%);
+}
+
+:global([data-theme='dark']) .bgBlob1 {
+  opacity: 0.12;
+}
+
+:global([data-theme='dark']) .bgBlob2 {
+  opacity: 0.1;
+}
+
+:global([data-theme='dark']) .tabButton {
+  background: var(--ifm-surface-color);
+  border-color: var(--ifm-border-color);
+}
+
+:global([data-theme='dark']) .tabButton:hover {
+  border-color: rgba(96, 165, 250, 0.4);
+}
+
+:global([data-theme='dark']) .tabButtonActive {
+  border-color: rgba(96, 165, 250, 0.35);
+  box-shadow:
+    0 4px 20px rgba(96, 165, 250, 0.12),
+    0 0 0 1px rgba(96, 165, 250, 0.1);
+}
+
+:global([data-theme='dark']) .tabButtonActive .tabIcon {
+  box-shadow: 0 4px 16px rgba(96, 165, 250, 0.25);
+}
+
+:global([data-theme='dark']) .tabContentList {
+  background: rgba(30, 41, 59, 0.7);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+:global([data-theme='dark']) .tabContentItem:hover {
+  background: rgba(96, 165, 250, 0.06);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+/* Tablet */
+@media (max-width: 996px) {
+  .tabSection {
+    padding: 60px 0;
+  }
+
+  .sectionTitle {
+    font-size: 2rem;
+  }
+
+  .tabButton {
+    padding: 16px 22px;
+    min-width: 120px;
+  }
+
+  .tabIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .bgBlob1 {
+    width: 280px;
+    height: 280px;
+  }
+
+  .bgBlob2 {
+    width: 240px;
+    height: 240px;
+  }
+}
+
+/* Mobile */
 @media (max-width: 768px) {
   .tabSection {
-    padding: 1rem 0;
+    padding: 48px 0;
   }
 
   .tabContainer {
-    padding: 1rem 0.75rem;
+    padding: 0 16px;
+  }
+
+  .sectionHeader {
+    margin-bottom: 32px;
+  }
+
+  .sectionTitle {
+    font-size: 1.75rem;
+  }
+
+  .sectionSubtitle {
+    font-size: 1rem;
   }
 
   .tabList {
-    flex-direction: row;
+    gap: 8px;
     overflow-x: auto;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding-bottom: 4px;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    -ms-overflow-style: none;
   }
 
   .tabList::-webkit-scrollbar {
@@ -180,44 +506,53 @@
 
   .tabButton {
     flex: 0 0 auto;
-    min-width: auto;
-    padding: 0.875rem 1rem;
-    font-size: 0.875rem;
+    padding: 14px 18px;
+    min-width: 110px;
+    border-radius: 12px;
   }
 
   .tabIcon {
-    width: 18px;
-    height: 18px;
+    width: 36px;
+    height: 36px;
   }
 
-  .tabIcon svg {
-    width: 18px;
-    height: 18px;
+  .tabLabel {
+    font-size: 0.8125rem;
+  }
+
+  .tabContentList {
+    padding: 8px;
+    border-radius: 16px;
   }
 
   .tabContentItem {
+    padding: 12px 16px 12px 40px;
     font-size: 0.9375rem;
-    line-height: 1.7;
-    padding-left: 1.25rem;
   }
 
   .tabContentItem::before {
-    top: 1.05rem;
-    width: 5px;
-    height: 5px;
+    left: 14px;
+    width: 6px;
+    height: 6px;
+  }
+
+  .bgBlob1,
+  .bgBlob2 {
+    display: none;
   }
 }
 
+/* Small Mobile */
 @media (max-width: 480px) {
   .tabButton {
-    padding: 0.75rem 0.875rem;
-    font-size: 0.8125rem;
-    gap: 0.375rem;
+    padding: 12px 14px;
+    min-width: 95px;
+    gap: 8px;
   }
 
   .tabIcon {
-    width: 16px;
-    height: 16px;
+    width: 32px;
+    height: 32px;
   }
 
   .tabIcon svg {
@@ -225,98 +560,36 @@
     height: 16px;
   }
 
+  .tabLabel {
+    font-size: 0.75rem;
+  }
+
   .tabContentItem {
-    padding: 0.625rem 0;
-    padding-left: 1rem;
-  }
-
-  .tabContentItem::before {
-    top: 0.95rem;
-    width: 4px;
-    height: 4px;
+    padding: 10px 12px 10px 36px;
   }
 }
 
-/* Light Mode - Explicit */
-html[data-theme='light'] .tabSection {
-  background: var(--ifm-surface-color, #f8fafc);
-}
-
-html[data-theme='light'] .tabButton {
-  color: #111827;
-}
-
-html[data-theme='light'] .tabButton:hover {
-  color: #000000;
-  background: rgba(0, 0, 0, 0.05);
-}
-
-html[data-theme='light'] .tabButton:focus {
-  color: #000000;
-}
-
-html[data-theme='light'] .tabButtonActive {
-  color: #0052a3;
-  border-bottom-color: #0052a3;
-}
-
-html[data-theme='light'] .tabButtonActive::after {
-  background: #0052a3;
-}
-
-html[data-theme='light'] .tabContentItem {
-  color: #111827;
-}
-
-html[data-theme='light'] .tabContentItem::before {
-  background: #0052a3;
-}
-
-/* Dark Mode - Explicit */
-html[data-theme='dark'] .tabSection {
-  background: var(--ifm-surface-color, #1e293b);
-}
-
-html[data-theme='dark'] .tabButton {
-  color: #ffffff;
-}
-
-html[data-theme='dark'] .tabButton:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-html[data-theme='dark'] .tabButton:focus {
-  box-shadow: inset 0 0 0 2px rgba(96, 165, 250, 0.3);
-}
-
-html[data-theme='dark'] .tabButtonActive {
-  color: #4dabf7;
-  border-bottom-color: #4dabf7;
-}
-
-html[data-theme='dark'] .tabButtonActive::after {
-  background: #4dabf7;
-}
-
-html[data-theme='dark'] .tabContentItem {
-  color: #ffffff;
-  border-bottom-color: var(--ifm-color-emphasis-600, rgba(51, 65, 85, 0.5));
-}
-
-html[data-theme='dark'] .tabContentItem::before {
-  background: #4dabf7;
-}
-
-/* Reduced Motion */
+/* ---- Reduced Motion ---- */
 @media (prefers-reduced-motion: reduce) {
+
   .tabButton,
-  .tabPanel {
+  .tabPanel,
+  .tabContentItem,
+  .tabIcon,
+  .animateIn {
     transition: none;
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 
-  .tabButtonActive::after {
+  .bgBlob1,
+  .bgBlob2 {
     animation: none;
   }
-}
 
+  .tabButton:hover,
+  .tabButtonActive:hover {
+    transform: none;
+  }
+}
