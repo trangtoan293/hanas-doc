@@ -121,12 +121,12 @@ const config: Config = {
         src: 'img/logo.svg',
       },
       items: [
-        {
-          type: 'docSidebar',
-          sidebarId: 'docsSidebar',
-          position: 'left',
-          label: 'Tài Liệu',
-        },
+        // {
+        //   type: 'docSidebar',
+        //   sidebarId: 'docsSidebar',
+        //   position: 'left',
+        //   label: 'Tài Liệu',
+        // },
         {
           href: 'https://github.com/trangtoan293/hanas-doc',
           label: 'GitHub',

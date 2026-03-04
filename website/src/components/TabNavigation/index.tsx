@@ -70,11 +70,11 @@ const tabs: Tab[] = [
     id: 'usecases',
     label: 'Use Cases',
     items: [
-      'Phân tích hành vi khách hàng trong thờigian thực',
+      'Phân tích hành vi khách hàng trong thời gian thực',
       'Dự báo xu hướng thị trường và nhu cầu sản phẩm',
       'Tối ưu hóa chuỗi cung ứng thông minh',
       'Phát hiện gian lận và bảo mật nâng cao',
-      'Cá nhân hóa trải nghiệm ngườidùng trên quy mô lớn'
+      'Cá nhân hóa trải nghiệm người dùng trên quy mô lớn'
     ]
   },
   {
@@ -91,6 +91,15 @@ const tabs: Tab[] = [
   }
 ];
 
+const staggerClasses = [
+  styles.stagger0,
+  styles.stagger1,
+  styles.stagger2,
+  styles.stagger3,
+  styles.stagger4,
+  styles.stagger5,
+];
+
 export default function TabNavigation(): React.JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('overview');
 
@@ -98,13 +107,26 @@ export default function TabNavigation(): React.JSX.Element {
     setActiveTab(tabId);
   };
 
-  const activeTabData = tabs.find(tab => tab.id === activeTab);
-
   return (
     <section className={styles.tabSection}>
+      {/* Decorative Background Blobs */}
+      <div className={styles.bgBlob1} />
+      <div className={styles.bgBlob2} />
+
       <div className={styles.tabContainer}>
-        <div 
-          className={styles.tabList}
+        {/* Section Header */}
+        <div className={`${styles.sectionHeader} ${styles.animateIn}`}>
+          <h2 className={styles.sectionTitle}>
+            Khám Phá <span className={styles.gradientText}>Hanas Platform</span>
+          </h2>
+          <p className={styles.sectionSubtitle}>
+            Tìm hiểu tổng quan, tính năng nổi bật, các use cases thực tế và tài nguyên hỗ trợ
+          </p>
+        </div>
+
+        {/* Tab Buttons */}
+        <div
+          className={`${styles.tabList} ${styles.animateIn} ${styles.delay1}`}
           role="tablist"
           aria-label="Platform navigation tabs"
         >
@@ -138,8 +160,9 @@ export default function TabNavigation(): React.JSX.Element {
             );
           })}
         </div>
-        
-        <div className={styles.tabPanels}>
+
+        {/* Tab Content Panels */}
+        <div className={`${styles.tabPanels} ${styles.animateIn} ${styles.delay2}`}>
           {tabs.map((tab) => (
             <div
               key={tab.id}
@@ -151,7 +174,12 @@ export default function TabNavigation(): React.JSX.Element {
             >
               <ul className={styles.tabContentList}>
                 {tab.items.map((item, index) => (
-                  <li key={index} className={styles.tabContentItem}>{item}</li>
+                  <li
+                    key={`${tab.id}-${index}`}
+                    className={`${styles.tabContentItem} ${staggerClasses[index] || ''}`}
+                  >
+                    {item}
+                  </li>
                 ))}
               </ul>
             </div>

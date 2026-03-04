@@ -89,6 +89,18 @@ const sidebars: SidebarsConfig = {
             'storage/apache-iceberg/version-info',
           ],
         },
+        // {
+        //   type: 'category',
+        //   label: 'Apache Polaris',
+        //   items: [
+        //     'storage/data-catalog/README',
+        //     'storage/data-catalog/installation',
+        //     'storage/data-catalog/configuration',
+        //     'storage/data-catalog/user-guide',
+        //     'storage/data-catalog/best-practices',
+        //     'storage/data-catalog/version-info',
+        //   ],
+        // },
       ],
     },
     {
@@ -102,18 +114,6 @@ const sidebars: SidebarsConfig = {
       items: [
         {
           type: 'category',
-          label: 'Apache Airflow',
-          items: [
-            'processing/apache-airflow/README',
-            'processing/apache-airflow/installation',
-            'processing/apache-airflow/configuration',
-            'processing/apache-airflow/user-guide',
-            'processing/apache-airflow/best-practices',
-            'processing/apache-airflow/version-info',
-          ],
-        },
-        {
-          type: 'category',
           label: 'Apache Spark',
           items: [
             'processing/apache-spark/README',
@@ -122,6 +122,29 @@ const sidebars: SidebarsConfig = {
             'processing/apache-spark/user-guide',
             'processing/apache-spark/best-practices',
             'processing/apache-spark/version-info',
+          ],
+        },
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Điều Phối Luồng Dữ Liệu',
+      collapsed: true,
+      link: {
+        type: 'doc',
+        id: 'orchestration/README',
+      },
+      items: [
+        {
+          type: 'category',
+          label: 'Apache Airflow',
+          items: [
+            'orchestration/apache-airflow/README',
+            'orchestration/apache-airflow/installation',
+            'orchestration/apache-airflow/configuration',
+            'orchestration/apache-airflow/user-guide',
+            'orchestration/apache-airflow/best-practices',
+            'orchestration/apache-airflow/version-info',
           ],
         },
       ],
@@ -208,6 +231,113 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
+      label: 'Dịch Vụ AI',
+      collapsed: true,
+      link: {
+        type: 'doc',
+        id: 'ai-service/README',
+      },
+      items: [
+        {
+          type: 'category',
+          label: 'Dify',
+          items: [
+            'ai-service/dify/README',
+            'ai-service/dify/installation',
+            'ai-service/dify/configuration',
+            'ai-service/dify/user-guide',
+            'ai-service/dify/best-practices',
+            'ai-service/dify/version-info',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'vLLM',
+          items: [
+            'ai-service/vllm/README',
+            'ai-service/vllm/installation',
+            'ai-service/vllm/configuration',
+            'ai-service/vllm/user-guide',
+            'ai-service/vllm/best-practices',
+            'ai-service/vllm/version-info',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Langfuse',
+          items: [
+            'ai-service/langfuse/README',
+            'ai-service/langfuse/installation',
+            'ai-service/langfuse/configuration',
+            'ai-service/langfuse/user-guide',
+            'ai-service/langfuse/best-practices',
+            'ai-service/langfuse/version-info',
+          ],
+        },
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Trực Quan Hóa Dữ Liệu',
+      collapsed: true,
+      link: {
+        type: 'doc',
+        id: 'visualization/README',
+      },
+      items: [
+        {
+          type: 'category',
+          label: 'Apache Superset',
+          items: [
+            'visualization/apache-superset/README',
+            'visualization/apache-superset/installation',
+            'visualization/apache-superset/configuration',
+            'visualization/apache-superset/user-guide',
+            'visualization/apache-superset/best-practices',
+            'visualization/apache-superset/version-info',
+          ],
+        },
+      ],
+    },
+    {
+      type: 'category',
+      label: 'An Toàn Thông Tin',
+      collapsed: true,
+      link: {
+        type: 'doc',
+        id: 'security/README',
+      },
+      items: [
+        // 'security/authentication',
+        // 'security/authorization',
+        {
+          type: 'category',
+          label: 'Apache Ranger',
+          items: [
+            'security/apache-ranger/README',
+            'security/apache-ranger/installation',
+            'security/apache-ranger/configuration',
+            'security/apache-ranger/user-guide',
+            'security/apache-ranger/best-practices',
+            'security/apache-ranger/version-info',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'HashiCorp Vault',
+          items: [
+            'security/hashicorp-vault/README',
+            'security/hashicorp-vault/installation',
+            'security/hashicorp-vault/configuration',
+            'security/hashicorp-vault/user-guide',
+            'security/hashicorp-vault/best-practices',
+            'security/hashicorp-vault/version-info',
+          ],
+        },
+      ],
+    },
+    {
+      type: 'category',
       label: 'Quản Trị Hệ Thống',
       collapsed: true,
       link: {
@@ -260,88 +390,6 @@ const sidebars: SidebarsConfig = {
     //     },
     //   ],
     // },
-    {
-      type: 'category',
-      label: 'An Toàn Thông Tin',
-      collapsed: true,
-      link: {
-        type: 'doc',
-        id: 'security/README',
-      },
-      items: [
-        // 'security/authentication',
-        // 'security/authorization',
-        {
-          type: 'category',
-          label: 'Apache Ranger',
-          items: [
-            'security/apache-ranger/README',
-            'security/apache-ranger/installation',
-            'security/apache-ranger/configuration',
-            'security/apache-ranger/user-guide',
-          ],
-        },
-        {
-          type: 'category',
-          label: 'HashiCorp Vault',
-          items: [
-            'security/hashicorp-vault/README',
-            'security/hashicorp-vault/installation',
-            'security/hashicorp-vault/configuration',
-            'security/hashicorp-vault/user-guide',
-          ],
-        },
-      ],
-    },
-
-    {
-      type: 'category',
-      label: 'AI Service',
-      collapsed: true,
-      link: {
-        type: 'doc',
-        id: 'ai-service/README',
-      },
-      items: [
-        {
-          type: 'category',
-          label: 'Dify',
-          items: [
-            'ai-service/dify/README',
-            'ai-service/dify/installation',
-            'ai-service/dify/configuration',
-            'ai-service/dify/user-guide',
-            'ai-service/dify/best-practices',
-            'ai-service/dify/version-info',
-          ],
-        },
-        {
-          type: 'category',
-          label: 'vLLM',
-          items: [
-            'ai-service/vllm/README',
-            'ai-service/vllm/installation',
-            'ai-service/vllm/configuration',
-            'ai-service/vllm/user-guide',
-            'ai-service/vllm/best-practices',
-            'ai-service/vllm/version-info',
-          ],
-        },
-        {
-          type: 'category',
-          label: 'Langfuse',
-          items: [
-            'ai-service/langfuse/README',
-            'ai-service/langfuse/installation',
-            'ai-service/langfuse/configuration',
-            'ai-service/langfuse/user-guide',
-            'ai-service/langfuse/best-practices',
-            'ai-service/langfuse/version-info',
-          ],
-        },
-      ],
-    },
-
   ],
 };
 

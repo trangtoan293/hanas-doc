@@ -8,6 +8,7 @@ Lớp lưu trữ dữ liệu là nền tảng lưu trữ tập trung cho toàn b
 |---|---|
 | **MinIO** | Object Storage phân tán, S3-compatible, lưu trữ vật lý |
 | **Apache Iceberg** | Open Table Format, quản lý bảng transactional trên Data Lake |
+| **Apache Polaris** | REST Catalog cho Iceberg, quản lý metadata tập trung, RBAC, credential vending |
 
 ## Tổ Chức Vùng Dữ Liệu
 
@@ -36,3 +37,4 @@ graph TD
 
 - [MinIO](minio/README.md) — Object Storage
 - [Apache Iceberg](apache-iceberg/README.md) — Open Table Format
+- [Apache Polaris](data-catalog/README.md) — Data Catalog (REST Catalog cho Iceberg)

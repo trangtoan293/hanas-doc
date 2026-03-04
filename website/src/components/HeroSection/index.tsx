@@ -19,8 +19,8 @@ export default function HeroSection(): React.JSX.Element {
             </p>
 
             <h1 className={`${styles.heroTitle} ${styles.animateIn} ${styles.delay2}`}>
-              Một Nền Tảng.<br />
-              <span className={styles.gradientText}>Mọi Dữ Liệu.</span>
+              Một Nền Tảng<br />
+              <span className={styles.gradientText}>Mọi Dữ Liệu</span>
             </h1>
 
             <p className={`${styles.heroSubtitle} ${styles.animateIn} ${styles.delay3}`}>
