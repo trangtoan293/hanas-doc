@@ -1,4 +1,4 @@
-# dbt - Thông Tin Version
+# DBT - Thông Tin Version
 
 ## Version Hiện Tại
 
@@ -6,26 +6,26 @@
 |---|---|
 | **Project name** | `ktl_dbt` |
 | **Project version** | 1.0.0 |
-| **dbt-spark** | 1.9.0 |
-| **dbt-metricflow** | 0.10.1 |
+| **DBT-spark** | 1.9.0 |
+| **DBT-metricflow** | 0.10.1 |
 | **Python** | >= 3.11 |
 | **Môi trường** | Kubernetes (SparkOperator) |
 
 ## Dependencies
 
-### dbt Packages
+### DBT Packages
 
 | Package | Version | Mô tả |
 |---|---|---|
-| `dbt-labs/dbt_utils` | 1.3.0 | Essential utility macros |
-| `dbt-labs/spark_utils` | 0.3.0 | Spark-specific utility macros |
+| `DBT-labs/dbt_utils` | 1.3.0 | Essential utility macros |
+| `DBT-labs/spark_utils` | 0.3.0 | Spark-specific utility macros |
 | `ktl_autovault` | local | AutoVault - tự sinh Data Vault models |
 
 ### Python Dependencies
 
 ```
-dbt-spark==1.9.0
-dbt-metricflow[dbt-databricks,dbt-spark]==0.10.1
+DBT-spark==1.9.0
+DBT-metricflow[DBT-databricks,DBT-spark]==0.10.1
 ```
 
 ## Tương Thích
@@ -34,12 +34,12 @@ dbt-metricflow[dbt-databricks,dbt-spark]==0.10.1
 
 | Component | Version | Ghi chú |
 |---|---|---|
-| **Apache Spark** | 3.x | Engine xử lý dbt models |
+| **Apache Spark** | 3.x | Engine xử lý DBT models |
 | **Apache Iceberg** | Compatible với Spark 3.x | File format cho tất cả models |
 | **Hive Metastore** | 3.x | Catalog management (`thrift://`) |
 | **MinIO / S3** | Latest | Object storage via `S3AFileSystem` |
 | **Python** | >= 3.11 | Runtime requirement |
-| **dbt config-version** | 2 | dbt project configuration version |
+| **DBT config-version** | 2 | DBT project configuration version |
 
 ### Spark Extensions
 

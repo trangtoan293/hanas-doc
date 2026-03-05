@@ -1,4 +1,4 @@
-# dbt - Best Practices
+# DBT - Best Practices
 
 ## Thiết Kế & Kiến Trúc
 
@@ -115,8 +115,8 @@ ktl_autovault_configs/
 
 ### Deployment Checklist
 
-1. ✅ Kiểm tra `dbt deps` thành công
-2. ✅ Chạy `dbt compile` để validate SQL
+1. ✅ Kiểm tra `DBT deps` thành công
+2. ✅ Chạy `DBT compile` để validate SQL
 3. ✅ Seed data loaded (`ref_eod`, MDM catalogs)
 4. ✅ Environment variables configured
 5. ✅ Lakehouse logging enabled (`--log-to-lakehouse`)
@@ -126,21 +126,21 @@ ktl_autovault_configs/
 
 ```bash
 # 1. Install dependencies
-dbt deps
+DBT deps
 
 # 2. Load seed data
 python dbt_seed.py
 
 # 3. Run integration layer (Raw Vault)
-python dbt_runner.py --use-subprocess --dbt-command ktl_dbt \
+python dbt_runner.py --use-subprocess --DBT-command ktl_dbt \
   run --target dev --select integration.*
 
 # 4. Run MDM pipeline
-python dbt_runner.py --use-subprocess --dbt-command ktl_dbt \
+python dbt_runner.py --use-subprocess --DBT-command ktl_dbt \
   run --target dev --select mdm.*
 
 # 5. Run Data Mart
-python dbt_runner.py --use-subprocess --dbt-command ktl_dbt \
+python dbt_runner.py --use-subprocess --DBT-command ktl_dbt \
   run --target dev --select data_mart.*
 ```
 
@@ -153,7 +153,7 @@ python dbt_runner.py --use-subprocess --dbt-command ktl_dbt \
 ### Error Handling
 
 - `dbt_runner.py` exit code `1` khi có lỗi → Airflow/K8s sẽ retry
-- Error details ghi trong `run_results.json` và `dbt.log`
+- Error details ghi trong `run_results.json` và `DBT.log`
 - Upload artifacts **trước** khi exit fail → vẫn có thể debug từ S3
 
 ### Backdate Processing
@@ -162,7 +162,7 @@ Các model `*_backdate` trong data_mart hỗ trợ xử lý dữ liệu lịch s
 
 ```bash
 # Chạy backdate models với cob_date cụ thể
-python dbt_runner.py --use-subprocess --dbt-command ktl_dbt \
+python dbt_runner.py --use-subprocess --DBT-command ktl_dbt \
   run --target dev --select fact_dp_detail_backdate \
   --vars '{"cob_date": "2025-11-15"}'
 ```

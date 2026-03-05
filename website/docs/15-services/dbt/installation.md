@@ -1,4 +1,4 @@
-# dbt - Cài Đặt & Triển Khai
+# DBT - Cài Đặt & Triển Khai
 
 ## Yêu Cầu Hệ Thống
 
@@ -22,9 +22,9 @@
 ### Sử dụng uv (Recommended)
 
 ```bash
-# Clone dbt project
-git clone <repo-url> dbt-project
-cd dbt-project
+# Clone DBT project
+git clone <repo-url> DBT-project
+cd DBT-project
 
 # Install dependencies với uv
 uv sync
@@ -37,18 +37,18 @@ source .venv/bin/activate
 
 ```bash
 # Install core dependencies
-pip install dbt-spark==1.9.0
-pip install dbt-metricflow[dbt-databricks,dbt-spark]==0.10.1
+pip install DBT-spark==1.9.0
+pip install DBT-metricflow[DBT-databricks,DBT-spark]==0.10.1
 
-# Cài đặt dbt packages
+# Cài đặt DBT packages
 export DBT_PROFILES_DIR=$(pwd)
-dbt deps
+DBT deps
 ```
 
 ### Cấu Hình Environment
 
 ```bash
-# Bắt buộc: Schema name cho dbt target
+# Bắt buộc: Schema name cho DBT target
 export SCHEMA_NAME=integration_demo
 
 # S3/MinIO credentials
@@ -68,18 +68,18 @@ export DBT_LOG_PATH=/tmp/dbt_logs
 Kubernetes Cluster
 ├── SparkOperator
 │   └── Spark Application (driver + executors)
-│       ├── git-sync init container  → Pull dbt-project từ Git
+│       ├── git-sync init container  → Pull DBT-project từ Git
 │       ├── dbt_runner.py            → Entry point
-│       └── Spark Session            → Execute dbt models
+│       └── Spark Session            → Execute DBT models
 ├── Hive Metastore Service
 └── MinIO Service
 ```
 
 ### Deploy Flow
 
-1. **Git-sync init container** pull latest dbt project code
-2. **SparkOperator** khởi tạo Spark Application với dbt project
-3. **dbt_runner.py** chạy dbt commands (deps → run/test → docs → upload artifacts)
+1. **Git-sync init container** pull latest DBT project code
+2. **SparkOperator** khởi tạo Spark Application với DBT project
+3. **dbt_runner.py** chạy DBT commands (deps → run/test → docs → upload artifacts)
 4. **Artifacts** (manifest.json, run_results.json, catalog.json) upload lên S3
 
 ### Sử Dụng dbt_runner.py
@@ -88,27 +88,27 @@ Kubernetes Cluster
 # Chạy với subprocess mode (recommended cho Kubernetes)
 python dbt_runner.py \
   --use-subprocess \
-  --dbt-command ktl_dbt \
+  --DBT-command ktl_dbt \
   run --target dev --select integration.*
 
 # Chạy với artifact upload
 python dbt_runner.py \
   --use-subprocess \
-  --dbt-command ktl_dbt \
+  --DBT-command ktl_dbt \
   --upload-artifacts \
   --s3-bucket data \
-  --s3-prefix dbt/artifacts/$(date +%Y-%m-%d) \
+  --s3-prefix DBT/artifacts/$(date +%Y-%m-%d) \
   --s3-endpoint-url http://minio:9000 \
   run --target dev
 
 # Chạy với Lakehouse logging
 python dbt_runner.py \
   --use-subprocess \
-  --dbt-command ktl_dbt \
+  --DBT-command ktl_dbt \
   --log-to-lakehouse \
   --job-log-table LakeHouse.etladmin.job_run_logs \
   --sql-log-table LakeHouse.etladmin.job_sql_logs \
-  --source-system dbt \
+  --source-system DBT \
   --source-table integration.raw_vault \
   run --target dev
 ```
@@ -122,10 +122,10 @@ python dbt_runner.py \
 export DBT_PROFILES_DIR=$(pwd)
 
 # Kiểm tra connection
-dbt debug
+DBT debug
 
 # Install packages
-dbt deps
+DBT deps
 
 # Compile models (không chạy)
 python dbt_compile.py --select hub_customer
@@ -137,17 +137,17 @@ python dbt_seed.py
 ### Kết Quả Mong Đợi
 
 ```
-✅ dbt debug:
+✅ DBT debug:
   - profiles.yml found
   - dbt_project.yml found
   - Connection test: OK (Spark session)
 
-✅ dbt deps:
-  - dbt-labs/dbt_utils@1.3.0
-  - dbt-labs/spark_utils@0.3.0
+✅ DBT deps:
+  - DBT-labs/dbt_utils@1.3.0
+  - DBT-labs/spark_utils@0.3.0
   - ktl_autovault (local)
 
-✅ dbt compile:
+✅ DBT compile:
   - Compiled SQL cho selected models
   - manifest.json generated tại /tmp/dbt_target/
 ```
