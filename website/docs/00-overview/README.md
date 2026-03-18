@@ -11,13 +11,14 @@ Hanas Data Platform là nền tảng dữ liệu hợp nhất (Data Lakehouse) t
 | # | Lớp | Mô Tả | Services |
 |---|---|---|---|
 | 1 | **Thu thập dữ liệu** (Data Ingestion) | Kéo dữ liệu từ các nguồn vào Lakehouse (batch & streaming) | NiFi, Kafka |
-| 2 | **Lưu trữ dữ liệu** (Data Storage) | Lưu trữ tập trung, đa định dạng, mở rộng linh hoạt | MinIO, Iceberg |
-| 3 | **Xử lý dữ liệu** (Data Processing) | Điều phối, thực thi ETL/ELT, xử lý phân tán | Airflow, Spark |
-| 4 | **Mô hình dữ liệu** (Data Model) | Tổ chức dữ liệu theo Data Vault 2.0 | dbt |
-| 5 | **Quản trị dữ liệu** (Data Governance) | Metadata, catalog, lineage, data quality | DataHub |
-| 6 | **Liên kết dữ liệu** (Data Federation) | Query engine, semantic layer, BI connectivity | Dremio |
-| 7 | **Quản trị hệ thống** (System Mgmt) | Logging, metrics, tracing, alerting | OpenObserve |
-| 8 | **Dịch vụ AI** (AI Service) | Quy trình AI, suy luận LLM, giám sát | Dify, vLLM, Langfuse |
+| 2 | **Lưu trữ dữ liệu** (Data Storage) | Lưu trữ tập trung, đa định dạng, mở rộng linh hoạt | MinIO, Iceberg, Hive |
+| 3 | **Điều phối dữ liệu** (Data Orchestration) | Lập lịch, điều phối và quản lý luồng công việc | Airflow, NiFi |
+| 4 | **Xử lý dữ liệu** (Data Processing) | Tính toán, biến đổi và thực thi truy vấn phân tán trên dữ liệu quy mô lớn | Spark, Dremio |
+| 5 | **Mô hình dữ liệu** (Data Model) | Tổ chức dữ liệu theo Data Vault 2.0 | dbt |
+| 6 | **Quản trị dữ liệu** (Data Governance) | Quản lý Metadata, Catalog, Lineage, Data Quality | DataHub |
+| 7 | **Liên kết dữ liệu** (Data Federation) | Query engine, semantic layer, BI connectivity | Dremio |
+| 8 | **Quản trị hệ thống** (System Mgmt) | Logging, metrics, tracing, alerting | OpenObserve |
+| 9 | **Dịch vụ AI** (AI Service) | Quy trình AI, suy luận LLM, giám sát | Dify, vLLM, Langfuse |
 
 ## Tài Liệu Liên Quan
 

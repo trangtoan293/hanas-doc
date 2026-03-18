@@ -1,6 +1,6 @@
-# dbt - Hướng Dẫn Sử Dụng
+# DBT - Hướng Dẫn Sử Dụng
 
-## Chạy dbt Models
+## Chạy DBT Models
 
 ### Sử Dụng dbt_runner.py
 
@@ -13,19 +13,19 @@
 
 ```bash
 # Chạy tất cả models
-python dbt_runner.py --use-subprocess --dbt-command ktl_dbt \
+python dbt_runner.py --use-subprocess --DBT-command ktl_dbt \
   run --target dev
 
 # Chạy model cụ thể
-python dbt_runner.py --use-subprocess --dbt-command ktl_dbt \
+python dbt_runner.py --use-subprocess --DBT-command ktl_dbt \
   run --target dev --select hub_customer
 
 # Chạy theo folder
-python dbt_runner.py --use-subprocess --dbt-command ktl_dbt \
+python dbt_runner.py --use-subprocess --DBT-command ktl_dbt \
   run --target dev --select integration.*
 
 # Chạy multiple commands (deps → run → test) - dùng -- để phân tách
-python dbt_runner.py --use-subprocess --dbt-command ktl_dbt \
+python dbt_runner.py --use-subprocess --DBT-command ktl_dbt \
   run --target dev -- test --target dev
 ```
 
@@ -122,7 +122,7 @@ columns:
       dtype: string
 ```
 
-### Bước 2: Tạo dbt Model SQL
+### Bước 2: Tạo DBT Model SQL
 
 **Hub model** (`models/integration/raw_vault/hub/hub_<entity>.sql`):
 ```sql
@@ -178,7 +178,7 @@ Mô tả entity...
 python dbt_compile.py --select hub_<entity>
 
 # Chạy model
-python dbt_runner.py --use-subprocess --dbt-command ktl_dbt \
+python dbt_runner.py --use-subprocess --DBT-command ktl_dbt \
   run --target dev --select hub_<entity>+
 ```
 
@@ -225,11 +225,11 @@ WHERE dv_ldt > rd.last_run_time AND dv_ldt <= rd.run_time
 
 ```bash
 # Chạy với cob_date cụ thể
-python dbt_runner.py --use-subprocess --dbt-command ktl_dbt \
+python dbt_runner.py --use-subprocess --DBT-command ktl_dbt \
   run --target dev --vars '{"cob_date": "2025-12-30"}'
 
 # Không chỉ định → tự động dùng MAX(cob_date) từ vw_ref_eod
-python dbt_runner.py --use-subprocess --dbt-command ktl_dbt \
+python dbt_runner.py --use-subprocess --DBT-command ktl_dbt \
   run --target dev
 ```
 
@@ -297,15 +297,15 @@ Khi bật `--log-to-lakehouse`, execution metadata được ghi vào Iceberg tab
 python dbt_runner.py \
   --upload-artifacts \
   --s3-bucket data \
-  --s3-prefix dbt/artifacts/2025-12-30 \
+  --s3-prefix DBT/artifacts/2025-12-30 \
   --s3-endpoint-url http://minio:9000
 ```
 
-Artifacts upload: `manifest.json`, `run_results.json`, `catalog.json`, `dbt.log`
+Artifacts upload: `manifest.json`, `run_results.json`, `catalog.json`, `DBT.log`
 
 ### Catalog & Documentation
 
 Sau khi chạy thành công, `dbt_runner.py` tự động:
 1. Generate `catalog.json` via `DbtDocsGenerator`
-2. Fallback: build catalog từ Spark `DESCRIBE TABLE` nếu `dbt docs generate` thất bại
+2. Fallback: build catalog từ Spark `DESCRIBE TABLE` nếu `DBT docs generate` thất bại
 3. Upload catalog lên S3 cùng các artifacts khác

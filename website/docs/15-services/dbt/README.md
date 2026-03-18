@@ -1,8 +1,8 @@
-# dbt (data build tool)
+# DBT (data build tool)
 
 ## Tổng Quan
 
-dbt là công cụ transformation dữ liệu SQL-based trong Hanas Data Platform, cho phép định nghĩa và quản lý logic chuyển đổi dữ liệu dưới dạng mã (analytics as code). Project `ktl_dbt` sử dụng **dbt-spark** kết hợp **Apache Iceberg** để quản lý toàn bộ mô hình Data Vault và Data Mart.
+DBT là công cụ transformation dữ liệu SQL-based trong Hanas Data Platform, cho phép định nghĩa và quản lý logic chuyển đổi dữ liệu dưới dạng mã (analytics as code). Project `ktl_dbt` sử dụng **DBT-spark** kết hợp **Apache Iceberg** để quản lý toàn bộ mô hình Data Vault và Data Mart.
 
 ### Kiến Trúc Tổng Thể
 
@@ -23,7 +23,7 @@ Data Mart (Dimension + Fact Tables)
 | Thành phần | Mô tả |
 |---|---|
 | **ktl_autovault** | Package tự sinh Data Vault models (Hub/Link/Sat/LSat) từ YAML config |
-| **dbt-spark** | Adapter kết nối dbt với Apache Spark engine |
+| **DBT-spark** | Adapter kết nối DBT với Apache Spark engine |
 | **Apache Iceberg** | Table format cho ACID transactions, time travel, schema evolution |
 | **Hive Metastore** | Quản lý metadata catalog |
 | **MinIO S3** | Object storage cho dữ liệu warehouse |
@@ -34,17 +34,17 @@ Data Mart (Dimension + Fact Tables)
 - **MDM (Master Data Management)**: Pipeline làm sạch, validate, match, merge dữ liệu khách hàng
 - **Data Mart**: Tạo Dimension và Fact tables cho BI/báo cáo (huy động, cho vay, lợi nhuận)
 - **Version Control**: Git-based collaboration cho logic biến đổi dữ liệu
-- **Automated Documentation**: Tự động sinh catalog.json và dbt docs
+- **Automated Documentation**: Tự động sinh catalog.json và DBT docs
 - **Lakehouse Logging**: Ghi log chi tiết job/SQL execution vào Iceberg tables
 
 ## Cấu Trúc Dự Án
 
 ```
-dbt-project/
-├── dbt_project.yml              # Cấu hình chính dbt project
+DBT-project/
+├── dbt_project.yml              # Cấu hình chính DBT project
 ├── profiles.yml                 # Connection profiles (Spark + Iceberg)
 ├── packages.yml                 # Package dependencies
-├── dbt_runner.py                # Runner chính - chạy dbt models
+├── dbt_runner.py                # Runner chính - chạy DBT models
 ├── dbt_compile.py               # Compile và xem compiled SQL
 ├── dbt_seed.py                  # Load seed data
 ├── dbt_lakehouse_logger.py      # Log execution metadata to Lakehouse

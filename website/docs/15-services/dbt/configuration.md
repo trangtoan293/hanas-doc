@@ -1,4 +1,4 @@
-# dbt - Cấu Hình
+# DBT - Cấu Hình
 
 ## Cấu Hình Project (`dbt_project.yml`)
 
@@ -215,9 +215,9 @@ columns:
 
 ```yaml
 packages:
-  - package: dbt-labs/dbt_utils
+  - package: DBT-labs/dbt_utils
     version: 1.3.0
-  - package: dbt-labs/spark_utils
+  - package: DBT-labs/spark_utils
     version: 0.3.0
   - local: ./packages/ktl_autovault  # Local AutoVault package
 ```
@@ -226,7 +226,7 @@ packages:
 
 | Variable | Bắt buộc | Mô tả |
 |---|---|---|
-| `SCHEMA_NAME` | ✅ | Schema name cho dbt target |
+| `SCHEMA_NAME` | ✅ | Schema name cho DBT target |
 | `AWS_ACCESS_KEY_ID` | ✅ | S3/MinIO access key |
 | `AWS_SECRET_ACCESS_KEY` | ✅ | S3/MinIO secret key |
 | `DBT_PROFILES_DIR` | _(auto)_ | Thư mục chứa profiles.yml |

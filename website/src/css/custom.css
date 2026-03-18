@@ -517,3 +517,17 @@ section {
 [data-theme='dark'] .table-of-contents__link[aria-current]::before {
   background: var(--ifm-color-accent-dark);
 }
+
+/* ========================================
+   JUSTIFY TEXT IN DOC CONTENT
+   ======================================== */
+
+/* Canh đều đoạn văn trong tài liệu */
+.markdown p {
+  text-align: justify;
+}
+
+/* Canh đều trong list items */
+.markdown li {
+  text-align: justify;
+}

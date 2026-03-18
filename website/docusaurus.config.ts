@@ -115,18 +115,24 @@ const config: Config = {
       defaultMode: 'light',
     },
     navbar: {
-      title: 'Hanas Data Platform',
+      title: '',
       logo: {
         alt: 'Hanas Logo',
         src: 'img/logo.svg',
+        href: '/',
       },
       items: [
-        // {
-        //   type: 'docSidebar',
-        //   sidebarId: 'docsSidebar',
-        //   position: 'left',
-        //   label: 'Tài Liệu',
-        // },
+        {
+          to: '/overview',
+          label: 'Hanas Data Platform',
+          position: 'left',
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'servicesSidebar',
+          position: 'left',
+          label: 'Services',
+        },
         {
           href: 'https://github.com/trangtoan293/hanas-doc',
           label: 'GitHub',
