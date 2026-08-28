@@ -1,71 +1,138 @@
 import React from 'react';
 import styles from './styles.module.css';
 
+const dataSources = ['Core Banking', 'ERP / CRM', 'IoT & Logs'];
+const dataProducts = ['BI & Analytics', 'AI Applications', 'Data APIs'];
+
 export default function HeroSection(): React.JSX.Element {
   return (
     <section className={styles.hero}>
-      {/* Background decorative gradient blobs */}
-      <div className={styles.bgBlob1} aria-hidden="true" />
-      <div className={styles.bgBlob2} aria-hidden="true" />
-      <div className={styles.bgBlob3} aria-hidden="true" />
+      <div className={styles.stage}>
+        <div className={styles.gridBackdrop} aria-hidden="true" />
+        <div className={styles.heroGlow} aria-hidden="true" />
 
-      <div className="container">
-        <div className={styles.heroInner}>
-          {/* Left: Text Content */}
-          <div className={styles.heroContent}>
+        <div className="container">
+          <div className={styles.heroInner}>
+            <div className={styles.heroContent}>
+              <div className={`${styles.productBadge} ${styles.animateIn} ${styles.delay1}`}>
+                <span className={styles.badgeMark} aria-hidden="true" />
+                Hanas Data &amp; AI Platform
+              </div>
+              <h1 className={`${styles.heroTitle} ${styles.animateIn} ${styles.delay2}`}>
+                Dữ liệu sẵn sàng.
+                <span className={styles.gradientText}> AI vận hành thật.</span>
+              </h1>
 
-            <p className={`${styles.heroEyebrow} ${styles.animateIn} ${styles.delay1}`}>
-              <span className={styles.eyebrowHighlight}>Hanas</span> Data Platform
-            </p>
+              <p className={`${styles.heroSubtitle} ${styles.animateIn} ${styles.delay3}`}>
+                Hanas hợp nhất dữ liệu, quản trị và AI trên một kiến trúc Lakehouse mở —
+                giúp doanh nghiệp đi từ dữ liệu phân tán đến sản phẩm dữ liệu tin cậy,
+                nhanh hơn và an toàn hơn.
+              </p>
 
-            <h1 className={`${styles.heroTitle} ${styles.animateIn} ${styles.delay2}`}>
-              Một Nền Tảng<br />
-              <span className={styles.gradientText}>Mọi Dữ Liệu</span>
-            </h1>
+              <div className={`${styles.heroButtons} ${styles.animateIn} ${styles.delay4}`}>
+                <a href="/overview" className={styles.ctaPrimary}>
+                  Khám phá nền tảng
+                  <span aria-hidden="true">↗</span>
+                </a>
+                <a href="/overview/architecture" className={styles.ctaSecondary}>
+                  Xem kiến trúc
+                  <span aria-hidden="true">→</span>
+                </a>
+              </div>
 
-            <p className={`${styles.heroSubtitle} ${styles.animateIn} ${styles.delay3}`}>
-              Hanas Data Platform kết hợp sức mạnh của Data Lake và Data Warehouse,
-              giúp doanh nghiệp quản lý và khai thác dữ liệu hiệu quả.
-            </p>
-
-            <div className={`${styles.heroButtons} ${styles.animateIn} ${styles.delay4}`}>
-              <a
-                href="https://portal.hanas.io/portal/home/dashboard"
-                className={styles.ctaPrimary}
-              >
-                <span className={styles.ctaShimmer} />
-                KHÁM PHÁ NGAY
-              </a>
-              <a href="/overview/architecture" className={styles.ctaLink}>
-                Tìm hiểu kiến trúc
-                <span className={styles.ctaArrow}>→</span>
-              </a>
+              <div className={`${styles.trustRow} ${styles.animateIn} ${styles.delay5}`}>
+                <span>Open Lakehouse</span>
+                <span>Cloud-native</span>
+                <span>Enterprise-ready</span>
+              </div>
             </div>
 
-            {/* Trust indicators */}
-            <div className={`${styles.trustRow} ${styles.animateIn} ${styles.delay5}`}>
-              <div className={styles.trustItem}>
-                <svg className={styles.trustIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                  <path d="M9 12l2 2 4-4" />
-                </svg>
-                <div>
-                  <span className={styles.trustNumber}>Enterprise</span>
-                  <span className={styles.trustLabel}>Ready</span>
+            <div className={`${styles.heroVisual} ${styles.animateIn} ${styles.delay4}`}>
+              <div className={styles.controlPlane}>
+                <div className={styles.panelHeader}>
+                  <div>
+                    <span className={styles.panelEyebrow}>HANAS CONTROL PLANE</span>
+                    <strong>Enterprise Data Flow</strong>
+                  </div>
+                  <span className={styles.liveStatus}>
+                    <span aria-hidden="true" /> Live
+                  </span>
+                </div>
+
+                <div
+                  className={styles.pipeline}
+                  aria-label="Luồng dữ liệu từ hệ thống nguồn qua Hanas Lakehouse đến các sản phẩm dữ liệu"
+                >
+                  <div className={styles.pipelineColumn}>
+                    <span className={styles.columnLabel}>Sources</span>
+                    {dataSources.map((source, index) => (
+                      <div key={source} className={styles.sourceNode}>
+                        <span>{String(index + 1).padStart(2, '0')}</span>
+                        {source}
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className={styles.flowConnector} aria-hidden="true">
+                    <i />
+                    <i />
+                    <i />
+                  </div>
+
+                  <div className={styles.lakehouseNode}>
+                    <span className={styles.orbit} aria-hidden="true" />
+                    <span className={styles.coreMark}>H</span>
+                    <strong>
+                      Unified<br />Lakehouse
+                    </strong>
+                    <small>Governed · Observable · AI-ready</small>
+                  </div>
+
+                  <div
+                    className={`${styles.flowConnector} ${styles.flowConnectorRight}`}
+                    aria-hidden="true"
+                  >
+                    <i />
+                    <i />
+                    <i />
+                  </div>
+
+                  <div className={styles.pipelineColumn}>
+                    <span className={styles.columnLabel}>Data products</span>
+                    {dataProducts.map((product) => (
+                      <div key={product} className={styles.productNode}>
+                        <span className={styles.nodePulse} aria-hidden="true" />
+                        {product}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className={styles.panelFooter}>
+                  <div>
+                    <span>Pipeline health</span>
+                    <strong>Operational</strong>
+                  </div>
+                  <div>
+                    <span>Data quality</span>
+                    <strong>Monitored</strong>
+                  </div>
+                  <div>
+                    <span>AI services</span>
+                    <strong>Connected</strong>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right: Hero Visual */}
-          <div className={`${styles.heroVisual} ${styles.animateIn} ${styles.delay4}`}>
-            <div className={styles.heroGlow} aria-hidden="true" />
-            <img
-              src="/img/hanas_platform.png"
-              alt="Hanas Data Platform Architecture"
-              className={styles.heroImage}
-              loading="eager"
-            />
+          <div className={`${styles.techRail} ${styles.animateIn} ${styles.delay5}`}>
+            <span className={styles.techRailLabel}>POWERED BY OPEN TECHNOLOGIES</span>
+            <div className={styles.techList}>
+              {['Kafka', 'Spark', 'Iceberg', 'Airflow', 'DataHub', 'Dremio', 'vLLM'].map((tech) => (
+                <span key={tech}>{tech}</span>
+              ))}
+            </div>
           </div>
         </div>
       </div>

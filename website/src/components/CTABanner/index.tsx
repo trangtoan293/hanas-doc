@@ -1,112 +1,57 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './styles.module.css';
 
-interface CTABannerProps {
-  title?: string;
-}
+const roadmap = [
+  {number: '01', title: 'Đánh giá hiện trạng', description: 'Dữ liệu, hạ tầng và bài toán ưu tiên'},
+  {number: '02', title: 'Thiết kế blueprint', description: 'Kiến trúc và lộ trình triển khai phù hợp'},
+  {number: '03', title: 'Triển khai theo pha', description: 'Tạo giá trị sớm, mở rộng có kiểm soát'},
+];
 
-const NewsletterForm: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email.trim()) {
-      setSubmitted(true);
-      setEmail('');
-      // Reset success message after 5 seconds
-      setTimeout(() => setSubmitted(false), 5000);
-    }
-  };
-
+export default function CTABanner(): React.JSX.Element {
   return (
-    <div className={styles.newsletter}>
-      <p className={styles.newsletterText}>
-        Nhận tin tức và cập nhật mới nhất
-      </p>
-      <p className={styles.newsletterSubtext}>
-        Đăng ký để nhận thông tin về sản phẩm và tài nguyên mới
-      </p>
-      <form className={styles.newsletterForm} onSubmit={handleSubmit}>
-        <input 
-          type="email" 
-          placeholder="Nhập email của bạn"
-          className={styles.emailInput}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <button type="submit" className={styles.newsletterButton}>
-          ĐĂNG KÝ
-        </button>
-      </form>
-      {submitted && (
-        <p className={styles.successMessage}>
-          Đăng ký thành công! Cảm ơn bạn.
-        </p>
-      )}
-    </div>
-  );
-};
+    <section className={styles.section}>
+      <div className="container">
+        <div className={styles.shell}>
+          <div className={styles.glow} aria-hidden="true" />
+          <div className={styles.content}>
+            <span className={styles.eyebrow}>Build what matters</span>
+            <h2>Sẵn sàng biến dữ liệu thành năng lực cạnh tranh?</h2>
+            <p>
+              Khám phá Hanas Data &amp; AI Platform và xây dựng lộ trình phù hợp với
+              hạ tầng, đội ngũ và mục tiêu kinh doanh của doanh nghiệp.
+            </p>
+            <div className={styles.actions}>
+              <a href="/overview" className={styles.primaryAction}>
+                Bắt đầu với Hanas <span aria-hidden="true">↗</span>
+              </a>
+              <a
+                href="https://portal.hanas.io/portal/home/dashboard"
+                target="_blank"
+                rel="noreferrer"
+                className={styles.secondaryAction}
+              >
+                Truy cập Portal <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
 
-const CTABanner: React.FC<CTABannerProps> = ({ 
-  title = "Bắt đầu với Hanas ngay hôm nay" 
-}) => {
-  const checklistItems = [
-    'Bản dùng thử 30 ngày miễn phí',
-    'Không cần thẻ tín dụng',
-    'Hủy bất cứ lúc nào'
-  ];
-
-  return (
-    <section className={styles.ctaBanner}>
-      <div className={styles.container}>
-        <div className={styles.content}>
-          <h2 className={styles.title}>{title}</h2>
-          
-          <ul className={styles.checklist}>
-            {checklistItems.map((item, index) => (
-              <li key={index} className={styles.checklistItem}>
-                <svg 
-                  className={styles.checkIcon} 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
-                  <path 
-                    d="M8 12L11 15L16 9" 
-                    stroke="currentColor" 
-                    strokeWidth="2" 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round"
-                  />
-                </svg>
-                <span className={styles.checklistText}>{item}</span>
-              </li>
+          <div className={styles.roadmap}>
+            <div className={styles.roadmapHeader}>
+              <span>ENGAGEMENT ROADMAP</span>
+              <i aria-hidden="true" />
+            </div>
+            {roadmap.map((step) => (
+              <div key={step.number} className={styles.roadmapStep}>
+                <span>{step.number}</span>
+                <div>
+                  <strong>{step.title}</strong>
+                  <small>{step.description}</small>
+                </div>
+              </div>
             ))}
-          </ul>
-
-          <div className={styles.buttonGroup}>
-            <a 
-              href="https://portal.hanas.io/portal/home/dashboard"
-              className={styles.buttonPrimary}
-            >
-              BẮT ĐẦU MIỄN PHÍ
-            </a>
-            <a 
-              href="/overview"
-              className={styles.buttonSecondary}
-            >
-              XEM DEMO
-            </a>
           </div>
         </div>
-
-        <NewsletterForm />
       </div>
     </section>
   );
-};
-
-export default CTABanner;
+}

@@ -1,189 +1,166 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import styles from './styles.module.css';
 
-type TabId = 'overview' | 'features' | 'usecases' | 'resources';
+type TabId = 'foundation' | 'intelligence' | 'governance';
 
-// SVG Icon Components (20x20)
-const GlobeIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <circle cx="12" cy="12" r="10" />
-    <line x1="2" y1="12" x2="22" y2="12" />
-    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-  </svg>
-);
-
-const LightningIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-  </svg>
-);
-
-const BriefcaseIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
-    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-  </svg>
-);
-
-const BookIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-  </svg>
-);
-
-const iconMap: Record<TabId, React.FC> = {
-  overview: GlobeIcon,
-  features: LightningIcon,
-  usecases: BriefcaseIcon,
-  resources: BookIcon,
-};
-
-interface Tab {
+interface Experience {
   id: TabId;
+  number: string;
   label: string;
-  items: string[];
+  eyebrow: string;
+  title: string;
+  description: string;
+  bullets: string[];
+  flow: string[];
 }
 
-const tabs: Tab[] = [
+const experiences: Experience[] = [
   {
-    id: 'overview',
-    label: 'Tổng Quan',
-    items: [
-      'Nền tảng dữ liệu toàn diện giúp doanh nghiệp quản lý, phân tích và khai thác dữ liệu một cách hiệu quả',
-      'Kiến trúc cloud-native và khả năng mở rộng linh hoạt',
-      'Giải pháp dữ liệu end-to-end cho mọi quy mô doanh nghiệp'
-    ]
+    id: 'foundation',
+    number: '01',
+    label: 'Data Foundation',
+    eyebrow: 'Nền tảng dữ liệu hiện đại',
+    title: 'Tạo một nguồn dữ liệu tin cậy cho toàn doanh nghiệp.',
+    description: 'Hợp nhất dữ liệu phân tán vào Lakehouse mở, xử lý đồng thời batch và real-time mà vẫn giữ nguyên khả năng mở rộng theo nhu cầu.',
+    bullets: [
+      'Ingestion đa nguồn, hỗ trợ CDC và streaming',
+      'Table format mở, tách biệt compute và storage',
+      'Pipeline được điều phối và quan sát xuyên suốt',
+    ],
+    flow: ['Data Sources', 'Open Lakehouse', 'Data Products'],
   },
   {
-    id: 'features',
-    label: 'Tính Năng',
-    items: [
-      'Xử lý dữ liệu real-time với độ trễ thấp',
-      'Tích hợp AI/ML cho phân tích dự đoán',
-      'Bảo mật dữ liệu cấp enterprise với mã hóa end-to-end',
-      'Khả năng mở rộng tự động theo nhu cầu',
-      'API Gateway để kết nối dễ dàng với hệ thống hiện có'
-    ]
+    id: 'intelligence',
+    number: '02',
+    label: 'AI & Intelligence',
+    eyebrow: 'AI gắn với dữ liệu doanh nghiệp',
+    title: 'Đưa AI từ thử nghiệm vào quy trình vận hành thực tế.',
+    description: 'Kết nối dữ liệu đã được quản trị với LLM, knowledge base và workflow AI để xây dựng ứng dụng có thể đánh giá, theo dõi và cải tiến liên tục.',
+    bullets: [
+      'Triển khai LLM self-hosted hoặc kết nối model API',
+      'Xây dựng RAG, agent và workflow trực quan',
+      'Theo dõi prompt, chất lượng và chi phí inference',
+    ],
+    flow: ['Governed Data', 'LLM Mesh', 'AI Applications'],
   },
   {
-    id: 'usecases',
-    label: 'Use Cases',
-    items: [
-      'Phân tích hành vi khách hàng trong thời gian thực',
-      'Dự báo xu hướng thị trường và nhu cầu sản phẩm',
-      'Tối ưu hóa chuỗi cung ứng thông minh',
-      'Phát hiện gian lận và bảo mật nâng cao',
-      'Cá nhân hóa trải nghiệm người dùng trên quy mô lớn'
-    ]
+    id: 'governance',
+    number: '03',
+    label: 'Trust & Governance',
+    eyebrow: 'Kiểm soát theo thiết kế',
+    title: 'Biến quản trị dữ liệu thành một phần của platform.',
+    description: 'Metadata, lineage, quality, access policy và secret management được tích hợp ngay trong kiến trúc thay vì xử lý rời rạc sau khi hệ thống đã vận hành.',
+    bullets: [
+      'Data catalog và lineage xuyên suốt hệ thống',
+      'Chính sách truy cập nhất quán theo vai trò',
+      'Audit, observability và bảo mật tập trung',
+    ],
+    flow: ['Metadata', 'Policy Engine', 'Trusted Access'],
   },
-  {
-    id: 'resources',
-    label: 'Tài Nguyên',
-    items: [
-      'Documentation đầy đủ với ví dụ code',
-      'Video tutorials từ cơ bản đến nâng cao',
-      'REST API Reference với Swagger UI',
-      'SDK cho Python, JavaScript, Java và Go',
-      'Community Forum để trao đổi và học hỏi',
-      '24/7 Technical Support cho khách hàng doanh nghiệp'
-    ]
-  }
-];
-
-const staggerClasses = [
-  styles.stagger0,
-  styles.stagger1,
-  styles.stagger2,
-  styles.stagger3,
-  styles.stagger4,
-  styles.stagger5,
 ];
 
 export default function TabNavigation(): React.JSX.Element {
-  const [activeTab, setActiveTab] = useState<TabId>('overview');
+  const [activeTab, setActiveTab] = useState<TabId>('foundation');
+  const activeExperience = experiences.find((experience) => experience.id === activeTab) ?? experiences[0];
 
-  const handleTabClick = (tabId: TabId) => {
-    setActiveTab(tabId);
+  const moveTab = (direction: number) => {
+    const currentIndex = experiences.findIndex((experience) => experience.id === activeTab);
+    const nextIndex = (currentIndex + direction + experiences.length) % experiences.length;
+    setActiveTab(experiences[nextIndex].id);
   };
 
   return (
-    <section className={styles.tabSection}>
-      {/* Decorative Background Blobs */}
-      <div className={styles.bgBlob1} />
-      <div className={styles.bgBlob2} />
-
-      <div className={styles.tabContainer}>
-        {/* Section Header */}
-        <div className={`${styles.sectionHeader} ${styles.animateIn}`}>
-          <h2 className={styles.sectionTitle}>
-            Khám Phá <span className={styles.gradientText}>Hanas Platform</span>
-          </h2>
-          <p className={styles.sectionSubtitle}>
-            Tìm hiểu tổng quan, tính năng nổi bật, các use cases thực tế và tài nguyên hỗ trợ
+    <section className={styles.section}>
+      <div className="container">
+        <div className={styles.header}>
+          <span className={styles.eyebrow}>Từ data đến intelligence</span>
+          <h2>Một kiến trúc, nhiều hành trình chuyển đổi.</h2>
+          <p>
+            Bắt đầu từ nền tảng dữ liệu, năng lực AI hay bài toán quản trị — Hanas cho phép
+            doanh nghiệp mở rộng theo từng giai đoạn mà không phải xây lại từ đầu.
           </p>
         </div>
 
-        {/* Tab Buttons */}
-        <div
-          className={`${styles.tabList} ${styles.animateIn} ${styles.delay1}`}
-          role="tablist"
-          aria-label="Platform navigation tabs"
-        >
-          {tabs.map((tab) => {
-            const IconComponent = iconMap[tab.id];
-            return (
+        <div className={styles.experienceShell}>
+          <div className={styles.tabList} role="tablist" aria-label="Các hành trình với Hanas Platform">
+            {experiences.map((experience) => (
               <button
-                key={tab.id}
-                id={`tab-${tab.id}`}
+                key={experience.id}
+                id={`tab-${experience.id}`}
+                type="button"
                 role="tab"
-                aria-selected={activeTab === tab.id}
-                aria-controls={`panel-${tab.id}`}
-                tabIndex={activeTab === tab.id ? 0 : -1}
-                className={`${styles.tabButton} ${activeTab === tab.id ? styles.tabButtonActive : ''}`}
-                onClick={() => handleTabClick(tab.id)}
-                onKeyDown={(e) => {
-                  if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-                    e.preventDefault();
-                    const currentIndex = tabs.findIndex(t => t.id === activeTab);
-                    const direction = e.key === 'ArrowRight' ? 1 : -1;
-                    const newIndex = (currentIndex + direction + tabs.length) % tabs.length;
-                    setActiveTab(tabs[newIndex].id);
+                aria-selected={activeTab === experience.id}
+                aria-controls={`panel-${experience.id}`}
+                tabIndex={activeTab === experience.id ? 0 : -1}
+                className={`${styles.tabButton} ${activeTab === experience.id ? styles.tabButtonActive : ''}`}
+                onClick={() => setActiveTab(experience.id)}
+                onKeyDown={(event) => {
+                  if (event.key === 'ArrowDown' || event.key === 'ArrowRight') {
+                    event.preventDefault();
+                    moveTab(1);
+                  }
+                  if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') {
+                    event.preventDefault();
+                    moveTab(-1);
                   }
                 }}
               >
-                <span className={styles.tabIcon}>
-                  <IconComponent />
-                </span>
-                <span className={styles.tabLabel}>{tab.label}</span>
+                <span>{experience.number}</span>
+                <strong>{experience.label}</strong>
+                <i aria-hidden="true">→</i>
               </button>
-            );
-          })}
-        </div>
+            ))}
+          </div>
 
-        {/* Tab Content Panels */}
-        <div className={`${styles.tabPanels} ${styles.animateIn} ${styles.delay2}`}>
-          {tabs.map((tab) => (
-            <div
-              key={tab.id}
-              id={`panel-${tab.id}`}
-              role="tabpanel"
-              aria-labelledby={`tab-${tab.id}`}
-              className={`${styles.tabPanel} ${activeTab === tab.id ? styles.tabPanelActive : ''}`}
-              hidden={activeTab !== tab.id}
-            >
-              <ul className={styles.tabContentList}>
-                {tab.items.map((item, index) => (
-                  <li
-                    key={`${tab.id}-${index}`}
-                    className={`${styles.tabContentItem} ${staggerClasses[index] || ''}`}
-                  >
-                    {item}
+          <article
+            id={`panel-${activeExperience.id}`}
+            role="tabpanel"
+            aria-labelledby={`tab-${activeExperience.id}`}
+            className={styles.panel}
+          >
+            <div className={styles.panelContent}>
+              <span className={styles.panelEyebrow}>{activeExperience.eyebrow}</span>
+              <h3>{activeExperience.title}</h3>
+              <p>{activeExperience.description}</p>
+              <ul>
+                {activeExperience.bullets.map((bullet) => (
+                  <li key={bullet}>
+                    <span aria-hidden="true">✓</span>
+                    {bullet}
                   </li>
                 ))}
               </ul>
+              <a href="/overview/architecture">
+                Xem thiết kế kiến trúc <span aria-hidden="true">↗</span>
+              </a>
             </div>
-          ))}
+
+            <div className={styles.flowVisual} aria-label={`Luồng ${activeExperience.flow.join(' đến ')}`}>
+              <div className={styles.flowTopline}>
+                <span>REFERENCE FLOW / {activeExperience.number}</span>
+                <span className={styles.flowStatus}><i aria-hidden="true" /> Connected</span>
+              </div>
+              <div className={styles.flowStages}>
+                {activeExperience.flow.map((stage, index) => (
+                  <React.Fragment key={stage}>
+                    <div className={`${styles.flowStage} ${index === 1 ? styles.flowStageCore : ''}`}>
+                      <span>{String(index + 1).padStart(2, '0')}</span>
+                      <strong>{stage}</strong>
+                      <small>{index === 1 ? 'Powered by Hanas' : 'Enterprise ready'}</small>
+                    </div>
+                    {index < activeExperience.flow.length - 1 && (
+                      <div className={styles.flowArrow} aria-hidden="true">→</div>
+                    )}
+                  </React.Fragment>
+                ))}
+              </div>
+              <div className={styles.flowTelemetry}>
+                <span>Observability</span>
+                <span>Security</span>
+                <span>Lineage</span>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
     </section>

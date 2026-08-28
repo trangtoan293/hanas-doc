@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'Hanas Data Platform',
   tagline: 'Nền tảng Dữ liệu Hợp nhất - Data Lakehouse Platform',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/katalyst-mark.svg',
 
   // Future flags
   future: {
@@ -111,40 +111,59 @@ const config: Config = {
 
 
   themeConfig: {
-    image: 'img/hanas-social-card.jpg',
+    image: 'img/katalyst-logo.svg',
     colorMode: {
       respectPrefersColorScheme: true,
       defaultMode: 'light',
     },
     navbar: {
-      title: 'Hanas Data Platform',
+      title: 'Hanas Data & AI',
       logo: {
-        alt: 'Hanas Logo',
-        src: 'img/logo.svg',
+        alt: 'Katalyst logo',
+        src: 'img/katalyst-logo.svg',
       },
-      items: [],
+      items: [
+        { label: 'Nền tảng', to: '/overview', position: 'left' },
+        { label: 'Kiến trúc', to: '/overview/architecture', position: 'left' },
+        { label: 'AI Services', to: '/ai-service', position: 'left' },
+        { label: 'Tài liệu', to: '/guides', position: 'left' },
+        {
+          label: 'Hanas Portal ↗',
+          href: 'https://portal.hanas.io/portal/home/dashboard',
+          position: 'right',
+          className: 'navbarPortal',
+        },
+      ],
     },
     footer: {
       style: 'dark',
       links: [
         {
-          title: 'Tài Liệu',
+          title: 'Nền tảng',
           items: [
             { label: 'Tổng Quan', to: '/overview' },
             { label: 'Kiến Trúc', to: '/overview/architecture' },
-            { label: 'Quickstart', to: '/guides/quickstart' },
+            { label: 'Dịch Vụ AI', to: '/ai-service' },
           ],
         },
         {
-          title: 'Các Lớp',
+          title: 'Data Stack',
           items: [
             { label: 'Thu Thập Dữ Liệu', to: '/ingestion' },
             { label: 'Lưu Trữ', to: '/storage' },
             { label: 'Xử Lý', to: '/processing' },
           ],
         },
+        {
+          title: 'Tài nguyên',
+          items: [
+            { label: 'Quickstart', to: '/guides/quickstart' },
+            { label: 'Hướng dẫn thực hành', to: '/guides' },
+            { label: 'Quản trị dữ liệu', to: '/governance' },
+          ],
+        },
       ],
-      copyright: `© ${new Date().getFullYear()} Hanas Data Platform.`,
+      copyright: `© ${new Date().getFullYear()} Katalyst · Hanas Data & AI Platform.`,
     },
     prism: {
       theme: prismThemes.github,

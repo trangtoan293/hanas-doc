@@ -1,595 +1,383 @@
-/* ========================================
-   TAB NAVIGATION — Premium Section
-   ======================================== */
-
-/* Section Wrapper — Gradient Background */
-.tabSection {
-  position: relative;
-  width: 100%;
-  padding: 80px 0;
-  background: linear-gradient(135deg,
-      var(--ifm-background-color) 0%,
-      #f0f4ff 40%,
-      #f5f0ff 70%,
-      var(--ifm-background-color) 100%);
-  overflow: hidden;
+.section {
+  padding: 112px 0 120px;
+  color: var(--hanas-text-primary);
+  background: var(--hanas-bg-surface);
 }
 
-/* ---- Decorative Background Blobs ---- */
-.bgBlob1,
-.bgBlob2 {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  pointer-events: none;
-  z-index: 0;
+.header {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  column-gap: 80px;
+  align-items: end;
+  margin-bottom: 56px;
 }
 
-.bgBlob1 {
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, transparent 70%);
-  top: -80px;
-  right: -60px;
-  animation: blobFloat1 18s ease-in-out infinite;
-}
-
-.bgBlob2 {
-  width: 350px;
-  height: 350px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
-  bottom: -100px;
-  left: -80px;
-  animation: blobFloat2 22s ease-in-out infinite;
-}
-
-@keyframes blobFloat1 {
-
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-
-  50% {
-    transform: translate(-30px, 20px) scale(1.08);
-  }
-}
-
-@keyframes blobFloat2 {
-
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-
-  50% {
-    transform: translate(25px, -15px) scale(1.05);
-  }
-}
-
-/* ---- Container ---- */
-.tabContainer {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
-/* ---- Section Header ---- */
-.sectionHeader {
-  text-align: center;
-  margin-bottom: 48px;
-}
-
-.sectionTitle {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--ifm-heading-color);
+.eyebrow {
+  grid-column: 1 / -1;
   margin-bottom: 16px;
-  line-height: 1.2;
+  color: var(--hanas-accent);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
-.gradientText {
-  background: linear-gradient(135deg, #3B82F6 0%, #6366F1 50%, #8B5CF6 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+.header h2 {
+  margin: 0;
+  color: var(--hanas-text-primary);
+  font-size: clamp(2.4rem, 4.2vw, 3.9rem);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1.08;
 }
 
-.sectionSubtitle {
-  font-size: 1.125rem;
-  color: var(--ifm-color-emphasis-700);
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.6;
+.header p {
+  max-width: 540px;
+  margin: 0 0 4px auto;
+  color: var(--hanas-text-secondary);
+  font-size: 16px;
+  line-height: 1.8;
 }
 
-/* ---- Tab List — Card-Style Pills ---- */
+.experienceShell {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 22px;
+  background: rgba(8, 25, 42, 0.84);
+  box-shadow: 0 16px 50px rgba(18, 30, 42, 0.06);
+}
+
 .tabList {
   display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 32px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  padding: 16px;
+  border-right: 1px solid rgba(148, 163, 184, 0.13);
+  background: rgba(4, 15, 27, 0.58);
 }
 
-/* Individual Tab Button — Mini Card */
 .tabButton {
+  display: grid;
+  grid-template-columns: 38px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  min-height: 82px;
+  padding: 0 16px;
+  color: #71859a;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: transparent;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: color 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+
+.tabButton > span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+}
+
+.tabButton strong {
+  color: inherit;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.tabButton i {
+  font-style: normal;
+  opacity: 0;
+  transform: translateX(-5px);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.tabButton:hover,
+.tabButtonActive {
+  color: #dff9ff;
+  border-color: rgba(108, 147, 180, 0.22);
+  background: rgba(108, 147, 180, 0.08);
+}
+
+.tabButtonActive i {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.tabButton:focus-visible {
+  outline: 2px solid #8fadc5;
+  outline-offset: -2px;
+}
+
+.panel {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1.1fr);
+  gap: 50px;
+  min-height: 540px;
+  padding: 54px;
+  animation: panelIn 260ms ease-out;
+}
+
+.panelContent {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+}
+
+.panelEyebrow {
+  margin-bottom: 16px;
+  color: #8fadc5;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.panelContent h3 {
+  margin: 0 0 20px;
+  color: #f5faff;
+  font-size: clamp(1.9rem, 3vw, 2.75rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.16;
+}
+
+.panelContent > p {
+  margin: 0 0 26px;
+  color: #91a4b8;
+  font-size: 15px;
+  line-height: 1.78;
+}
+
+.panelContent ul {
+  display: grid;
+  gap: 12px;
+  margin: 0 0 32px;
+  padding: 0;
+  list-style: none;
+}
+
+.panelContent li {
+  display: flex;
+  gap: 10px;
+  color: #c0cedc;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.panelContent li span {
+  color: #9eb9cf;
+}
+
+.panelContent > a {
+  display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 20px 28px;
-  min-width: 140px;
-  background: var(--ifm-background-color);
-  border: 1px solid var(--ifm-color-emphasis-200);
-  border-radius: 16px;
-  box-shadow: var(--ifm-shadow-sm);
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.tabButton::before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #3B82F6, #6366F1, #8B5CF6);
-  border-radius: 3px 3px 0 0;
-  transition: width 0.3s ease;
-}
-
-.tabButton:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--ifm-shadow-md);
-  border-color: var(--ifm-color-accent-light);
-}
-
-.tabButton:hover::before {
-  width: 50%;
-}
-
-.tabButton:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2), var(--ifm-shadow-md);
-}
-
-/* Tab Icon — Gradient Circle Badge */
-.tabIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--ifm-color-accent-subtle);
-  color: var(--ifm-color-accent);
-  transition: all 0.3s ease;
-  flex-shrink: 0;
-}
-
-.tabButton:hover .tabIcon {
-  background: linear-gradient(135deg, #3B82F6, #6366F1);
-  color: #fff;
-  transform: scale(1.08);
-}
-
-/* Tab Label */
-.tabLabel {
-  font-size: 0.875rem;
+  margin-top: auto;
+  color: #c8d9e8;
+  font-size: 13px;
   font-weight: 600;
-  color: var(--ifm-font-color-secondary);
-  text-align: center;
-  transition: color 0.3s ease;
-  white-space: nowrap;
+  text-decoration: none;
 }
 
-.tabButton:hover .tabLabel {
-  color: var(--ifm-font-color-base);
-}
-
-/* ---- Active Tab State — Glowing ---- */
-.tabButtonActive {
-  border-color: rgba(59, 130, 246, 0.3);
-  box-shadow:
-    0 4px 20px rgba(59, 130, 246, 0.15),
-    0 0 0 1px rgba(59, 130, 246, 0.1);
-  transform: translateY(-2px);
-}
-
-.tabButtonActive::before {
-  width: 60%;
-}
-
-.tabButtonActive .tabIcon {
-  background: linear-gradient(135deg, #3B82F6, #6366F1);
+.panelContent > a:hover {
   color: #fff;
-  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+  text-decoration: none;
 }
 
-.tabButtonActive .tabLabel {
-  color: var(--ifm-color-accent);
-  font-weight: 700;
+.flowVisual {
+  align-self: center;
+  padding: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.13);
+  border-radius: 16px;
+  background:
+    linear-gradient(rgba(15, 38, 60, 0.72), rgba(8, 24, 40, 0.85)),
+    repeating-linear-gradient(0deg, transparent, transparent 23px, rgba(148, 163, 184, 0.06) 24px),
+    repeating-linear-gradient(90deg, transparent, transparent 23px, rgba(148, 163, 184, 0.06) 24px);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.04);
 }
 
-.tabButtonActive:hover {
-  transform: translateY(-4px);
-  box-shadow:
-    0 8px 30px rgba(59, 130, 246, 0.2),
-    0 0 0 1px rgba(59, 130, 246, 0.15);
+.flowTopline {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 16px;
+  color: #61778f;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.11);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.1em;
 }
 
-/* ---- Content Panel — Glassmorphism Card ---- */
-.tabPanels {
-  position: relative;
-  min-height: 200px;
+.flowStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #a8c1d4;
 }
 
-.tabPanel {
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.35s ease-out, transform 0.35s ease-out;
-  will-change: opacity, transform;
-}
-
-.tabPanelActive {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.tabContentList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  border-radius: 20px;
-  padding: 12px;
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
-}
-
-/* Content Item — Hover Card */
-.tabContentItem {
-  font-size: 1rem;
-  line-height: 1.75;
-  color: var(--ifm-font-color-base);
-  padding: 16px 20px 16px 48px;
-  position: relative;
-  border-radius: 12px;
-  transition: all 0.25s ease;
-  cursor: default;
-  opacity: 0;
-  animation: itemFadeIn 0.4s ease-out forwards;
-}
-
-.tabContentItem:hover {
-  background: rgba(59, 130, 246, 0.04);
-}
-
-.tabContentItem:hover::before {
-  transform: scale(1.4);
-  box-shadow: 0 0 12px rgba(59, 130, 246, 0.3);
-}
-
-/* Gradient Bullet Point */
-.tabContentItem::before {
-  content: '';
-  position: absolute;
-  left: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 8px;
-  height: 8px;
-  background: linear-gradient(135deg, #3B82F6, #6366F1);
+.flowStatus i {
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
-  transition: all 0.3s ease;
+  background: #8fadc5;
 }
 
-/* Left accent bar on hover */
-.tabContentItem::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 8px;
-  bottom: 8px;
-  width: 3px;
-  background: linear-gradient(180deg, #3B82F6, #6366F1);
-  border-radius: 3px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+.flowStages {
+  display: grid;
+  grid-template-columns: minmax(96px, 1fr) 26px minmax(110px, 1.1fr) 26px minmax(96px, 1fr);
+  align-items: center;
+  min-height: 250px;
 }
 
-.tabContentItem:hover::after {
-  opacity: 1;
+.flowStage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 112px;
+  padding: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: 10px;
+  background: rgba(7, 20, 33, 0.72);
 }
 
-/* Staggered animation for content items */
-@keyframes itemFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.flowStageCore {
+  min-height: 148px;
+  border-color: rgba(143, 173, 197, 0.28);
+  background: radial-gradient(circle at 50% 15%, rgba(108, 147, 180, 0.12), rgba(7, 25, 41, 0.94) 65%);
+  box-shadow: none;
 }
 
-.stagger0 {
-  animation-delay: 0s;
+.flowStage > span {
+  margin-bottom: 16px;
+  color: #4f6880;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
 }
 
-.stagger1 {
-  animation-delay: 0.06s;
+.flowStage strong {
+  color: #d9e7f3;
+  font-size: 11px;
+  line-height: 1.35;
 }
 
-.stagger2 {
-  animation-delay: 0.12s;
+.flowStage small {
+  margin-top: 7px;
+  color: #60758a;
+  font-size: 7px;
 }
 
-.stagger3 {
-  animation-delay: 0.18s;
+.flowArrow {
+  color: #8fadc5;
+  text-align: center;
 }
 
-.stagger4 {
-  animation-delay: 0.24s;
+.flowTelemetry {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(148, 163, 184, 0.11);
 }
 
-.stagger5 {
-  animation-delay: 0.30s;
+.flowTelemetry span {
+  padding: 8px;
+  color: #6f879e;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.025);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px;
+  text-align: center;
+  text-transform: uppercase;
 }
 
-/* Entrance animation */
-.animateIn {
-  opacity: 0;
-  transform: translateY(24px);
-  animation: sectionFadeInUp 0.7s ease-out forwards;
+@keyframes panelIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes sectionFadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.delay1 {
-  animation-delay: 0.1s;
-}
-
-.delay2 {
-  animation-delay: 0.2s;
-}
-
-.delay3 {
-  animation-delay: 0.3s;
-}
-
-/* ========================================
-   DARK MODE
-   ======================================== */
-:global([data-theme='dark']) .tabSection {
-  background: linear-gradient(135deg,
-      var(--ifm-background-color) 0%,
-      #131b2e 40%,
-      #1a1530 70%,
-      var(--ifm-background-color) 100%);
-}
-
-:global([data-theme='dark']) .bgBlob1 {
-  opacity: 0.12;
-}
-
-:global([data-theme='dark']) .bgBlob2 {
-  opacity: 0.1;
-}
-
-:global([data-theme='dark']) .tabButton {
-  background: var(--ifm-surface-color);
-  border-color: var(--ifm-border-color);
-}
-
-:global([data-theme='dark']) .tabButton:hover {
-  border-color: rgba(96, 165, 250, 0.4);
-}
-
-:global([data-theme='dark']) .tabButtonActive {
-  border-color: rgba(96, 165, 250, 0.35);
-  box-shadow:
-    0 4px 20px rgba(96, 165, 250, 0.12),
-    0 0 0 1px rgba(96, 165, 250, 0.1);
-}
-
-:global([data-theme='dark']) .tabButtonActive .tabIcon {
-  box-shadow: 0 4px 16px rgba(96, 165, 250, 0.25);
-}
-
-:global([data-theme='dark']) .tabContentList {
-  background: rgba(30, 41, 59, 0.7);
-  border-color: rgba(255, 255, 255, 0.08);
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-
-:global([data-theme='dark']) .tabContentItem:hover {
-  background: rgba(96, 165, 250, 0.06);
-}
-
-/* ========================================
-   RESPONSIVE
-   ======================================== */
-
-/* Tablet */
-@media (max-width: 996px) {
-  .tabSection {
-    padding: 60px 0;
-  }
-
-  .sectionTitle {
-    font-size: 2rem;
-  }
-
-  .tabButton {
-    padding: 16px 22px;
-    min-width: 120px;
-  }
-
-  .tabIcon {
-    width: 40px;
-    height: 40px;
-  }
-
-  .bgBlob1 {
-    width: 280px;
-    height: 280px;
-  }
-
-  .bgBlob2 {
-    width: 240px;
-    height: 240px;
-  }
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  .tabSection {
-    padding: 48px 0;
-  }
-
-  .tabContainer {
-    padding: 0 16px;
-  }
-
-  .sectionHeader {
-    margin-bottom: 32px;
-  }
-
-  .sectionTitle {
-    font-size: 1.75rem;
-  }
-
-  .sectionSubtitle {
-    font-size: 1rem;
+@media (max-width: 1100px) {
+  .experienceShell {
+    grid-template-columns: 1fr;
   }
 
   .tabList {
-    gap: 8px;
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    padding-bottom: 4px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-
-  .tabList::-webkit-scrollbar {
-    display: none;
+    flex-direction: row;
+    border-right: 0;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.13);
   }
 
   .tabButton {
-    flex: 0 0 auto;
-    padding: 14px 18px;
-    min-width: 110px;
-    border-radius: 12px;
+    grid-template-columns: 30px 1fr;
   }
 
-  .tabIcon {
-    width: 36px;
-    height: 36px;
+  .tabButton i {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .header,
+  .panel {
+    grid-template-columns: 1fr;
   }
 
-  .tabLabel {
-    font-size: 0.8125rem;
+  .header {
+    gap: 24px;
   }
 
-  .tabContentList {
-    padding: 8px;
+  .header p {
+    margin-left: 0;
+  }
+
+  .panel {
+    gap: 42px;
+  }
+}
+
+@media (max-width: 700px) {
+  .section {
+    padding: 76px 0;
+  }
+
+  .experienceShell {
     border-radius: 16px;
   }
 
-  .tabContentItem {
-    padding: 12px 16px 12px 40px;
-    font-size: 0.9375rem;
+  .tabList {
+    overflow-x: auto;
   }
 
-  .tabContentItem::before {
-    left: 14px;
-    width: 6px;
-    height: 6px;
-  }
-
-  .bgBlob1,
-  .bgBlob2 {
-    display: none;
-  }
-}
-
-/* Small Mobile */
-@media (max-width: 480px) {
   .tabButton {
-    padding: 12px 14px;
-    min-width: 95px;
+    flex: 0 0 185px;
+    min-height: 68px;
+    padding: 0 12px;
+  }
+
+  .panel {
+    min-height: auto;
+    padding: 30px 22px;
+  }
+
+  .flowStages {
+    grid-template-columns: 1fr;
     gap: 8px;
+    padding: 18px 0;
   }
 
-  .tabIcon {
-    width: 32px;
-    height: 32px;
+  .flowStage,
+  .flowStageCore {
+    min-height: 82px;
   }
 
-  .tabIcon svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  .tabLabel {
-    font-size: 0.75rem;
-  }
-
-  .tabContentItem {
-    padding: 10px 12px 10px 36px;
+  .flowArrow {
+    transform: rotate(90deg);
   }
 }
 
-/* ---- Reduced Motion ---- */
 @media (prefers-reduced-motion: reduce) {
-
-  .tabButton,
-  .tabPanel,
-  .tabContentItem,
-  .tabIcon,
-  .animateIn {
-    transition: none;
+  .panel {
     animation: none;
-    opacity: 1;
-    transform: none;
-  }
-
-  .bgBlob1,
-  .bgBlob2 {
-    animation: none;
-  }
-
-  .tabButton:hover,
-  .tabButtonActive:hover {
-    transform: none;
   }
 }
