@@ -151,7 +151,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 80px;
+  border-radius: 8px;
   padding: 12px 24px;
   font-weight: 600;
   font-size: 14px;
@@ -191,7 +191,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 80px;
+  border-radius: 8px;
   padding: 12px 24px;
   font-weight: 600;
   font-size: 14px;
@@ -397,7 +397,7 @@ section {
   color: var(--ifm-font-color-secondary);
   background: transparent;
   border: 1px solid var(--ifm-border-color);
-  border-radius: 80px;
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
@@ -653,7 +653,7 @@ section {
   margin-left: 4px;
   padding: 0 17px !important;
   color: #eaf7ff !important;
-  border-radius: 999px;
+  border-radius: 8px;
   background: #0b1727;
   font-family: 'JetBrains Mono', monospace;
   font-size: 10.5px;

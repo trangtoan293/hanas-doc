@@ -83,7 +83,7 @@
   padding: 8px 12px;
   color: #c8d9e8;
   border: 1px solid rgba(200, 217, 232, 0.2);
-  border-radius: 999px;
+  border-radius: 8px;
   background: rgba(108, 147, 180, 0.08);
   font-family: 'JetBrains Mono', monospace;
   font-size: 12px;
@@ -142,7 +142,7 @@
   gap: 12px;
   min-height: 52px;
   padding: 0 24px;
-  border-radius: 999px;
+  border-radius: 8px;
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;
@@ -196,7 +196,7 @@
   position: relative;
   padding: 20px;
   border: 1px solid rgba(148, 163, 184, 0.17);
-  border-radius: 22px;
+  border-radius: 14px;
   background: linear-gradient(145deg, rgba(17, 34, 53, 0.94), rgba(7, 20, 34, 0.96));
   box-shadow: 0 34px 90px rgba(0, 0, 0, 0.42), inset 0 1px rgba(255, 255, 255, 0.05);
 }
@@ -206,7 +206,7 @@
   position: absolute;
   inset: -1px;
   z-index: -1;
-  border-radius: 22px;
+  border-radius: 14px;
   background: linear-gradient(130deg, rgba(200, 217, 232, 0.24), transparent 28%, transparent 70%, rgba(108, 147, 180, 0.2));
 }
 
@@ -474,7 +474,7 @@
 
   .controlPlane {
     padding: 14px;
-    border-radius: 16px;
+    border-radius: 12px;
   }
 
   .pipeline {

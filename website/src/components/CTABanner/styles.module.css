@@ -14,7 +14,7 @@
   padding: 72px 64px;
   overflow: hidden;
   color: #edf7ff;
-  border-radius: 30px;
+  border-radius: 18px;
   background: #07111f;
 }
 
@@ -100,7 +100,7 @@
   gap: 11px;
   min-height: 52px;
   padding: 0 23px;
-  border-radius: 999px;
+  border-radius: 8px;
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;
@@ -189,7 +189,7 @@
 
   .shell {
     padding: 52px 22px;
-    border-radius: 20px;
+    border-radius: 14px;
   }
 
   .content h2 {
