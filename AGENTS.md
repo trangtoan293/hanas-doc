@@ -2,6 +2,10 @@
 
 Guidelines for AI coding agents working in the **Hanas Data Platform** documentation repository.
 
+> **Writing landing page copy?** This file covers code. For marketing/landing
+> page content — tone, Vietnamese terminology, character budgets per copy slot —
+> see [AGENTS-landing-copy.md](./AGENTS-landing-copy.md).
+
 ---
 
 ## Project Overview

@@ -5,8 +5,8 @@
 
 .header {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(360px, 0.85fr);
-  gap: 90px;
+  grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr);
+  gap: 72px;
   align-items: end;
   margin-bottom: 54px;
 }
@@ -26,10 +26,10 @@
   max-width: 760px;
   margin: 0;
   color: var(--hanas-text-primary);
-  font-size: clamp(2.5rem, 4.4vw, 4rem);
+  font-size: clamp(2.45rem, 3.6vw, 3.5rem);
   font-weight: 600;
   letter-spacing: -0.04em;
-  line-height: 1.08;
+  line-height: 1.1;
 }
 
 .header > p {
@@ -52,27 +52,37 @@
   scrollbar-width: thin;
 }
 
+/* ponytail: 4 card vua khit 2x2 tren desktop, giu carousel cho man hinh hep */
+@media (min-width: 1080px) {
+  .rail {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    padding-bottom: 0;
+    overflow-x: visible;
+  }
+}
+
 .card {
   display: flex;
   flex-direction: column;
   min-height: 480px;
   overflow: hidden;
-  color: var(--hanas-text-primary);
-  border: 1px solid var(--hanas-border-soft);
-  border-radius: 24px;
-  background: var(--hanas-bg-surface);
-  scroll-snap-align: start;
-}
-
-.navy {
   color: #f4f7f9;
-  border-color: #172a3e;
+  border: 1px solid #172a3e;
+  border-radius: 24px;
   background: linear-gradient(145deg, var(--hanas-navy-950), var(--hanas-navy-850));
+  scroll-snap-align: start;
+  transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease;
 }
 
-.mist {
-  background: #edf3f7;
+.card:hover {
+  border-color: rgba(143, 173, 197, 0.45);
+  box-shadow: 0 24px 64px rgba(15, 31, 48, 0.12);
+  transform: translateY(-5px);
 }
+
+
 
 .visual {
   position: relative;
@@ -81,102 +91,58 @@
   overflow: hidden;
   border: 1px solid rgba(108, 147, 180, 0.17);
   border-radius: 18px;
-  background:
-    linear-gradient(rgba(247, 248, 248, 0.74), rgba(240, 243, 245, 0.9)),
-    repeating-linear-gradient(0deg, transparent, transparent 29px, rgba(108, 147, 180, 0.12) 30px),
-    repeating-linear-gradient(90deg, transparent, transparent 29px, rgba(108, 147, 180, 0.12) 30px);
+  background: #07111c;
 }
 
-.navy .visual {
-  border-color: rgba(200, 217, 232, 0.12);
+.visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   background:
-    linear-gradient(rgba(12, 23, 35, 0.55), rgba(18, 33, 49, 0.86)),
-    repeating-linear-gradient(0deg, transparent, transparent 29px, rgba(200, 217, 232, 0.07) 30px),
-    repeating-linear-gradient(90deg, transparent, transparent 29px, rgba(200, 217, 232, 0.07) 30px);
+    linear-gradient(180deg, rgba(4, 12, 22, 0.52) 0%, rgba(4, 12, 22, 0.04) 44%, rgba(4, 12, 22, 0.76) 100%),
+    linear-gradient(90deg, rgba(4, 12, 22, 0.18), transparent 60%);
+  pointer-events: none;
+}
+
+.visual img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 900ms cubic-bezier(0.2, 0.7, 0, 1), filter 500ms ease;
+}
+
+.card:hover .visual img {
+  filter: saturate(1.08) contrast(1.03);
+  transform: scale(1.055);
+}
+
+.visualTop {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
 }
 
 .visualSignal {
-  position: absolute;
-  top: 18px;
-  left: 18px;
-  color: #78838d;
+  overflow: hidden;
+  color: #d5e3ed;
   font-family: 'JetBrains Mono', monospace;
   font-size: 8px;
   letter-spacing: 0.1em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.navy .visualSignal {
-  color: #70869a;
-}
 
-.visualCore {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  display: grid;
-  place-items: center;
-  width: 58px;
-  height: 58px;
-  color: #f3f7fa;
-  border-radius: 18px;
-  background: #527b9c;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 20px;
-  transform: translate(-50%, -50%);
-}
 
-.visualPath {
-  position: absolute;
-  top: 50%;
-  left: 14%;
-  right: 14%;
-  height: 1px;
-  background: rgba(108, 147, 180, 0.46);
-}
 
-.visualPath i {
-  position: absolute;
-  top: -5px;
-  width: 11px;
-  height: 11px;
-  border: 2px solid #f0f3f5;
-  border-radius: 50%;
-  background: #6c93b4;
-}
 
-.visualPath i:nth-child(1) { left: 0; }
-.visualPath i:nth-child(2) { left: 48%; }
-.visualPath i:nth-child(3) { right: 0; }
-
-.visualMetric {
-  position: absolute;
-  right: 16px;
-  bottom: 16px;
-  display: grid;
-  gap: 3px;
-  padding: 9px 11px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.78);
-}
-
-.navy .visualMetric {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.visualMetric span {
-  color: #8a949d;
-  font-size: 8px;
-}
-
-.visualMetric strong {
-  color: #526779;
-  font-size: 10px;
-  font-weight: 600;
-}
-
-.navy .visualMetric strong {
-  color: #c8d9e8;
-}
 
 .cardContent {
   display: flex;
@@ -205,14 +171,11 @@
 
 .card p {
   margin: 0 0 18px;
-  color: var(--hanas-text-secondary);
+  color: #aeb8c2;
   font-size: 15px;
   line-height: 1.65;
 }
 
-.navy p {
-  color: #aeb8c2;
-}
 
 .card a {
   display: inline-flex;
@@ -220,24 +183,18 @@
   gap: 8px;
   min-height: 44px;
   margin-top: auto;
-  color: #527b9c;
+  color: #c8d9e8;
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;
 }
 
-.navy a {
-  color: #c8d9e8;
-}
 
 .card a:hover {
-  color: var(--hanas-text-primary);
+  color: #fff;
   text-decoration: none;
 }
 
-.navy a:hover {
-  color: #fff;
-}
 
 @media (max-width: 900px) {
   .header {
@@ -255,9 +212,6 @@
     margin-bottom: 38px;
   }
 
-  .header h2 {
-    font-size: 2.45rem;
-  }
 
   .rail {
     grid-auto-columns: minmax(292px, 86vw);
@@ -265,5 +219,20 @@
 
   .card {
     min-height: 470px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .visual img {
+    transition: none;
+  }
+
+  .card:hover {
+    transform: none;
+  }
+
+  .card:hover .visual img {
+    transform: none;
   }
 }

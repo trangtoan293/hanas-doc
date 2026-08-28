@@ -1,66 +1,57 @@
 import React from 'react';
 import styles from './styles.module.css';
 
-type CardTone = 'navy' | 'surface' | 'mist';
-
 interface UseCase {
   category: string;
   title: string;
   description: string;
   signal: string;
+  image: string;
   link: string;
-  tone: CardTone;
 }
 
 const useCases: UseCase[] = [
   {
     category: 'Financial Services',
     title: 'Customer 360 & Real-time Risk',
-    description: 'Hợp nhất giao dịch và hành vi khách hàng để hỗ trợ phân tích tức thời trên dữ liệu được quản trị.',
+    description: 'Nhìn được toàn cảnh một khách hàng ngay khi giao dịch vừa phát sinh, không phải chờ báo cáo ngày.',
     signal: 'STREAM / PROFILE / DECIDE',
+    image: '/img/landing/use-case-financial.webp',
     link: '/federation',
-    tone: 'navy',
   },
   {
     category: 'Data & Analytics',
     title: 'Conversational Analytics',
-    description: 'Cho phép người dùng nghiệp vụ đặt câu hỏi bằng ngôn ngữ tự nhiên trên semantic layer đáng tin cậy.',
+    description: 'Người dùng nghiệp vụ hỏi bằng ngôn ngữ thường ngày, trên lớp dữ liệu đã được định nghĩa sẵn ý nghĩa.',
     signal: 'ASK / QUERY / EXPLAIN',
+    image: '/img/landing/use-case-analytics.webp',
     link: '/visualization',
-    tone: 'surface',
   },
   {
     category: 'Enterprise AI',
     title: 'Knowledge Assistant',
-    description: 'Xây dựng trợ lý tri thức kết nối tài liệu nội bộ, dữ liệu vận hành và các mô hình AI riêng tư.',
+    description: 'Nhân viên hỏi một câu, nhận câu trả lời rút từ tài liệu và dữ liệu nội bộ của chính doanh nghiệp.',
     signal: 'RETRIEVE / REASON / RESPOND',
+    image: '/img/landing/use-case-ai.webp',
     link: '/ai-service',
-    tone: 'mist',
   },
   {
     category: 'Data Operations',
     title: 'Intelligent Data Operations',
-    description: 'Quan sát pipeline, phát hiện bất thường và hỗ trợ đội ngũ vận hành xử lý sự cố có đầy đủ ngữ cảnh.',
+    description: 'Biết pipeline hỏng ở đâu trước khi người dùng phàn nàn, kèm đủ ngữ cảnh để xử lý ngay.',
     signal: 'OBSERVE / DETECT / ACT',
+    image: '/img/landing/use-case-operations.webp',
     link: '/system-management',
-    tone: 'surface',
   },
 ];
 
-function UseCaseCard({category, title, description, signal, link, tone}: UseCase): React.JSX.Element {
+function UseCaseCard({category, title, description, signal, image, link}: UseCase): React.JSX.Element {
   return (
-    <article className={`${styles.card} ${styles[tone]}`}>
+    <article className={styles.card}>
       <div className={styles.visual} aria-hidden="true">
-        <span className={styles.visualSignal}>{signal}</span>
-        <div className={styles.visualPath}>
-          <i />
-          <i />
-          <i />
-        </div>
-        <div className={styles.visualCore}>H</div>
-        <div className={styles.visualMetric}>
-          <span>Enterprise context</span>
-          <strong>Connected</strong>
+        <img src={image} alt="" loading="lazy" decoding="async" />
+        <div className={styles.visualTop}>
+          <span className={styles.visualSignal}>{signal}</span>
         </div>
       </div>
       <div className={styles.cardContent}>
@@ -82,11 +73,11 @@ export default function UseCasesSection(): React.JSX.Element {
         <div className={styles.header}>
           <div>
             <span className={styles.eyebrow}>Enterprise use cases</span>
-            <h2>Được thiết kế cho những workflow tạo ra giá trị thật.</h2>
+            <h2>Thiết kế cho workflow tạo ra giá trị thật.</h2>
           </div>
           <p>
-            Một nền tảng dùng chung cho nhiều bài toán — từ phân tích dữ liệu đến ứng dụng AI —
-            với governance, security và observability nhất quán.
+            Cùng một nền tảng, nhiều bài toán khác nhau. Dù là báo cáo hay ứng dụng AI,
+            cách quản trị và bảo mật vẫn là một.
           </p>
         </div>
 

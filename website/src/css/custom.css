@@ -705,3 +705,19 @@ button:focus-visible {
     display: none;
   }
 }
+
+/* ========================================
+   JUSTIFY TEXT IN DOC CONTENT
+   ======================================== */
+
+.markdown p,
+.markdown li {
+  text-align: justify;
+}
+
+/* Footer nen toi: wordmark #4d4d4f khong doc duoc -> do trang mono.
+   ponytail: filter thay vi them file SVG bien the sang. */
+.footer--dark .footer__logo {
+  filter: brightness(0) invert(1);
+  opacity: 0.75;
+}

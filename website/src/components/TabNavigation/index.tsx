@@ -76,8 +76,8 @@ export default function TabNavigation(): React.JSX.Element {
           <span className={styles.eyebrow}>Từ data đến intelligence</span>
           <h2>Một kiến trúc, nhiều hành trình chuyển đổi.</h2>
           <p>
-            Bắt đầu từ nền tảng dữ liệu, năng lực AI hay bài toán quản trị — Hanas cho phép
-            doanh nghiệp mở rộng theo từng giai đoạn mà không phải xây lại từ đầu.
+            Bắt đầu từ đâu cũng được: nền tảng dữ liệu, năng lực AI, hay bài toán quản trị.
+            Mở rộng dần theo từng giai đoạn, không phải xây lại từ đầu.
           </p>
         </div>
 

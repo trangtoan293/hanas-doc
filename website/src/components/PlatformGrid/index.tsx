@@ -13,42 +13,42 @@ const capabilities: Capability[] = [
   {
     number: '01',
     title: 'Ingestion & Streaming',
-    description: 'Kết nối dữ liệu batch và real-time từ hệ thống lõi, ứng dụng, thiết bị và dịch vụ bên ngoài.',
+    description: 'Đưa dữ liệu từ mọi hệ thống về một nơi, theo lô hoặc ngay khi phát sinh — không còn chờ batch đêm.',
     technologies: ['NiFi', 'Kafka', 'Debezium'],
     link: '/ingestion',
   },
   {
     number: '02',
     title: 'Open Lakehouse',
-    description: 'Xây dựng lớp lưu trữ thống nhất, linh hoạt và không khóa chặt dữ liệu vào một nhà cung cấp.',
+    description: 'Dữ liệu nằm ở định dạng mở và thuộc về doanh nghiệp — đổi công cụ xử lý mà không phải chuyển kho.',
     technologies: ['MinIO', 'Iceberg', 'Polaris'],
     link: '/storage',
   },
   {
     number: '03',
     title: 'Processing & Modeling',
-    description: 'Điều phối, xử lý và chuẩn hóa dữ liệu thành các mô hình có ngữ nghĩa, sẵn sàng cho phân tích.',
+    description: 'Mỗi phòng ban đọc ra cùng một con số, vì cùng lấy từ một mô hình dữ liệu đã được chuẩn hóa.',
     technologies: ['Spark', 'Airflow', 'dbt'],
     link: '/processing',
   },
   {
     number: '04',
     title: 'Governance & Security',
-    description: 'Quản lý metadata, lineage, phân quyền và chính sách bảo mật từ một lớp kiểm soát tập trung.',
+    description: 'Biết rõ dữ liệu đến từ đâu, ai được xem, ai đã dùng — trả lời được mọi câu hỏi của kiểm toán.',
     technologies: ['DataHub', 'Ranger', 'Vault'],
     link: '/governance',
   },
   {
     number: '05',
     title: 'Data Access & BI',
-    description: 'Cung cấp dữ liệu hiệu năng cao cho SQL, semantic layer, dashboard, API và ứng dụng nghiệp vụ.',
+    description: 'Đội nghiệp vụ tự lấy được dữ liệu cần, qua dashboard hay API, không phải mở ticket chờ IT.',
     technologies: ['Dremio', 'Superset'],
     link: '/federation',
   },
   {
     number: '06',
     title: 'Enterprise AI Services',
-    description: 'Đưa GenAI vào doanh nghiệp với LLM tự quản, workflow thông minh và khả năng đánh giá, giám sát đầy đủ.',
+    description: 'Chạy AI trên dữ liệu nội bộ, trong hạ tầng của doanh nghiệp — đo được cả chất lượng lẫn chi phí.',
     technologies: ['Dify', 'vLLM', 'Langfuse'],
     link: '/ai-service',
   },
@@ -87,8 +87,8 @@ export default function PlatformGrid(): React.JSX.Element {
             <h2>Một nền tảng. Toàn bộ vòng đời dữ liệu.</h2>
           </div>
           <p>
-            Hanas kết nối các năng lực data engineering, analytics, governance và AI thành
-            một hệ sinh thái đồng nhất — từ hạ tầng đến trải nghiệm người dùng cuối.
+            Sáu lớp năng lực, từ lúc dữ liệu đi vào đến khi ra quyết định. Tất cả chạy
+            trên cùng một nền tảng, cùng một cách quản trị.
           </p>
         </div>
 

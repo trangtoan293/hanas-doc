@@ -34,12 +34,12 @@ export default function CaseStudySection(): React.JSX.Element {
         <div className={styles.intro}>
           <div>
             <span className={styles.eyebrow}>Enterprise reference architecture</span>
-            <h2>Kiến trúc mở cho dữ liệu và AI ở quy mô doanh nghiệp.</h2>
+            <h2>Kiến trúc mở cho dữ liệu và AI.</h2>
           </div>
           <div className={styles.introCopy}>
             <p>
-              Hanas tổ chức toàn bộ platform thành các lớp độc lập nhưng liên kết chặt chẽ:
-              nguồn dữ liệu, ingestion, transformation, data store, governance, consumption và AI services.
+              Mỗi lớp làm một việc và thay được độc lập, nhưng ghép lại thành một đường dữ liệu
+              liền mạch — từ hệ thống nguồn đến báo cáo và ứng dụng AI.
             </p>
             <a href="/overview/architecture">
               Đọc tài liệu kiến trúc <span aria-hidden="true">↗</span>

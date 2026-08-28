@@ -44,8 +44,7 @@ export default function FAQSection(): React.JSX.Element {
             <span className={styles.eyebrow}>FAQ</span>
             <h2>Những câu hỏi thường gặp về Hanas.</h2>
             <p>
-              Tìm hiểu cách nền tảng phù hợp với kiến trúc, yêu cầu bảo mật và lộ trình
-              chuyển đổi dữ liệu của doanh nghiệp.
+              Những câu doanh nghiệp hay hỏi khi cân nhắc đưa Hanas vào kiến trúc sẵn có.
             </p>
             <a href="/overview">
               Xem tài liệu tổng quan <span aria-hidden="true">↗</span>

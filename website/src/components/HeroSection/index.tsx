@@ -19,14 +19,14 @@ export default function HeroSection(): React.JSX.Element {
                 Hanas Data &amp; AI Platform
               </div>
               <h1 className={`${styles.heroTitle} ${styles.animateIn} ${styles.delay2}`}>
-                Dữ liệu sẵn sàng.
-                <span className={styles.gradientText}> AI vận hành thật.</span>
+                Nền tảng hợp nhất cho
+                <span className={styles.gradientText}> dữ liệu, phân tích và AI.</span>
               </h1>
 
               <p className={`${styles.heroSubtitle} ${styles.animateIn} ${styles.delay3}`}>
-                Hanas hợp nhất dữ liệu, quản trị và AI trên một kiến trúc Lakehouse mở —
-                giúp doanh nghiệp đi từ dữ liệu phân tán đến sản phẩm dữ liệu tin cậy,
-                nhanh hơn và an toàn hơn.
+                Dữ liệu doanh nghiệp thường nằm rải rác ở hàng chục hệ thống. Hanas gom về
+                một kiến trúc Lakehouse mở, quản trị chặt ngay từ đầu, để dùng được cho
+                cả phân tích lẫn AI.
               </p>
 
               <div className={`${styles.heroButtons} ${styles.animateIn} ${styles.delay4}`}>

@@ -17,8 +17,8 @@ export default function CTABanner(): React.JSX.Element {
             <span className={styles.eyebrow}>Build what matters</span>
             <h2>Sẵn sàng biến dữ liệu thành năng lực cạnh tranh?</h2>
             <p>
-              Khám phá Hanas Data &amp; AI Platform và xây dựng lộ trình phù hợp với
-              hạ tầng, đội ngũ và mục tiêu kinh doanh của doanh nghiệp.
+              Mỗi doanh nghiệp có hạ tầng và điểm xuất phát khác nhau. Bắt đầu bằng một
+              buổi trao đổi để dựng lộ trình sát với tình hình thực tế.
             </p>
             <div className={styles.actions}>
               <a href="/overview" className={styles.primaryAction}>

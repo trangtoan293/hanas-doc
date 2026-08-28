@@ -71,6 +71,7 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
+          editUrl: 'https://gitlab.katalyst.vn:7979/de-team/hanas-docs/-/blob/main/website/',
           // Training và maintenance là tài liệu nội bộ, không đưa vào public build/search.
           exclude: ['**/10-training/**', '**/11-maintenance/**'],
           routeBasePath: '/',
@@ -137,6 +138,12 @@ const config: Config = {
     },
     footer: {
       style: 'dark',
+      logo: {
+        alt: 'Katalyst · Hanas Data & AI Platform',
+        src: 'img/katalyst-logo.svg',
+        href: '/',
+        height: 28,
+      },
       links: [
         {
           title: 'Nền tảng',

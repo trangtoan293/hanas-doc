@@ -14,9 +14,20 @@
   overflow: hidden;
   color: #edf7ff;
   border-radius: 30px;
+  background: #07111f;
+}
+
+.shell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.48;
   background:
-    linear-gradient(rgba(7, 17, 31, 0.95), rgba(12, 23, 35, 0.98)),
-    repeating-linear-gradient(135deg, transparent, transparent 24px, rgba(255, 255, 255, 0.04) 25px);
+    linear-gradient(90deg, rgba(5, 14, 25, 0.98) 0%, rgba(6, 17, 29, 0.9) 48%, rgba(6, 17, 29, 0.72) 100%),
+    linear-gradient(180deg, rgba(5, 14, 25, 0.24), rgba(5, 14, 25, 0.84)),
+    url('/img/landing/use-case-operations.webp') center / cover no-repeat;
+  transform: scale(1.015);
+  pointer-events: none;
 }
 
 .glow {
