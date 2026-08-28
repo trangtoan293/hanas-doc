@@ -105,7 +105,8 @@
   pointer-events: none;
 }
 
-.visual img {
+.visual img,
+.visual video {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -114,7 +115,17 @@
   transition: transform 900ms cubic-bezier(0.2, 0.7, 0, 1), filter 500ms ease;
 }
 
-.card:hover .visual img {
+.visual img {
+  z-index: 0;
+}
+
+.visual video {
+  z-index: 1;
+  filter: saturate(0.92) contrast(1.02);
+}
+
+.card:hover .visual img,
+.card:hover .visual video {
   filter: saturate(1.08) contrast(1.03);
   transform: scale(1.055);
 }
@@ -224,15 +235,21 @@
 
 @media (prefers-reduced-motion: reduce) {
   .card,
-  .visual img {
+  .visual img,
+  .visual video {
     transition: none;
+  }
+
+  .visual video {
+    display: none;
   }
 
   .card:hover {
     transform: none;
   }
 
-  .card:hover .visual img {
+  .card:hover .visual img,
+  .card:hover .visual video {
     transform: none;
   }
 }

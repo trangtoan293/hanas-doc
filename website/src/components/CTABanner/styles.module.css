@@ -6,9 +6,10 @@
 
 .shell {
   position: relative;
+  isolation: isolate;
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(380px, 0.9fr);
-  gap: 90px;
+  grid-template-columns: minmax(0, 1.25fr) minmax(360px, 0.75fr);
+  gap: 64px;
   align-items: center;
   padding: 72px 64px;
   overflow: hidden;
@@ -21,17 +22,28 @@
   content: '';
   position: absolute;
   inset: 0;
-  opacity: 0.48;
+  z-index: 1;
   background:
     linear-gradient(90deg, rgba(5, 14, 25, 0.98) 0%, rgba(6, 17, 29, 0.9) 48%, rgba(6, 17, 29, 0.72) 100%),
-    linear-gradient(180deg, rgba(5, 14, 25, 0.24), rgba(5, 14, 25, 0.84)),
-    url('/img/landing/use-case-operations.webp') center / cover no-repeat;
-  transform: scale(1.015);
+    linear-gradient(180deg, rgba(5, 14, 25, 0.24), rgba(5, 14, 25, 0.84));
+  pointer-events: none;
+}
+
+.backgroundVideo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.36;
+  filter: saturate(0.72) contrast(1.08);
   pointer-events: none;
 }
 
 .glow {
   position: absolute;
+  z-index: 2;
   width: 620px;
   height: 620px;
   top: -280px;
@@ -44,7 +56,7 @@
 
 .content {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   max-width: 700px;
 }
 
@@ -61,10 +73,10 @@
 .content h2 {
   margin: 0 0 22px;
   color: #f8fbff;
-  font-size: clamp(2.55rem, 4.7vw, 4.4rem);
+  font-size: clamp(2.55rem, 3.5vw, 3rem);
   font-weight: 600;
   letter-spacing: -0.05em;
-  line-height: 1.02;
+  line-height: 1.05;
 }
 
 .content > p {
@@ -81,8 +93,7 @@
   gap: 13px;
 }
 
-.primaryAction,
-.secondaryAction {
+.primaryAction {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -107,56 +118,29 @@
   transform: translateY(-2px);
 }
 
-.secondaryAction {
-  color: #dbe8f3;
-  border: 1px solid rgba(148, 163, 184, 0.28);
-  background: rgba(255, 255, 255, 0.03);
-}
-
-.secondaryAction:hover {
-  color: #fff;
-  border-color: rgba(200, 217, 232, 0.45);
-  background: rgba(200, 217, 232, 0.06);
-  text-decoration: none;
-  transform: translateY(-2px);
-}
-
 .roadmap {
   position: relative;
-  z-index: 1;
-  padding: 20px;
-  border: 1px solid rgba(148, 163, 184, 0.16);
-  border-radius: 18px;
-  background: linear-gradient(145deg, rgba(17, 35, 54, 0.82), rgba(9, 25, 41, 0.9));
-  box-shadow: inset 0 1px rgba(255, 255, 255, 0.04);
+  z-index: 3;
+  padding-top: 18px;
+  border-top: 1px solid rgba(200, 217, 232, 0.28);
 }
 
 .roadmapHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2px 3px 17px;
-  color: #647a91;
+  padding: 0 0 16px;
+  color: #91a9be;
   border-bottom: 1px solid rgba(148, 163, 184, 0.12);
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.12em;
-}
-
-.roadmapHeader i {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #ed1c24;
-  box-shadow: 0 0 12px rgba(237, 28, 36, 0.8);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 .roadmapStep {
   display: grid;
-  grid-template-columns: 52px 1fr;
-  gap: 14px;
+  grid-template-columns: 40px 1fr;
+  gap: 22px;
   align-items: center;
-  min-height: 86px;
+  min-height: 92px;
   border-bottom: 1px solid rgba(148, 163, 184, 0.1);
 }
 
@@ -165,7 +149,7 @@
 }
 
 .roadmapStep > span {
-  color: #8fadc5;
+  color: #a7bfd3;
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
 }
@@ -176,15 +160,15 @@
 }
 
 .roadmapStep strong {
-  color: #e6f0f9;
-  font-size: 13px;
+  color: #edf5fb;
+  font-size: 15px;
   font-weight: 600;
 }
 
 .roadmapStep small {
-  color: #71869a;
-  font-size: 10px;
-  line-height: 1.5;
+  color: #8fa4b8;
+  font-size: 12px;
+  line-height: 1.55;
 }
 
 @media (max-width: 900px) {
@@ -217,24 +201,25 @@
     flex-direction: column;
   }
 
-  .primaryAction,
-  .secondaryAction {
+  .primaryAction {
     width: 100%;
   }
 
   .roadmap {
-    padding: 16px;
+    padding-top: 18px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .primaryAction,
-  .secondaryAction {
+  .backgroundVideo {
+    display: none;
+  }
+
+  .primaryAction {
     transition: none;
   }
 
-  .primaryAction:hover,
-  .secondaryAction:hover {
+  .primaryAction:hover {
     transform: none;
   }
 }

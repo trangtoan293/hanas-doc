@@ -6,10 +6,10 @@
 
 .header {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr);
+  grid-template-columns: minmax(0, 1.2fr) minmax(340px, 0.8fr);
   column-gap: 72px;
   align-items: end;
-  margin-bottom: 56px;
+  margin-bottom: 48px;
 }
 
 .eyebrow {
@@ -40,44 +40,29 @@
 }
 
 .experienceShell {
-  display: grid;
-  grid-template-columns: 300px minmax(0, 1fr);
-  overflow: hidden;
-  border: 1px solid rgba(148, 163, 184, 0.16);
-  border-radius: 22px;
-  background: rgba(8, 25, 42, 0.84);
-  box-shadow: 0 16px 50px rgba(18, 30, 42, 0.06);
+  width: 100%;
 }
 
 .tabList {
   display: flex;
-  flex-direction: column;
-  padding: 16px;
-  border-right: 1px solid rgba(148, 163, 184, 0.13);
-  background: rgba(4, 15, 27, 0.58);
+  justify-content: center;
+  gap: 42px;
+  width: 100%;
+  margin-bottom: 24px;
 }
 
 .tabButton {
-  display: grid;
-  grid-template-columns: 38px 1fr auto;
-  gap: 12px;
-  align-items: center;
-  width: 100%;
-  min-height: 82px;
-  padding: 0 16px;
-  color: #71859a;
-  border: 1px solid transparent;
-  border-radius: 12px;
+  position: relative;
+  min-height: 40px;
+  padding: 0 4px;
+  color: #7a899a;
+  border: 0;
   background: transparent;
   font-family: inherit;
-  text-align: left;
+  text-align: center;
   cursor: pointer;
-  transition: color 180ms ease, background 180ms ease, border-color 180ms ease;
-}
-
-.tabButton > span {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
+  white-space: nowrap;
+  transition: color 180ms ease;
 }
 
 .tabButton strong {
@@ -86,210 +71,158 @@
   font-weight: 600;
 }
 
-.tabButton i {
-  font-style: normal;
-  opacity: 0;
-  transform: translateX(-5px);
-  transition: opacity 180ms ease, transform 180ms ease;
+.tabButton:hover {
+  color: #385b76;
 }
 
-.tabButton:hover,
 .tabButtonActive {
-  color: #dff9ff;
-  border-color: rgba(108, 147, 180, 0.22);
-  background: rgba(108, 147, 180, 0.08);
+  color: #142235;
 }
 
-.tabButtonActive i {
-  opacity: 1;
-  transform: translateX(0);
+.tabButtonActive::after {
+  content: '';
+  position: absolute;
+  right: 4px;
+  bottom: 0;
+  left: 4px;
+  height: 2px;
+  background: var(--hanas-accent);
 }
 
 .tabButton:focus-visible {
-  outline: 2px solid #8fadc5;
-  outline-offset: -2px;
+  outline: 2px solid rgba(108, 147, 180, 0.48);
+  outline-offset: 2px;
 }
 
 .panel {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1.1fr);
-  gap: 50px;
-  min-height: 540px;
-  padding: 54px;
+  position: relative;
+  isolation: isolate;
+  min-height: 450px;
+  padding: 48px 48px 88px;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #0b1727;
   animation: panelIn 260ms ease-out;
 }
 
 .panelContent {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+  gap: 80px;
+  align-items: center;
+  width: 100%;
+}
+
+.panelNarrative {
+  max-width: 570px;
 }
 
 .panelEyebrow {
-  margin-bottom: 16px;
-  color: #8fadc5;
+  margin-bottom: 14px;
+  color: #a8c2d8;
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
   letter-spacing: 0.11em;
   text-transform: uppercase;
 }
 
-.panelContent h3 {
-  margin: 0 0 20px;
-  color: #f5faff;
-  font-size: clamp(1.9rem, 3vw, 2.75rem);
+.panelNarrative h3 {
+  margin: 0 0 18px;
+  color: #f5f9fc;
+  font-size: clamp(1.9rem, 3vw, 2.65rem);
   font-weight: 600;
   letter-spacing: -0.035em;
   line-height: 1.16;
 }
 
-.panelContent > p {
-  margin: 0 0 26px;
-  color: #91a4b8;
+.panelNarrative > p {
+  margin: 0;
+  color: #b3c1cf;
   font-size: 15px;
-  line-height: 1.78;
+  line-height: 1.75;
 }
 
 .panelContent ul {
   display: grid;
-  gap: 12px;
-  margin: 0 0 32px;
+  gap: 11px;
+  margin: 0;
   padding: 0;
+  justify-self: end;
+  width: min(100%, 390px);
   list-style: none;
 }
 
 .panelContent li {
   display: flex;
   gap: 10px;
-  color: #c0cedc;
+  color: #d3dee8;
   font-size: 13px;
   line-height: 1.5;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.32);
 }
 
 .panelContent li span {
-  color: #9eb9cf;
-}
-
-.panelContent > a {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: auto;
-  color: #c8d9e8;
-  font-size: 13px;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.panelContent > a:hover {
-  color: #fff;
-  text-decoration: none;
+  color: #9fc4df;
 }
 
 .flowVisual {
-  align-self: center;
-  padding: 18px;
-  border: 1px solid rgba(148, 163, 184, 0.13);
-  border-radius: 16px;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.flowVisual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   background:
-    linear-gradient(rgba(15, 38, 60, 0.72), rgba(8, 24, 40, 0.85)),
-    repeating-linear-gradient(0deg, transparent, transparent 23px, rgba(148, 163, 184, 0.06) 24px),
-    repeating-linear-gradient(90deg, transparent, transparent 23px, rgba(148, 163, 184, 0.06) 24px);
-  box-shadow: inset 0 1px rgba(255, 255, 255, 0.04);
+    linear-gradient(90deg, rgba(5, 14, 24, 0.96) 0%, rgba(5, 14, 24, 0.88) 30%, rgba(5, 14, 24, 0.68) 58%, rgba(5, 14, 24, 0.58) 100%),
+    linear-gradient(180deg, rgba(5, 14, 24, 0.08) 0%, rgba(5, 14, 24, 0.18) 56%, rgba(5, 14, 24, 0.88) 100%);
+  pointer-events: none;
 }
 
-.flowTopline {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  padding-bottom: 16px;
-  color: #61778f;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.11);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 8px;
-  letter-spacing: 0.1em;
-}
-
-.flowStatus {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: #a8c1d4;
-}
-
-.flowStatus i {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #8fadc5;
+.flowVideo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.82;
+  filter: saturate(0.78) contrast(1.05);
+  pointer-events: none;
 }
 
 .flowStages {
+  position: absolute;
+  right: 48px;
+  bottom: 20px;
+  left: 48px;
+  z-index: 2;
   display: grid;
-  grid-template-columns: minmax(96px, 1fr) 26px minmax(110px, 1.1fr) 26px minmax(96px, 1fr);
-  align-items: center;
-  min-height: 250px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: auto;
+  padding: 0;
 }
 
-.flowStage {
+.flowStages strong {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  min-height: 112px;
-  padding: 14px;
-  border: 1px solid rgba(148, 163, 184, 0.14);
-  border-radius: 10px;
-  background: rgba(7, 20, 33, 0.72);
-}
-
-.flowStageCore {
-  min-height: 148px;
-  border-color: rgba(143, 173, 197, 0.28);
-  background: radial-gradient(circle at 50% 15%, rgba(108, 147, 180, 0.12), rgba(7, 25, 41, 0.94) 65%);
-  box-shadow: none;
-}
-
-.flowStage > span {
-  margin-bottom: 16px;
-  color: #4f6880;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 8px;
-}
-
-.flowStage strong {
-  color: #d9e7f3;
-  font-size: 11px;
+  min-height: 42px;
+  padding: 0 12px;
+  color: #edf4f9;
+  font-size: 14px;
+  font-weight: 600;
   line-height: 1.35;
-}
-
-.flowStage small {
-  margin-top: 7px;
-  color: #60758a;
-  font-size: 7px;
-}
-
-.flowArrow {
-  color: #8fadc5;
   text-align: center;
 }
 
-.flowTelemetry {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  padding-top: 12px;
-  border-top: 1px solid rgba(148, 163, 184, 0.11);
-}
-
-.flowTelemetry span {
-  padding: 8px;
-  color: #6f879e;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.025);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 7px;
-  text-align: center;
-  text-transform: uppercase;
+.flowStages strong + strong {
+  border-left: 1px solid rgba(216, 230, 241, 0.22);
 }
 
 @keyframes panelIn {
@@ -297,29 +230,8 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-@media (max-width: 1100px) {
-  .experienceShell {
-    grid-template-columns: 1fr;
-  }
-
-  .tabList {
-    flex-direction: row;
-    border-right: 0;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.13);
-  }
-
-  .tabButton {
-    grid-template-columns: 30px 1fr;
-  }
-
-  .tabButton i {
-    display: none;
-  }
-}
-
 @media (max-width: 900px) {
-  .header,
-  .panel {
+  .header {
     grid-template-columns: 1fr;
   }
 
@@ -327,12 +239,24 @@
     gap: 24px;
   }
 
-  .header p {
-    margin-left: 0;
+  .panel {
+    min-height: 600px;
+    padding: 42px 42px 96px;
   }
 
-  .panel {
-    gap: 42px;
+  .panelContent {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .panelContent ul {
+    justify-self: start;
+    width: 100%;
+  }
+
+  .flowStages {
+    right: 42px;
+    left: 42px;
   }
 }
 
@@ -341,43 +265,64 @@
     padding: 76px 0;
   }
 
-  .experienceShell {
-    border-radius: 16px;
+  .header {
+    margin-bottom: 36px;
   }
 
   .tabList {
-    overflow-x: auto;
+    gap: 0;
+    width: 100%;
   }
 
   .tabButton {
-    flex: 0 0 185px;
-    min-height: 68px;
-    padding: 0 12px;
+    flex: 1;
+    min-width: 0;
+    min-height: 48px;
+    padding: 0 6px;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .tabButton strong {
+    font-size: 11px;
+    line-height: 1.35;
   }
 
   .panel {
-    min-height: auto;
-    padding: 30px 22px;
+    min-height: 620px;
+    padding: 32px 22px 94px;
+    border-radius: 18px;
+  }
+
+  .panelNarrative h3 {
+    font-size: 2rem;
+  }
+
+  .flowVisual::after {
+    background:
+      linear-gradient(180deg, rgba(5, 14, 24, 0.88) 0%, rgba(5, 14, 24, 0.72) 52%, rgba(5, 14, 24, 0.94) 100%),
+      linear-gradient(90deg, rgba(5, 14, 24, 0.72), rgba(5, 14, 24, 0.25));
   }
 
   .flowStages {
-    grid-template-columns: 1fr;
-    gap: 8px;
-    padding: 18px 0;
+    right: 16px;
+    bottom: 16px;
+    left: 16px;
+    width: auto;
   }
 
-  .flowStage,
-  .flowStageCore {
-    min-height: 82px;
-  }
-
-  .flowArrow {
-    transform: rotate(90deg);
+  .flowStages strong {
+    padding: 0 6px;
+    font-size: 11px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .panel {
     animation: none;
+  }
+
+  .flowVideo {
+    display: none;
   }
 }

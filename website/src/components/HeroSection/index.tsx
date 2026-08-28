@@ -7,11 +7,22 @@ const dataProducts = ['BI & Analytics', 'AI Applications', 'Data APIs'];
 export default function HeroSection(): React.JSX.Element {
   return (
     <section className={styles.hero}>
-      <div className={styles.stage}>
-        <div className={styles.gridBackdrop} aria-hidden="true" />
-        <div className={styles.heroGlow} aria-hidden="true" />
+      <video
+        className={styles.stageVideo}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        poster="/img/landing/use-case-analytics.webp"
+        aria-hidden="true"
+      >
+        <source src="/video/main-background-landing-page.mp4" type="video/mp4" />
+      </video>
+      <div className={styles.gridBackdrop} aria-hidden="true" />
+      <div className={styles.heroGlow} aria-hidden="true" />
 
-        <div className="container">
+      <div className="container">
           <div className={styles.heroInner}>
             <div className={styles.heroContent}>
               <div className={`${styles.productBadge} ${styles.animateIn} ${styles.delay1}`}>
@@ -20,7 +31,7 @@ export default function HeroSection(): React.JSX.Element {
               </div>
               <h1 className={`${styles.heroTitle} ${styles.animateIn} ${styles.delay2}`}>
                 Nền tảng hợp nhất cho
-                <span className={styles.gradientText}> dữ liệu, phân tích và AI.</span>
+                <span className={styles.gradientText}> dữ liệu, phân tích và AI</span>
               </h1>
 
               <p className={`${styles.heroSubtitle} ${styles.animateIn} ${styles.delay3}`}>
@@ -33,10 +44,6 @@ export default function HeroSection(): React.JSX.Element {
                 <a href="/overview" className={styles.ctaPrimary}>
                   Khám phá nền tảng
                   <span aria-hidden="true">↗</span>
-                </a>
-                <a href="/overview/architecture" className={styles.ctaSecondary}>
-                  Xem kiến trúc
-                  <span aria-hidden="true">→</span>
                 </a>
               </div>
 
@@ -54,9 +61,6 @@ export default function HeroSection(): React.JSX.Element {
                     <span className={styles.panelEyebrow}>HANAS CONTROL PLANE</span>
                     <strong>Enterprise Data Flow</strong>
                   </div>
-                  <span className={styles.liveStatus}>
-                    <span aria-hidden="true" /> Live
-                  </span>
                 </div>
 
                 <div
@@ -81,7 +85,6 @@ export default function HeroSection(): React.JSX.Element {
 
                   <div className={styles.lakehouseNode}>
                     <span className={styles.orbit} aria-hidden="true" />
-                    <span className={styles.coreMark}>H</span>
                     <strong>
                       Unified<br />Lakehouse
                     </strong>
@@ -101,7 +104,6 @@ export default function HeroSection(): React.JSX.Element {
                     <span className={styles.columnLabel}>Data products</span>
                     {dataProducts.map((product) => (
                       <div key={product} className={styles.productNode}>
-                        <span className={styles.nodePulse} aria-hidden="true" />
                         {product}
                       </div>
                     ))}
@@ -134,7 +136,6 @@ export default function HeroSection(): React.JSX.Element {
               ))}
             </div>
           </div>
-        </div>
       </div>
     </section>
   );

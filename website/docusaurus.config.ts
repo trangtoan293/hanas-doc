@@ -129,7 +129,7 @@ const config: Config = {
         { label: 'AI Services', to: '/ai-service', position: 'left' },
         { label: 'Tài liệu', to: '/guides', position: 'left' },
         {
-          label: 'Hanas Portal ↗',
+          label: 'Hanas Portal',
           href: 'https://portal.hanas.io/portal/home/dashboard',
           position: 'right',
           className: 'navbarPortal',
@@ -148,17 +148,17 @@ const config: Config = {
         {
           title: 'Nền tảng',
           items: [
-            { label: 'Tổng Quan', to: '/overview' },
-            { label: 'Kiến Trúc', to: '/overview/architecture' },
-            { label: 'Dịch Vụ AI', to: '/ai-service' },
+            { label: 'Tổng quan', to: '/overview' },
+            { label: 'Kiến trúc', to: '/overview/architecture' },
+            { label: 'Dịch vụ AI', to: '/ai-service' },
           ],
         },
         {
-          title: 'Data Stack',
+          title: 'Data stack',
           items: [
-            { label: 'Thu Thập Dữ Liệu', to: '/ingestion' },
-            { label: 'Lưu Trữ', to: '/storage' },
-            { label: 'Xử Lý', to: '/processing' },
+            { label: 'Thu thập dữ liệu', to: '/ingestion' },
+            { label: 'Lưu trữ', to: '/storage' },
+            { label: 'Xử lý', to: '/processing' },
           ],
         },
         {
@@ -169,8 +169,16 @@ const config: Config = {
             { label: 'Quản trị dữ liệu', to: '/governance' },
           ],
         },
+        {
+          title: 'Vận hành',
+          items: [
+            { label: 'Quản trị hệ thống', to: '/system-management' },
+            { label: 'Hạ tầng & triển khai', to: '/infrastructure' },
+            { label: 'An toàn thông tin', to: '/security' },
+          ],
+        },
       ],
-      copyright: `© ${new Date().getFullYear()} Katalyst · Hanas Data & AI Platform.`,
+      copyright: `© ${new Date().getFullYear()} Katalyst · Hanas Data & AI Platform`,
     },
     prism: {
       theme: prismThemes.github,

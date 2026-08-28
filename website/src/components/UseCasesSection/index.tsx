@@ -7,6 +7,7 @@ interface UseCase {
   description: string;
   signal: string;
   image: string;
+  video: string;
   link: string;
 }
 
@@ -17,6 +18,7 @@ const useCases: UseCase[] = [
     description: 'Nhìn được toàn cảnh một khách hàng ngay khi giao dịch vừa phát sinh, không phải chờ báo cáo ngày.',
     signal: 'STREAM / PROFILE / DECIDE',
     image: '/img/landing/use-case-financial.webp',
+    video: '/video/dashboard-with-manager.mp4',
     link: '/federation',
   },
   {
@@ -25,6 +27,7 @@ const useCases: UseCase[] = [
     description: 'Người dùng nghiệp vụ hỏi bằng ngôn ngữ thường ngày, trên lớp dữ liệu đã được định nghĩa sẵn ý nghĩa.',
     signal: 'ASK / QUERY / EXPLAIN',
     image: '/img/landing/use-case-analytics.webp',
+    video: '/video/dashboard-simple.mp4',
     link: '/visualization',
   },
   {
@@ -33,6 +36,7 @@ const useCases: UseCase[] = [
     description: 'Nhân viên hỏi một câu, nhận câu trả lời rút từ tài liệu và dữ liệu nội bộ của chính doanh nghiệp.',
     signal: 'RETRIEVE / REASON / RESPOND',
     image: '/img/landing/use-case-ai.webp',
+    video: '/video/agentic-ai.mp4',
     link: '/ai-service',
   },
   {
@@ -41,15 +45,27 @@ const useCases: UseCase[] = [
     description: 'Biết pipeline hỏng ở đâu trước khi người dùng phàn nàn, kèm đủ ngữ cảnh để xử lý ngay.',
     signal: 'OBSERVE / DETECT / ACT',
     image: '/img/landing/use-case-operations.webp',
+    video: '/video/modern-dashboard-monitoring.mp4',
     link: '/system-management',
   },
 ];
 
-function UseCaseCard({category, title, description, signal, image, link}: UseCase): React.JSX.Element {
+function UseCaseCard({category, title, description, signal, image, video, link}: UseCase): React.JSX.Element {
   return (
     <article className={styles.card}>
       <div className={styles.visual} aria-hidden="true">
         <img src={image} alt="" loading="lazy" decoding="async" />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster={image}
+          aria-hidden="true"
+        >
+          <source src={video} type="video/mp4" />
+        </video>
         <div className={styles.visualTop}>
           <span className={styles.visualSignal}>{signal}</span>
         </div>
@@ -73,7 +89,11 @@ export default function UseCasesSection(): React.JSX.Element {
         <div className={styles.header}>
           <div>
             <span className={styles.eyebrow}>Enterprise use cases</span>
-            <h2>Thiết kế cho workflow tạo ra giá trị thật.</h2>
+            <h2>
+              Thiết kế cho workflow
+              <br className="landingDesktopBreak" />{' '}
+              tạo ra giá trị thật
+            </h2>
           </div>
           <p>
             Cùng một nền tảng, nhiều bài toán khác nhau. Dù là báo cáo hay ứng dụng AI,

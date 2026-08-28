@@ -5,22 +5,22 @@ type TabId = 'foundation' | 'intelligence' | 'governance';
 
 interface Experience {
   id: TabId;
-  number: string;
   label: string;
   eyebrow: string;
   title: string;
   description: string;
   bullets: string[];
   flow: string[];
+  video: string;
+  poster: string;
 }
 
 const experiences: Experience[] = [
   {
     id: 'foundation',
-    number: '01',
-    label: 'Data Foundation',
+    label: 'Nền tảng dữ liệu',
     eyebrow: 'Nền tảng dữ liệu hiện đại',
-    title: 'Tạo một nguồn dữ liệu tin cậy cho toàn doanh nghiệp.',
+    title: 'Tạo một nguồn dữ liệu tin cậy cho toàn doanh nghiệp',
     description: 'Hợp nhất dữ liệu phân tán vào Lakehouse mở, xử lý đồng thời batch và real-time mà vẫn giữ nguyên khả năng mở rộng theo nhu cầu.',
     bullets: [
       'Ingestion đa nguồn, hỗ trợ CDC và streaming',
@@ -28,13 +28,14 @@ const experiences: Experience[] = [
       'Pipeline được điều phối và quan sát xuyên suốt',
     ],
     flow: ['Data Sources', 'Open Lakehouse', 'Data Products'],
+    video: '/video/data-pipeline.mp4',
+    poster: '/img/landing/use-case-operations.webp',
   },
   {
     id: 'intelligence',
-    number: '02',
-    label: 'AI & Intelligence',
+    label: 'AI doanh nghiệp',
     eyebrow: 'AI gắn với dữ liệu doanh nghiệp',
-    title: 'Đưa AI từ thử nghiệm vào quy trình vận hành thực tế.',
+    title: 'Đưa AI từ thử nghiệm vào quy trình vận hành thực tế',
     description: 'Kết nối dữ liệu đã được quản trị với LLM, knowledge base và workflow AI để xây dựng ứng dụng có thể đánh giá, theo dõi và cải tiến liên tục.',
     bullets: [
       'Triển khai LLM self-hosted hoặc kết nối model API',
@@ -42,20 +43,23 @@ const experiences: Experience[] = [
       'Theo dõi prompt, chất lượng và chi phí inference',
     ],
     flow: ['Governed Data', 'LLM Mesh', 'AI Applications'],
+    video: '/video/agentic-ai.mp4',
+    poster: '/img/landing/use-case-ai.webp',
   },
   {
     id: 'governance',
-    number: '03',
-    label: 'Trust & Governance',
+    label: 'Quản trị & Tin cậy',
     eyebrow: 'Kiểm soát theo thiết kế',
-    title: 'Biến quản trị dữ liệu thành một phần của platform.',
-    description: 'Metadata, lineage, quality, access policy và secret management được tích hợp ngay trong kiến trúc thay vì xử lý rời rạc sau khi hệ thống đã vận hành.',
+    title: 'Đưa quản trị dữ liệu vào ngay trong kiến trúc',
+    description: 'Metadata, lineage, chất lượng dữ liệu, phân quyền và secret management vận hành xuyên suốt thay vì được bổ sung rời rạc về sau.',
     bullets: [
       'Data catalog và lineage xuyên suốt hệ thống',
       'Chính sách truy cập nhất quán theo vai trò',
       'Audit, observability và bảo mật tập trung',
     ],
     flow: ['Metadata', 'Policy Engine', 'Trusted Access'],
+    video: '/video/Governance & Security.mp4',
+    poster: '/img/landing/use-case-operations.webp',
   },
 ];
 
@@ -73,11 +77,15 @@ export default function TabNavigation(): React.JSX.Element {
     <section className={styles.section}>
       <div className="container">
         <div className={styles.header}>
-          <span className={styles.eyebrow}>Từ data đến intelligence</span>
-          <h2>Một kiến trúc, nhiều hành trình chuyển đổi.</h2>
+          <span className={styles.eyebrow}>Từ dữ liệu đến giá trị</span>
+          <h2>
+            Ba điểm bắt đầu
+            <br className="landingDesktopBreak" />{' '}
+            Một nền tảng để mở rộng
+          </h2>
           <p>
-            Bắt đầu từ đâu cũng được: nền tảng dữ liệu, năng lực AI, hay bài toán quản trị.
-            Mở rộng dần theo từng giai đoạn, không phải xây lại từ đầu.
+            Doanh nghiệp có thể bắt đầu từ dữ liệu, AI hoặc quản trị — rồi mở rộng
+            theo nhu cầu mà không phải xây lại nền tảng.
           </p>
         </div>
 
@@ -105,9 +113,7 @@ export default function TabNavigation(): React.JSX.Element {
                   }
                 }}
               >
-                <span>{experience.number}</span>
                 <strong>{experience.label}</strong>
-                <i aria-hidden="true">→</i>
               </button>
             ))}
           </div>
@@ -119,9 +125,11 @@ export default function TabNavigation(): React.JSX.Element {
             className={styles.panel}
           >
             <div className={styles.panelContent}>
-              <span className={styles.panelEyebrow}>{activeExperience.eyebrow}</span>
-              <h3>{activeExperience.title}</h3>
-              <p>{activeExperience.description}</p>
+              <div className={styles.panelNarrative}>
+                <span className={styles.panelEyebrow}>{activeExperience.eyebrow}</span>
+                <h3>{activeExperience.title}</h3>
+                <p>{activeExperience.description}</p>
+              </div>
               <ul>
                 {activeExperience.bullets.map((bullet) => (
                   <li key={bullet}>
@@ -130,34 +138,26 @@ export default function TabNavigation(): React.JSX.Element {
                   </li>
                 ))}
               </ul>
-              <a href="/overview/architecture">
-                Xem thiết kế kiến trúc <span aria-hidden="true">↗</span>
-              </a>
             </div>
 
             <div className={styles.flowVisual} aria-label={`Luồng ${activeExperience.flow.join(' đến ')}`}>
-              <div className={styles.flowTopline}>
-                <span>REFERENCE FLOW / {activeExperience.number}</span>
-                <span className={styles.flowStatus}><i aria-hidden="true" /> Connected</span>
-              </div>
+              <video
+                key={activeExperience.video}
+                className={styles.flowVideo}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                poster={activeExperience.poster}
+                aria-hidden="true"
+              >
+                <source src={activeExperience.video} type="video/mp4" />
+              </video>
               <div className={styles.flowStages}>
-                {activeExperience.flow.map((stage, index) => (
-                  <React.Fragment key={stage}>
-                    <div className={`${styles.flowStage} ${index === 1 ? styles.flowStageCore : ''}`}>
-                      <span>{String(index + 1).padStart(2, '0')}</span>
-                      <strong>{stage}</strong>
-                      <small>{index === 1 ? 'Powered by Hanas' : 'Enterprise ready'}</small>
-                    </div>
-                    {index < activeExperience.flow.length - 1 && (
-                      <div className={styles.flowArrow} aria-hidden="true">→</div>
-                    )}
-                  </React.Fragment>
+                {activeExperience.flow.map((stage) => (
+                  <strong key={stage}>{stage}</strong>
                 ))}
-              </div>
-              <div className={styles.flowTelemetry}>
-                <span>Observability</span>
-                <span>Security</span>
-                <span>Lineage</span>
               </div>
             </div>
           </article>

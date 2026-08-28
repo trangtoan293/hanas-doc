@@ -1,6 +1,39 @@
 .section {
+  position: relative;
+  isolation: isolate;
   padding: 112px 0 120px;
+  overflow: hidden;
   background: var(--hanas-bg-page);
+}
+
+.sectionVideo,
+.sectionVideoOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.sectionVideo {
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.14;
+  filter: saturate(0.65) contrast(1.04);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.34) 38%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.34) 38%, #000 100%);
+}
+
+.sectionVideoOverlay {
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(247, 249, 251, 0.98) 0%, rgba(247, 249, 251, 0.9) 44%, rgba(247, 249, 251, 0.7) 100%),
+    linear-gradient(180deg, var(--hanas-bg-page) 0%, transparent 22%, transparent 78%, var(--hanas-bg-page) 100%);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
 }
 
 .intro {
@@ -8,7 +41,7 @@
   grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr);
   gap: 72px;
   align-items: end;
-  margin-bottom: 54px;
+  margin-bottom: 52px;
 }
 
 .eyebrow {
@@ -33,84 +66,37 @@
 }
 
 .introCopy p {
-  margin: 0 0 22px;
+  max-width: 560px;
+  margin: 0 0 20px;
   color: #5f7083;
   font-size: 15px;
   line-height: 1.8;
 }
 
-.introCopy a {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  color: #527b9c;
-  font-size: 13px;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.introCopy a:hover {
-  color: #6c93b4;
-  text-decoration: none;
-}
-
-.architectureFrame {
+.architectureVisual {
   display: block;
-  overflow: hidden;
-  color: inherit;
-  border: 1px solid #dbe5ef;
-  border-radius: 20px;
-  background: #fff;
-  box-shadow: 0 16px 50px rgba(18, 30, 42, 0.06);
-  text-decoration: none;
-  transition: transform 220ms ease, box-shadow 220ms ease;
-}
-
-.architectureFrame:hover {
+  width: min(100%, 1120px);
+  margin: 0 auto;
   color: inherit;
   text-decoration: none;
-  transform: translateY(-2px);
-  box-shadow: 0 20px 56px rgba(18, 30, 42, 0.08);
 }
 
-.frameHeader {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 16px 20px;
-  color: #6b7e92;
-  border-bottom: 1px solid #e4ebf2;
-  background: #fbfcfe;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.1em;
+.architectureVisual:hover {
+  color: inherit;
+  text-decoration: none;
 }
 
-.imageViewport {
-  position: relative;
-  aspect-ratio: 2.12 / 1;
-  overflow: hidden;
-  background: #f8fbfe;
-}
-
-.imageViewport::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  pointer-events: none;
-}
-
-.imageViewport img {
+.architectureVisual img {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: contain;
-  transition: transform 320ms ease;
+  height: auto;
+  mix-blend-mode: multiply;
+  filter: saturate(0.92) contrast(0.98);
+  transition: opacity 220ms ease;
 }
 
-.architectureFrame:hover img {
-  transform: scale(1.012);
+.architectureVisual:hover img {
+  opacity: 0.9;
 }
 
 .mobileArchitecture {
@@ -119,29 +105,18 @@
 
 .principles {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  margin-top: 42px;
-  border: 1px solid #dfe7ef;
-  border-radius: 16px;
-  background: #dfe7ef;
-  overflow: hidden;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 46px;
+  border-top: 1px solid rgba(126, 147, 168, 0.28);
 }
 
 .principles article {
-  display: grid;
-  grid-template-columns: 32px 1fr;
-  gap: 18px;
-  padding: 30px;
-  background: #fff;
+  padding: 28px 34px 0 0;
 }
 
-.principles article > span {
-  padding-top: 3px;
-  color: var(--hanas-accent);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.1em;
+.principles article + article {
+  padding-left: 34px;
+  border-left: 1px solid rgba(126, 147, 168, 0.24);
 }
 
 .principles h3 {
@@ -152,8 +127,9 @@
 }
 
 .principles p {
+  max-width: 340px;
   margin: 0;
-  color: #6b7b8d;
+  color: #66778a;
   font-size: 14px;
   line-height: 1.7;
 }
@@ -161,11 +137,25 @@
 @media (max-width: 900px) {
   .intro {
     grid-template-columns: 1fr;
-    gap: 26px;
+    gap: 24px;
   }
 
   .principles {
     grid-template-columns: 1fr;
+  }
+
+  .principles article,
+  .principles article + article {
+    padding: 22px 0;
+    border-left: 0;
+  }
+
+  .principles article + article {
+    border-top: 1px solid rgba(126, 147, 168, 0.2);
+  }
+
+  .principles p {
+    max-width: 620px;
   }
 }
 
@@ -174,117 +164,103 @@
     padding: 76px 0;
   }
 
+  .sectionVideo {
+    opacity: 0.09;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
 
-  .architectureFrame {
+  .sectionVideoOverlay {
+    background: rgba(247, 249, 251, 0.9);
+  }
+
+  .intro {
+    gap: 18px;
+    margin-bottom: 38px;
+  }
+
+  .intro h2 {
+    font-size: clamp(2.1rem, 10vw, 2.8rem);
+  }
+
+  .introCopy p {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .architectureVisual {
     display: none;
   }
 
   .mobileArchitecture {
     display: block;
-    padding: 18px;
-    border: 1px solid var(--hanas-border-soft);
-    border-radius: 20px;
-    background: #fff;
-  }
-
-  .mobileFrameHeader {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    padding-bottom: 14px;
-    color: #7b858e;
-    border-bottom: 1px solid var(--hanas-border-soft);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 8px;
-    letter-spacing: 0.08em;
   }
 
   .mobileLayers {
-    display: grid;
-    gap: 22px;
-    padding: 24px 0;
+    border-top: 1px solid rgba(126, 147, 168, 0.28);
+    border-bottom: 1px solid rgba(126, 147, 168, 0.28);
   }
 
   .mobileLayers article {
     position: relative;
     display: grid;
-    grid-template-columns: 42px 1fr;
+    grid-template-columns: 38px 1fr;
     gap: 14px;
     align-items: center;
-    min-height: 76px;
-    padding: 14px;
-    border: 1px solid var(--hanas-border-soft);
-    border-radius: 14px;
-    background: var(--hanas-bg-page);
+    min-height: 72px;
+    padding: 16px 0;
   }
 
-  .mobileLayers article:not(:last-child)::after {
-    content: '↓';
-    position: absolute;
-    left: 50%;
-    bottom: -20px;
-    color: var(--hanas-accent);
-    transform: translateX(-50%);
-  }
-
-  .mobileLayers article:nth-child(3) {
-    color: #e8f0f6;
-    border-color: #1b3145;
-    background: var(--hanas-navy-900);
+  .mobileLayers article + article {
+    border-top: 1px solid rgba(126, 147, 168, 0.18);
   }
 
   .mobileLayers article > span {
     color: var(--hanas-accent);
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
+    letter-spacing: 0.08em;
   }
 
   .mobileLayers article > div {
     display: grid;
-    gap: 5px;
+    gap: 4px;
   }
 
   .mobileLayers strong {
+    color: #142235;
     font-size: 15px;
     font-weight: 600;
   }
 
   .mobileLayers small {
-    color: #7b858e;
+    color: #6b7b8d;
     font-size: 12px;
   }
 
   .supportingLayers {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-    padding-top: 14px;
-    border-top: 1px solid var(--hanas-border-soft);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    padding: 18px 0 20px;
   }
 
   .supportingLayers span {
-    padding: 10px 4px;
-    color: #68737d;
-    border-radius: 8px;
-    background: var(--hanas-bg-soft);
+    color: #687b8e;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 8px;
-    text-align: center;
+    font-size: 9px;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
   }
 
-  .mobileArchitecture > a {
-    display: inline-flex;
-    gap: 8px;
-    margin-top: 20px;
-    color: #527b9c;
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
+  .supportingLayers span + span::before {
+    content: '·';
+    margin-right: 18px;
+    color: #9aabbc;
   }
 
-  .principles article {
-    padding: 24px;
+  .principles {
+    margin-top: 42px;
   }
 
   .principles p {
@@ -293,13 +269,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .architectureFrame,
-  .imageViewport img {
-    transition: none;
+  .sectionVideo {
+    display: none;
   }
 
-  .architectureFrame:hover,
-  .architectureFrame:hover img {
-    transform: none;
+  .architectureVisual img {
+    transition: none;
   }
 }

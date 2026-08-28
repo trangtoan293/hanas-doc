@@ -42,7 +42,11 @@ export default function FAQSection(): React.JSX.Element {
         <div className={styles.layout}>
           <div className={styles.intro}>
             <span className={styles.eyebrow}>FAQ</span>
-            <h2>Những câu hỏi thường gặp về Hanas.</h2>
+            <h2>
+              Những câu hỏi
+              <br className="landingDesktopBreak" />{' '}
+              thường gặp về Hanas
+            </h2>
             <p>
               Những câu doanh nghiệp hay hỏi khi cân nhắc đưa Hanas vào kiến trúc sẵn có.
             </p>
