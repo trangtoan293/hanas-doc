@@ -637,6 +637,14 @@ section {
   margin-left: 0;
 }
 
+@media (max-width: 996px) {
+  /* backdrop-filter creates a containing block and clips the mobile drawer */
+  .navbar {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
 .navbarPortal {
   display: inline-flex;
   align-items: center;
