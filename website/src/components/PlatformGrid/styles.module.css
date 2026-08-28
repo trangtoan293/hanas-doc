@@ -1,5 +1,5 @@
 .section {
-  padding: 112px 0 120px;
+  padding: 72px 0 120px;
   background: var(--hanas-bg-page);
 }
 
@@ -191,9 +191,15 @@
   color: #bdc8d2;
 }
 
+@media (max-width: 1100px) {
+  .section {
+    padding-top: 64px;
+  }
+}
+
 @media (max-width: 996px) {
   .section {
-    padding: 88px 0;
+    padding: 64px 0 88px;
   }
 
   .header {
@@ -213,7 +219,7 @@
 
 @media (max-width: 650px) {
   .section {
-    padding: 72px 0;
+    padding: 56px 0 72px;
   }
 
   .header {

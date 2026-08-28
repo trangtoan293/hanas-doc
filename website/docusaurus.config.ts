@@ -122,17 +122,21 @@ const config: Config = {
       logo: {
         alt: 'Katalyst logo',
         src: 'img/katalyst-logo.svg',
+        srcDark: 'img/katalyst-logo.svg',
       },
       items: [
-        { label: 'Nền tảng', to: '/overview', position: 'left' },
-        { label: 'Kiến trúc', to: '/overview/architecture', position: 'left' },
-        { label: 'AI Services', to: '/ai-service', position: 'left' },
-        { label: 'Tài liệu', to: '/guides', position: 'left' },
+        { label: 'Tài liệu', to: '/docs', position: 'right' },
         {
-          label: 'Hanas Portal',
+          label: 'Đăng nhập',
           href: 'https://portal.hanas.io/portal/home/dashboard',
           position: 'right',
           className: 'navbarPortal',
+        },
+        {
+          label: 'Đặt lịch demo',
+          href: 'mailto:thunnv@katalyst.vn?subject=Yêu cầu demo Hanas Data %26 AI Platform',
+          position: 'right',
+          className: 'navbarDemo',
         },
       ],
     },
