@@ -77,7 +77,7 @@ metadata:
 spec:
   type: Python
   mode: cluster
-  image: "trangtoan293/dbt-spark-k8s-ktl:ktl-dbt"
+  image: "<REGISTRY>/<NAMESPACE>/dbt-spark-k8s-ktl:<PINNED_TAG>"
   mainApplicationFile: "local:///opt/spark/work-dir/dbt-project/dbt-project/dbt_runner.py"
   arguments:
     - "--use-subprocess"
@@ -166,7 +166,7 @@ YAML templates sử dụng Jinja2 templating với các biến từ Airflow:
 ### 2.1 Reusable TaskGroup Pattern
 
 ```python
-# ✅ Production pattern - tái sử dụng TaskGroup
+# Production pattern - tái sử dụng TaskGroup
 from raw_vault.taskgroups.dbt_etl_jobs_taskgroup import create_dbt_etl_jobs_taskgroup
 
 # Mỗi group tạo: load_job → test_job → logging_job → publish_datahub

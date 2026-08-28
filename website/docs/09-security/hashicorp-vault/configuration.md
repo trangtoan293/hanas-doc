@@ -194,12 +194,12 @@ vault write database/roles/langfuse-role \
 vault read database/creds/airflow-role
 
 # Output:
-# Key                Value
-# ---                -----
-# lease_id           database/creds/airflow-role/xxxxx
-# lease_duration     1h
-# username           v-k8s-airflow-xxxxx
-# password           A1b2C3d4-xxxxx
+# Key Value
+# --- -----
+# lease_id database/creds/airflow-role/xxxxx
+# lease_duration 1h
+# username v-k8s-airflow-xxxxx
+# password A1b2C3d4-xxxxx
 ```
 
 ## 4. Transit Secrets Engine (Encryption-as-a-Service)

@@ -2,7 +2,7 @@
 
 ## Tổng Quan
 
-DataHub là nền tảng quản lý metadata, data catalog và data governance tập trung của Hanas Data Platform. Trong kiến trúc 7 lớp, DataHub đóng vai trò **Lớp 5: Quản Trị Dữ Liệu (Governance)** — thu thập, tổ chức và truy vết toàn bộ metadata từ các services khác trong platform.
+DataHub là nền tảng quản lý metadata, data catalog và data governance tập trung của Hanas Data Platform. Trong kiến trúc nền tảng, DataHub đóng vai trò **Lớp 5: Quản Trị Dữ Liệu (Governance)** — thu thập, tổ chức và truy vết toàn bộ metadata từ các services khác trong platform.
 
 > DataHub được phát triển bởi LinkedIn (open-source từ 2020), hiện là dự án thuộc **LF AI & Data Foundation**. Version 1.0 ra mắt đầu 2025 đánh dấu bản enterprise-ready đầu tiên.
 

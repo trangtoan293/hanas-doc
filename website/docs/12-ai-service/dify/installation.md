@@ -7,8 +7,8 @@
 | **CPU** | 2 cores | 4+ cores |
 | **RAM** | 4 GB | 8+ GB |
 | **Disk** | 20 GB SSD | 50+ GB SSD |
-| **Docker** | 20.10+ | Latest stable |
-| **Docker Compose** | v2.0+ | Latest stable |
+| **Docker** | 20.10+ | Theo baseline/manifest đã phê duyệt |
+| **Docker Compose** | v2.0+ | Theo baseline/manifest đã phê duyệt |
 | **PostgreSQL** | 15+ | 16 |
 | **Redis** | 6+ | 7 |
 
@@ -34,13 +34,13 @@ Chỉnh sửa `.env` với các giá trị:
 
 ```bash
 # === Core Settings ===
-SECRET_KEY=sk-your-secret-key-here
+SECRET_KEY=<DIFY_SECRET_KEY_FROM_SECRET>
 CONSOLE_WEB_URL=https://dify.your-domain.com
 APP_WEB_URL=https://dify-app.your-domain.com
 
 # === Database ===
 DB_USERNAME=dify
-DB_PASSWORD=your-secure-password
+DB_PASSWORD=<DIFY_DB_PASSWORD_FROM_SECRET>
 DB_HOST=db
 DB_PORT=5432
 DB_DATABASE=dify
@@ -48,14 +48,14 @@ DB_DATABASE=dify
 # === Redis ===
 REDIS_HOST=redis
 REDIS_PORT=6379
-REDIS_PASSWORD=your-redis-password
+REDIS_PASSWORD=<REDIS_PASSWORD_FROM_SECRET>
 
 # === Object Storage (MinIO — tích hợp Hanas) ===
 STORAGE_TYPE=s3
 S3_ENDPOINT=https://minio.your-domain.com
 S3_BUCKET_NAME=dify-storage
-S3_ACCESS_KEY=your-minio-access-key
-S3_SECRET_KEY=your-minio-secret-key
+S3_ACCESS_KEY=<MINIO_ACCESS_KEY_FROM_SECRET>
+S3_SECRET_KEY=<MINIO_SECRET_KEY_FROM_SECRET>
 S3_REGION=us-east-1
 
 # === Vector Database ===
@@ -118,12 +118,12 @@ api:
       cpu: "2"
       memory: "4Gi"
   env:
-    SECRET_KEY: "sk-your-secret-key"
+    SECRET_KEY: "<DIFY_SECRET_KEY_FROM_SECRET>"
     # Tích hợp MinIO từ Hanas Platform
     STORAGE_TYPE: "s3"
     S3_ENDPOINT: "http://minio.hanas-storage:9000"
-    S3_ACCESS_KEY: "minio-access-key"
-    S3_SECRET_KEY: "minio-secret-key"
+    S3_ACCESS_KEY: "<MINIO_ACCESS_KEY_FROM_SECRET>"
+    S3_SECRET_KEY: "<MINIO_SECRET_KEY_FROM_SECRET>"
     S3_BUCKET_NAME: "dify-storage"
 
 worker:
@@ -144,7 +144,7 @@ externalPostgresql:
   port: 5432
   database: "dify"
   username: "dify"
-  password: "secure-password"
+  password: "<DIFY_DB_PASSWORD_FROM_SECRET>"
 
 # Sử dụng Redis external
 redis:
@@ -152,7 +152,7 @@ redis:
 externalRedis:
   host: "redis.hanas-cache"
   port: 6379
-  password: "redis-password"
+  password: "<REDIS_PASSWORD_FROM_SECRET>"
 
 # Vector Database
 vectorStore:

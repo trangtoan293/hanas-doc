@@ -10,16 +10,16 @@ sidebar_position: 5
 
 | # | Hạng Mục | Hành Động | Ưu Tiên |
 |---|----------|-----------|---------|
-| 1 | **Revoke Root Token** | Xóa root token ngay sau initial setup, chỉ generate khi cần | 🔴 Cao |
-| 2 | **Enable TLS** | Luôn sử dụng HTTPS cho mọi communication, bao gồm internal | 🔴 Cao |
-| 3 | **Audit Logging** | Enable ít nhất 2 audit devices (file + syslog/OpenObserve) | 🔴 Cao |
-| 4 | **Disable Swap** | Tránh sensitive data bị ghi ra disk | 🔴 Cao |
-| 5 | **Disable Core Dumps** | Ngăn memory dump chứa secrets | 🔴 Cao |
-| 6 | **Network Policies** | Chỉ cho phép authorized namespaces truy cập Vault | 🟡 Trung bình |
-| 7 | **Dedicated Service Account** | Vault chạy dưới unprivileged user, không dùng root | 🟡 Trung bình |
-| 8 | **Minimal Write Privileges** | Vault process chỉ ghi vào data dir và audit dir | 🟡 Trung bình |
-| 9 | **Single Tenancy** | Vault là process duy nhất chạy trên node (nếu có thể) | 🟢 Thấp |
-| 10 | **HSTS Headers** | Enable HTTP Strict Transport Security | 🟢 Thấp |
+| 1 | **Revoke Root Token** | Xóa root token ngay sau initial setup, chỉ generate khi cần | Cao |
+| 2 | **Enable TLS** | Luôn sử dụng HTTPS cho mọi communication, bao gồm internal | Cao |
+| 3 | **Audit Logging** | Enable ít nhất 2 audit devices (file + syslog/OpenObserve) | Cao |
+| 4 | **Disable Swap** | Tránh sensitive data bị ghi ra disk | Cao |
+| 5 | **Disable Core Dumps** | Ngăn memory dump chứa secrets | Cao |
+| 6 | **Network Policies** | Chỉ cho phép authorized namespaces truy cập Vault | Trung bình |
+| 7 | **Dedicated Service Account** | Vault chạy dưới unprivileged user, không dùng root | Trung bình |
+| 8 | **Minimal Write Privileges** | Vault process chỉ ghi vào data dir và audit dir | Trung bình |
+| 9 | **Single Tenancy** | Vault là process duy nhất chạy trên node (nếu có thể) | Thấp |
+| 10 | **HSTS Headers** | Enable HTTP Strict Transport Security | Thấp |
 
 ### 1.2 Kubernetes Network Policy
 
@@ -73,7 +73,7 @@ kubectl label namespace datahub vault-access=true
 
 > Mỗi service chỉ được cấp quyền **tối thiểu cần thiết** trên Vault paths.
 
-| ❌ Không nên | ✅ Nên |
+| Không nên | Nên |
 |-------------|--------|
 | Policy `path "secret/*" { capabilities = ["read"] }` | Policy `path "secret/data/hanas/airflow/*" { capabilities = ["read"] }` |
 | Dùng root token cho ứng dụng | Dùng Kubernetes auth + service-specific role |
@@ -86,9 +86,9 @@ kubectl label namespace datahub vault-access=true
 
 | Loại Secret | Nên Dùng | Khi Nào |
 |-------------|---------|---------|
-| **Dynamic** (Database Engine) | ✅ Ưu tiên | Database credentials, cloud access keys |
-| **Static** (KV v2) | ✅ Khi cần thiết | API keys bên thứ 3, encryption keys, config values |
-| **Hardcoded** | ❌ Tuyệt đối không | Không bao giờ hardcode secrets |
+| **Dynamic** (Database Engine) | Ưu tiên | Database credentials, cloud access keys |
+| **Static** (KV v2) | Khi cần thiết | API keys bên thứ 3, encryption keys, config values |
+| **Hardcoded** | Tuyệt đối không | Không bao giờ hardcode secrets |
 
 ### 2.3 Naming Convention
 
@@ -99,7 +99,7 @@ secret/hanas/<service>/<category>/<name>
 # Database roles
 database/creds/<service>-role
 
-# PKI roles  
+# PKI roles
 pki_int/issue/<service>-mtls
 
 # Transit keys
@@ -249,12 +249,12 @@ flowchart LR
 
 | Metric | Ý Nghĩa | Ngưỡng Alert |
 |--------|---------|-------------|
-| `vault.core.unsealed` | Vault sealed/unsealed | `= 0` → 🔴 **CRITICAL** |
-| `vault.raft.leader.lastContact` | Raft heartbeat latency | `> 500ms` → 🔴 CRITICAL |
-| `vault.expire.num_leases` | Active leases count | `> 10000` → 🟡 WARNING |
-| `vault.token.count` | Active tokens | `> 50000` → 🟡 WARNING |
-| `vault.audit.log_response` | Audit write latency | `> 500ms` → 🟡 WARNING |
-| `vault.core.handle_request` | API requests/sec | Baseline + 100% → 🟡 WARNING |
+| `vault.core.unsealed` | Vault sealed/unsealed | `= 0` → **CRITICAL** |
+| `vault.raft.leader.lastContact` | Raft heartbeat latency | `> 500ms` → CRITICAL |
+| `vault.expire.num_leases` | Active leases count | `> 10000` → WARNING |
+| `vault.token.count` | Active tokens | `> 50000` → WARNING |
+| `vault.audit.log_response` | Audit write latency | `> 500ms` → WARNING |
+| `vault.core.handle_request` | API requests/sec | Baseline + 100% → WARNING |
 
 ### 6.2 Checklist Giám Sát
 

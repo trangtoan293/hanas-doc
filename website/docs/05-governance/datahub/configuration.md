@@ -20,7 +20,7 @@
 |---|---|---|---|
 | `DATAHUB_GMS_HOST` | GMS hostname | `localhost` | `datahub-gms` trong K8s |
 | `DATAHUB_GMS_PORT` | GMS port | `8080` | Giữ nguyên |
-| `DATAHUB_SECRET` | Session signing secret | `YouKnowNothing` | **Đổi ngay** cho production |
+| `DATAHUB_SECRET` | Session signing secret | `<GENERATED_RANDOM_SECRET>` | Lấy từ Secret/Vault; không dùng giá trị mặc định |
 | `DATAHUB_APP_VERSION` | Version hiển thị trên UI | `1.0` | Theo version deploy |
 | `DATAHUB_PLAY_MEM_BUFFER_SIZE` | Max upload buffer | `10MB` | Tăng nếu cần upload lớn |
 
@@ -300,12 +300,12 @@ emit_dremio >> emit_superset
 
 ### Native Authentication (Default)
 
-Mặc định DataHub sử dụng native credentials:
+Khi bật native authentication, DataHub sử dụng credential được tạo trong bootstrap/Secret:
 
-- **Username**: `datahub`
-- **Password**: `datahub`
+- **Username**: `<DATAHUB_ADMIN_USER>`
+- **Password**: `<DATAHUB_ADMIN_PASSWORD_FROM_SECRET>`
 
-> ⚠️ **Đổi ngay** cho production! Vào Settings → Users & Groups → Edit User.
+> **Cảnh báo:** Không dùng credential mặc định hoặc ghi password vào tài liệu. Lưu giá trị trong Secret/Vault, bật SSO cho production và chỉ bàn giao tên Secret/path.
 
 ### OIDC Single Sign-On (Khuyến Nghị Cho Production)
 
@@ -413,7 +413,7 @@ datahub-gms:
 
 | Biến / Config | Mô tả | Default | Khuyến nghị |
 |---|---|---|---|
-| `DATAHUB_SECRET` | Session signing key | `YouKnowNothing` | **Đổi ngay**, random string ≥ 32 chars |
+| `DATAHUB_SECRET` | Session signing key | `<GENERATED_RANDOM_SECRET>` | Random string ≥ 32 chars từ Secret/Vault |
 | `METADATA_SERVICE_AUTH_ENABLED` | Bật auth cho GMS API | `false` | `true` cho production |
 | `UI_INGESTION_ENABLED` | Cho phép manage ingestion từ UI | `true` | `true` |
 | `ELASTICSEARCH_HEAP` | ES JVM heap | `512m` | `2g`–`4g` cho production |

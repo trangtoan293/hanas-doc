@@ -155,13 +155,13 @@ mc admin replicate info dc
 
 | Item | Replicated |
 |---|---|
-| Buckets | ✅ |
-| Objects | ✅ |
-| IAM users & policies | ✅ |
-| Bucket policies | ✅ |
-| Bucket lifecycle | ✅ |
-| Bucket versioning | ✅ |
-| Object lock | ✅ |
+| Buckets | Có |
+| Objects | Có |
+| IAM users & policies | Có |
+| Bucket policies | Có |
+| Bucket lifecycle | Có |
+| Bucket versioning | Có |
+| Object lock | Có |
 
 ---
 
@@ -186,14 +186,14 @@ cp private.key ~/.minio/certs/
 
 ```bash
 # Bật SSE-S3 (auto encryption)
-MINIO_KMS_SECRET_KEY=my-key:bXlzZWNyZXRrZXltaW4xMjM0NTY3ODk=
+MINIO_KMS_SECRET_KEY="<MINIO_KMS_SECRET_KEY_FROM_SECRET_MANAGER>"
 
 # Hoặc dùng KMS (Vault)
 MINIO_KMS_KES_ENDPOINT=https://kes:7373
 MINIO_KMS_KES_KEY_FILE=/certs/kes-client.key
 MINIO_KMS_KES_CERT_FILE=/certs/kes-client.crt
 MINIO_KMS_KES_CAPATH=/certs/ca.crt
-MINIO_KMS_KES_KEY_NAME=my-minio-key
+MINIO_KMS_KES_KEY_NAME=<MINIO_KMS_KEY_NAME>
 ```
 
 ### Bucket Versioning (Bắt Buộc Cho Site Replication)

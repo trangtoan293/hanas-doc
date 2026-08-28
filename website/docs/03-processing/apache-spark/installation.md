@@ -50,11 +50,11 @@ RUN python3 -m pip install --no-cache-dir -r requirements.txt
 COPY spark_code/ /app/
 
 # 4. Download JAR dependencies
-#    - Iceberg Spark Runtime 1.8.1
-#    - Iceberg AWS Bundle 1.8.1
-#    - Hadoop AWS 3.3.4
-#    - AWS Java SDK Bundle 1.12.772
-#    - Oracle JDBC Driver 23.7.0.25.01
+# - Iceberg Spark Runtime 1.8.1
+# - Iceberg AWS Bundle 1.8.1
+# - Hadoop AWS 3.3.4
+# - AWS Java SDK Bundle 1.12.772
+# - Oracle JDBC Driver 23.7.0.25.01
 RUN curl -L -o /dbt/jars/iceberg-spark-runtime-3.5_2.12-${ICEBERG_VERSION}.jar \
     https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-spark-runtime-3.5_2.12/${ICEBERG_VERSION}/...
 # ... (các JARs khác)
@@ -87,11 +87,11 @@ oracledb>=2.0.0
 docker buildx build \
   --platform linux/amd64 \
   -f docker/Dockerfile \
-  -t <REGISTRY>/<NAMESPACE>/dbt-spark-k8s-ktl:latest \
+  -t <REGISTRY>/<NAMESPACE>/dbt-spark-k8s-ktl:<PINNED_TAG> \
   --progress=plain .
 
 # Push lên registry
-docker push <REGISTRY>/<NAMESPACE>/dbt-spark-k8s-ktl:latest
+docker push <REGISTRY>/<NAMESPACE>/dbt-spark-k8s-ktl:<PINNED_TAG>
 ```
 
 > **Lưu ý**: Nếu cần thêm JDBC driver cho MySQL/MSSQL, sử dụng `docker/Dockerfile.new` (extended image).
@@ -100,7 +100,7 @@ docker push <REGISTRY>/<NAMESPACE>/dbt-spark-k8s-ktl:latest
 
 ```bash
 # Chạy thử container
-docker run --rm -it <REGISTRY>/<NAMESPACE>/dbt-spark-k8s-ktl:latest bash
+docker run --rm -it <REGISTRY>/<NAMESPACE>/dbt-spark-k8s-ktl:<PINNED_TAG> bash
 
 # Verify JARs
 ls /opt/bitnami/spark/jars/ | grep -i iceberg
@@ -146,17 +146,17 @@ helm install spark-operator spark-operator/spark-operator \
 ```bash
 # Kiểm tra Operator pod đang chạy
 kubectl get pods -n spark-operator
-# NAME                                READY   STATUS    RESTARTS   AGE
-# spark-operator-5d7c6b8d9c-xxxxx     1/1     Running   0          30s
+# NAME READY STATUS RESTARTS AGE
+# spark-operator-5d7c6b8d9c-xxxxx 1/1 Running 0 30s
 
 # Kiểm tra CRD đã được tạo
 kubectl get crd sparkapplications.sparkoperator.k8s.io
-# NAME                                           CREATED AT
-# sparkapplications.sparkoperator.k8s.io          2025-...
+# NAME CREATED AT
+# sparkapplications.sparkoperator.k8s.io 2025-...
 
 # Kiểm tra API resource
 kubectl api-resources | grep sparkoperator
-# sparkapplications    sparkoperator.k8s.io/v1beta2    true    SparkApplication
+# sparkapplications sparkoperator.k8s.io/v1beta2 true SparkApplication
 ```
 
 ---
@@ -277,7 +277,7 @@ kubectl apply -f k8s/base/git-configmap.yaml
 
 ## Bước 5: Tạo Secrets
 
-> ⚠️ **KHÔNG BAO GIỜ** commit credentials vào Git! Luôn dùng Kubernetes Secrets.
+> **Cảnh báo:** **KHÔNG BAO GIỜ** commit credentials vào Git! Luôn dùng Kubernetes Secrets.
 
 ### AWS/S3 Credentials (MinIO)
 

@@ -48,8 +48,8 @@ flowchart TB
 
 | Thành phần | Mô tả |
 |---|---|
-| **Base image** | `vllm/vllm-openai:latest` |
-| **Custom image** | `ktl-vllm:latest` (build từ Dockerfile) |
+| **Base image** | `<CẦN CHỐT TAG/DIGEST>` |
+| **Custom image** | `<CẦN CHỐT TAG/DIGEST>` (build từ Dockerfile) |
 | **Nightly vLLM** | Cài từ `wheels.vllm.ai/nightly` để hỗ trợ model mới |
 | **Transformers** | Build từ source (`huggingface/transformers.git`) |
 | **Extras** | `tqdm`, `rich`, `qwen-agent` |

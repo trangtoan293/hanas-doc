@@ -52,7 +52,7 @@ flowchart LR
 Provider Name:  vllm-llm
 Model Name:     Qwen/Qwen3-14B-AWQ
 API Base URL:   http://<vllm-host>:8010/v1
-API Key:        token-abc123
+API Key:        <VLLM_API_KEY_FROM_SECRET>
 Model Type:     LLM
 Context Size:   32768
 ```
@@ -63,7 +63,7 @@ Context Size:   32768
 Provider Name:  vllm-embeddings
 Model Name:     BAAI/bge-m3
 API Base URL:   http://<vllm-host>:8017/v1
-API Key:        token-abc123
+API Key:        <VLLM_API_KEY_FROM_SECRET>
 Model Type:     Text Embedding
 Max Tokens:     1024
 ```
@@ -74,7 +74,7 @@ Max Tokens:     1024
 Provider Name:  vllm-reranker
 Model Name:     BAAI/bge-reranker-v2-m3
 API Base URL:   http://<vllm-host>:8018/v1
-API Key:        token-abc123
+API Key:        <VLLM_API_KEY_FROM_SECRET>
 Model Type:     Rerank
 Max Tokens:     1024
 ```
@@ -96,8 +96,8 @@ Test từng model bằng cách tạo Chatbot đơn giản và gửi tin nhắn.
 Thêm vào `.env` của Dify:
 
 ```bash
-LANGFUSE_PUBLIC_KEY=pk-lf-xxxxxxxxxxxxxxxx
-LANGFUSE_SECRET_KEY=sk-lf-xxxxxxxxxxxxxxxx
+LANGFUSE_PUBLIC_KEY=<LANGFUSE_PUBLIC_KEY>
+LANGFUSE_SECRET_KEY=<LANGFUSE_SECRET_KEY_FROM_SECRET>
 LANGFUSE_HOST=http://langfuse-host:3000
 ```
 
@@ -131,7 +131,7 @@ STORAGE_TYPE=s3
 S3_ENDPOINT=http://minio.hanas:9000
 S3_BUCKET_NAME=dify-storage
 S3_ACCESS_KEY=minio-access-key
-S3_SECRET_KEY=minio-secret-key
+S3_SECRET_KEY=<MINIO_SECRET_KEY_FROM_SECRET>
 ```
 
 ### 3.2 Dremio SQL Data → AI Analytics
@@ -160,10 +160,10 @@ Sử dụng **HTTP Request node** trong Dify workflow để query Dremio:
 # 1. Upload tài liệu vào Knowledge Base (qua Dify UI)
 
 # 2. Tạo Chatbot với Knowledge Base
-#    - Model: Qwen/Qwen3-14B-AWQ
-#    - Embedding: BAAI/bge-m3
-#    - Reranker: BAAI/bge-reranker-v2-m3
-#    - Retrieval: Hybrid Search
+# - Model: Qwen/Qwen3-14B-AWQ
+# - Embedding: BAAI/bge-m3
+# - Reranker: BAAI/bge-reranker-v2-m3
+# - Retrieval: Hybrid Search
 
 # 3. Test query
 curl -X POST 'http://dify-host/v1/chat-messages' \
@@ -176,7 +176,7 @@ curl -X POST 'http://dify-host/v1/chat-messages' \
   }'
 
 # 4. Kiểm tra trace trong Langfuse
-#    → Trace phải hiển thị: Embedding → Retrieval → Reranking → LLM Generation
+# → Trace phải hiển thị: Embedding → Retrieval → Reranking → LLM Generation
 ```
 
 ### Test Tool Calling (Agent)

@@ -6,7 +6,7 @@
 
 | Môi trường | URL | Credentials |
 |---|---|---|
-| **Dev (Docker)** | http://localhost:9001 | admin / minio_secret_2025 |
+| **Dev (Docker)** | http://localhost:9001 | Credential từ `.env`/Secret |
 | **Kubernetes** | http://minio-console.minio-tenant:9090 | Root credentials |
 | **Production** | https://minio.hanas.local | Root hoặc IAM user |
 
@@ -41,7 +41,7 @@ mc --version
 
 ```bash
 # Dev environment
-mc alias set hanas http://localhost:9000 admin minio_secret_2025
+mc alias set hanas http://localhost:9000 "$MINIO_ROOT_USER" "$MINIO_ROOT_PASSWORD"
 
 # Production
 mc alias set hanas-prod https://minio.hanas.local admin '<SECRET>'
@@ -119,8 +119,8 @@ mc find hanas/landing/ --newer-than 1d
 ```bash
 # Cấu hình AWS CLI cho MinIO
 aws configure --profile minio
-# AWS Access Key ID: admin
-# AWS Secret Access Key: minio_secret_2025
+# AWS Access Key ID: <MINIO_ACCESS_KEY_FROM_SECRET>
+# AWS Secret Access Key: <MINIO_SECRET_KEY_FROM_SECRET>
 # Default region: us-east-1
 # Default output format: json
 

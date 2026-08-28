@@ -64,13 +64,13 @@ compression.type=producer
 ### 2.1 Naming Convention
 
 ```
-✅ ĐÚNG:
+ĐÚNG:
 ORACLE.<schema>.<table>              # CDC: ORACLE.DEMO_LAKE.TBL_TRANSACTION
 cdc.<db>.<schema>.<table>            # Debezium: cdc.postgres.public.customers
 REDO_<GROUP>                         # Redo log: REDO_GROUP3
 HEARTBEAT_TOPIC_<GROUP>              # Heartbeat: HEARTBEAT_TOPIC_GROUP3
 
-❌ SAI:
+SAI:
 my_topic                             # Không rõ nguồn
 test123                              # Không theo convention
 ```
@@ -124,7 +124,7 @@ Dưới đây là cấu hình thực tế đang dùng trong platform:
     "key.converter.schema.registry.url": "http://schemaregistry.confluent.svc.cluster.local:8081",
     "value.converter.schema.registry.url": "http://schemaregistry.confluent.svc.cluster.local:8081",
 
-    "oracle.server": "192.168.1.58",
+    "oracle.server": "<ORACLE_HOST>",
     "oracle.port": "1521",
     "oracle.sid": "ORACLAB",
     "oracle.pdb.name": "DATALAKE",
@@ -231,10 +231,10 @@ Connector ghi dữ liệu trực tiếp từ Kafka topic vào Iceberg table trê
     "iceberg.control.commit.timeout-ms": "0",
 
     "iceberg.catalog.type": "hive",
-    "iceberg.catalog.uri": "thrift://192.168.1.156:9083",
+    "iceberg.catalog.uri": "thrift://<HIVE_METASTORE_HOST>:9083",
     "iceberg.catalog.warehouse": "s3a://data/warehouse",
     "iceberg.catalog.io-impl": "org.apache.iceberg.aws.s3.S3FileIO",
-    "iceberg.catalog.s3.endpoint": "http://192.168.1.151",
+    "iceberg.catalog.s3.endpoint": "http://<MINIO_HOST>:9000",
     "iceberg.catalog.s3.path.style.access": "true",
     "iceberg.catalog.s3.access-key-id": "********",
     "iceberg.catalog.s3.secret-access-key": "********",
@@ -438,17 +438,17 @@ heartbeat.interval.ms=15000
 ### 9.1 Credentials
 
 ```
-✅ ĐÚNG — Sử dụng Kubernetes Secrets
+ĐÚNG — Sử dụng Kubernetes Secrets
    config.providers: secrets
    config.providers.secrets.class: io.strimzi.kafka.KubernetesSecretConfigProvider
    oracle.password: ${secrets:confluent/oracle-secret:password}
 
-❌ SAI — Hardcode trong config
-   oracle.password: F884JZzsxhC4Z0It
-   iceberg.catalog.s3.access-key-id: Vl21ZDUEq1XNiDDN
+SAI — Hardcode trong config
+   oracle.password: <HARDCODED_PASSWORD_EXAMPLE>
+   iceberg.catalog.s3.access-key-id: <HARDCODED_ACCESS_KEY_EXAMPLE>
 ```
 
-> ⚠️ **Quan trọng:** Trong production, tất cả passwords và credentials phải được quản lý qua K8s Secrets hoặc HashiCorp Vault. Không commit credentials vào Git.
+> **Quan trọng:** Trong production, tất cả passwords và credentials phải được quản lý qua K8s Secrets hoặc HashiCorp Vault. Không commit credentials vào Git.
 
 ### 9.2 TLS & ACL
 

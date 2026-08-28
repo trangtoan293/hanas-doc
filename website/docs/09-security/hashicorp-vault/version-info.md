@@ -65,19 +65,19 @@ sidebar_position: 6
 
 | Service | Phiên Bản | Tích Hợp Vault | Phương Pháp | Ghi Chú |
 |---------|-----------|:---:|-------------|---------|
-| **Apache NiFi** | 1.14+ / 2.x | ✅ | Native `HashiCorpVaultParameterProvider` | Yêu cầu NiFi ≥ 1.14.0 |
-| **Apache Kafka** | Confluent 7.x / Apache 3.x | ✅ | Agent Injector / VSO | SCRAM + mTLS credentials |
-| **Apache Airflow** | 2.x+ | ✅ | Native `VaultBackend` | Provider: `apache-airflow-providers-hashicorp` |
-| **MinIO** | Latest | ✅ | KES → Vault KMS | Server-Side Encryption |
-| **Apache Spark** | 3.4+ | ✅ | Agent Injector sidecar | JDBC credentials injection |
-| **Dremio** | 24.x+ | ✅ | VSO → K8s Secrets | Source connection credentials |
-| **dbt** | 1.x+ | ✅ | AppRole + env vars | CI/CD pipeline integration |
-| **DataHub** | 0.12+ | ✅ | VSO → K8s Secrets | MySQL, Kafka, ES credentials |
-| **Dify** | Latest | ✅ | VSO → K8s Secrets | LLM keys, DB, Redis creds |
-| **vLLM** | Latest | ✅ | VSO → K8s Secrets | Model access tokens |
-| **Langfuse** | Latest | ✅ | VSO / Database Engine | Dynamic PostgreSQL creds |
-| **OpenObserve** | Latest | ✅ | VSO → K8s Secrets | Storage credentials |
-| **Kubernetes** | ≥ 1.29 | ✅ | Native K8s auth method | ServiceAccount token auth |
+| **Apache NiFi** | 1.14+ / 2.x | Có | Native `HashiCorpVaultParameterProvider` | Yêu cầu NiFi ≥ 1.14.0 |
+| **Apache Kafka** | Confluent 7.x / Apache 3.x | Có | Agent Injector / VSO | SCRAM + mTLS credentials |
+| **Apache Airflow** | 2.x+ | Có | Native `VaultBackend` | Provider: `apache-airflow-providers-hashicorp` |
+| **MinIO** | Theo baseline/manifest | Có | KES → Vault KMS | Server-Side Encryption |
+| **Apache Spark** | 3.4+ | Có | Agent Injector sidecar | JDBC credentials injection |
+| **Dremio** | 24.x+ | Có | VSO → K8s Secrets | Source connection credentials |
+| **dbt** | 1.x+ | Có | AppRole + env vars | CI/CD pipeline integration |
+| **DataHub** | 0.12+ | Có | VSO → K8s Secrets | MySQL, Kafka, ES credentials |
+| **Dify** | Theo baseline/manifest | Có | VSO → K8s Secrets | LLM keys, DB, Redis creds |
+| **vLLM** | Theo baseline/manifest | Có | VSO → K8s Secrets | Model access tokens |
+| **Langfuse** | Theo baseline/manifest | Có | VSO / Database Engine | Dynamic PostgreSQL creds |
+| **OpenObserve** | Theo baseline/manifest | Có | VSO → K8s Secrets | Storage credentials |
+| **Kubernetes** | ≥ 1.29 | Có | Native K8s auth method | ServiceAccount token auth |
 
 ---
 
@@ -89,8 +89,8 @@ sidebar_position: 6
 | **CPU** | 2 cores | 4-8 cores × 3 nodes |
 | **RAM** | 2 GB | 8 GB × 3 nodes |
 | **Disk** | 10 GB | 50-100 GB SSD × 3 nodes |
-| **Kubernetes** | ≥ 1.29 | Latest stable |
-| **Helm** | ≥ 3.6 | Latest stable |
+| **Kubernetes** | ≥ 1.29 | Theo phiên bản được phê duyệt trong baseline |
+| **Helm** | ≥ 3.6 | Theo phiên bản được phê duyệt trong baseline |
 | **Container Runtime** | Docker / containerd | containerd |
 
 ---
@@ -140,8 +140,8 @@ Từ khi HashiCorp chuyển sang BSL, cộng đồng đã tạo [OpenBao](https:
 |----------|----------------|---------|
 | **License** | BSL 1.1 | MPL 2.0 (pure open-source) |
 | **Maintained by** | HashiCorp / IBM | Linux Foundation |
-| **API Compatible** | ✅ | ✅ (drop-in replacement) |
-| **Production Ready** | ✅ GA | ⚠️ Early stage |
+| **API Compatible** | Có | Có (drop-in replacement) |
+| **Production Ready** | GA | Early stage |
 | **Ecosystem** | Mature (Helm, VSO, Agent) | Growing |
 
 > **Hanas Platform hiện dùng HashiCorp Vault** vì ecosystem mature, documentation đầy đủ, và BSL không ảnh hưởng đến use case nội bộ. Sẽ theo dõi OpenBao như alternative trong tương lai.

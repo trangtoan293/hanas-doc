@@ -6,7 +6,7 @@
 
 > Chỉ cấp quyền **tối thiểu cần thiết** cho mỗi user/group để thực hiện công việc.
 
-| ❌ Không nên | ✅ Nên |
+| Không nên | Nên |
 |-------------|--------|
 | Cấp `All` permissions cho mọi user | Cấp `Select` cho analyst, `All` cho admin |
 | Dùng wildcard `*` cho tất cả tables | Chỉ định database/table cụ thể |
@@ -76,14 +76,14 @@ Mỗi service sử dụng service account riêng với quyền cụ thể:
 
 | # | Hạng mục | Hành động | Ưu tiên |
 |---|---------|-----------|---------|
-| 1 | **Đổi password mặc định** | Đổi `admin` / `rangerR0cks!` ngay lập tức | 🔴 Cao |
-| 2 | **Enable HTTPS** | Cấu hình SSL certificate cho Ranger Admin (port 6182) | 🔴 Cao |
-| 3 | **LDAP Authentication** | Chuyển từ `NONE` sang `LDAP` authentication | 🔴 Cao |
-| 4 | **Network Policy** | Chỉ cho phép plugin pods kết nối đến Ranger Admin | 🟡 Trung bình |
-| 5 | **Audit to external store** | Gửi audit logs ra Elasticsearch, không lưu chỉ DB | 🟡 Trung bình |
-| 6 | **Backup policies** | Export policies định kỳ qua REST API | 🟡 Trung bình |
-| 7 | **Rotate KMS master key** | Đổi master key định kỳ (quarterly) | 🟢 Thấp |
-| 8 | **Review audit logs** | Review denied access hàng tuần | 🟡 Trung bình |
+| 1 | **Không dùng credential mặc định** | Tạo admin/keyadmin từ Secret manager, bật SSO và rotate định kỳ | Cao |
+| 2 | **Enable HTTPS** | Cấu hình SSL certificate cho Ranger Admin (port 6182) | Cao |
+| 3 | **LDAP Authentication** | Chuyển từ `NONE` sang `LDAP` authentication | Cao |
+| 4 | **Network Policy** | Chỉ cho phép plugin pods kết nối đến Ranger Admin | Trung bình |
+| 5 | **Audit to external store** | Gửi audit logs ra Elasticsearch, không lưu chỉ DB | Trung bình |
+| 6 | **Backup policies** | Export policies định kỳ qua REST API | Trung bình |
+| 7 | **Rotate KMS master key** | Đổi master key định kỳ (quarterly) | Thấp |
+| 8 | **Review audit logs** | Review denied access hàng tuần | Trung bình |
 
 ### 3.2 Kubernetes Network Policy
 
@@ -225,9 +225,13 @@ flowchart LR
 ### 6.2 Backup & Restore
 
 ```bash
+# Khai báo credential qua Secret manager hoặc biến môi trường đã được bảo vệ.
+RANGER_ADMIN_USER="${RANGER_ADMIN_USER:?Set RANGER_ADMIN_USER from Secret manager}"
+RANGER_ADMIN_PASSWORD="${RANGER_ADMIN_PASSWORD:?Set RANGER_ADMIN_PASSWORD from Secret manager}"
+
 # Backup tất cả policies
 for service in kafka_hanas hive_hanas nifi_hanas spark_hanas; do
-  curl -u admin:password \
+  curl --user "${RANGER_ADMIN_USER}:${RANGER_ADMIN_PASSWORD}" \
     "http://ranger-admin:6080/service/plugins/policies/exportJson?serviceName=$service" \
     -o "backup_${service}_$(date +%Y%m%d).json"
 done
@@ -236,7 +240,7 @@ done
 pg_dump -h ranger-db-postgresql -U ranger ranger > ranger_backup_$(date +%Y%m%d).sql
 
 # Restore policies
-curl -u admin:password -X POST \
+curl --user "${RANGER_ADMIN_USER}:${RANGER_ADMIN_PASSWORD}" -X POST \
   -F "file=@backup_hive_hanas_20260301.json" \
   "http://ranger-admin:6080/service/plugins/policies/importPoliciesFromFile?serviceName=hive_hanas"
 ```

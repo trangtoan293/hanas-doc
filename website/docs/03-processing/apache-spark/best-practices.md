@@ -21,11 +21,11 @@
 ### Quản Lý Credentials
 
 ```yaml
-# ❌ KHÔNG hardcode credentials
+# KHÔNG hardcode credentials
 sparkConf:
   "spark.hadoop.fs.s3a.access.key": "AKIAEXAMPLE"
 
-# ✅ Dùng Kubernetes Secrets
+# Dùng Kubernetes Secrets
 driver:
   envFrom:
     - secretRef:

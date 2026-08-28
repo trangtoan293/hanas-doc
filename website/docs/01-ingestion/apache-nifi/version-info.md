@@ -57,17 +57,17 @@ NiFi 2.x là bản nâng cấp lớn so với 1.x, mang đến nhiều cải ti�
 
 | Service | Version | Tương Thích NiFi 2.7.2 | Ghi Chú |
 |---------|---------|------------------------|---------|
-| **Apache Kafka** | 3.8.0 | ✅ | ConsumeKafka/PublishKafka (Kafka 3.x processors) |
-| **MinIO** | RELEASE.2024+ | ✅ | PutS3Object, GetS3Object (nifi-aws-nar) |
-| **Dremio** | 24+ | ✅ | ExecuteSQLRecord via JDBC (dremio-jdbc-driver) |
-| **Apache Iceberg** | 1.5+ | ✅ | Gián tiếp qua Dremio COPY INTO |
-| **Hive Metastore** | 3.x | ✅ | Gián tiếp qua Dremio catalog |
-| **PostgreSQL** | 14+ | ✅ | DBCPConnectionPool (postgresql-42.7.jar) |
-| **Apache Airflow** | 2.9+ | ✅ | Có thể trigger NiFi qua REST API |
-| **DataHub** | 0.13+ | ✅ | NiFi lineage ingestion |
-| **NiFi Registry** | 2.7.2 | ✅ | Cùng version với NiFi |
-| **Kubernetes** | 1.25+ | ✅ | Native leader election, ConfigMaps |
-| **Java** | JDK 21+ | ✅ (bắt buộc) | Virtual Threads support |
+| **Apache Kafka** | 3.8.0 | Có | ConsumeKafka/PublishKafka (Kafka 3.x processors) |
+| **MinIO** | RELEASE.2024+ | Có | PutS3Object, GetS3Object (nifi-aws-nar) |
+| **Dremio** | 24+ | Có | ExecuteSQLRecord via JDBC (dremio-jdbc-driver) |
+| **Apache Iceberg** | 1.5+ | Có | Gián tiếp qua Dremio COPY INTO |
+| **Hive Metastore** | 3.x | Có | Gián tiếp qua Dremio catalog |
+| **PostgreSQL** | 14+ | Có | DBCPConnectionPool (postgresql-42.7.jar) |
+| **Apache Airflow** | 2.9+ | Có | Có thể trigger NiFi qua REST API |
+| **DataHub** | 0.13+ | Có | NiFi lineage ingestion |
+| **NiFi Registry** | 2.7.2 | Có | Cùng version với NiFi |
+| **Kubernetes** | 1.25+ | Có | Native leader election, ConfigMaps |
+| **Java** | JDK 21+ | Có (bắt buộc) | Virtual Threads support |
 
 ### NAR Bundles Sử Dụng
 

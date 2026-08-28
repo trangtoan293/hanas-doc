@@ -4,7 +4,7 @@
 
 Apache Ranger là framework bảo mật tập trung, mã nguồn mở thuộc Apache Software Foundation, cung cấp khả năng quản lý phân quyền, giám sát truy cập và kiểm toán toàn diện cho hệ sinh thái Big Data và Data Lakehouse.
 
-Trong Hanas Data Platform, Apache Ranger đóng vai trò **An Toàn Thông Tin (Security)**, là **engine phân quyền tập trung** cho toàn bộ 7 lớp dữ liệu — từ thu thập (NiFi, Kafka), lưu trữ (MinIO, Iceberg), xử lý (Spark), đến liên kết (Dremio) và quản trị (DataHub).
+Trong Hanas Data Platform, Apache Ranger đóng vai trò **An Toàn Thông Tin (Security)**, là **engine phân quyền tập trung** cho các lớp dữ liệu — từ thu thập (NiFi, Kafka), lưu trữ (MinIO, Iceberg), xử lý (Spark), đến liên kết (Dremio), khai thác và quản trị (DataHub).
 
 
 ## 2. Mục Tiêu Chính (Official Goals)
@@ -155,12 +155,12 @@ User Request → Service (NiFi/Kafka/Spark/Dremio)
 
 | Tiêu chí | Apache Ranger | Kafka ACLs | NiFi Authorizer |
 |----------|--------------|------------|-----------------|
-| **Quản lý tập trung** | ✅ Một UI cho tất cả | ❌ CLI per cluster | ❌ File-based |
-| **Fine-grained** | ✅ Row/Column level | ✅ Topic level | ✅ Component level |
-| **Audit tập trung** | ✅ Elasticsearch/Solr | ❌ Kafka logs | ❌ NiFi provenance |
-| **LDAP/AD sync** | ✅ Usersync | ❌ Manual | ✅ LDAP |
-| **Tag-based** | ✅ Atlas/DataHub tags | ❌ Không hỗ trợ | ❌ Không hỗ trợ |
-| **Multi-service** | ✅ Kafka + NiFi + Spark + Dremio | ❌ Chỉ Kafka | ❌ Chỉ NiFi |
+| **Quản lý tập trung** | Một UI cho tất cả | Không: CLI per cluster | Không: File-based |
+| **Fine-grained** | Row/Column level | Topic level | Component level |
+| **Audit tập trung** | Elasticsearch/Solr | Không: Kafka logs | Không: NiFi provenance |
+| **LDAP/AD sync** | Usersync | Không: Manual | LDAP |
+| **Tag-based** | Atlas/DataHub tags | Không hỗ trợ | Không hỗ trợ |
+| **Multi-service** | Kafka + NiFi + Spark + Dremio | Không: Chỉ Kafka | Không: Chỉ NiFi |
 
 ## Tài Liệu
 

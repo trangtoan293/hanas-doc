@@ -312,7 +312,7 @@ curl http://localhost:3000/api/public/health
 
 # Test API key
 curl -X GET "http://localhost:3000/api/public/health" \
-  -H "Authorization: Basic $(echo -n 'pk-lf-xxx:sk-lf-xxx' | base64)"
+  -H "Authorization: Basic $(printf '%s' \"$LANGFUSE_PUBLIC_KEY:$LANGFUSE_SECRET_KEY\" | base64)"
 
 # Server logs
 docker logs -f langfuse

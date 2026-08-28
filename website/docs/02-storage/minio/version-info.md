@@ -8,7 +8,7 @@
 | **Image** | `quay.io/minio/minio:RELEASE.2025-04-22T22-12-26Z` |
 | **License** | AGPLv3 |
 | **Môi trường** | Kubernetes (MinIO Operator) |
-| **mc (MinIO Client)** | Latest |
+| **mc (MinIO Client)** | Version được phê duyệt theo release register |
 
 > [!CAUTION]
 > **Tại sao pin version này?** MinIO Community Edition đã vào **maintenance mode** (12/2025). Từ `RELEASE.2025-06-xx` trở đi, Console UI bị giới hạn chỉ còn Object Browser. Version `RELEASE.2025-04-22T22-12-26Z` là **phiên bản ổn định cuối cùng** với đầy đủ chức năng admin Console.
@@ -36,10 +36,10 @@ timeline
 
 | Tình huống | Ảnh hưởng | Cần làm gì |
 |---|---|---|
-| **Sử dụng nội bộ** (internal) | ❌ Không ảnh hưởng | Dùng bình thường |
-| **Không fork/modify source** | ❌ Không ảnh hưởng | Dùng binary/image gốc |
-| **Fork & modify MinIO source** | ✅ Phải công khai source | Tránh fork, dùng as-is |
-| **Cung cấp MinIO service cho bên ngoài** | ✅ Phải comply AGPLv3 | Cần commercial license |
+| **Sử dụng nội bộ** (internal) | Không ảnh hưởng | Dùng bình thường |
+| **Không fork/modify source** | Không ảnh hưởng | Dùng binary/image gốc |
+| **Fork & modify MinIO source** | Phải công khai source | Tránh fork, dùng as-is |
+| **Cung cấp MinIO service cho bên ngoài** | Phải comply AGPLv3 | Cần commercial license |
 
 > **Đối với Hanas Platform**: Sử dụng MinIO nội bộ, không fork source → **Không có vấn đề license**. Tuy nhiên nên theo dõi nếu có nhu cầu cung cấp storage-as-a-service cho khách hàng.
 
@@ -51,42 +51,42 @@ timeline
 
 | Service | MinIO Interface | Protocol | Tested |
 |---|---|---|---|
-| **Apache Spark 3.5.x** | S3A Connector (`fs.s3a.*`) | HTTP/S3 | ✅ |
-| **Apache Iceberg 1.5.x** | S3FileIO | HTTP/S3 | ✅ |
-| **Dremio 25.x** | S3-compatible source | HTTP/S3 | ✅ |
-| **Apache NiFi** | PutS3Object / FetchS3Object | HTTP/S3 | ✅ |
-| **Apache Airflow** | S3Hook (indirect, via Spark) | — | ✅ |
-| **dbt-spark** | (via Spark catalog) | — | ✅ |
-| **DataHub** | S3 ingestion | HTTP/S3 | ✅ |
-| **Velero** | AWS S3 provider | HTTP/S3 | ✅ |
-| **AWS CLI** | `--endpoint-url` | HTTP/S3 | ✅ |
-| **mc (MinIO Client)** | Native | HTTP/S3 | ✅ |
+| **Apache Spark 3.5.x** | S3A Connector (`fs.s3a.*`) | HTTP/S3 | Có |
+| **Apache Iceberg 1.8.1** | S3FileIO | HTTP/S3 | Có |
+| **Dremio 25.x** | S3-compatible source | HTTP/S3 | Có |
+| **Apache NiFi** | PutS3Object / FetchS3Object | HTTP/S3 | Có |
+| **Apache Airflow** | S3Hook (indirect, via Spark) | — | Có |
+| **dbt-spark** | (via Spark catalog) | — | Có |
+| **DataHub** | S3 ingestion | HTTP/S3 | Có |
+| **Velero** | AWS S3 provider | HTTP/S3 | Có |
+| **AWS CLI** | `--endpoint-url` | HTTP/S3 | Có |
+| **mc (MinIO Client)** | Native | HTTP/S3 | Có |
 
 ### Client SDKs
 
 | SDK | Ngôn ngữ | S3 Compatible |
 |---|---|---|
-| AWS SDK for Java | Java | ✅ |
-| boto3 | Python | ✅ |
-| aws-sdk-go | Go | ✅ |
-| MinIO Python SDK | Python | ✅ (native) |
-| MinIO Java SDK | Java | ✅ (native) |
+| AWS SDK for Java | Java | Có |
+| boto3 | Python | Có |
+| aws-sdk-go | Go | Có |
+| MinIO Python SDK | Python | Có (native) |
+| MinIO Java SDK | Java | Có (native) |
 
 ### S3 API Compatibility
 
 | Feature | Hỗ trợ | Ghi chú |
 |---|---|---|
-| GetObject / PutObject | ✅ | |
-| Multipart Upload | ✅ | |
-| List Objects V2 | ✅ | |
-| Bucket Versioning | ✅ | |
-| Object Locking (WORM) | ✅ | |
-| Server-Side Encryption | ✅ | SSE-S3, SSE-KMS |
-| Presigned URLs | ✅ | |
-| Bucket Notifications | ✅ | Kafka, NATS, Webhook |
-| Select Object Content | ✅ | S3 Select |
-| Bucket Lifecycle | ✅ | |
-| Bucket Replication | ✅ | Site Replication |
+| GetObject / PutObject | Có | |
+| Multipart Upload | Có | |
+| List Objects V2 | Có | |
+| Bucket Versioning | Có | |
+| Object Locking (WORM) | Có | |
+| Server-Side Encryption | Có | SSE-S3, SSE-KMS |
+| Presigned URLs | Có | |
+| Bucket Notifications | Có | Kafka, NATS, Webhook |
+| Select Object Content | Có | S3 Select |
+| Bucket Lifecycle | Có | |
+| Bucket Replication | Có | Site Replication |
 
 ---
 
@@ -125,7 +125,7 @@ mc mirror hanas/ backup/ --watch
 
 # 3. Update image tag (K8s)
 # Sửa tenant-values.yaml:
-#   tag: "RELEASE.2025-04-22T22-12-26Z"  → "RELEASE.2025-xx-xxTxx-xx-xxZ"
+# tag: "RELEASE.2025-04-22T22-12-26Z" → "RELEASE.2025-xx-xxTxx-xx-xxZ"
 
 # 4. Apply upgrade
 helm upgrade hanas-tenant minio-operator/tenant \

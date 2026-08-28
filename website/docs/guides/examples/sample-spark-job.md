@@ -194,7 +194,7 @@ elif args.entity.startswith("lnk_"):
         WHEN NOT MATCHED THEN INSERT *
     """)
 
-print(f"✅ Loaded {df_landing.count()} rows into {args.entity}")
+print(f"Loaded {df_landing.count()} rows into {args.entity}")
 spark.stop()
 ```
 

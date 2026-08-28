@@ -137,17 +137,17 @@ python dbt_seed.py
 ### Kết Quả Mong Đợi
 
 ```
-✅ dbt debug:
+dbt debug:
   - profiles.yml found
   - dbt_project.yml found
   - Connection test: OK (Spark session)
 
-✅ dbt deps:
+dbt deps:
   - dbt-labs/dbt_utils@1.3.0
   - dbt-labs/spark_utils@0.3.0
   - ktl_autovault (local)
 
-✅ dbt compile:
+dbt compile:
   - Compiled SQL cho selected models
   - manifest.json generated tại /tmp/dbt_target/
 ```

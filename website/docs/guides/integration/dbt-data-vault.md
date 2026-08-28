@@ -48,16 +48,16 @@ ktl_dbt:
       connect_retries: 3
       retry_all: true
       conf:
-        "spark.hadoop.hive.metastore.uris": "thrift://192.168.1.156:9083"
+        "spark.hadoop.hive.metastore.uris": "thrift://<HIVE_METASTORE_HOST>:9083"
         "spark.sql.extensions": "org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions"
         "spark.sql.catalog.demo": "org.apache.iceberg.spark.SparkCatalog"
         "spark.sql.catalog.demo.type": "hive"
-        "spark.sql.catalog.demo.uri": "thrift://192.168.1.156:9083"
+        "spark.sql.catalog.demo.uri": "thrift://<HIVE_METASTORE_HOST>:9083"
         "spark.sql.catalog.demo.io-impl": "org.apache.iceberg.aws.s3.S3FileIO"
-        "spark.sql.catalog.demo.s3.endpoint": "http://192.168.1.151"
+        "spark.sql.catalog.demo.s3.endpoint": "http://<MINIO_HOST>:9000"
         "spark.sql.catalog.demo.warehouse": "s3a://data/warehouse/"
         "spark.sql.defaultCatalog": "demo"
-        "spark.hadoop.fs.s3a.endpoint": "http://192.168.1.151"
+        "spark.hadoop.fs.s3a.endpoint": "http://<MINIO_HOST>:9000"
         "spark.hadoop.fs.s3a.access.key": "{{ env_var('AWS_ACCESS_KEY_ID') }}"
         "spark.hadoop.fs.s3a.secret.key": "{{ env_var('AWS_SECRET_ACCESS_KEY') }}"
         "spark.hadoop.fs.s3a.path.style.access": "true"

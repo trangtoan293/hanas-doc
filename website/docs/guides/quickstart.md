@@ -63,14 +63,16 @@ hanas-platform/
 
 ```env
 # ===== MinIO =====
-MINIO_ROOT_USER=admin
-MINIO_ROOT_PASSWORD=minio_secret_2025
+MINIO_ROOT_USER=<MINIO_ADMIN_USER>
+MINIO_ROOT_PASSWORD=<STRONG_RANDOM_PASSWORD>
 MINIO_ENDPOINT=http://minio:9000
 
 # ===== Airflow =====
 AIRFLOW__CORE__EXECUTOR=LocalExecutor
-AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres-airflow:5432/airflow
-AIRFLOW__CORE__FERNET_KEY=your-fernet-key-here
+AIRFLOW_DB_USER=<AIRFLOW_DB_USER>
+AIRFLOW_DB_PASSWORD=<STRONG_RANDOM_PASSWORD>
+AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://${AIRFLOW_DB_USER}:${AIRFLOW_DB_PASSWORD}@postgres-airflow:5432/airflow
+AIRFLOW__CORE__FERNET_KEY=<GENERATED_FERNET_KEY>
 AIRFLOW__CORE__DAGS_FOLDER=/opt/airflow/dags
 AIRFLOW__CORE__LOAD_EXAMPLES=false
 
@@ -79,14 +81,16 @@ AIRFLOW__CORE__LOAD_EXAMPLES=false
 # Xem docs/03-processing/apache-spark/installation.md
 
 # ===== AWS/S3 (cho Spark Iceberg) =====
-AWS_ACCESS_KEY_ID=your_access_key
-AWS_SECRET_ACCESS_KEY=your_secret_key
+AWS_ACCESS_KEY_ID=<S3_ACCESS_KEY_FROM_SECRET_MANAGER>
+AWS_SECRET_ACCESS_KEY=<S3_SECRET_KEY_FROM_SECRET_MANAGER>
 AWS_REGION=us-east-1
 
 # ===== PostgreSQL (shared) =====
-POSTGRES_USER=admin
-POSTGRES_PASSWORD=admin_secret_2025
+POSTGRES_USER=<POSTGRES_ADMIN_USER>
+POSTGRES_PASSWORD=<STRONG_RANDOM_PASSWORD>
 ```
+
+> Các giá trị trong `.env` là placeholder. Tạo credential ngẫu nhiên, lưu trong Secret/Vault và URL-encode password khi đưa vào connection string; không commit file `.env`.
 
 ### 2.3 Docker Compose (Core Services)
 
@@ -102,7 +106,7 @@ x-common-env: &common-env
 services:
   # ========== STORAGE LAYER ==========
   minio:
-    image: minio/minio:latest
+    image: quay.io/minio/minio:RELEASE.2025-04-22T22-12-26Z
     container_name: hanas-minio
     command: server /data --console-address ":9001"
     ports:
@@ -121,7 +125,7 @@ services:
 
   # MinIO bucket initialization
   minio-init:
-    image: minio/mc:latest
+    image: quay.io/minio/mc:<PINNED_TAG>
     container_name: hanas-minio-init
     depends_on:
       minio:
@@ -156,7 +160,7 @@ services:
       retries: 5
 
   # ========== PROCESSING LAYER ==========
-  # ⚠️ Spark chạy trên Kubernetes qua Spark Operator
+  # Cảnh báo: Spark chạy trên Kubernetes qua Spark Operator
   # Không deploy Spark standalone trong Docker Compose
   # Xem: docs/03-processing/apache-spark/installation.md
   #
@@ -182,7 +186,7 @@ services:
     environment:
       <<: *common-env
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
-      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${AIRFLOW_DB_USER}:${AIRFLOW_DB_PASSWORD}@postgres:5432/airflow
       AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
     ports:
       - "8081:8080"
@@ -200,7 +204,7 @@ services:
     environment:
       <<: *common-env
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
-      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${AIRFLOW_DB_USER}:${AIRFLOW_DB_PASSWORD}@postgres:5432/airflow
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs/airflow:/opt/airflow/logs
@@ -210,7 +214,7 @@ services:
 
   # ========== QUERY ENGINE ==========
   dremio:
-    image: dremio/dremio-oss:latest
+    image: dremio/dremio-oss:<PINNED_TAG>
     container_name: hanas-dremio
     ports:
       - "9047:9047"   # UI
@@ -243,9 +247,9 @@ docker compose logs -f <service-name>
 
 | Service | URL | Credentials |
 |---|---|---|
-| **MinIO Console** | http://localhost:9001 | admin / minio_secret_2025 |
+| **MinIO Console** | http://localhost:9001 | Credential từ `.env`/Secret |
 | **Hive Metastore** | thrift://localhost:9083 | — |
-| **Airflow UI** | http://localhost:8081 | airflow / airflow |
+| **Airflow UI** | http://localhost:8081 | Credential bootstrap theo Secret |
 | **Dremio UI** | http://localhost:9047 | (setup lần đầu) |
 
 > **Spark**: Chạy trên K8s cluster riêng qua Spark Operator. Xem [Cài đặt Spark](../03-processing/apache-spark/installation.md).
@@ -332,7 +336,7 @@ df_sat = (df_landing
 
 df_sat.writeTo("demo.raw_vault.sat_customer_details").createOrReplace()
 
-print("✅ Raw Vault tables created successfully!")
+print("Raw Vault tables created successfully!")
 spark.sql("SELECT * FROM demo.raw_vault.hub_customer").show()
 spark.stop()
 ```
@@ -342,8 +346,8 @@ spark.stop()
 1. Mở Dremio UI: http://localhost:9047
 2. Add Source → **Amazon S3** (hoặc **NAS**)
    - Endpoint: `minio:9000`
-   - Access Key: `admin`
-   - Secret Key: `minio_secret_2025`
+   - Access Key: `<MINIO_ACCESS_KEY_FROM_SECRET>`
+   - Secret Key: `<MINIO_SECRET_KEY_FROM_SECRET>`
    - Connection Properties: `fs.s3a.path.style.access = true`
 3. Browse đến `warehouse/raw_vault/`
 4. Truy vấn:
@@ -362,5 +366,5 @@ ORDER BY h.customer_id;
 
 Sau khi quickstart thành công, tiếp tục với:
 1. [End-to-End Tutorial](end-to-end-tutorial.md) — Luồng hoàn chỉnh với Airflow orchestration
-2. [Integration Guides](integration/) — Chi tiết tích hợp từng cặp service
-3. [Code Examples](examples/) — Templates và mẫu code production-ready
+2. [Integration Guides](README.md) — Chi tiết tích hợp từng cặp service
+3. [Code Examples](README.md) — Templates và mẫu code production-ready

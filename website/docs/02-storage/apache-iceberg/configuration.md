@@ -81,7 +81,7 @@ sparkConf:
   "spark.hadoop.fs.s3a.aws.credentials.provider": "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider"
 ```
 
-> ⚠️ **KHÔNG** đặt `access.key` / `secret.key` trong `sparkConf`. Sử dụng `envFrom` với K8s Secrets:
+> **Cảnh báo:** **KHÔNG** đặt `access.key` / `secret.key` trong `sparkConf`. Sử dụng `envFrom` với K8s Secrets:
 >
 > ```yaml
 > driver:

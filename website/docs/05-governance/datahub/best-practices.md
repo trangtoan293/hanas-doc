@@ -170,7 +170,7 @@ curl -X PUT "http://<ES_HOST>:9200/_snapshot/hanas_backup/snapshot_$(date +%F)" 
 
 ### 2. Monitoring
 
-Kết hợp với OpenObserve (Layer 7: System Management):
+Kết hợp với OpenObserve (năng lực System Management/Operations):
 
 | Metric | Alert threshold | Hành động |
 |---|---|---|
@@ -182,16 +182,16 @@ Kết hợp với OpenObserve (Layer 7: System Management):
 
 ### 3. Upgrade Checklist
 
-1. ☐ Đọc [Release Notes](https://github.com/datahub-project/datahub/releases) cho breaking changes
-2. ☐ Backup MySQL database
-3. ☐ Backup Elasticsearch snapshots
-4. ☐ Test upgrade trên staging environment
-5. ☐ Cập nhật image tags trong Helm values
-6. ☐ `helm upgrade` với `--wait`
-7. ☐ Verify health checks pass
-8. ☐ Verify search hoạt động (reindex nếu cần)
-9. ☐ Verify ingestion sources vẫn chạy đúng
-10. ☐ Verify Airflow `publish_datahub` TaskGroup hoạt động
+1. [ ] Đọc [Release Notes](https://github.com/datahub-project/datahub/releases) cho breaking changes
+2. [ ] Backup MySQL database
+3. [ ] Backup Elasticsearch snapshots
+4. [ ] Test upgrade trên staging environment
+5. [ ] Cập nhật image tags trong Helm values
+6. [ ] `helm upgrade` với `--wait`
+7. [ ] Verify health checks pass
+8. [ ] Verify search hoạt động (reindex nếu cần)
+9. [ ] Verify ingestion sources vẫn chạy đúng
+10. [ ] Verify Airflow `publish_datahub` TaskGroup hoạt động
 
 ### 4. Capacity Planning
 
@@ -238,4 +238,3 @@ Kết hợp với OpenObserve (Layer 7: System Management):
   - Phân biệt Physical vs Virtual Dataset: Virtual → parse SQL trực tiếp
   - Column mapping qua `SELECT` clause parsing
 - Cả 2 functions chạy trong `PythonVirtualenvOperator` với `requirements=["requests"]`
-

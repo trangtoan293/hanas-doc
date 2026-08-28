@@ -98,7 +98,7 @@ DROP TABLE demo.integration.hub_customer;
 DROP TABLE demo.integration.hub_customer PURGE;
 ```
 
-> ⚠️ `PURGE` xóa vĩnh viễn data trên MinIO. Không dùng trong production nếu chưa backup.
+> **Cảnh báo:** `PURGE` xóa vĩnh viễn data trên MinIO. Không dùng trong production nếu chưa backup.
 
 ---
 
@@ -206,12 +206,12 @@ Iceberg hỗ trợ thay đổi schema mà **không cần rewrite dữ liệu**. 
 
 | Thao tác | SQL | Có cần rewrite? |
 |---|---|---|
-| Thêm cột | `ADD COLUMNS` | ❌ Không |
-| Xóa cột | `DROP COLUMN` | ❌ Không |
-| Đổi tên cột | `RENAME COLUMN` | ❌ Không |
-| Thay đổi type | `ALTER COLUMN ... TYPE` | ❌ Không (chỉ widening) |
-| Thay đổi thứ tự | `ALTER COLUMN ... AFTER` | ❌ Không |
-| Thêm comment | `ALTER COLUMN ... COMMENT` | ❌ Không |
+| Thêm cột | `ADD COLUMNS` | Không |
+| Xóa cột | `DROP COLUMN` | Không |
+| Đổi tên cột | `RENAME COLUMN` | Không |
+| Thay đổi type | `ALTER COLUMN ... TYPE` | Không (chỉ widening) |
+| Thay đổi thứ tự | `ALTER COLUMN ... AFTER` | Không |
+| Thêm comment | `ALTER COLUMN ... COMMENT` | Không |
 
 ### 5.2 Auto Schema Merge
 

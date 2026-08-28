@@ -7,7 +7,7 @@
 | **CPU** | 2 cores | 4 cores |
 | **RAM** | 2 GB | 4 GB |
 | **Disk** | 10 GB SSD | 50+ GB SSD (cho traces data) |
-| **Docker** | 20.10+ | Latest stable |
+| **Docker** | 20.10+ | Theo baseline/manifest đã phê duyệt |
 | **PostgreSQL** | 14+ | 16 (shared với Hanas) |
 
 > [!NOTE]
@@ -22,20 +22,20 @@ version: '3.8'
 
 services:
   langfuse:
-    image: langfuse/langfuse:latest
+    image: langfuse/langfuse:<PINNED_TAG>
     container_name: langfuse
     ports:
       - "3000:3000"
     environment:
       # === Database ===
-      DATABASE_URL: "postgresql://langfuse:secure-password@postgres:5432/langfuse"
+      DATABASE_URL: "postgresql://<LANGFUSE_DB_USER>:<LANGFUSE_DB_PASSWORD>@postgres:5432/langfuse"
       
       # === Authentication ===
-      NEXTAUTH_SECRET: "your-nextauth-secret-key"
+      NEXTAUTH_SECRET: "<LANGFUSE_NEXTAUTH_SECRET_FROM_SECRET>"
       NEXTAUTH_URL: "http://langfuse.your-domain.com"
       
       # === Salt for API key hashing ===
-      SALT: "your-salt-value"
+      SALT: "<LANGFUSE_SALT_FROM_SECRET>"
       
       # === Optional: Telemetry ===
       TELEMETRY_ENABLED: "false"
@@ -57,7 +57,7 @@ services:
     container_name: langfuse-db
     environment:
       POSTGRES_USER: langfuse
-      POSTGRES_PASSWORD: secure-password
+      POSTGRES_PASSWORD: <LANGFUSE_DB_PASSWORD_FROM_SECRET>
       POSTGRES_DB: langfuse
     volumes:
       - langfuse_pg_data:/var/lib/postgresql/data
@@ -86,9 +86,9 @@ Nếu muốn sử dụng PostgreSQL cluster chung của Hanas:
 ```yaml
 services:
   langfuse:
-    image: langfuse/langfuse:latest
+    image: langfuse/langfuse:<PINNED_TAG>
     environment:
-      DATABASE_URL: "postgresql://langfuse:password@postgres.hanas-db:5432/langfuse"
+      DATABASE_URL: "postgresql://<LANGFUSE_DB_USER>:<LANGFUSE_DB_PASSWORD>@postgres.hanas-db:5432/langfuse"
       # ... các env vars khác
     # không cần service postgres riêng
 ```
@@ -120,9 +120,9 @@ langfuse:
       cpu: "1"
       memory: "2Gi"
   env:
-    NEXTAUTH_SECRET: "your-secret"
+    NEXTAUTH_SECRET: "<LANGFUSE_NEXTAUTH_SECRET_FROM_SECRET>"
     NEXTAUTH_URL: "https://langfuse.your-domain.com"
-    SALT: "your-salt"
+    SALT: "<LANGFUSE_SALT_FROM_SECRET>"
     TELEMETRY_ENABLED: "false"
     AUTH_DISABLE_SIGNUP: "true"
 
@@ -133,8 +133,8 @@ externalPostgresql:
   host: "postgres.hanas-db"
   port: 5432
   database: "langfuse"
-  username: "langfuse"
-  password: "secure-password"
+  username: "<LANGFUSE_DB_USER>"
+  password: "<LANGFUSE_DB_PASSWORD_FROM_SECRET>"
 
 ingress:
   enabled: true
@@ -170,11 +170,11 @@ curl http://localhost:3000/api/public/health
 
 # 3. Lấy API Keys
 # Project Settings → API Keys → Create
-# Ghi lại: Public Key (pk-lf-...) và Secret Key (sk-lf-...)
+# Ghi lại Public Key và Secret Key trong Secret manager; không ghi giá trị thật vào ticket/Git.
 
 # 4. Test API
 curl -X GET "http://localhost:3000/api/public/health" \
-  -H "Authorization: Basic $(echo -n 'pk-lf-xxx:sk-lf-xxx' | base64)"
+  -H "Authorization: Basic $(printf '%s' \"$LANGFUSE_PUBLIC_KEY:$LANGFUSE_SECRET_KEY\" | base64)"
 ```
 
 ## Tiếp Theo

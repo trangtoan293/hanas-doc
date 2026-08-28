@@ -120,9 +120,9 @@ Hãy đặt câu hỏi để tôi tìm kiếm thông tin cho bạn!
 1. Click **Preview** (góc phải trên)
 2. Gửi câu hỏi test
 3. Kiểm tra:
-   - ✅ Trả lời đúng nội dung từ tài liệu
-   - ✅ Không hallucinate (bịa thông tin)
-   - ✅ Latency chấp nhận được (< 5s)
+   - Trả lời đúng nội dung từ tài liệu
+   - Không hallucinate (bịa thông tin)
+   - Latency chấp nhận được (< 5s)
 
 ### Publish
 

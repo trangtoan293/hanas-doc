@@ -165,11 +165,11 @@ DBCPConnectionPool:
 # Kubernetes Secrets cho NiFi
 kubectl create secret generic nifi-secrets \
   --namespace nifi \
-  --from-literal=sensitive-props-key="hanas-secret-key" \
-  --from-literal=admin-username="admin" \
-  --from-literal=admin-password="Hanas@NiFi2024" \
-  --from-literal=minio-access-key="minioadmin" \
-  --from-literal=minio-secret-key="minioadmin"
+  --from-literal=sensitive-props-key="<NIFI_SENSITIVE_PROPS_KEY_FROM_SECRET>" \
+  --from-literal=admin-username="<NIFI_ADMIN_USER>" \
+  --from-literal=admin-password="<NIFI_ADMIN_PASSWORD_FROM_SECRET>" \
+  --from-literal=minio-access-key="<MINIO_ACCESS_KEY_FROM_SECRET>" \
+  --from-literal=minio-secret-key="<MINIO_SECRET_KEY_FROM_SECRET>"
 ```
 
 ---

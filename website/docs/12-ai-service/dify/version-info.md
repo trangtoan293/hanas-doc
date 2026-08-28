@@ -13,10 +13,10 @@
 
 | Dify Version | Key Features | Langfuse | vLLM Compatible |
 |---|---|---|---|
-| **2.0+** | Plugin ecosystem, Knowledge Pipeline | ✅ Native | ✅ |
-| **1.0** | Graph-based workflow engine | ✅ Native | ✅ |
-| **0.6.12+** | Langfuse integration | ✅ Native | ✅ |
-| **0.6.x** | Visual workflow builder | ❌ | ✅ |
+| **2.0+** | Plugin ecosystem, Knowledge Pipeline | Native | Có |
+| **1.0** | Graph-based workflow engine | Native | Có |
+| **0.6.12+** | Langfuse integration | Native | Có |
+| **0.6.x** | Visual workflow builder | Không | Có |
 
 ## Breaking Changes
 

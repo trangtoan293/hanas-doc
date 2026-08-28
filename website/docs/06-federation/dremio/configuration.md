@@ -161,7 +161,7 @@ Platform sử dụng `DremioClient` trong Airflow DAGs để tự động tạo 
 from utils.dremio_client import DremioClient
 
 client = DremioClient(
-    base_url='http://192.168.1.193:9047',
+    base_url='http://<DREMIO_HOST>:9047',
     username='vaultadmin',
     password=Variable.get('dremio_password'),
     ssl_verify=False
@@ -331,7 +331,7 @@ Các Airflow Variables cần cấu hình để Dremio integration hoạt động
 
 | Variable | Default | Mô tả |
 |---|---|---|
-| `dremio_host` | `http://192.168.1.193` | Dremio base URL (không kèm port) |
+| `dremio_host` | `http://<DREMIO_HOST>` | Dremio base URL (không kèm port) |
 | `dremio_username` | `vaultadmin` | Tài khoản Dremio cho API |
 | `dremio_password` | _(bắt buộc)_ | Password — lưu trong Airflow Variables |
 | `dremio_ssl_verify` | `false` | Verify SSL certificate |

@@ -20,7 +20,7 @@ STEP 4: ATOMICITY — Có thể rerun độc lập? → TẠO TASK RIÊNG / FUNC
 ### 2.1 Sử dụng TaskGroup cho reusable patterns
 
 ```python
-# ✅ ĐÚNG - Reusable TaskGroup (pattern production)
+# ĐÚNG - Reusable TaskGroup (pattern production)
 from raw_vault.taskgroups.dbt_etl_jobs_taskgroup import create_dbt_etl_jobs_taskgroup
 
 taskgroup = create_dbt_etl_jobs_taskgroup(
@@ -33,7 +33,7 @@ taskgroup = create_dbt_etl_jobs_taskgroup(
 ```
 
 ```python
-# ❌ SAI - Copy-paste logic giữa các DAGs
+# SAI - Copy-paste logic giữa các DAGs
 load_job = SparkKubernetesOperator(task_id="load", ...)
 test_job = SparkKubernetesOperator(task_id="test", ...)
 logging_job = SparkKubernetesOperator(task_id="log", ...)
@@ -43,7 +43,7 @@ logging_job = SparkKubernetesOperator(task_id="log", ...)
 ### 2.2 Safe Variable access
 
 ```python
-# ✅ ĐÚNG - Helper function với fallback
+# ĐÚNG - Helper function với fallback
 def _var(name: str, default: Optional[str] = None) -> Optional[str]:
     try:
         value = Variable.get(name)
@@ -55,14 +55,14 @@ asset_tag = _var("DATAHUB_ASSET_TAG_NAME", "data platform demo")
 ```
 
 ```python
-# ❌ SAI - Variable.get không có fallback
+# SAI - Variable.get không có fallback
 tag = Variable.get("DATAHUB_ASSET_TAG_NAME")  # KeyError nếu chưa set
 ```
 
 ### 2.3 Callback pattern chuẩn
 
 ```python
-# ✅ Production pattern - callbacks từ utils/callbacks.py
+# Production pattern - callbacks từ utils/callbacks.py
 from utils.callbacks import on_failure_callback, on_retry_callback, sla_miss_callback
 
 default_args = {
@@ -101,12 +101,12 @@ params={
 ### 3.1 Tránh top-level heavy code
 
 ```python
-# ✅ ĐÚNG - Import nhẹ, logic trong task
+# ĐÚNG - Import nhẹ, logic trong task
 from airflow.providers.cncf.kubernetes.operators.spark_kubernetes import (
     SparkKubernetesOperator,
 )
 
-# ❌ SAI - Heavy operations at parse time
+# SAI - Heavy operations at parse time
 import pandas as pd  # Parse mỗi 30s!
 data = pd.read_csv("big_file.csv")
 ```
@@ -114,7 +114,7 @@ data = pd.read_csv("big_file.csv")
 ### 3.2 Giới hạn max_active_runs
 
 ```python
-# ✅ Tất cả DAGs production đều set max_active_runs=1
+# Tất cả DAGs production đều set max_active_runs=1
 with DAG(
     dag_id="demo_data_pipeline_e2e_incremental",
     max_active_runs=1,  # Ngăn chạy chồng chéo
@@ -144,7 +144,7 @@ end = EmptyOperator(task_id="end", trigger_rule="all_done")
 ### 4.1 Credentials qua K8s Secrets
 
 ```yaml
-# ✅ ĐÚNG - Credentials từ K8s Secrets
+# ĐÚNG - Credentials từ K8s Secrets
 envFrom:
   - secretRef:
       name: spark-k8s-aws-credentials
@@ -153,15 +153,15 @@ envFrom:
 ```
 
 ```python
-# ❌ SAI - Hardcode credentials trong DAG
-api_key = "sk_test_12345"
-password = "mypassword123"
+# SAI - Hardcode credentials trong DAG
+api_key = "<HARDCODED_API_KEY_EXAMPLE>"
+password = "<HARDCODED_PASSWORD_EXAMPLE>"
 ```
 
 ### 4.2 Airflow Variables cho sensitive data
 
 ```python
-# ✅ Dùng Airflow Variables (encrypted in DB)
+# Dùng Airflow Variables (encrypted in DB)
 api_key = Variable.get("MAILEROO_API_KEY")
 password = Variable.get("dremio_password")
 ```

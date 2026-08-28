@@ -163,14 +163,14 @@ sparkConf:
 
 ## Cấu Hình Bảo Mật
 
-> ⚠️ **KHÔNG** đặt credentials trong `sparkConf`. Sử dụng `envFrom` với Kubernetes Secrets.
+> **Cảnh báo:** **KHÔNG** đặt credentials trong `sparkConf`. Sử dụng `envFrom` với Kubernetes Secrets.
 
 ```yaml
-# ❌ SAI – Hardcode credentials
+# SAI – Hardcode credentials
 sparkConf:
   "spark.hadoop.fs.s3a.access.key": "AKIAIOSFODNN7EXAMPLE"
 
-# ✅ ĐÚNG – Inject qua Secret
+# ĐÚNG – Inject qua Secret
 driver:
   envFrom:
     - secretRef:

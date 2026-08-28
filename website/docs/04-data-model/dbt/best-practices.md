@@ -75,10 +75,10 @@ ktl_autovault_configs/
 
 1. **Sử dụng `ref_eod_table`** thay vì hardcode dates:
    ```sql
-   -- ✅ Đúng
+   -- Đúng
    WHERE dv_ldt > rd.last_run_time AND dv_ldt <= rd.run_time
    
-   -- ❌ Sai
+   -- Sai
    WHERE dv_ldt > '2025-12-01' AND dv_ldt <= '2025-12-31'
    ```
 
@@ -115,12 +115,12 @@ ktl_autovault_configs/
 
 ### Deployment Checklist
 
-1. ✅ Kiểm tra `dbt deps` thành công
-2. ✅ Chạy `dbt compile` để validate SQL
-3. ✅ Seed data loaded (`ref_eod`, MDM catalogs)
-4. ✅ Environment variables configured
-5. ✅ Lakehouse logging enabled (`--log-to-lakehouse`)
-6. ✅ Artifact upload configured (`--upload-artifacts`)
+1. Kiểm tra `dbt deps` thành công
+2. Chạy `dbt compile` để validate SQL
+3. Seed data loaded (`ref_eod`, MDM catalogs)
+4. Environment variables configured
+5. Lakehouse logging enabled (`--log-to-lakehouse`)
+6. Artifact upload configured (`--upload-artifacts`)
 
 ### Execution Order
 

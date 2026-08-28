@@ -180,7 +180,7 @@ df_changed = (df_sat_new
 # Append chỉ các bản ghi mới/thay đổi
 df_changed.writeTo("demo.raw_vault.sat_customer_details").append()
 
-print(f"✅ Inserted {df_changed.count()} changed/new records")
+print(f"Inserted {df_changed.count()} changed/new records")
 ```
 
 > **Best Practice**: Dùng `hash_diff` để so sánh thay đổi thay vì so từng cột. MD5 hash nhanh và chính xác.

@@ -13,7 +13,7 @@ Truy cập **Settings → Model Providers → OpenAI-API-compatible**:
 | **Provider Name** | `vllm-llm` |
 | **Model Name** | `Qwen/Qwen3-14B-AWQ` |
 | **API Base URL** | `http://<vllm-host>:8010/v1` |
-| **API Key** | `token-abc123` (hoặc bất kỳ giá trị nào, vLLM không bắt buộc) |
+| **API Key** | `<VLLM_API_KEY_FROM_SECRET>` (vLLM có thể không bắt buộc; vẫn dùng credential riêng nếu endpoint được bảo vệ) |
 | **Model Type** | LLM |
 | **Context Size** | `32768` |
 
@@ -62,8 +62,8 @@ Dify tích hợp sẵn Langfuse từ version 0.6.12+, chỉ cần cấu hình en
 
 ```bash
 # === Langfuse Tracing ===
-LANGFUSE_PUBLIC_KEY=pk-lf-your-public-key
-LANGFUSE_SECRET_KEY=sk-lf-your-secret-key
+LANGFUSE_PUBLIC_KEY=<LANGFUSE_PUBLIC_KEY>
+LANGFUSE_SECRET_KEY=<LANGFUSE_SECRET_KEY_FROM_SECRET>
 LANGFUSE_HOST=http://langfuse.your-domain.com
 ```
 

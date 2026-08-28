@@ -20,7 +20,7 @@ nifi.web.proxy.context.path=/
 # Content Repository — lưu nội dung FlowFile
 nifi.content.repository.directory.default=/opt/nifi/nifi-current/content_repository
 
-# FlowFile Repository — metadata của FlowFile đang xử lý  
+# FlowFile Repository — metadata của FlowFile đang xử lý
 nifi.flowfile.repository.directory=/opt/nifi/nifi-current/flowfile_repository
 
 # Provenance Repository — audit trail

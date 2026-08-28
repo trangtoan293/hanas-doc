@@ -1,127 +1,93 @@
 ---
 sidebar_position: 0
-slug: /
+slug: /docs
 ---
 
 # Hanas Data Platform
 
-> **Nền tảng Dữ liệu Hợp nhất (Data Lakehouse) + AI Service** - Giải pháp toàn diện cho quản trị dữ liệu và ứng dụng AI doanh nghiệp
+> **Nền tảng dữ liệu hợp nhất (Data Lakehouse) và dịch vụ AI** cho việc tiếp nhận, lưu trữ, xử lý, quản trị và khai thác dữ liệu doanh nghiệp.
 
-## Tổng Quan
+Trang này là điểm bắt đầu của bộ tài liệu. Tài liệu được chia thành các lớp chức năng và các năng lực dùng chung. Mỗi service có bộ trang chuẩn gồm tổng quan, cài đặt, cấu hình, hướng dẫn sử dụng, best practices và thông tin phiên bản.
 
-Hanas Data Platform là nền tảng dữ liệu hợp nhất (Data Lakehouse), được thiết kế để tiếp nhận, lưu trữ, xử lý và quản trị dữ liệu một cách thống nhất. Nền tảng kết hợp linh hoạt giữa lưu trữ Data Lake và quản trị Data Warehouse, phân tách thành 7 lớp từ thu thập đến tiêu thụ dữ liệu.
+## Phạm vi nền tảng
 
-## Kiến Trúc 7 Lớp
+Hanas cung cấp một luồng dữ liệu thống nhất từ hệ thống nguồn đến báo cáo, ứng dụng và AI. Các thành phần được triển khai độc lập, kết nối qua giao thức mở; Kubernetes, bảo mật, giám sát và khôi phục thảm họa là các năng lực xuyên suốt.
 
 ```mermaid
-flowchart TB
-    subgraph Sources["Data Sources"]
-        DB[(Databases)]
-        Files[Files/APIs]
-        CDC[CDC/Events]
-    end
-    
-    subgraph L1["Lớp 1: Thu Thập"]
-        NiFi[Apache NiFi]
-        Kafka[Apache Kafka]
-    end
-    
-    subgraph L2["Lớp 2: Lưu Trữ"]
-        MinIO[(MinIO)]
-        Iceberg[Apache Iceberg]
-    end
-    
-    subgraph L3["Lớp 3: Xử Lý"]
-        Airflow[Apache Airflow]
-        Spark[Apache Spark]
-    end
-    
-    subgraph L4["Lớp 4: Mô Hình"]
-        dbt[dbt]
-        DV[Data Vault 2.0]
-    end
-    
-    subgraph L5["Lớp 5: Quản Trị"]
-        DataHub[DataHub]
-    end
-    
-    subgraph L6["Lớp 6: Liên Kết"]
-        Dremio[Dremio]
-    end
-    
-    subgraph L7["Lớp 7: Tiêu Thụ"]
-        BI[BI Tools]
-        Apps[Applications]
-    end
-    
-    Sources --> L1
-    L1 --> L2
-    L2 --> L3
-    L3 --> L4
-    L4 --> L2
-    L2 --> L5
-    L2 --> L6
-    L6 --> L7
-    
-    style L1 fill:#fff3e0,stroke:#ef6c00
-    style L2 fill:#e8f5e9,stroke:#388e3c
-    style L3 fill:#fce4ec,stroke:#c2185b
-    style L4 fill:#f3e5f5,stroke:#7b1fa2
-    style L5 fill:#fff8e1,stroke:#ff6f00
-    style L6 fill:#e0f7fa,stroke:#00838f
-    style L7 fill:#e8eaf6,stroke:#3f51b5
+flowchart LR
+    Sources["Nguồn dữ liệu<br/>RDBMS • File • API • CDC • Events"]
+    Ingestion["L1 Thu thập<br/>NiFi • Kafka"]
+    Storage["L2 Lưu trữ<br/>MinIO • Iceberg • Catalog"]
+    Processing["L3 Xử lý<br/>Spark"]
+    Modeling["L4 Mô hình<br/>dbt • Data Vault 2.0"]
+    Governance["L5 Quản trị<br/>DataHub"]
+    Federation["L6 Liên kết<br/>Dremio"]
+    Consumption["L7 Khai thác<br/>Superset • BI • API"]
+    AI["L8 AI Service<br/>Dify • vLLM • Langfuse"]
+
+    Sources --> Ingestion --> Storage --> Processing --> Modeling --> Storage
+    Storage --> Governance
+    Storage --> Federation --> Consumption
+    Storage --> AI --> Consumption
+    Airflow["Điều phối xuyên suốt<br/>Apache Airflow"] -.-> Ingestion
+    Airflow -.-> Processing
+    Airflow -.-> Modeling
+
+    Security["Bảo mật<br/>Ranger • Vault"] -.-> Storage
+    Security -.-> Federation
+    Security -.-> AI
+    Operations["Vận hành<br/>Kubernetes • OpenObserve • DC-DR"] -.-> Ingestion
+    Operations -.-> Storage
+    Operations -.-> AI
 ```
 
-## 📚 Danh Mục Tài Liệu
+> **Quy ước:** Airflow là năng lực điều phối dùng chung, không phải một vùng dữ liệu. Kubernetes, Apache Ranger, HashiCorp Vault, OpenObserve và DC-DR là các năng lực nền tảng/xuyên suốt. Chi tiết và phạm vi thực tế cần đối chiếu với BOM/manifest của từng môi trường.
+
+## Danh mục tài liệu
 
 | # | Lớp | Mô Tả | Services |
 |---|-----|-------|----------|
 | **00** | [Tổng Quan](00-overview/README.md) | Giới thiệu, kiến trúc, mục tiêu | - |
 | **01** | [Thu Thập Dữ Liệu](01-ingestion/README.md) | Batch & Streaming ingestion | NiFi, Kafka |
-| **02** | [Lưu Trữ Dữ Liệu](02-storage/README.md) | Object Storage & Table Format | MinIO, Iceberg |
-| **03** | [Xử Lý Dữ Liệu](03-processing/README.md) | Orchestration & Compute | Airflow, Spark |
+| **02** | [Lưu Trữ Dữ Liệu](02-storage/README.md) | Object Storage, table format và catalog | MinIO, Iceberg, Polaris/Hive |
+| **03** | [Xử Lý Dữ Liệu](03-processing/README.md) | Distributed compute | Spark |
 | **04** | [Mô Hình Dữ Liệu](04-data-model/README.md) | Data Vault 2.0 & Transformations | dbt |
 | **05** | [Quản Trị Dữ Liệu](05-governance/README.md) | Metadata & Lineage | DataHub |
 | **06** | [Liên Kết Dữ Liệu](06-federation/README.md) | Query Engine & Semantic Layer | Dremio |
-| **07** | [Quản Trị Hệ Thống](07-system-management/README.md) | Monitoring & Logging | OpenObserve |
-| **08** | [Hạ Tầng](08-infrastructure/README.md) | Kubernetes & DC-DR | K8s, Velero |
-| **09** | [An Toàn Thông Tin](09-security/README.md) | Security & Access Control | Ranger, Vault |
-| **10** | [Đào Tạo](10-training/README.md) | Training materials | - |
-| **11** | [Bảo Hành & Bảo Trì](11-maintenance/README.md) | SLA & Maintenance | - |
-| **12** | [AI Service](12-ai-service/README.md) | AI Workflow, Inference & Observability | Dify, vLLM, Langfuse |
+| **07** | [Khai Thác & Trực Quan Hóa](13-visualization/README.md) | Dashboard, BI và data consumption | Superset |
+| **08** | [AI Service](12-ai-service/README.md) | AI workflow, inference & observability | Dify, vLLM, Langfuse |
 
-## Bắt Đầu Nhanh
+Năng lực xuyên suốt:
 
-- [Quickstart Guide](guides/quickstart.md) - Dựng môi trường và chạy data flow đầu tiên
-- [End-to-End Tutorial](guides/end-to-end-tutorial.md) - Tutorial đầy đủ từ Source → BI
-- [Kiến Trúc Tổng Thể](00-overview/architecture.md) - Hiểu rõ kiến trúc 7 lớp
+- [Điều phối](14-orchestration/README.md) — Apache Airflow.
+- [Quản trị hệ thống](07-system-management/README.md) — OpenObserve.
+- [Hạ tầng & DC-DR](08-infrastructure/README.md) — Kubernetes, Velero, Site Replication.
+- [An toàn thông tin](09-security/README.md) — Apache Ranger, HashiCorp Vault, xác thực và phân quyền.
 
-## Công Nghệ Sử Dụng
+## Bắt đầu theo vai trò
 
-### Core Platform
-- **Apache NiFi** - Data ingestion và ETL visual
-- **Apache Kafka** - Streaming platform
-- **MinIO** - S3-compatible object storage
-- **Apache Iceberg** - Open table format
-- **Apache Airflow** - Workflow orchestration
-- **Apache Spark** - Distributed compute engine
-- **dbt** - Data transformations
-- **DataHub** - Metadata management
-- **Dremio** - Query engine và semantic layer
+| Vai trò | Nên bắt đầu từ |
+|---|---|
+| Lãnh đạo/nghiệp vụ | [Tổng quan](00-overview/README.md) → [Kiến trúc](00-overview/architecture.md) → [Use case end-to-end](guides/end-to-end-tutorial.md) |
+| Quản trị hạ tầng | [Baseline triển khai](00-overview/platform-baseline.md) → [Kubernetes](08-infrastructure/kubernetes/README.md) → [DC-DR](08-infrastructure/dc-dr/README.md) |
+| Data engineer | [Quickstart](guides/quickstart.md) → [Integration guides](guides/README.md) → tài liệu NiFi/Kafka/Spark/dbt |
+| Data steward/governance | [DataHub](05-governance/datahub/README.md) → [Quản trị dữ liệu](05-governance/README.md) |
+| BI/data consumer | [Dremio](06-federation/dremio/README.md) → [Superset](13-visualization/apache-superset/README.md) |
+| AI engineer | [AI Service](12-ai-service/README.md) → [Dify + vLLM + Langfuse](guides/integration/dify-vllm-langfuse.md) |
 
-### AI Service
-- **Dify** - AI workflow platform (chatbot, RAG, agent)
-- **vLLM** - LLM inference engine (OpenAI-compatible API)
-- **Langfuse** - LLM observability (tracing, evaluation, prompt management)
+## Nguyên tắc sử dụng tài liệu
 
-### Infrastructure & Security
-- **Kubernetes** - Container orchestration
-- **OpenObserve** - Observability platform
-- **Apache Ranger** - Access control
-- **HashiCorp Vault** - Secrets management
-- **Velero** - Backup & disaster recovery
+- Không đưa credentials, token, private key hoặc dữ liệu khách hàng thật vào code block, Git hay ticket.
+- Các giá trị dạng `<...>`, `{{...}}` và `EXAMPLE_*` là biến cần thay bằng cấu hình của môi trường; không phải thông tin truy cập thật.
+- Chỉ coi một service là **đã triển khai** khi image tag/digest, namespace, endpoint và owner đã được xác nhận trong manifest/baseline bàn giao.
+- Profile catalog phải được chốt trước khi tạo bảng: [Hive Metastore cho quickstart/dev](02-storage/apache-iceberg/README.md) hoặc [Apache Polaris cho production](02-storage/data-catalog/README.md).
+- Các cam kết dịch vụ, RPO/RTO và retention chỉ có hiệu lực khi được ghi trong hợp đồng/biên bản nghiệm thu.
 
-## Hướng Dẫn Thực Hành
+## Tài liệu bàn giao cần chốt
+
+Trước khi gửi bộ tài liệu chính thức, điền các mục trong [Baseline triển khai](00-overview/platform-baseline.md): môi trường, phiên bản image/digest, namespace, endpoint, sizing, chính sách bảo mật, RPO/RTO, retention, owner, kênh hỗ trợ và biên bản nghiệm thu. Các trang cài đặt là runbook tham chiếu; không thay thế manifest hoặc quy trình change management của khách hàng.
+
+## Hướng dẫn thực hành
 
 | Loại | Nội Dung |
 |------|----------|
@@ -129,7 +95,4 @@ flowchart TB
 | **Examples** | [NiFi Flow](guides/examples/sample-nifi-flow.md), [Airflow DAG](guides/examples/sample-airflow-dag.md), [Spark Job](guides/examples/sample-spark-job.md), [Dify Workflow](guides/examples/sample-dify-workflow.md) |
 | **Troubleshooting** | [Xử lý sự cố](guides/troubleshooting.md) |
 
-
----
-
-**© 2026 Hanas Data Platform** 
+© 2026 Hanas Data Platform

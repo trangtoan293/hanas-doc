@@ -226,9 +226,9 @@ packages:
 
 | Variable | Bắt buộc | Mô tả |
 |---|---|---|
-| `SCHEMA_NAME` | ✅ | Schema name cho dbt target |
-| `AWS_ACCESS_KEY_ID` | ✅ | S3/MinIO access key |
-| `AWS_SECRET_ACCESS_KEY` | ✅ | S3/MinIO secret key |
+| `SCHEMA_NAME` | Có | Schema name cho dbt target |
+| `AWS_ACCESS_KEY_ID` | Có | S3/MinIO access key |
+| `AWS_SECRET_ACCESS_KEY` | Có | S3/MinIO secret key |
 | `DBT_PROFILES_DIR` | _(auto)_ | Thư mục chứa profiles.yml |
 | `DBT_PROJECT_DIR` | _(auto)_ | Thư mục chứa dbt_project.yml |
 | `DBT_TARGET_PATH` | _(default: /tmp/dbt_target)_ | Thư mục output artifacts |

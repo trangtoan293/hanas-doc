@@ -303,10 +303,10 @@ Alerts & Reports cho phép lập lịch gửi dashboard/chart screenshots hoặc
 
 ### Prerequisites
 
-- ✅ `FEATURE_FLAGS['ALERT_REPORTS'] = True`
-- ✅ Celery Worker + Beat đang chạy
-- ✅ SMTP hoặc Slack API Token đã cấu hình
-- ✅ Selenium + Chromium headless (cho screenshot, đã có trong Docker image)
+- `FEATURE_FLAGS['ALERT_REPORTS'] = True`
+- Celery Worker + Beat đang chạy
+- SMTP hoặc Slack API Token đã cấu hình
+- Selenium + Chromium headless (cho screenshot, đã có trong Docker image)
 
 ### Tạo Report
 

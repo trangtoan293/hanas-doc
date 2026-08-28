@@ -47,16 +47,16 @@
 
 | Service | Phiên bản trong Platform | Ranger Plugin | Tương thích | Ghi chú |
 |---------|------------------------|---------------|-------------|---------|
-| **Apache Kafka** | Confluent 7.x / Apache 3.x | `ranger-kafka-plugin` 2.5.0 | ✅ | Thay thế Kafka ACLs |
-| **Apache NiFi** | 1.x / 2.x | `ranger-nifi-plugin` 2.5.0 | ✅ | Thay thế file-based authorizer |
-| **Apache Spark** | 3.4+ | `ranger-spark-plugin` 2.5.0 | ✅ | SparkSQL authorization |
-| **Hive Metastore** | 3.x (standalone) | `ranger-hive-plugin` 2.5.0 | ✅ | Core catalog authorization |
-| **Dremio** | 24.x+ | Ranger-based auth (built-in) | ✅ | Ranger 1.2+ protocol |
-| **MinIO** | Latest | `ranger-s3-plugin` | ⚠️ | Community plugin, cần custom build |
-| **PostgreSQL** | 15+ | N/A | ✅ | Backend database cho Ranger Admin |
-| **Elasticsearch** | 7.x / 8.x | N/A | ✅ | Audit log backend |
-| **OpenSearch** | 2.x | N/A | ✅ | Thay thế Elasticsearch |
-| **Kubernetes** | 1.24+ | N/A | ✅ | Container orchestration |
+| **Apache Kafka** | Confluent 7.x / Apache 3.x | `ranger-kafka-plugin` 2.5.0 | Có | Thay thế Kafka ACLs |
+| **Apache NiFi** | 1.x / 2.x | `ranger-nifi-plugin` 2.5.0 | Có | Thay thế file-based authorizer |
+| **Apache Spark** | 3.4+ | `ranger-spark-plugin` 2.5.0 | Có | SparkSQL authorization |
+| **Hive Metastore** | 3.x (standalone) | `ranger-hive-plugin` 2.5.0 | Có | Core catalog authorization |
+| **Dremio** | 24.x+ | Ranger-based auth (built-in) | Có | Ranger 1.2+ protocol |
+| **MinIO** | Theo baseline triển khai | `ranger-s3-plugin` | Hạn chế | Community plugin, cần custom build |
+| **PostgreSQL** | 15+ | N/A | Có | Backend database cho Ranger Admin |
+| **Elasticsearch** | 7.x / 8.x | N/A | Có | Audit log backend |
+| **OpenSearch** | 2.x | N/A | Có | Thay thế Elasticsearch |
+| **Kubernetes** | 1.24+ | N/A | Có | Container orchestration |
 
 ---
 

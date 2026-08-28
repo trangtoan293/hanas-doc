@@ -51,10 +51,10 @@ gantt
 
 Agenda:
 1. Giới thiệu team (15 phút)
-2. Tổng quan Hanas — kiến trúc 7 lớp (30 phút)
+2. Tổng quan Hanas — kiến trúc các lớp dữ liệu và năng lực xuyên suốt (30 phút)
 3. Yêu cầu của customer (45 phút)
 
-📖 Tham khảo: [Kiến trúc tổng thể](../00-overview/architecture.md)
+Tham khảo: [Kiến trúc tổng thể](../00-overview/architecture.md)
 
 #### Sau Meeting
 
@@ -121,7 +121,7 @@ kubectl wait --for=condition=ready pod -l app=airflow-webserver \
   -n hanas-{{CUSTOMER_ID}} --timeout=300s
 ```
 
-📖 Tham khảo: [Đào tạo quản trị hệ thống](system-admin-training.md)
+Tham khảo: [Đào tạo vận hành hệ thống](operations-training.md)
 
 ---
 
@@ -197,7 +197,7 @@ CSM gửi email xác nhận customer:
 
 **Exercises**: Tạo user + gán role → Tạo custom alert → Xem và filter logs.
 
-📖 Chi tiết: [Đào tạo quản trị hệ thống](system-admin-training.md)
+Chi tiết: [Đào tạo vận hành hệ thống](operations-training.md)
 
 ---
 
@@ -213,7 +213,7 @@ CSM gửi email xác nhận customer:
 
 **Workshop output**: Customer commits first DAG → ArgoCD deploy → Verify pipeline.
 
-📖 Chi tiết: [Đào tạo xử lý dữ liệu](data-processing-training.md)
+Chi tiết: [Đào tạo xử lý dữ liệu](data-processing-training.md)
 
 ---
 
@@ -227,7 +227,7 @@ CSM gửi email xác nhận customer:
 | Self-service analytics | 0.5 giờ |
 | **Dashboard Workshop**: Tạo dashboard thực tế | 2 giờ |
 
-📖 Chi tiết: [Đào tạo khai thác dữ liệu](data-consumer-training.md)
+Chi tiết: [Đào tạo khai thác dữ liệu](data-consumer-training.md)
 
 ---
 
@@ -375,12 +375,12 @@ Dear {{CUSTOMER_NAME}} team,
 
 Welcome to Hanas Data Platform!
 
-📅 KICKOFF MEETING
+KICKOFF MEETING
 Date: {{MEETING_DATE}}
 Time: {{MEETING_TIME}}
 Duration: 90 minutes
 
-📋 PRE-MEETING
+PRE-MEETING
 Please complete:
 - Technical Requirements Form
 - Security Questionnaire
@@ -391,13 +391,13 @@ Please complete:
 ```
 Subject: [Customer-{{CUSTOMER_ID}}] Day {{N}} Status Update
 
-📊 PROGRESS
-✅ Completed: {{TASKS}}
-🔄 In Progress: {{TASKS}} ({{PROGRESS}}%)
-⏳ Up Next: {{TASKS}}
+PROGRESS
+Completed: {{TASKS}}
+In Progress: {{TASKS}} ({{PROGRESS}}%)
+Up Next: {{TASKS}}
 
-⚠️ BLOCKERS: {{DESCRIPTION}}
-📅 TIMELINE: Original {{DATE}} → Current {{DATE}}
+BLOCKERS: {{DESCRIPTION}}
+TIMELINE: Original {{DATE}} → Current {{DATE}}
 ```
 
 ### Template 3: Go-Live Announcement
@@ -405,13 +405,13 @@ Subject: [Customer-{{CUSTOMER_ID}}] Day {{N}} Status Update
 ```
 Subject: {{CUSTOMER_NAME}} is now LIVE on Hanas!
 
-✅ WHAT'S LIVE: Ingestion, Warehouse, Analytics, API
+WHAT'S LIVE: Ingestion, Warehouse, Analytics, API
 
-🔗 ACCESS: Airflow, Dremio, Monitoring URLs
+ACCESS: Airflow, Dremio, Monitoring URLs
 
-👥 NEXT STEPS: Week 1 Hypercare → Week 2 Regular → Week 4 Review
+NEXT STEPS: Week 1 Hypercare → Week 2 Regular → Week 4 Review
 
-📞 SUPPORT: Email, Phone, Slack, Escalation
+SUPPORT: Email, Phone, Slack, Escalation
 ```
 
 ---
@@ -422,12 +422,12 @@ Sau go-live + hypercare thành công:
 
 | Deliverable | Status |
 |-------------|--------|
-| Infrastructure deployed | ✅ |
-| Data migrated & validated | ✅ |
-| Training completed | ✅ |
-| Documentation delivered | ✅ |
-| Support transitioned | ✅ |
+| Infrastructure deployed | Có |
+| Data migrated & validated | Có |
+| Training completed | Có |
+| Documentation delivered | Có |
+| Support transitioned | Có |
 
 Customer & Hanas ký sign-off → Chuyển giao sang Support Team.
 
-📖 Tham khảo: [SLA & Cam kết](../11-maintenance/sla.md) | [Quy trình bảo trì](../11-maintenance/maintenance-process.md) | [Troubleshooting](../guides/troubleshooting.md)
+Tham khảo: [SLA & Cam kết](../11-maintenance/sla.md) | [Quy trình bảo trì](../11-maintenance/maintenance-process.md) | [Troubleshooting](../guides/troubleshooting.md)

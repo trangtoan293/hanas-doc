@@ -43,7 +43,7 @@ helm search repo hashicorp/vault --versions | head -10
 
 | Chế Độ | Mô Tả | Phù Hợp |
 |--------|--------|---------|
-| **Dev** | Single server, in-memory, tự unseal, root token = "root" | Testing, học tập |
+| **Dev** | Single server, in-memory, tự unseal, root token sinh riêng cho lab | Testing, học tập |
 | **Standalone** | Single server, persistent volume | Dev, staging |
 | **HA (High Availability)** | 3+ replicas, Raft Integrated Storage, leader election | **Production ← Khuyến nghị** |
 | **External** | Chỉ deploy Agent Injector, kết nối Vault server bên ngoài | Hybrid setup |
@@ -188,7 +188,7 @@ vault-2                                 0/1     Running   0          30s
 vault-agent-injector-xxxxx-xxxxx        1/1     Running   0          30s
 ```
 
-> ⚠️ Vault pods sẽ ở trạng thái `0/1 Running` cho đến khi được **khởi tạo (init)** và **mở khóa (unseal)**.
+> **Cảnh báo:** Vault pods sẽ ở trạng thái `0/1 Running` cho đến khi được **khởi tạo (init)** và **mở khóa (unseal)**.
 
 ## 3. Khởi Tạo & Unseal
 
@@ -209,7 +209,7 @@ cat vault-init.json | jq
 - `unseal_keys_b64`: **5 Unseal Keys** (cần 3/5 để unseal)
 - `root_token`: **Root Token** (dùng cho initial setup)
 
-> 🔴 **QUAN TRỌNG**: Lưu trữ unseal keys và root token **an toàn** — phân phối cho các quản trị viên khác nhau theo nguyên tắc Shamir's Secret Sharing. **Không lưu trên cùng hệ thống** với Vault.
+> **QUAN TRỌNG**: Lưu trữ unseal keys và root token **an toàn** — phân phối cho các quản trị viên khác nhau theo nguyên tắc Shamir's Secret Sharing. **Không lưu trên cùng hệ thống** với Vault.
 
 ### 3.2 Unseal Vault
 
@@ -344,12 +344,12 @@ kubectl exec -n vault vault-0 -- \
 
 # Kết quả mong đợi
 # {
-#   "initialized": true,
-#   "sealed": false,
-#   "standby": false,
-#   "performance_standby": false,
-#   "cluster_name": "vault-cluster-xxxxx",
-#   "cluster_id": "xxxxx-xxxxx-xxxxx"
+# "initialized": true,
+# "sealed": false,
+# "standby": false,
+# "performance_standby": false,
+# "cluster_name": "vault-cluster-xxxxx",
+# "cluster_id": "xxxxx-xxxxx-xxxxx"
 # }
 ```
 
@@ -361,7 +361,7 @@ kubectl exec -n vault vault-0 -- vault secrets enable -path=secret kv-v2
 
 # Ghi secret test
 kubectl exec -n vault vault-0 -- vault kv put secret/test \
-  username="admin" password="test123"
+  username="<TEST_USER>" password="<TEST_PASSWORD_FROM_SECRET>"
 
 # Đọc secret
 kubectl exec -n vault vault-0 -- vault kv get secret/test
@@ -383,4 +383,4 @@ kubectl exec -n vault vault-0 -- vault kv delete secret/test
 | 7 | Root token revoked | `vault token revoke <root_token>` | Token revoked |
 | 8 | Audit enabled | `vault audit list` | Audit device active |
 
-> ⚠️ **Bước tiếp theo**: Sau khi cài đặt thành công, tiến hành [Cấu hình](configuration.md) secrets engines, auth methods và policies cho từng service.
+> **Bước tiếp theo**: Sau khi cài đặt thành công, tiến hành [Cấu hình](configuration.md) secrets engines, auth methods và policies cho từng service.

@@ -9,8 +9,8 @@ Dify tích hợp sẵn Langfuse từ version 0.6.12+. Chỉ cần cấu hình en
 1. Truy cập Langfuse Dashboard → **Project Settings → API Keys**
 2. Tạo API key pair mới
 3. Ghi lại:
-   - **Public Key**: `pk-lf-xxxxxxxx`
-   - **Secret Key**: `sk-lf-xxxxxxxx`
+    - **Public Key**: `<LANGFUSE_PUBLIC_KEY>`
+    - **Secret Key**: `<LANGFUSE_SECRET_KEY_FROM_SECRET>`
 
 ### Bước 2: Cấu Hình Trong Dify
 
@@ -18,8 +18,8 @@ Thêm vào `.env` của Dify:
 
 ```bash
 # === Langfuse Integration ===
-LANGFUSE_PUBLIC_KEY=pk-lf-your-public-key
-LANGFUSE_SECRET_KEY=sk-lf-your-secret-key
+LANGFUSE_PUBLIC_KEY=<LANGFUSE_PUBLIC_KEY>
+LANGFUSE_SECRET_KEY=<LANGFUSE_SECRET_KEY_FROM_SECRET>
 LANGFUSE_HOST=http://langfuse.your-domain.com
 ```
 
@@ -45,8 +45,8 @@ pip install langfuse
 ### Cấu Hình Environment
 
 ```bash
-export LANGFUSE_PUBLIC_KEY=pk-lf-your-public-key
-export LANGFUSE_SECRET_KEY=sk-lf-your-secret-key
+export LANGFUSE_PUBLIC_KEY=<LANGFUSE_PUBLIC_KEY>
+export LANGFUSE_SECRET_KEY=<LANGFUSE_SECRET_KEY_FROM_SECRET>
 export LANGFUSE_HOST=http://langfuse.your-domain.com
 ```
 
@@ -59,7 +59,7 @@ from openai import OpenAI
 langfuse = get_client()
 client = OpenAI(
     base_url="http://vllm-host:8010/v1",
-    api_key="token-abc123"
+    api_key="<VLLM_API_KEY_FROM_SECRET>"
 )
 
 @observe()
@@ -105,7 +105,7 @@ from langfuse.openai import OpenAI  # Drop-in replacement
 
 client = OpenAI(
     base_url="http://vllm-host:8010/v1",
-    api_key="token-abc123"
+    api_key="<VLLM_API_KEY_FROM_SECRET>"
 )
 
 # Tự động trace tất cả OpenAI calls
@@ -121,10 +121,10 @@ response = client.chat.completions.create(
 
 | Biến | Mô Tả | Bắt buộc |
 |---|---|---|
-| `DATABASE_URL` | PostgreSQL connection string | ✅ |
-| `NEXTAUTH_SECRET` | Session encryption key | ✅ |
-| `NEXTAUTH_URL` | Public URL của Langfuse | ✅ |
-| `SALT` | Salt cho API key hashing | ✅ |
+| `DATABASE_URL` | PostgreSQL connection string | Có |
+| `NEXTAUTH_SECRET` | Session encryption key | Có |
+| `NEXTAUTH_URL` | Public URL của Langfuse | Có |
+| `SALT` | Salt cho API key hashing | Có |
 
 ### Authentication
 

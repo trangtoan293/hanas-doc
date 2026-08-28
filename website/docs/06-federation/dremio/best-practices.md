@@ -5,7 +5,7 @@
 ### 1.1 Tổ Chức Spaces
 
 ```
-✅ ĐÚNG — Tổ chức theo domain nghiệp vụ
+ĐÚNG — Tổ chức theo domain nghiệp vụ
 DATA_MART/
 ├── PL/              # Profit & Loss
 ├── DP/              # Deposits
@@ -13,7 +13,7 @@ DATA_MART/
 ├── BACKDATE/        # Backdate tables
 └── DIMENSIONS/      # Shared dimensions
 
-❌ SAI — Flat structure không phân nhóm
+SAI — Flat structure không phân nhóm
 DATA_MART/
 ├── FACT_PL_DETAIL
 ├── FACT_PL_SUMMARY
@@ -35,7 +35,7 @@ DATA_MART/
 ### 1.3 Virtual Dataset Design Patterns
 
 ```sql
--- ✅ Pattern 1: Thin view — ánh xạ trực tiếp, chọn columns cần thiết
+-- Pattern 1: Thin view — ánh xạ trực tiếp, chọn columns cần thiết
 CREATE VDS DATA_MART.FACT_PL_DETAIL AS
 SELECT
     transaction_id,
@@ -45,7 +45,7 @@ SELECT
     currency
 FROM hive_catalog.data_mart.fact_pl_detail;
 
--- ✅ Pattern 2: Business logic view — encapsulate logic nghiệp vụ
+-- Pattern 2: Business logic view — encapsulate logic nghiệp vụ
 CREATE VDS DATA_MART.FACT_PL_SUMMARY AS
 SELECT
     DATE_TRUNC('MONTH', transaction_date) AS month,
@@ -56,7 +56,7 @@ SELECT
 FROM hive_catalog.data_mart.fact_pl_detail
 GROUP BY DATE_TRUNC('MONTH', transaction_date), branch_code;
 
--- ❌ SAI — SELECT * không filter, không alias
+-- SAI — SELECT * không filter, không alias
 CREATE VDS DATA_MART.MY_VIEW AS
 SELECT * FROM hive_catalog.data_mart.fact_pl_detail;
 ```
@@ -132,13 +132,13 @@ executor:
 ### 2.3 Query Optimization Tips
 
 ```sql
--- ✅ ĐÚNG — Predicate pushdown: filter TRƯỚC join
+-- ĐÚNG — Predicate pushdown: filter TRƯỚC join
 SELECT f.*, d.customer_name
 FROM DATA_MART.FACT_PL_DETAIL f
 JOIN DATA_MART.DIM_CUSTOMER d ON f.customer_id = d.customer_id
 WHERE f.transaction_date >= '2025-01-01';
 
--- ❌ SAI — Filter SAU join → scan toàn bộ trước
+-- SAI — Filter SAU join → scan toàn bộ trước
 SELECT * FROM (
     SELECT f.*, d.customer_name
     FROM DATA_MART.FACT_PL_DETAIL f
@@ -162,17 +162,17 @@ WHERE t.transaction_date >= '2025-01-01';
 ### 3.1 Quản Lý Credentials
 
 ```
-✅ ĐÚNG — Credentials trong Airflow Variables
+ĐÚNG — Credentials trong Airflow Variables
 password = Variable.get('dremio_password')
 
-✅ ĐÚNG — K8s Secrets cho Helm values
+ĐÚNG — K8s Secrets cho Helm values
 kubectl create secret generic dremio-minio-creds ...
 
-❌ SAI — Hardcode trong code
-password = 'my_secret_password'
+SAI — Hardcode trong code
+password = '<HARDCODED_PASSWORD_EXAMPLE>'
 
-❌ SAI — Commit vào Git
-dremio_password: plain_text_password
+SAI — Commit vào Git
+dremio_password: <PLAINTEXT_PASSWORD_EXAMPLE>
 ```
 
 ### 3.2 Access Control Strategy

@@ -41,7 +41,7 @@ from openai import OpenAI
 
 client = OpenAI(
     base_url="http://localhost:8010/v1",
-    api_key="token-abc123"  # vLLM không bắt buộc API key
+    api_key="<VLLM_API_KEY_FROM_SECRET>"  # vLLM không bắt buộc API key
 )
 
 response = client.chat.completions.create(
@@ -103,7 +103,7 @@ curl -X POST http://localhost:8017/v1/embeddings \
 ```python
 client_embed = OpenAI(
     base_url="http://localhost:8017/v1",
-    api_key="token-abc123"
+    api_key="<VLLM_API_KEY_FROM_SECRET>"
 )
 
 response = client_embed.embeddings.create(

@@ -4,7 +4,7 @@
 
 ---
 
-## 🏗️ Cấu Trúc Repository
+## Cấu Trúc Repository
 
 ```
 hanas_docs/
@@ -19,19 +19,16 @@ hanas_docs/
 │   ├── 07-system-management/# Quản trị hệ thống
 │   ├── 08-infrastructure/  # Hạ tầng & triển khai
 │   ├── 09-security/        # An toàn thông tin
-│   ├── 10-training/        # Đào tạo
-│   ├── 11-maintenance/     # Bảo hành & bảo trì
 │   ├── 12-ai-service/      # Lớp AI Service (Dify, vLLM, Langfuse)
 │   └── guides/             # Hướng dẫn thực hành
 ├── docs/                    # Tài liệu gốc (backup/sync từ website/docs)
 ├── website/                 # Docusaurus website source
-├── Nguyen_ly_thiet_ke.md   # Nguyên lý thiết kế hệ thống
 └── docker-compose.yml      # Docker setup
 ```
 
 ---
 
-## 🚀 Bắt Đầu Nhanh
+## Bắt Đầu Nhanh
 
 ### Yêu Cầu
 
@@ -56,7 +53,7 @@ Xem thêm chi tiết tại [DOCKER.md](./DOCKER.md).
 
 ---
 
-## 📚 Mục Lục Tài Liệu
+## Mục Lục Tài Liệu
 
 ### [00 - Tổng Quan Platform](website/docs/00-overview/README.md)
 - [Kiến trúc tổng thể](website/docs/00-overview/architecture.md)
@@ -80,7 +77,7 @@ Xem thêm chi tiết tại [DOCKER.md](./DOCKER.md).
 - [Apache Iceberg](website/docs/02-storage/apache-iceberg/) — Open Table Format
 
 ### [03 - Lớp Xử Lý Dữ Liệu](website/docs/03-processing/README.md)
-- [Apache Airflow](website/docs/03-processing/apache-airflow/) — Orchestration & Scheduling
+- [Apache Airflow](website/docs/14-orchestration/apache-airflow/) — Orchestration & Scheduling
 - [Apache Spark](website/docs/03-processing/apache-spark/) — Distributed Compute Engine
 
 ### [04 - Lớp Mô Hình Dữ Liệu](website/docs/04-data-model/README.md)
@@ -94,38 +91,30 @@ Xem thêm chi tiết tại [DOCKER.md](./DOCKER.md).
 ### [06 - Lớp Liên Kết Dữ Liệu](website/docs/06-federation/README.md)
 - [Dremio](website/docs/06-federation/dremio/) — Query Engine, Semantic Layer
 
-### [07 - Lớp Quản Trị Hệ Thống](website/docs/07-system-management/README.md)
+### [07 - Lớp Trực Quan Hóa](website/docs/13-visualization/README.md)
+- [Apache Superset](website/docs/13-visualization/apache-superset/) — Dashboard và BI
+
+### [08 - Lớp Quản Trị Hệ Thống](website/docs/07-system-management/README.md)
 - [OpenObserve](website/docs/07-system-management/openobserve/) — Logging, Metrics, Tracing
 
-### [08 - Hạ Tầng & Triển Khai](website/docs/08-infrastructure/README.md)
+### [09 - Hạ Tầng & Triển Khai](website/docs/08-infrastructure/README.md)
 - [Kubernetes](website/docs/08-infrastructure/kubernetes/) — Container Orchestration
 - [DC-DR](website/docs/08-infrastructure/dc-dr/) — Disaster Recovery
 - [Sơ đồ triển khai](website/docs/08-infrastructure/deployment-diagram.md)
 
-### [09 - An Toàn Thông Tin](website/docs/09-security/README.md)
+### [10 - An Toàn Thông Tin](website/docs/09-security/README.md)
 - [Apache Ranger](website/docs/09-security/apache-ranger/) — Authorization & Access Control
 - [HashiCorp Vault](website/docs/09-security/hashicorp-vault/) — Secrets Management
 - [Authentication](website/docs/09-security/authentication.md)
 - [Authorization](website/docs/09-security/authorization.md)
 
-### [10 - Đào Tạo & Chuyển Giao](website/docs/10-training/README.md)
-- [System Admin Training](website/docs/10-training/system-admin-training.md)
-- [Data Governance Training](website/docs/10-training/data-governance-training.md)
-- [Data Processing Training](website/docs/10-training/data-processing-training.md)
-- [Data Consumer Training](website/docs/10-training/data-consumer-training.md)
-
-### [11 - Bảo Hành & Bảo Trì](website/docs/11-maintenance/README.md)
-- [Quy trình bảo hành](website/docs/11-maintenance/warranty-process.md)
-- [Quy trình bảo trì](website/docs/11-maintenance/maintenance-process.md)
-- [SLA](website/docs/11-maintenance/sla.md)
-
-### [12 - Lớp AI Service](website/docs/12-ai-service/README.md)
+### [11 - Lớp AI Service](website/docs/12-ai-service/README.md)
 AI Workflow, Inference & Observability — Mở rộng platform với khả năng AI.
 - [Dify](website/docs/12-ai-service/dify/) — AI Workflow Platform (chatbot, RAG, agent)
 - [vLLM](website/docs/12-ai-service/vllm/) — LLM Inference Engine (OpenAI-compatible API)
 - [Langfuse](website/docs/12-ai-service/langfuse/) — LLM Observability (tracing, evaluation)
 
-### [📘 Hướng Dẫn Thực Hành](website/docs/guides/README.md)
+### [Hướng Dẫn Thực Hành](website/docs/guides/README.md)
 - [Quickstart](website/docs/guides/quickstart.md) — Dựng environment + data flow đầu tiên
 - [End-to-End Tutorial](website/docs/guides/end-to-end-tutorial.md) — Oracle → NiFi → Spark → dbt → Dremio → BI
 - [Integration Guides](website/docs/guides/integration/) — Cách các service kết nối nhau
@@ -134,47 +123,39 @@ AI Workflow, Inference & Observability — Mở rộng platform với khả năn
 
 ---
 
-## 📊 Danh Mục Services
+## Danh Mục Services
 
 | Lớp | Service | Vai Trò | Status |
 |---|---|---|---|
-| **Ingestion** | Apache NiFi | Thu thập batch, ETL visual | ✅ Documented |
-| **Ingestion** | Apache Kafka | Streaming, real-time | ✅ Documented |
-| **Storage** | MinIO | Object Storage (S3-compatible) | ✅ Documented |
-| **Storage** | Apache Iceberg | Open Table Format | ✅ Documented |
-| **Processing** | Apache Airflow | Orchestration, scheduling | ✅ Documented |
-| **Processing** | Apache Spark | Distributed compute engine | ✅ Documented |
-| **Data Model** | dbt | SQL-based transformation | ✅ Documented |
-| **Governance** | DataHub | Metadata, catalog, lineage | ✅ Documented |
-| **Federation** | Dremio | Query engine, semantic layer | ✅ Documented |
-| **System Mgmt** | OpenObserve | Logging, metrics, tracing | ✅ Documented |
-| **Security** | Apache Ranger | Authorization, access control | ✅ Documented |
-| **Security** | HashiCorp Vault | Secrets management | ✅ Documented |
-| **Infra** | Kubernetes | Container orchestration | ✅ Documented |
-| **Infra** | Velero | K8s backup & recovery | ✅ Documented |
-| **AI Service** | Dify | AI Workflow Platform | ✅ Documented |
-| **AI Service** | vLLM | LLM Inference Engine | ✅ Documented |
-| **AI Service** | Langfuse | LLM Observability | ✅ Documented |
+| **Ingestion** | Apache NiFi | Thu thập batch, ETL visual | Documented |
+| **Ingestion** | Apache Kafka | Streaming, real-time | Documented |
+| **Storage** | MinIO | Object Storage (S3-compatible) | Documented |
+| **Storage** | Apache Iceberg | Open Table Format | Documented |
+| **Processing** | Apache Airflow | Orchestration, scheduling | Documented |
+| **Processing** | Apache Spark | Distributed compute engine | Documented |
+| **Data Model** | dbt | SQL-based transformation | Documented |
+| **Governance** | DataHub | Metadata, catalog, lineage | Documented |
+| **Federation** | Dremio | Query engine, semantic layer | Documented |
+| **System Mgmt** | OpenObserve | Logging, metrics, tracing | Documented |
+| **Security** | Apache Ranger | Authorization, access control | Documented |
+| **Security** | HashiCorp Vault | Secrets management | Documented |
+| **Infra** | Kubernetes | Container orchestration | Documented |
+| **Infra** | Velero | K8s backup & recovery | Documented |
+| **AI Service** | Dify | AI Workflow Platform | Documented |
+| **AI Service** | vLLM | LLM Inference Engine | Documented |
+| **AI Service** | Langfuse | LLM Observability | Documented |
 
 ---
 
-## 🛠️ Tài Nguyên Bổ Sung
+## Tài Nguyên Bổ Sung
 
-### 📦 Packages
-- [ktl_airflow_utils](website/docs/package/ktl_airflow_utils/) — Utilities cho Apache Airflow
-
-### 🤖 Tài Liệu Tham Khảo AI
-- [Dify README](website/docs/ref_AI/Dify_README.md)
-- [Use Cases](website/docs/ref_AI/use_case.md)
-- [vLLM Docker Setup](website/docs/ref_AI/vllm_docker/)
-
-### 📄 Tài Liệu Thiết Kế
-- [Nguyên lý thiết kế (PDF)](website/docs/Nguyen_ly_thiet_ke.pdf)
-- [Nguyên lý thiết kế (Markdown)](website/docs/Nguyen_ly_thiet_ke.md)
+### Tài Liệu Tham Khảo
+- [Baseline triển khai](website/docs/00-overview/platform-baseline.md) — Phiên bản, endpoint, sizing, SLA và thông tin cần chốt
+- [Tài liệu thuyết minh giải pháp kỹ thuật](website/docs/Thuyet%20minh%20giai%20phap%20ky%20thuat%20202602111.docx) — Tài liệu nguồn/đối chiếu nội bộ
 
 ---
 
-## 🌐 Website
+## Website
 
 Tài liệu được xây dựng bằng [Docusaurus](https://docusaurus.io/) và được tự động deploy.
 
@@ -187,7 +168,7 @@ npm start
 
 ---
 
-## 🤝 Đóng Góp
+## Đóng Góp
 
 1. Fork repository
 2. Tạo branch feature (`git checkout -b feature/amazing-feature`)
@@ -197,6 +178,6 @@ npm start
 
 ---
 
-## 📄 License
+## License
 
 Copyright © 2024 Hanas Data Platform. All rights reserved.

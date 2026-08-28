@@ -17,17 +17,17 @@
 
 | Hanas Service | Version | Tương thích Superset 4.1.x | Giao thức |
 |---|---|---|---|
-| **Dremio** | 25.x | ✅ Tương thích | Arrow Flight (sqlalchemy_dremio) |
-| **MinIO** | RELEASE.2024-x | ✅ Gián tiếp qua Dremio | — |
-| **Apache Iceberg** | 1.4+ | ✅ Gián tiếp qua Dremio | — |
-| **Apache Airflow** | 2.8+ | ✅ REST API integration | HTTP |
-| **Apache Kafka** | 3.6+ | ✅ Gián tiếp (Kafka → Iceberg → Dremio → Superset) | — |
-| **Apache Spark** | 3.5+ | ✅ Gián tiếp qua Dremio | — |
-| **dbt** | 1.7+ | ✅ Gián tiếp (dbt → Iceberg → Dremio → Superset) | — |
-| **DataHub** | 0.12+ | ✅ Metadata ingestion | REST API |
-| **Apache Ranger** | 2.4+ | ✅ Security policies qua Dremio | — |
-| **HashiCorp Vault** | 1.15+ | ✅ Secrets management | Vault Agent Injector |
-| **OpenObserve** | 0.9+ | ✅ Monitoring | Logs, Metrics |
+| **Dremio** | 25.x | Tương thích | Arrow Flight (sqlalchemy_dremio) |
+| **MinIO** | RELEASE.2024-x | Gián tiếp qua Dremio | — |
+| **Apache Iceberg** | 1.4+ | Gián tiếp qua Dremio | — |
+| **Apache Airflow** | 2.8+ | REST API integration | HTTP |
+| **Apache Kafka** | 3.6+ | Gián tiếp (Kafka → Iceberg → Dremio → Superset) | — |
+| **Apache Spark** | 3.5+ | Gián tiếp qua Dremio | — |
+| **dbt** | 1.7+ | Gián tiếp (dbt → Iceberg → Dremio → Superset) | — |
+| **DataHub** | 0.12+ | Metadata ingestion | REST API |
+| **Apache Ranger** | 2.4+ | Security policies qua Dremio | — |
+| **HashiCorp Vault** | 1.15+ | Secrets management | Vault Agent Injector |
+| **OpenObserve** | 0.9+ | Monitoring | Logs, Metrics |
 
 ### Superset ↔ Database Drivers
 
@@ -123,7 +123,7 @@ kubectl get pods -n superset -w
 
 ## Roadmap
 
-> ⚠️ Roadmap chỉ mang tính tham khảo, không phải cam kết của Apache Superset project.
+> **Cảnh báo:** Roadmap chỉ mang tính tham khảo, không phải cam kết của Apache Superset project.
 
 ### Superset 5.0 (June 2025)
 

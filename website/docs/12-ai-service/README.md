@@ -21,7 +21,7 @@ flowchart TB
     end
 
     subgraph AIService["AI Service Layer"]
-        subgraph Inference["⚡ Inference Engine"]
+        subgraph Inference["Inference Engine"]
             vLLM["vLLM Server<br/>OpenAI-compatible API"]
             LLM["LLM<br/>Qwen3-14B-AWQ"]
             Embed["Embedding<br/>BGE-M3"]

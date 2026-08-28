@@ -84,9 +84,9 @@ curl -s http://connect:8083/connectors/DEMO_GROUP3/status | jq .
 
 # Output mong đợi:
 # {
-#   "name": "DEMO_GROUP3",
-#   "connector": { "state": "RUNNING", "worker_id": "connect:8083" },
-#   "tasks": [{ "id": 0, "state": "RUNNING" }]
+# "name": "DEMO_GROUP3",
+# "connector": { "state": "RUNNING", "worker_id": "connect:8083" },
+# "tasks": [{ "id": 0, "state": "RUNNING" }]
 # }
 
 # Config hiện tại
@@ -174,9 +174,9 @@ kafka-consumer-groups.sh --bootstrap-server kafka:9092 \
   --describe --group consum_sink_demo_group2
 
 # Output:
-# GROUP                     TOPIC                              PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG
-# consum_sink_demo_group2   ORACLE.DEMO_LAKE.TBL_TRANSACTION   0          1500            1520            20
-# consum_sink_demo_group2   ORACLE.DEMO_LAKE.TBL_TRANSACTION   1          1480            1480            0
+# GROUP TOPIC PARTITION CURRENT-OFFSET LOG-END-OFFSET LAG
+# consum_sink_demo_group2 ORACLE.DEMO_LAKE.TBL_TRANSACTION 0 1500 1520 20
+# consum_sink_demo_group2 ORACLE.DEMO_LAKE.TBL_TRANSACTION 1 1480 1480 0
 ```
 
 ### 4.2 Reset Offset
@@ -195,7 +195,7 @@ kafka-consumer-groups.sh --bootstrap-server kafka:9092 \
   --reset-offsets --to-datetime "2026-03-01T00:00:00.000" --execute
 ```
 
-> ⚠️ **Phải stop connector/consumer trước khi reset offset.** Nếu không, offset sẽ bị overwrite bởi consumer đang chạy.
+> **Cảnh báo:** **Phải stop connector/consumer trước khi reset offset.** Nếu không, offset sẽ bị overwrite bởi consumer đang chạy.
 
 ---
 

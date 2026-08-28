@@ -10,7 +10,7 @@ flowchart LR
         Dremio[Dremio]
     end
 
-    subgraph L13["Lớp Visualization"]
+    subgraph L7["Lớp Visualization / Consumption"]
         Superset[Apache Superset]
     end
 
@@ -28,7 +28,7 @@ flowchart LR
     Superset -->|Embedded SDK| App
 
     style L6 fill:#e0f7fa,stroke:#00838f
-    style L13 fill:#e8eaf6,stroke:#3f51b5,stroke-width:3px
+    style L7 fill:#e8eaf6,stroke:#3f51b5,stroke-width:3px
     style Users fill:#f3e5f5,stroke:#7b1fa2
 ```
 

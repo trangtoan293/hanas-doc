@@ -333,9 +333,9 @@ services:
       - "8443:8443"
     environment:
       NIFI_WEB_HTTPS_PORT: "8443"
-      SINGLE_USER_CREDENTIALS_USERNAME: admin
-      SINGLE_USER_CREDENTIALS_PASSWORD: "Hanas@NiFi2024"
-      NIFI_SENSITIVE_PROPS_KEY: "hanas-nifi-secret-key-12345"
+      SINGLE_USER_CREDENTIALS_USERNAME: ${NIFI_ADMIN_USER:?Set NIFI_ADMIN_USER in .env}
+      SINGLE_USER_CREDENTIALS_PASSWORD: ${NIFI_ADMIN_PASSWORD:?Set NIFI_ADMIN_PASSWORD in .env}
+      NIFI_SENSITIVE_PROPS_KEY: ${NIFI_SENSITIVE_PROPS_KEY:?Set a random key in .env}
       NIFI_JVM_HEAP_INIT: "2g"
       NIFI_JVM_HEAP_MAX: "4g"
     volumes:
@@ -381,7 +381,7 @@ docker compose -f docker-compose-nifi.yml ps
 docker compose -f docker-compose-nifi.yml logs -f nifi
 ```
 
-> **Truy cập**: https://localhost:8443/nifi — Login: `admin` / `Hanas@NiFi2024`
+> **Truy cập**: https://localhost:8443/nifi — Login: credential từ `.env`/Secret (`NIFI_ADMIN_USER`, `NIFI_ADMIN_PASSWORD`)
 
 ---
 
@@ -391,11 +391,11 @@ docker compose -f docker-compose-nifi.yml logs -f nifi
 
 ```bash
 # Health check (Single User mode — chấp nhận self-signed cert)
-curl -k -u admin:Hanas@NiFi2024 \
+curl -k -u "$NIFI_ADMIN_USER:$NIFI_ADMIN_PASSWORD" \
   https://localhost:8443/nifi-api/system-diagnostics
 
 # Kiểm tra cluster status
-curl -k -u admin:Hanas@NiFi2024 \
+curl -k -u "$NIFI_ADMIN_USER:$NIFI_ADMIN_PASSWORD" \
   https://localhost:8443/nifi-api/controller/cluster
 ```
 
@@ -441,8 +441,8 @@ open http://localhost:18080/nifi-registry
 # 1. Tạo Controller Service: AWSCredentialsProviderControllerService
 # 2. Cấu hình Access Key / Secret Key cho MinIO
 # 3. Kéo processor PutS3Object, cấu hình:
-#    - Endpoint Override URL: http://<minio-host>:9000
-#    - Bucket: data
+# - Endpoint Override URL: http://<minio-host>:9000
+# - Bucket: data
 # 4. Verify connection thành công
 ```
 

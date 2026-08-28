@@ -8,10 +8,11 @@
 |-----------|---------|
 | **URL** | `http://ranger-admin.security.svc:6080` |
 | **Port-forward** | `kubectl port-forward svc/ranger-admin -n security 6080:6080` |
-| **Admin mặc định** | `admin` / `rangerR0cks!` |
-| **Keyadmin** | `keyadmin` / `rangerR0cks!` (cho KMS) |
+| **Admin user** | `<RANGER_ADMIN_USER>` |
+| **Admin password** | `<FROM_SECRET_MANAGER>` |
+| **Keyadmin** | `<RANGER_KEYADMIN_USER>` / `<FROM_SECRET_MANAGER>` (cho KMS) |
 
-> **Quan trọng**: Đổi password mặc định ngay sau lần đăng nhập đầu tiên tại **Settings → Users → admin → Change Password**.
+> **Quan trọng**: Không dùng credential mặc định. Tạo admin/keyadmin qua Secret manager, bật SSO nếu được hỗ trợ và rotate theo chính sách.
 
 ### 1.2 Giao Diện Chính
 
@@ -118,10 +119,10 @@ flowchart TB
 
 | # | User/Group | Permissions | Delegate Admin |
 |---|-----------|-------------|----------------|
-| 1 | Group: `data_engineers` | Select, Update, Create, Drop, Alter, Index, Lock | ❌ |
-| 2 | Group: `data_analysts` | Select | ❌ |
-| 3 | User: `airflow_svc` | All | ✅ |
-| 4 | User: `spark_svc` | All | ❌ |
+| 1 | Group: `data_engineers` | Select, Update, Create, Drop, Alter, Index, Lock | Không |
+| 2 | Group: `data_analysts` | Select | Không |
+| 3 | User: `airflow_svc` | All | Có |
+| 4 | User: `spark_svc` | All | Không |
 
 4. Click **Add** để lưu policy.
 
@@ -316,7 +317,7 @@ Truy cập **Audit tab** trong Ranger Admin UI:
 |-----|---------|-------|
 | **Access** | Toàn bộ access requests (allow/deny) | User `analyst1` SELECT on `data_mart.dim_customer` → Allowed |
 | **Admin** | Thay đổi policies, users, groups | Admin tạo policy mới cho Kafka |
-| **Login Sessions** | Lịch sử đăng nhập Ranger UI | User `admin` login from 10.0.1.5 |
+| **Login Sessions** | Lịch sử đăng nhập Ranger UI | User `<RANGER_USER>` login from `<CLIENT_IP>` |
 | **Plugins** | Trạng thái plugins | `kafka_hanas` last policy download: 30s ago |
 | **Plugin Status** | Chi tiết health của mỗi plugin | Active, last heartbeat timestamp |
 
@@ -351,37 +352,39 @@ Ranger cung cấp các báo cáo tích hợp:
 ### 8.1 API Thường Dùng
 
 ```bash
-# Base URL
-BASE=http://ranger-admin.security.svc:6080
+# Base URL và credential lấy từ Secret/Vault hoặc biến môi trường bảo vệ
+BASE="${RANGER_ADMIN_BASE_URL:?Set RANGER_ADMIN_BASE_URL}"
+RANGER_ADMIN_USER="${RANGER_ADMIN_USER:?Set RANGER_ADMIN_USER}"
+RANGER_ADMIN_PASSWORD="${RANGER_ADMIN_PASSWORD:?Set RANGER_ADMIN_PASSWORD}"
 
 # Liệt kê tất cả services
-curl -u admin:password "$BASE/service/public/v2/api/service"
+curl --user "${RANGER_ADMIN_USER}:${RANGER_ADMIN_PASSWORD}" "$BASE/service/public/v2/api/service"
 
 # Liệt kê policies của một service
-curl -u admin:password "$BASE/service/public/v2/api/service/kafka_hanas/policy"
+curl --user "${RANGER_ADMIN_USER}:${RANGER_ADMIN_PASSWORD}" "$BASE/service/public/v2/api/service/kafka_hanas/policy"
 
 # Tạo policy mới
-curl -u admin:password -X POST -H "Content-Type: application/json" \
+curl --user "${RANGER_ADMIN_USER}:${RANGER_ADMIN_PASSWORD}" -X POST -H "Content-Type: application/json" \
   "$BASE/service/public/v2/api/policy" \
   -d @policy.json
 
 # Xóa policy
-curl -u admin:password -X DELETE \
+curl --user "${RANGER_ADMIN_USER}:${RANGER_ADMIN_PASSWORD}" -X DELETE \
   "$BASE/service/public/v2/api/policy/<policy_id>"
 
 # Liệt kê users
-curl -u admin:password "$BASE/service/xusers/users"
+curl --user "${RANGER_ADMIN_USER}:${RANGER_ADMIN_PASSWORD}" "$BASE/service/xusers/users"
 
 # Liệt kê roles
-curl -u admin:password "$BASE/service/roles/roles"
+curl --user "${RANGER_ADMIN_USER}:${RANGER_ADMIN_PASSWORD}" "$BASE/service/roles/roles"
 
 # Export tất cả policies (backup)
-curl -u admin:password \
+curl --user "${RANGER_ADMIN_USER}:${RANGER_ADMIN_PASSWORD}" \
   "$BASE/service/plugins/policies/exportJson?serviceName=hive_hanas" \
   -o hive_policies_backup.json
 
 # Import policies
-curl -u admin:password -X POST \
+curl --user "${RANGER_ADMIN_USER}:${RANGER_ADMIN_PASSWORD}" -X POST \
   -H "Content-Type: multipart/form-data" \
   -F "file=@hive_policies_backup.json" \
   "$BASE/service/plugins/policies/importPoliciesFromFile?serviceName=hive_hanas"
@@ -412,8 +415,8 @@ kubectl logs -n security deployment/ranger-admin -f
 kubectl logs -n security deployment/ranger-usersync -f
 
 # Kiểm tra plugin status qua API
-curl -u admin:password \
-  "http://ranger-admin.security.svc:6080/service/public/v2/api/plugins/info"
+curl --user "${RANGER_ADMIN_USER}:${RANGER_ADMIN_PASSWORD}" \
+  "$BASE/service/public/v2/api/plugins/info"
 ```
 
 ### 9.3 Debug Policy Evaluation

@@ -48,14 +48,14 @@
 
 | Component | Tương Thích | Ghi Chú |
 |-----------|-------------|---------|
-| **MinIO** | ✅ | Kafka Connect S3 Sink → MinIO |
-| **Apache Iceberg** | ✅ | Kafka → Spark Structured Streaming → Iceberg |
-| **Apache Spark** | ✅ | Spark Streaming consumer, batch consumer |
-| **Apache Airflow** | ✅ | KafkaSensor, KafkaTrigger, DAG scheduling |
-| **Apache NiFi** | ✅ | ConsumeKafka processor, PublishKafka processor |
-| **DataHub** | ✅ | Kafka metadata ingestion, lineage tracking |
-| **Dremio** | ⚠️ | Dremio đọc Iceberg tables (không đọc Kafka trực tiếp) |
-| **OpenObserve** | ✅ | JMX metrics → Prometheus → OpenObserve |
+| **MinIO** | Có | Kafka Connect S3 Sink → MinIO |
+| **Apache Iceberg** | Có | Kafka → Spark Structured Streaming → Iceberg |
+| **Apache Spark** | Có | Spark Streaming consumer, batch consumer |
+| **Apache Airflow** | Có | KafkaSensor, KafkaTrigger, DAG scheduling |
+| **Apache NiFi** | Có | ConsumeKafka processor, PublishKafka processor |
+| **DataHub** | Có | Kafka metadata ingestion, lineage tracking |
+| **Dremio** | Hạn chế | Dremio đọc Iceberg tables (không đọc Kafka trực tiếp) |
+| **OpenObserve** | Có | JMX metrics → Prometheus → OpenObserve |
 
 ### Debezium Connector Compatibility
 
@@ -71,14 +71,14 @@
 
 | Protocol/Format | Kafka | Confluent | Debezium |
 |-----------------|-------|-----------|----------|
-| **Avro** | ✅ | ✅ (Schema Registry) | ✅ |
-| **Protobuf** | ✅ | ✅ (Schema Registry) | ✅ |
-| **JSON** | ✅ | ✅ | ✅ (default) |
-| **JSON Schema** | ✅ | ✅ (Schema Registry) | ✅ |
-| **TLS/SSL** | ✅ | ✅ | ✅ |
-| **SASL/SCRAM** | ✅ | ✅ | ✅ |
-| **mTLS** | ✅ | ✅ | ✅ |
-| **ACL** | ✅ | ✅ (+ RBAC) | N/A |
+| **Avro** | Có | Có (Schema Registry) | Có |
+| **Protobuf** | Có | Có (Schema Registry) | Có |
+| **JSON** | Có | Có | Có (default) |
+| **JSON Schema** | Có | Có (Schema Registry) | Có |
+| **TLS/SSL** | Có | Có | Có |
+| **SASL/SCRAM** | Có | Có | Có |
+| **mTLS** | Có | Có | Có |
+| **ACL** | Có | Có (+ RBAC) | N/A |
 
 ---
 

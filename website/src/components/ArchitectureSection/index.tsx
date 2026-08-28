@@ -62,6 +62,14 @@ const layers: ArchitectureLayer[] = [
   {
     id: 'l7',
     number: 'L7',
+    name: 'Khai Thác',
+    nameEn: 'Consumption',
+    technologies: ['Dremio', 'Superset'],
+    description: 'Cung cấp dữ liệu, semantic layer và dashboard',
+  },
+  {
+    id: 'l8',
+    number: 'L8',
     name: 'AI Service',
     nameEn: 'AI Service',
     technologies: ['Dify', 'vLLM', 'Langfuse'],
@@ -130,10 +138,10 @@ const ArchitectureSection: React.FC = () => {
     <section className={styles.section}>
       <div className="container">
         <div className={styles.header}>
-          <h2 className={styles.title}>Kiến Trúc 7 Lớp</h2>
+          <h2 className={styles.title}>Kiến Trúc Nền Tảng</h2>
           <p className={styles.subtitle}>
             Hanas Data Platform được thiết kế theo kiến trúc phân tầng rõ ràng,
-            từ thu thập dữ liệu đến AI Service
+            từ thu thập và quản trị dữ liệu đến khai thác và AI Service
           </p>
         </div>
 

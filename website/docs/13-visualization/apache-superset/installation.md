@@ -8,11 +8,11 @@ Apache Superset bao gồm các components chính:
 
 | Component | Vai trò | Bắt buộc |
 |---|---|---|
-| **Superset App** | Flask backend + React frontend, xử lý API, render UI | ✅ Có |
-| **Metadata DB** | Lưu chart/dashboard definitions, users, permissions | ✅ Có (PostgreSQL) |
-| **Redis** | Cache query results, session store, Celery message broker | ✅ Có |
-| **Celery Worker** | Xử lý async queries, Alerts & Reports | ⚠️ Khuyến nghị |
-| **Celery Beat** | Scheduler cho Alerts & Reports, cache warmup | ⚠️ Khuyến nghị |
+| **Superset App** | Flask backend + React frontend, xử lý API, render UI | Có |
+| **Metadata DB** | Lưu chart/dashboard definitions, users, permissions | Có (PostgreSQL) |
+| **Redis** | Cache query results, session store, Celery message broker | Có |
+| **Celery Worker** | Xử lý async queries, Alerts & Reports | Khuyến nghị |
+| **Celery Beat** | Scheduler cho Alerts & Reports, cache warmup | Khuyến nghị |
 
 ### Yêu Cầu Resources
 
@@ -95,7 +95,7 @@ kubectl create secret generic superset-dremio-creds \
   --from-literal=DREMIO_PASS="<DREMIO_PASSWORD>"
 ```
 
-> ⚠️ **KHÔNG** hardcode credentials trong `values.yaml` hoặc commit vào Git. Sử dụng Kubernetes Secrets hoặc HashiCorp Vault.
+> **Cảnh báo:** **KHÔNG** hardcode credentials trong `values.yaml` hoặc commit vào Git. Sử dụng Kubernetes Secrets hoặc HashiCorp Vault.
 
 ### Step 4: Cấu Hình `values.yaml`
 
@@ -161,11 +161,11 @@ supersetCeleryFlower:
 init:
   adminUser:
     enabled: true
-    username: admin
-    firstname: Admin
-    lastname: Hanas
-    email: admin@hanas.vn
-    password: "<CHANGE_ME>"
+    username: "<SUPERSET_ADMIN_USER>"
+    firstname: "<ADMIN_FIRST_NAME>"
+    lastname: "<ORGANIZATION_NAME>"
+    email: "<ADMIN_EMAIL>"
+    password: "<SUPERSET_ADMIN_PASSWORD_FROM_SECRET>"
   initscript: |-
     #!/bin/bash
     echo "Installing database drivers..."
@@ -211,7 +211,7 @@ postgresql:
   enabled: true
   auth:
     username: superset
-    password: superset
+    password: <SUPERSET_DB_PASSWORD_FROM_SECRET>
     database: superset
   primary:
     persistence:
@@ -268,18 +268,18 @@ helm upgrade --install superset superset/superset \
 # Kiểm tra pods
 kubectl get pods -n superset
 # Expected:
-# superset-0                          1/1  Running
-# superset-1                          1/1  Running
-# superset-worker-0                   1/1  Running
-# superset-worker-1                   1/1  Running
-# superset-celerybeat-0               1/1  Running
-# superset-postgresql-0               1/1  Running
-# superset-redis-master-0             1/1  Running
+# superset-0 1/1 Running
+# superset-1 1/1 Running
+# superset-worker-0 1/1 Running
+# superset-worker-1 1/1 Running
+# superset-celerybeat-0 1/1 Running
+# superset-postgresql-0 1/1 Running
+# superset-redis-master-0 1/1 Running
 
 # Kiểm tra services
 kubectl get svc -n superset
 # Expected:
-# superset          ClusterIP   ...   8088/TCP
+# superset ClusterIP ... 8088/TCP
 
 # Kiểm tra ingress
 kubectl get ingress -n superset
@@ -311,7 +311,7 @@ services:
     ports:
       - "8088:8088"
     environment:
-      - SUPERSET_SECRET_KEY=hanas-dev-secret-key-change-in-production
+      - SUPERSET_SECRET_KEY=<SUPERSET_SECRET_KEY_FROM_SECRET>
       - DATABASE_URL=postgresql://superset:superset@postgres:5432/superset
       - REDIS_URL=redis://redis:6379/0
     depends_on:
@@ -324,7 +324,7 @@ services:
       bash -c "
         pip install sqlalchemy-dremio &&
         superset db upgrade &&
-        superset fab create-admin --username admin --firstname Admin --lastname Hanas --email admin@hanas.vn --password admin123 &&
+        superset fab create-admin --username <SUPERSET_ADMIN_USER> --firstname Admin --lastname Hanas --email <SUPERSET_ADMIN_EMAIL> --password <SUPERSET_ADMIN_PASSWORD_FROM_SECRET> &&
         superset init &&
         superset run -h 0.0.0.0 -p 8088
       "
@@ -333,8 +333,8 @@ services:
     image: postgres:15-alpine
     container_name: superset-postgres
     environment:
-      - POSTGRES_USER=superset
-      - POSTGRES_PASSWORD=superset
+      - POSTGRES_USER=<SUPERSET_DB_USER>
+      - POSTGRES_PASSWORD=<SUPERSET_DB_PASSWORD_FROM_SECRET>
       - POSTGRES_DB=superset
     volumes:
       - postgres-data:/var/lib/postgresql/data
@@ -351,7 +351,7 @@ services:
     image: apachesuperset.docker.scarf.sh/apache/superset:4.1.1
     container_name: superset-worker
     environment:
-      - SUPERSET_SECRET_KEY=hanas-dev-secret-key-change-in-production
+      - SUPERSET_SECRET_KEY=<SUPERSET_SECRET_KEY_FROM_SECRET>
       - DATABASE_URL=postgresql://superset:superset@postgres:5432/superset
       - REDIS_URL=redis://redis:6379/0
     depends_on:
@@ -364,7 +364,7 @@ services:
     image: apachesuperset.docker.scarf.sh/apache/superset:4.1.1
     container_name: superset-beat
     environment:
-      - SUPERSET_SECRET_KEY=hanas-dev-secret-key-change-in-production
+      - SUPERSET_SECRET_KEY=<SUPERSET_SECRET_KEY_FROM_SECRET>
       - DATABASE_URL=postgresql://superset:superset@postgres:5432/superset
       - REDIS_URL=redis://redis:6379/0
     depends_on:
@@ -450,7 +450,7 @@ docker logs superset-worker --tail=20
 ```bash
 # 1. Cập nhật image tag trong superset-values.yaml
 # image:
-#   tag: "4.1.2"
+# tag: "4.1.2"
 
 # 2. Apply upgrade
 helm upgrade superset superset/superset \
@@ -477,7 +477,7 @@ docker exec -it superset superset db upgrade
 docker exec -it superset superset init
 ```
 
-> ⚠️ **Lưu ý khi upgrade:**
+> **Lưu ý khi upgrade:**
 > - **Backup metadata database** (PostgreSQL) trước khi upgrade
 > - Đọc [UPDATING.md](https://github.com/apache/superset/blob/master/UPDATING.md) cho breaking changes
 > - Test trên staging environment trước

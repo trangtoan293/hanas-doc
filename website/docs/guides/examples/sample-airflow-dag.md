@@ -697,7 +697,7 @@ metadata:
 spec:
   type: Python
   mode: cluster
-  image: "trangtoan293/dbt-spark-k8s-ktl:ktl-dbt"
+  image: "<REGISTRY>/<NAMESPACE>/dbt-spark-k8s-ktl:<PINNED_TAG>"
   mainApplicationFile: "local:///opt/spark/work-dir/dbt-project/dbt-project/dbt_runner.py"
   arguments:
     - "--use-subprocess"

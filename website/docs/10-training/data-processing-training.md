@@ -51,7 +51,7 @@ curl -s http://connect:8083/connectors | jq .
 # Xem status Oracle CDC connector
 curl -s http://connect:8083/connectors/DEMO_GROUP3/status | jq .
 
-# Xem status Iceberg Sink connector  
+# Xem status Iceberg Sink connector
 curl -s http://connect:8083/connectors/DEMO_SINK_GROUP2/status | jq .
 
 # Kiểm tra consumer lag của sink
@@ -64,7 +64,7 @@ kafka-console-consumer.sh --bootstrap-server kafka:9092 \
   --from-beginning --max-messages 5
 ```
 
-📖 Tài liệu:
+Tài liệu:
 - [NiFi Documentation](../01-ingestion/apache-nifi/README.md)
 - [Kafka Documentation](../01-ingestion/apache-kafka/README.md)
 - [Kafka Configuration](../01-ingestion/apache-kafka/configuration.md)
@@ -124,8 +124,8 @@ with DAG(
     raw_vault_load >> business_vault_transform
 ```
 
-📖 Tài liệu:
-- [Airflow Documentation](../03-processing/apache-airflow/README.md)
+Tài liệu:
+- [Airflow Documentation](../14-orchestration/apache-airflow/README.md)
 - [Hướng dẫn Airflow + Spark Pipeline](../guides/integration/airflow-spark-pipeline.md)
 - [Mẫu Airflow DAG](../guides/examples/sample-airflow-dag.md)
 
@@ -154,7 +154,7 @@ spec:
   type: Python
   pythonVersion: "3"
   mode: cluster
-  image: hanas/spark:3.5.1
+  image: <REGISTRY>/<NAMESPACE>/spark:3.5.1
   mainApplicationFile: s3a://scripts/raw_vault_load.py
   sparkVersion: "3.5.1"
   sparkConf:
@@ -176,7 +176,7 @@ spec:
     memory: "4g"
 ```
 
-📖 Tài liệu:
+Tài liệu:
 - [Spark Documentation](../03-processing/apache-spark/README.md)
 - [Ví dụ Spark Job](../guides/examples/sample-spark-job.md)
 
@@ -234,7 +234,7 @@ SELECT
 FROM {{ source('landing', 'customers') }}
 ```
 
-📖 Tài liệu:
+Tài liệu:
 - [dbt & Data Vault](../04-data-model/README.md)
 - [Hướng dẫn dbt + Data Vault](../guides/integration/dbt-data-vault.md)
 - [Mẫu dbt Models](../guides/examples/sample-dbt-models.md)
@@ -272,7 +272,7 @@ models:
           - not_null
 ```
 
-📖 Tài liệu: [DataHub & Data Quality](../05-governance/datahub/README.md)
+Tài liệu: [DataHub & Data Quality](../05-governance/datahub/README.md)
 
 ---
 

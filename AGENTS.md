@@ -196,8 +196,8 @@ Sidebars use the object-based `SidebarsConfig` type. Doc IDs are **path-relative
 
 ```typescript
 // Folder: website/docs/01-ingestion/apache-nifi/installation.md
-// Doc ID: 'ingestion/apache-nifi/installation'   ✅
-// NOT:    '01-ingestion/apache-nifi/installation' ❌
+// Doc ID: 'ingestion/apache-nifi/installation'   (hợp lệ)
+// NOT:    '01-ingestion/apache-nifi/installation' (không hợp lệ)
 ```
 
 When adding a new page, add its doc ID to `sidebars.ts` in the correct category. Use `collapsed: true` for service categories (consistent with existing entries).

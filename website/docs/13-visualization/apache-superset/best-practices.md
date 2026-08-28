@@ -124,7 +124,7 @@ flowchart TD
 | SMTP Password | Kubernetes Secrets | `extraSecretEnv` |
 | Slack API Token | Kubernetes Secrets | `extraSecretEnv` |
 
-> ⚠️ **KHÔNG BAO GIỜ** hardcode secrets trong `superset_config.py`, `values.yaml`, hoặc commit vào Git.
+> **Cảnh báo:** **KHÔNG BAO GIỜ** hardcode secrets trong `superset_config.py`, `values.yaml`, hoặc commit vào Git.
 
 ### 4. Multi-layer Security
 
@@ -190,10 +190,10 @@ Giám sát Superset qua **OpenObserve**:
 
 | Component | Cần backup | Phương pháp | Tần suất |
 |---|---|---|---|
-| **PostgreSQL** | ✅ Charts, dashboards, users, permissions | `pg_dump` | Daily |
-| **Redis** | ⚠️ Nice-to-have (cache, tự rebuild) | RDB/AOF | Optional |
-| **superset_config.py** | ✅ Cấu hình | Git | Mỗi thay đổi |
-| **Helm values** | ✅ Deployment config | Git | Mỗi thay đổi |
+| **PostgreSQL** | Charts, dashboards, users, permissions | `pg_dump` | Daily |
+| **Redis** | Nice-to-have (cache, tự rebuild) | RDB/AOF | Optional |
+| **superset_config.py** | Cấu hình | Git | Mỗi thay đổi |
+| **Helm values** | Deployment config | Git | Mỗi thay đổi |
 
 ```bash
 # Backup PostgreSQL metadata

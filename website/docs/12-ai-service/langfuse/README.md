@@ -36,7 +36,7 @@ flowchart TB
         end
     end
 
-    subgraph Integration["🔗 Integration"]
+    subgraph Integration["Integration"]
         OpenObserve["OpenObserve<br/>(Hanas L7)"]
         Alert["Alerting<br/>Webhook/Email"]
     end

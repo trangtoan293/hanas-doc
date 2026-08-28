@@ -131,7 +131,7 @@ service:
   sessionAffinity: ClientIP
 ```
 
-> ⚠️ **KHÔNG** commit credentials vào Git. Sử dụng Kubernetes Secrets hoặc Vault:
+> **Cảnh báo:** **KHÔNG** commit credentials vào Git. Sử dụng Kubernetes Secrets hoặc Vault:
 >
 > ```bash
 > kubectl create secret generic dremio-minio-creds \
@@ -155,18 +155,18 @@ helm install dremio dremio_v2 \
 # Kiểm tra pods
 kubectl get pods -n dremio
 # Expected:
-# dremio-coordinator-0       1/1  Running
-# dremio-executor-0          1/1  Running
-# dremio-executor-1          1/1  Running
-# dremio-executor-2          1/1  Running
-# zk-0                       1/1  Running
-# zk-1                       1/1  Running
-# zk-2                       1/1  Running
+# dremio-coordinator-0 1/1 Running
+# dremio-executor-0 1/1 Running
+# dremio-executor-1 1/1 Running
+# dremio-executor-2 1/1 Running
+# zk-0 1/1 Running
+# zk-1 1/1 Running
+# zk-2 1/1 Running
 
 # Kiểm tra services
 kubectl get svc -n dremio
 # Expected:
-# dremio-client   LoadBalancer   ...   9047:xxxxx/TCP,31010:xxxxx/TCP,32010:xxxxx/TCP
+# dremio-client LoadBalancer ... 9047:xxxxx/TCP,31010:xxxxx/TCP,32010:xxxxx/TCP
 ```
 
 ### Step 6: Truy Cập UI
@@ -288,7 +288,7 @@ helm upgrade dremio dremio_v2 \
 kubectl get pods -n dremio -w
 ```
 
-> ⚠️ **Lưu ý khi upgrade:**
+> **Lưu ý khi upgrade:**
 > - Backup KV store trước khi upgrade (persistent volume trên coordinator)
 > - Đọc release notes cho breaking changes
 > - Test trên staging environment trước

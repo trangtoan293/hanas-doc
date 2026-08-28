@@ -26,17 +26,17 @@ STEP 4: FILE COUNT    — Mỗi partition nên có ít file, mỗi file ~512MB
 ```
 
 ```sql
--- ✅ ĐÚNG — Partition theo tháng cho batch T+1
+-- ĐÚNG — Partition theo tháng cho batch T+1
 CREATE TABLE demo.integration.sat_transaction (...)
 USING iceberg
 PARTITIONED BY (months(transaction_date));
 
--- ✅ ĐÚNG — Bucket cho high-cardinality column
+-- ĐÚNG — Bucket cho high-cardinality column
 CREATE TABLE demo.integration.link_customer_account (...)
 USING iceberg
 PARTITIONED BY (bucket(16, customer_id));
 
--- ❌ SAI — Partition theo ngày cho bảng nhỏ → quá nhiều partitions rỗng
+-- SAI — Partition theo ngày cho bảng nhỏ → quá nhiều partitions rỗng
 CREATE TABLE demo.integration.hub_small_ref (...)
 USING iceberg
 PARTITIONED BY (days(load_date));  -- Chỉ vài records/ngày → small files
@@ -64,7 +64,7 @@ ALTER TABLE demo.integration.hub_customer SET TBLPROPERTIES (
 
 | Codec | Compression Ratio | Speed | Khuyến nghị |
 |---|---|---|---|
-| `zstd` | Cao | Nhanh | ✅ Production default |
+| `zstd` | Cao | Nhanh | Production default |
 | `snappy` | Trung bình | Rất nhanh | Khi cần tốc độ đọc tối đa |
 | `gzip` | Rất cao | Chậm | Archival / cold storage |
 
@@ -136,7 +136,7 @@ ALTER TABLE demo.integration.hub_customer SET TBLPROPERTIES (
 ### 3.1 Credentials qua K8s Secrets
 
 ```yaml
-# ✅ ĐÚNG — Inject credentials từ Kubernetes Secrets
+# ĐÚNG — Inject credentials từ Kubernetes Secrets
 driver:
   envFrom:
     - secretRef:
@@ -148,7 +148,7 @@ executor:
 ```
 
 ```yaml
-# ❌ SAI — Hardcode credentials trong sparkConf
+# SAI — Hardcode credentials trong sparkConf
 sparkConf:
   "spark.hadoop.fs.s3a.access.key": "AKIAIOSFODNN7EXAMPLE"
   "spark.hadoop.fs.s3a.secret.key": "wJalrXUtnFEMI/..."
@@ -294,7 +294,7 @@ CALL demo.system.expire_snapshots(
 );
 ```
 
-> ⚠️ **Sau khi expire snapshots, time travel về các snapshot đã xóa sẽ không còn hoạt động.**
+> **Cảnh báo:** **Sau khi expire snapshots, time travel về các snapshot đã xóa sẽ không còn hoạt động.**
 
 **Cấu hình trong platform:** Retention = **7 ngày** (từ Airflow Variable `iceberg_snapshot_retention_days`).
 

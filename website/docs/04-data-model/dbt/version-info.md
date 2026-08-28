@@ -37,7 +37,7 @@ dbt-metricflow[dbt-databricks,dbt-spark]==0.10.1
 | **Apache Spark** | 3.x | Engine xử lý dbt models |
 | **Apache Iceberg** | Compatible với Spark 3.x | File format cho tất cả models |
 | **Hive Metastore** | 3.x | Catalog management (`thrift://`) |
-| **MinIO / S3** | Latest | Object storage via `S3AFileSystem` |
+| **MinIO / S3** | Theo [baseline triển khai](../../00-overview/platform-baseline.md) | Object storage via `S3AFileSystem` |
 | **Python** | >= 3.11 | Runtime requirement |
 | **dbt config-version** | 2 | dbt project configuration version |
 

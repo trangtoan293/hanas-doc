@@ -14,10 +14,10 @@ Lớp lưu trữ dữ liệu là nền tảng lưu trữ tập trung cho toàn b
 
 ```mermaid
 graph TD
-    MinIO["🗄️ MinIO Object Storage"] --> Landing["📁 landing/<br/><i>Dữ liệu thô từ nguồn</i>"]
-    MinIO --> RawVault["📁 raw-vault/<br/><i>Raw Vault<br/>Hub/Link/Satellite</i>"]
-    MinIO --> BusinessVault["📁 business-vault/<br/><i>Business Vault<br/>PIT/Bridge</i>"]
-    MinIO --> InfoMart["📁 information-mart/<br/><i>Data phục vụ BI/báo cáo</i>"]
+    MinIO["MinIO Object Storage"] --> Landing["landing/<br/><i>Dữ liệu thô từ nguồn</i>"]
+    MinIO --> RawVault["raw-vault/<br/><i>Raw Vault<br/>Hub/Link/Satellite</i>"]
+    MinIO --> BusinessVault["business-vault/<br/><i>Business Vault<br/>PIT/Bridge</i>"]
+    MinIO --> InfoMart["information-mart/<br/><i>Data phục vụ BI/báo cáo</i>"]
     
     style MinIO fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
     style Landing fill:#fff8e1,stroke:#f57c00

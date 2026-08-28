@@ -5,7 +5,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'doc',
       id: 'README',
-      label: 'Trang Chủ',
+      label: 'Tài Liệu Hanas',
     },
     {
       type: 'category',
@@ -19,6 +19,7 @@ const sidebars: SidebarsConfig = {
         'overview/architecture',
         'overview/objectives',
         'overview/glossary',
+        'overview/platform-baseline',
       ],
     },
     {
@@ -89,18 +90,18 @@ const sidebars: SidebarsConfig = {
             'storage/apache-iceberg/version-info',
           ],
         },
-        // {
-        //   type: 'category',
-        //   label: 'Apache Polaris',
-        //   items: [
-        //     'storage/data-catalog/README',
-        //     'storage/data-catalog/installation',
-        //     'storage/data-catalog/configuration',
-        //     'storage/data-catalog/user-guide',
-        //     'storage/data-catalog/best-practices',
-        //     'storage/data-catalog/version-info',
-        //   ],
-        // },
+        {
+          type: 'category',
+          label: 'Apache Polaris (Production Catalog)',
+          items: [
+            'storage/data-catalog/README',
+            'storage/data-catalog/installation',
+            'storage/data-catalog/configuration',
+            'storage/data-catalog/user-guide',
+            'storage/data-catalog/best-practices',
+            'storage/data-catalog/version-info',
+          ],
+        },
       ],
     },
     {
@@ -308,8 +309,9 @@ const sidebars: SidebarsConfig = {
         id: 'security/README',
       },
       items: [
-        // 'security/authentication',
-        // 'security/authorization',
+        'security/authentication',
+        'security/authorization',
+        'security/security-assessment',
         {
           type: 'category',
           label: 'Apache Ranger',
@@ -359,37 +361,76 @@ const sidebars: SidebarsConfig = {
         },
       ],
     },
-    // {
-    //   type: 'category',
-    //   label: 'Hạ Tầng',
-    //   collapsed: true,
-    //   link: {
-    //     type: 'doc',
-    //     id: 'infrastructure/README',
-    //   },
-    //   items: [
-    //     'infrastructure/deployment-diagram',
-    //     {
-    //       type: 'category',
-    //       label: 'Kubernetes',
-    //       items: [
-    //         'infrastructure/kubernetes/README',
-    //         'infrastructure/kubernetes/cluster-setup',
-    //         'infrastructure/kubernetes/best-practices',
-    //       ],
-    //     },
-    //     {
-    //       type: 'category',
-    //       label: 'DC-DR',
-    //       items: [
-    //         'infrastructure/dc-dr/README',
-    //         'infrastructure/dc-dr/minio-replication',
-    //         'infrastructure/dc-dr/velero-backup',
-    //         'infrastructure/dc-dr/recovery-workflow',
-    //       ],
-    //     },
-    //   ],
-    // },
+    {
+      type: 'category',
+      label: 'Hạ Tầng & Khôi Phục',
+      collapsed: true,
+      link: {
+        type: 'doc',
+        id: 'infrastructure/README',
+      },
+      items: [
+        'infrastructure/deployment-diagram',
+        {
+          type: 'category',
+          label: 'Kubernetes',
+          items: [
+            'infrastructure/kubernetes/README',
+            'infrastructure/kubernetes/cluster-setup',
+            'infrastructure/kubernetes/best-practices',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'DC-DR',
+          items: [
+            'infrastructure/dc-dr/README',
+            'infrastructure/dc-dr/minio-replication',
+            'infrastructure/dc-dr/velero-backup',
+            'infrastructure/dc-dr/recovery-workflow',
+          ],
+        },
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Hướng Dẫn Thực Hành',
+      collapsed: true,
+      link: {
+        type: 'doc',
+        id: 'guides/README',
+      },
+      items: [
+        'guides/quickstart',
+        'guides/end-to-end-tutorial',
+        {
+          type: 'category',
+          label: 'Tích Hợp',
+          items: [
+            'guides/integration/nifi-to-minio',
+            'guides/integration/kafka-streaming-flow',
+            'guides/integration/airflow-spark-pipeline',
+            'guides/integration/spark-iceberg-operations',
+            'guides/integration/dbt-data-vault',
+            'guides/integration/dremio-lakehouse',
+            'guides/integration/dify-vllm-langfuse',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Ví Dụ Mã Nguồn',
+          items: [
+            'guides/examples/sample-nifi-flow',
+            'guides/examples/sample-airflow-dag',
+            'guides/examples/sample-spark-job',
+            'guides/examples/sample-dbt-models',
+            'guides/examples/sample-dremio-setup',
+            'guides/examples/sample-dify-workflow',
+          ],
+        },
+        'guides/troubleshooting',
+      ],
+    },
   ],
 };
 

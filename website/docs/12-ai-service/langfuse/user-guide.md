@@ -21,12 +21,12 @@ Truy cập **Langfuse Dashboard → Traces** để xem tất cả traces:
 Mỗi trace chứa nhiều **observations** (spans/generations):
 
 ```
-📋 Trace: "Demo GLPI Chatflow" — 2.5s total
-  ├── 🔀 Span: Question Classifier — 150ms
-  ├── 📚 Span: Knowledge Retrieval — 350ms
-  │   ├── 🔢 Generation: Embedding (BGE-M3) — 50ms, 128 tokens
-  │   └── 🔄 Generation: Reranking (BGE-Reranker) — 80ms, 256 tokens
-  └── 🧠 Generation: LLM Response (Qwen3-14B) — 1200ms, 1024 tokens, $0.003
+Trace: "Demo GLPI Chatflow" — 2.5s total
+  ├── Span: Question Classifier — 150ms
+  ├── Span: Knowledge Retrieval — 350ms
+  │   ├── Generation: Embedding (BGE-M3) — 50ms, 128 tokens
+  │   └── Generation: Reranking (BGE-Reranker) — 80ms, 256 tokens
+  └── Generation: LLM Response (Qwen3-14B) — 1200ms, 1024 tokens, $0.003
 ```
 
 ### Lọc Traces

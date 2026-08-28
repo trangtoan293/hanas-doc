@@ -32,8 +32,8 @@ s3://warehouse/raw_vault/hub_customer/metadata/v1.metadata.json
 ### Tách Biệt Buckets Theo Zone
 
 ```
-✅ Tốt: Mỗi zone 1 bucket → landing/, raw-vault/, business-vault/, information-mart/
-❌ Xấu: 1 bucket chứa tất cả → data/landing/, data/raw-vault/, data/business/
+Tốt: Mỗi zone 1 bucket → landing/, raw-vault/, business-vault/, information-mart/
+Xấu: 1 bucket chứa tất cả → data/landing/, data/raw-vault/, data/business/
 ```
 
 **Lý do:**
@@ -95,10 +95,10 @@ mc cp --part-size 64MiB large-file.parquet hanas/landing/
 
 ### Credentials Management
 
-- ❌ **KHÔNG** dùng root credentials cho applications
-- ✅ Tạo IAM users riêng cho mỗi service (NiFi, Spark, Dremio)
-- ✅ Sử dụng Kubernetes Secrets cho credentials
-- ✅ Rotate credentials định kỳ (90 ngày)
+- **KHÔNG** dùng root credentials cho applications
+- Tạo IAM users riêng cho mỗi service (NiFi, Spark, Dremio)
+- Sử dụng Kubernetes Secrets cho credentials
+- Rotate credentials định kỳ (90 ngày)
 
 ```bash
 # Tạo service accounts

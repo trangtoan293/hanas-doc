@@ -18,8 +18,8 @@ In-cluster: True (khi Airflow chạy trong K8s)
 
 ```
 Airflow Variables:
-  dremio_host:         http://192.168.1.193
-  dremio_username:     vaultadmin
+  dremio_host:         http://<DREMIO_HOST>
+  dremio_username:     <DREMIO_SERVICE_USER>
   dremio_password:     <stored_securely>
   dremio_ssl_verify:   false
   dremio_space:        DATA_MART
@@ -69,7 +69,7 @@ Tất cả DAGs sử dụng K8s YAML templates để định nghĩa `SparkApplic
 spec:
   type: Python
   mode: cluster
-  image: "trangtoan293/dbt-spark-k8s-ktl:ktl-dbt"
+  image: "<REGISTRY>/<NAMESPACE>/dbt-spark-k8s-ktl:<PINNED_TAG>"
   mainApplicationFile: "local:///opt/spark/work-dir/dbt-project/dbt-project/dbt_runner.py"
   arguments:
     - "--use-subprocess"

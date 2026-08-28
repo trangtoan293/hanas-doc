@@ -6,7 +6,7 @@
 
 | Môi Trường | URL | Tài Khoản |
 |-----------|-----|-----------|
-| **Development** | https://localhost:8443/nifi | admin / Hanas@NiFi2024 |
+| **Development** | https://localhost:8443/nifi | Credential từ `.env`/Secret |
 | **Kubernetes** | https://nifi.hanas.local/nifi | OIDC SSO |
 | **NiFi Registry** | http://localhost:18080/nifi-registry | — |
 
@@ -64,7 +64,7 @@ Hover Processor A → Kéo mũi tên → Thả vào Processor B
 ```
 Process Group → Right-click → Configure → Controller Services tab
 → (+) Add Service → Chọn loại (DBCP, AWS Credentials, Record Writer...)
-→ Configure properties → Enable (⚡ icon)
+→ Configure properties → Enable (biểu tượng)
 ```
 
 ### Bước 6: Start Flow
@@ -293,7 +293,7 @@ flowchart LR
     style PS fill:#e8f5e9,stroke:#388e3c
 ```
 
-### 5.2 PublishKafka — Ghi Lên Kafka  
+### 5.2 PublishKafka — Ghi Lên Kafka
 
 ```
 Processor: PublishKafka

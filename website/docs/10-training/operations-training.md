@@ -41,24 +41,25 @@ Sau 4 tuần, học viên có khả năng:
 | Nội dung | Thời lượng |
 |----------|-----------|
 | Data Lakehouse là gì? So sánh Data Lake vs Data Warehouse vs Lakehouse | 30 phút |
-| 7 Lớp của Hanas (chi tiết bên dưới) | 90 phút |
+| 8 lớp năng lực dữ liệu của Hanas (chi tiết bên dưới) | 90 phút |
 | Luồng dữ liệu end-to-end: CSV → MinIO → Spark → Iceberg → Dremio → Dashboard | 30 phút |
 
-**7 Lớp Kiến Trúc Hanas:**
+**8 Lớp Năng Lực Dữ Liệu Hanas:**
 
 | Lớp | Tên | Công nghệ | Vai trò |
 |-----|-----|-----------|---------|
 | 1 | Ingestion (Thu thập) | NiFi, Kafka (Confluent / Debezium + AKHQ) | Thu thập dữ liệu batch & streaming (CDC) |
-| 2 | Storage (Lưu trữ) | MinIO, Iceberg | Object storage & table format |
-| 3 | Processing (Xử lý) | Airflow, Spark | Orchestration & compute |
+| 2 | Storage/Catalog (Lưu trữ & danh mục) | MinIO, Iceberg, Hive/Polaris | Object storage, table format & catalog |
+| 3 | Processing (Xử lý) | Spark | Distributed compute |
 | 4 | Data Model (Mô hình) | dbt, Data Vault 2.0 | Transformation & modeling |
 | 5 | Governance (Quản trị) | DataHub | Metadata, lineage, quality |
 | 6 | Federation (Liên kết) | Dremio | Query engine & semantic layer |
-| 7 | Consumption (Tiêu thụ) | BI Tools | Dashboard & reporting |
+| 7 | Consumption/Visualization (Tiêu thụ & trực quan) | Dremio, Superset/BI | Query, dashboard & reporting |
+| 8 | AI Services | Dify, vLLM, Langfuse | Workflow, inference & AI observability |
 
-> AI Service Layer (Dify, vLLM, Langfuse) mở rộng nền tảng với khả năng AI/ML.
+> Airflow/Orchestration, OpenObserve/System Management, Kubernetes/Infrastructure và Ranger/Vault/Security là các năng lực xuyên suốt, không tính vào 8 lớp dữ liệu. OGG/ODI là tích hợp tùy nguồn Oracle và phạm vi dự án.
 
-📖 Tài liệu: [Kiến trúc tổng thể](../00-overview/architecture.md)
+Tài liệu: [Kiến trúc tổng thể](../00-overview/architecture.md)
 
 **Bài 2: Công nghệ cốt lõi (2 giờ)**
 
@@ -109,7 +110,7 @@ kubectl get sparkapplications -n hanas-demo
 mc ls myminio/warehouse/raw_vault/
 ```
 
-📖 Bài tập: Đọc [architecture.md](../00-overview/architecture.md) và mô tả luồng dữ liệu qua 7 lớp.
+Bài tập: Đọc [architecture.md](../00-overview/architecture.md) và mô tả luồng dữ liệu qua các lớp dữ liệu và năng lực xuyên suốt.
 
 ---
 
@@ -125,7 +126,7 @@ mc ls myminio/warehouse/raw_vault/
 | MinIO Architecture: single node vs distributed, erasure coding, site replication | 45 phút |
 | Buckets & Objects: policies, metadata, versioning, lifecycle | 45 phút |
 
-📖 Tài liệu: [MinIO Documentation](../02-storage/minio/README.md)
+Tài liệu: [MinIO Documentation](../02-storage/minio/README.md)
 
 **Bài 4: Apache Iceberg (2 giờ)**
 
@@ -135,7 +136,7 @@ mc ls myminio/warehouse/raw_vault/
 | Iceberg Features: ACID transactions, time travel, schema evolution, hidden partitioning | 60 phút |
 | Maintenance: compaction, snapshot expiration, orphan cleanup | 30 phút |
 
-📖 Tài liệu: [Iceberg Documentation](../02-storage/apache-iceberg/README.md)
+Tài liệu: [Iceberg Documentation](../02-storage/apache-iceberg/README.md)
 
 #### Buổi chiều — Hands-on (4 giờ)
 
@@ -149,7 +150,7 @@ mc cp myminio/test-bucket/localfile.csv ./
 
 # Xem cấu trúc Hanas buckets
 mc ls myminio/
-# Output: landing/  raw-vault/  business-vault/  information-mart/
+# Output: landing/ raw-vault/ business-vault/ information-mart/
 
 # Bucket policies & giám sát
 mc policy set download myminio/public-bucket
@@ -206,7 +207,7 @@ spark.sql("CALL demo.system.expire_snapshots(table => 'raw_vault.test_table', ol
 | Confluent Oracle CDC Source: LogMiner, redo log, heartbeat, schema capture | 45 phút |
 | Iceberg Sink Connector: auto-create table, schema evolution, SMT chain | 30 phút |
 
-📖 Tài liệu: [Kafka Documentation](../01-ingestion/apache-kafka/README.md)
+Tài liệu: [Kafka Documentation](../01-ingestion/apache-kafka/README.md)
 
 #### Buổi chiều — Hands-on (4 giờ)
 
@@ -246,7 +247,7 @@ curl -X PUT http://connect:8083/connectors/DEMO_GROUP3/resume
 curl -s http://connect:8083/connector-plugins | jq '.[].class'
 ```
 
-📖 Bài tập: Đọc [Kafka user-guide](../01-ingestion/apache-kafka/user-guide.md), thực hành pause/resume connector và monitor consumer lag.
+Bài tập: Đọc [Kafka user-guide](../01-ingestion/apache-kafka/user-guide.md), thực hành pause/resume connector và monitor consumer lag.
 
 ---
 
@@ -262,7 +263,7 @@ curl -s http://connect:8083/connector-plugins | jq '.[].class'
 | Core Concepts: DAGs, Operators, Sensors, Hooks, XCom | 60 phút |
 | Scheduling: cron expressions, backfill, KubernetesExecutor | 30 phút |
 
-📖 Tài liệu: [Airflow Documentation](../03-processing/apache-airflow/README.md)
+Tài liệu: [Airflow Documentation](../14-orchestration/apache-airflow/README.md)
 
 **Bài 6: Apache Spark (2 giờ)**
 
@@ -272,7 +273,7 @@ curl -s http://connect:8083/connector-plugins | jq '.[].class'
 | Spark Architecture: Driver, Executors, K8s cluster manager | 45 phút |
 | Spark + Iceberg: đọc/ghi tables, catalog config, optimization | 45 phút |
 
-📖 Tài liệu: [Spark Documentation](../03-processing/apache-spark/README.md)
+Tài liệu: [Spark Documentation](../03-processing/apache-spark/README.md)
 
 #### Buổi chiều — Hands-on (4 giờ)
 
@@ -336,7 +337,7 @@ spec:
   type: Python
   pythonVersion: "3"
   mode: cluster
-  image: hanas/spark:3.5.1
+  image: <REGISTRY>/<NAMESPACE>/spark:3.5.1
   mainApplicationFile: s3a://scripts/etl.py
   sparkVersion: "3.5.1"
   restartPolicy:
@@ -373,7 +374,7 @@ kubectl logs -f etl-job-driver -n hanas-demo
 | DataHub Features: catalog, lineage, business glossary, quality assertions | 60 phút |
 | Integration: Airflow lineage, Spark lineage, dbt metadata | 30 phút |
 
-📖 Tài liệu: [DataHub Documentation](../05-governance/datahub/README.md)
+Tài liệu: [DataHub Documentation](../05-governance/datahub/README.md)
 
 **Bài 8: Dremio (2 giờ)**
 
@@ -383,7 +384,7 @@ kubectl logs -f etl-job-driver -n hanas-demo
 | Dremio Architecture: coordinators, executors, reflections, C3 cache | 45 phút |
 | Query Acceleration: raw/aggregation reflections, best practices | 45 phút |
 
-📖 Tài liệu: [Dremio Documentation](../06-federation/dremio/README.md)
+Tài liệu: [Dremio Documentation](../06-federation/dremio/README.md)
 
 #### Buổi chiều — Hands-on (4 giờ)
 
@@ -423,7 +424,7 @@ ALTER DATASET customer_360 CREATE RAW REFLECTION customer_360_raw;
 
 #### Buổi sáng — Review (4 giờ)
 
-- Tóm tắt 7 lớp kiến trúc + AI Service layer
+- Tóm tắt 8 lớp năng lực kiến trúc + các năng lực xuyên suốt (security, operations, orchestration)
 - Q&A giải đáp thắc mắc
 - Best practices cho mỗi layer
 
@@ -454,7 +455,7 @@ ALTER DATASET customer_360 CREATE RAW REFLECTION customer_360_raw;
 | OpenObserve Platform: log collection, metrics dashboards, alert config | 45 phút |
 | Dashboard Design: executive, technical, customer-specific | 30 phút |
 
-📖 Tài liệu: [OpenObserve Documentation](../07-system-management/openobserve/README.md)
+Tài liệu: [OpenObserve Documentation](../07-system-management/openobserve/README.md)
 
 **Bài 10: Alerting Best Practices (2 giờ)**
 
@@ -515,7 +516,7 @@ Panels:
 | Velero for K8s: backup clusters, restore, schedule automation | 45 phút |
 | MinIO Site Replication: real-time sync, bandwidth optimization, failover | 30 phút |
 
-📖 Tài liệu: [Hạ tầng — Velero](../08-infrastructure/README.md)
+Tài liệu: [Hạ tầng — Velero](../08-infrastructure/README.md)
 
 **Bài 12: Disaster Recovery (2 giờ)**
 
@@ -605,7 +606,7 @@ kubectl get pods -n hanas-demo-dr
 | Kubernetes Security: RBAC, network policies, pod security | 45 phút |
 | Data Security: encryption at rest/in transit, secrets management (Vault) | 30 phút |
 
-📖 Tài liệu: [An toàn thông tin](../09-security/README.md)
+Tài liệu: [An toàn thông tin](../09-security/README.md)
 
 **Bài 16: Vulnerability Management (2 giờ)**
 
@@ -621,7 +622,7 @@ kubectl get pods -n hanas-demo-dr
 
 ```bash
 # Scan Docker image
-trivy image hanas/spark:latest
+trivy image <REGISTRY>/<NAMESPACE>/spark:<PINNED_TAG>
 
 # Check RBAC permissions
 kubectl auth can-i --list --namespace hanas-demo
@@ -675,7 +676,7 @@ kubectl logs -n kube-apiserver | grep hanas-demo
 | SLA Management | Response time, resolution time theo severity |
 | Escalation | Quy trình escalation từ L1 → L3 |
 
-📖 Tham khảo: [SLA & Cam kết](../11-maintenance/sla.md)
+Tham khảo: [SLA & Cam kết](../11-maintenance/sla.md)
 
 **Hands-on:**
 - Mock support tickets — phân loại và xử lý
@@ -696,7 +697,7 @@ kubectl logs -n kube-apiserver | grep hanas-demo
 | Data Migration | Historical load, CDC setup, reconciliation |
 | Go-live | Pre-go-live checklist, cutover, hypercare |
 
-📖 Tham khảo: [Quy trình Onboarding Khách Hàng](customer-onboarding-guide.md)
+Tham khảo: [Quy trình Onboarding Khách Hàng](customer-onboarding-guide.md)
 
 **Hands-on:**
 - Mock customer onboarding end-to-end

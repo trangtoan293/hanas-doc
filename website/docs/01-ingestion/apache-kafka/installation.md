@@ -135,12 +135,12 @@ kubectl apply -f confluent-platform.yaml
 kubectl get pods -n confluent
 
 # Expected output:
-# kafka-0                    1/1     Running   
-# kafka-1                    1/1     Running   
-# kafka-2                    1/1     Running   
-# schemaregistry-0           1/1     Running   
-# controlcenter-0            1/1     Running   
-# connect-0                  1/1     Running   
+# kafka-0 1/1 Running
+# kafka-1 1/1 Running
+# kafka-2 1/1 Running
+# schemaregistry-0 1/1 Running
+# controlcenter-0 1/1 Running
+# connect-0 1/1 Running
 ```
 
 ### Cài Đặt Docker Compose (Dev/Test)
@@ -383,7 +383,7 @@ spec:
   build:
     output:
       type: docker
-      image: registry.local/debezium-connect:latest
+      image: registry.local/debezium-connect:<PINNED_TAG>
     plugins:
       - name: debezium-postgresql
         artifacts:
@@ -424,7 +424,7 @@ spec:
     spec:
       containers:
         - name: akhq
-          image: tchiotludo/akhq:latest
+          image: tchiotludo/akhq:<PINNED_TAG>
           ports:
             - containerPort: 8080
           volumeMounts:
@@ -546,7 +546,7 @@ services:
       VALUE_CONVERTER_SCHEMAS_ENABLE: "true"
 
   akhq:
-    image: tchiotludo/akhq:latest
+    image: tchiotludo/akhq:<PINNED_TAG>
     hostname: akhq
     depends_on:
       - kafka

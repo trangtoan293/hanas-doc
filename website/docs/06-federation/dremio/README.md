@@ -4,7 +4,7 @@
 
 Dremio là **Lakehouse Query Engine** thống nhất, đóng vai trò là lớp liên kết dữ liệu (Data Federation) trong Hanas Data Platform. Dremio ảo hóa toàn bộ nguồn dữ liệu vào một catalog logic duy nhất, cung cấp semantic layer, query acceleration (Reflections), và kết nối BI chuẩn (JDBC/ODBC/Arrow Flight).
 
-Trong kiến trúc 7 lớp của Hanas Platform, Dremio nằm ở **Layer 6 — Liên Kết Dữ Liệu (Federation)**, là _điểm truy vấn duy nhất_ cho toàn bộ ngườii dùng và BI tools.
+Trong kiến trúc Hanas Platform, Dremio nằm ở **Layer 6 — Liên Kết Dữ Liệu (Federation)**, là _điểm truy vấn tập trung_ cho người dùng và BI tools. Lớp khai thác/dashboard được trình bày riêng ở [Apache Superset](../../13-visualization/apache-superset/README.md).
 
 ## Kiến Trúc Trong Platform
 

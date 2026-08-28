@@ -8,8 +8,8 @@
 | **VRAM** | 24 GB (cho 14B AWQ model) | 48+ GB |
 | **RAM** | 32 GB | 64+ GB |
 | **Disk** | 100 GB SSD | 200+ GB NVMe |
-| **Docker** | 20.10+ | Latest stable |
-| **NVIDIA Driver** | 535+ | Latest stable |
+| **Docker** | 20.10+ | Theo baseline/manifest đã phê duyệt |
+| **NVIDIA Driver** | 535+ | Theo ma trận GPU/driver đã kiểm thử |
 | **NVIDIA Container Toolkit** | Installed | — |
 
 > [!IMPORTANT]
@@ -37,9 +37,9 @@ sudo systemctl restart docker
 ### Dockerfile
 
 ```dockerfile
-FROM vllm/vllm-openai:latest
+FROM vllm/vllm-openai:<PINNED_TAG>
 
-LABEL maintainer="dev@katalyst.vn"
+LABEL maintainer="<PLATFORM_TEAM_CONTACT>"
 LABEL description="Custom vLLM image for AI model hosting"
 LABEL version="1.0"
 
@@ -70,7 +70,7 @@ ENTRYPOINT ["/app/start.sh"]
 
 ```bash
 cd vllm_docker/
-docker build -t ktl-vllm:latest .
+docker build -t ktl-vllm:<PINNED_TAG> .
 ```
 
 > [!NOTE]
@@ -89,7 +89,7 @@ version: '3.8'
 services:
   # === LLM — Text Generation ===
   vllm-qwen3-14b-awq:
-    image: ktl-vllm:latest
+    image: ktl-vllm:<PINNED_TAG>
     container_name: vllm-qwen3-14b-awq
     runtime: nvidia
     deploy:
@@ -124,7 +124,7 @@ services:
 
   # === Embedding Model ===
   vllm-embeddings-bge-m3:
-    image: ktl-vllm:latest
+    image: ktl-vllm:<PINNED_TAG>
     container_name: vllm-embeddings-bge-m3
     runtime: nvidia
     deploy:
@@ -160,7 +160,7 @@ services:
 
   # === Reranker Model ===
   vllm-reranker-bge-m3:
-    image: ktl-vllm:latest
+    image: ktl-vllm:<PINNED_TAG>
     container_name: vllm-reranker-bge-m3
     runtime: nvidia
     deploy:
@@ -198,7 +198,7 @@ services:
 
 ```bash
 # Build image (nếu chưa có)
-docker build -t ktl-vllm:latest .
+docker build -t ktl-vllm:<PINNED_TAG> .
 
 # Khởi động tất cả services
 docker compose up -d

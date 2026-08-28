@@ -23,24 +23,24 @@
 
 | Storage | Polaris 1.0 | Polaris 1.1 | Polaris 1.2+ |
 |---|---|---|---|
-| **AWS S3** | ✅ | ✅ | ✅ |
-| **Azure Blob** | ✅ | ✅ | ✅ |
-| **GCS** | ✅ | ✅ | ✅ |
-| **MinIO** | ⚠️ | ⚠️ | ✅ |
+| **AWS S3** | Có | Có | Có |
+| **Azure Blob** | Có | Có | Có |
+| **GCS** | Có | Có | Có |
+| **MinIO** | Hạn chế | Hạn chế | Có |
 
-> ⚠️ MinIO hoạt động trên v1.0/v1.1 nhưng chưa được test chính thức. Từ v1.2 trở đi, MinIO được hỗ trợ và kiểm thử đầy đủ.
+> **Cảnh báo:** MinIO hoạt động trên v1.0/v1.1 nhưng chưa được test chính thức. Từ v1.2 trở đi, MinIO được hỗ trợ và kiểm thử đầy đủ.
 
 ### Polaris ↔ Hanas Components
 
 | Hanas Component | Version | Tương thích Polaris 1.3 | Ghi chú |
 |---|---|---|---|
-| **MinIO** | Latest | ✅ | S3-compatible, path-style access |
-| **Apache Spark** | 3.5.1 | ✅ | Qua iceberg-spark-runtime |
-| **Dremio** | 24.x+ | ✅ | Iceberg REST catalog source |
-| **Apache Airflow** | 2.x | ✅ | REST API integration |
-| **dbt-spark** | 1.7+ | ✅ | Qua Spark session config |
-| **DataHub** | 0.14+ | ✅ | Metadata ingestion |
-| **Apache Iceberg** | 1.5+ | ✅ | Table format |
+| **MinIO** | `RELEASE.2025-04-22T22-12-26Z` theo baseline | Có | S3-compatible, path-style access |
+| **Apache Spark** | 3.5.1 | Có | Qua iceberg-spark-runtime |
+| **Dremio** | 24.x+ | Có | Iceberg REST catalog source |
+| **Apache Airflow** | 2.x | Có | REST API integration |
+| **dbt-spark** | 1.7+ | Có | Qua Spark session config |
+| **DataHub** | 0.14+ | Có | Metadata ingestion |
+| **Apache Iceberg** | 1.8.1 theo runtime Spark | Có | Table format |
 
 ## Lịch Sử Phát Hành
 

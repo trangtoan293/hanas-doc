@@ -29,7 +29,7 @@ Chatflow Demo GLPI là ví dụ điển hình về việc tích hợp AI với h
 
 1. Vào **Studio → Create App → Chatflow**
 2. Đặt tên: "Demo GLPI Chatflow"
-3. Chọn icon: 🤖
+3. Chọn biểu tượng mô hình AI
 
 #### Bước 2: Thiết Lập Workflow Nodes
 
@@ -102,11 +102,11 @@ Dify hỗ trợ nhiều định dạng:
 
 | Định dạng | Hỗ trợ | Lưu ý |
 |---|---|---|
-| **PDF** | ✅ | Dùng OCR service cho scanned PDFs |
-| **DOCX/DOC** | ✅ | Auto extract text |
-| **TXT/MD** | ✅ | Plain text processing |
-| **CSV/XLSX** | ✅ | Structured data |
-| **HTML** | ✅ | Web content |
+| **PDF** | Có | Dùng OCR service cho scanned PDFs |
+| **DOCX/DOC** | Có | Auto extract text |
+| **TXT/MD** | Có | Plain text processing |
+| **CSV/XLSX** | Có | Structured data |
+| **HTML** | Có | Web content |
 
 ### Cấu Hình Chunking
 
@@ -162,10 +162,10 @@ flowchart TB
 GLPI_HOST=https://glpi.your-domain.com
 # Dify self-reference
 DIFY_URL=https://dify.your-domain.com
-# OCR Service  
-OCR_HOST=http://172.27.49.219:18002
+# OCR Service
+OCR_HOST=http://<OCR_HOST>:<OCR_PORT>
 # Chatbot Identity
-CHATBOT_IDENTITY="Bạn tên là Hanas, một AI Assistant của công ty cổ phần Katalyst..."
+CHATBOT_IDENTITY="Bạn tên là <ASSISTANT_NAME>, một AI Assistant của <CUSTOMER_ORGANIZATION_NAME>..."
 ```
 
 ## Xuất & Nhập Workflow (DSL)

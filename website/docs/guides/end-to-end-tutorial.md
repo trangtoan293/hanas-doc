@@ -156,7 +156,7 @@ Output Format: Avro
 Object Key: landing/oracle/src_customers/load_date=${now():format('yyyy-MM-dd')}/customers_${UUID()}.avro
 Bucket: landing
 Access Key ID: admin
-Secret Access Key: minio_secret_2024
+Secret Access Key: <MINIO_SECRET_KEY_FROM_SECRET>
 Endpoint Override URL: http://minio:9000
 Signer Override: AWSS3V4SignerType
 Region: us-east-1
@@ -179,7 +179,7 @@ Duplicate flow cho `src_accounts` và `src_transactions`, chỉ thay đổi:
 ```properties
 # NiFi Scheduling
 Run Schedule: 0 */30 * * * ?    # Chạy mỗi 30 phút
-# Hoặc: 0 0 1 * * ?             # Chạy lúc 1:00 AM hằng ngày (batch T+1)
+# Hoặc: 0 0 1 * * ? # Chạy lúc 1:00 AM hằng ngày (batch T+1)
 ```
 
 ---
@@ -610,11 +610,11 @@ Endpoint: grpc://dremio-host:32010
 
 | Sự kiện | Mức | Hành động |
 |---|---|---|
-| NiFi flow stopped | 🔴 Critical | Kiểm tra connection pool, restart flow |
-| Airflow DAG failed | 🔴 Critical | Kiểm tra Spark logs, retry task |
-| MinIO disk > 80% | 🟡 Warning | Mở rộng storage hoặc archive old data |
-| Spark job timeout | 🟡 Warning | Kiểm tra data volume, tune resources |
-| dbt test failed | 🟡 Warning | Kiểm tra data quality, fix model |
+| NiFi flow stopped | Critical | Kiểm tra connection pool, restart flow |
+| Airflow DAG failed | Critical | Kiểm tra Spark logs, retry task |
+| MinIO disk > 80% | Warning | Mở rộng storage hoặc archive old data |
+| Spark job timeout | Warning | Kiểm tra data volume, tune resources |
+| dbt test failed | Warning | Kiểm tra data quality, fix model |
 
 ---
 

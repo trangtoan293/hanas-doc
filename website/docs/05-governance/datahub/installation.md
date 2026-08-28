@@ -73,7 +73,7 @@ kubectl create secret generic datahub-secrets \
   --from-literal=token-service-signing-key='<SIGNING_KEY_BASE64>'
 ```
 
-> ⚠️ **KHÔNG** commit credentials vào Git. Sử dụng Kubernetes Secrets hoặc HashiCorp Vault.
+> **Cảnh báo:** **KHÔNG** commit credentials vào Git. Sử dụng Kubernetes Secrets hoặc HashiCorp Vault.
 
 ### Step 4: Cài Đặt Dependencies (Prerequisites)
 
@@ -196,20 +196,20 @@ helm install datahub datahub/datahub \
 # Kiểm tra pods
 kubectl get pods -n datahub
 # Expected:
-# datahub-gms-xxx              1/1  Running
-# datahub-frontend-xxx         1/1  Running
-# datahub-mae-consumer-xxx     1/1  Running
-# datahub-mce-consumer-xxx     1/1  Running
-# elasticsearch-master-0       1/1  Running
-# prerequisites-kafka-0        1/1  Running
-# prerequisites-mysql-0        1/1  Running
-# prerequisites-zookeeper-0    1/1  Running
+# datahub-gms-xxx 1/1 Running
+# datahub-frontend-xxx 1/1 Running
+# datahub-mae-consumer-xxx 1/1 Running
+# datahub-mce-consumer-xxx 1/1 Running
+# elasticsearch-master-0 1/1 Running
+# prerequisites-kafka-0 1/1 Running
+# prerequisites-mysql-0 1/1 Running
+# prerequisites-zookeeper-0 1/1 Running
 
 # Kiểm tra services
 kubectl get svc -n datahub
 # Expected:
-# datahub-gms          ClusterIP  ...  8080/TCP
-# datahub-frontend     ClusterIP  ...  9002/TCP
+# datahub-gms ClusterIP ... 8080/TCP
+# datahub-frontend ClusterIP ... 9002/TCP
 
 # Port-forward để truy cập UI
 kubectl port-forward svc/datahub-frontend 9002:9002 -n datahub
@@ -250,7 +250,7 @@ services:
     image: mysql:8.2
     container_name: datahub-mysql
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-datahub}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
       MYSQL_DATABASE: datahub
     ports:
       - "3306:3306"
@@ -318,7 +318,7 @@ services:
     environment:
       EBEAN_DATASOURCE_URL: jdbc:mysql://mysql:3306/datahub?verifyServerCertificate=false&useSSL=true
       EBEAN_DATASOURCE_USERNAME: root
-      EBEAN_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD:-datahub}
+      EBEAN_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
       KAFKA_BOOTSTRAP_SERVER: kafka:9092
       ELASTICSEARCH_HOST: elasticsearch
       ELASTICSEARCH_PORT: 9200
@@ -339,7 +339,7 @@ services:
     environment:
       DATAHUB_GMS_HOST: datahub-gms
       DATAHUB_GMS_PORT: 8080
-      DATAHUB_SECRET: YouKnowNothing
+      DATAHUB_SECRET: ${DATAHUB_SECRET:?Set DATAHUB_SECRET in .env}
       DATAHUB_APP_VERSION: "1.0"
       DATAHUB_PLAY_MEM_BUFFER_SIZE: 10MB
     ports:
@@ -390,7 +390,7 @@ curl -s http://<DATAHUB_HOST>:8080/config
 
 Truy cập `http://<DATAHUB_HOST>:9002` và verify:
 
-- Login thành công với credentials mặc định (`datahub` / `datahub`)
+- Login thành công với credential được cấp qua Secret/SSO (không sử dụng credential mặc định)
 - Trang Home hiển thị search bar và navigation
 - Sidebar hiển thị Datasets, Dashboards, Pipelines, Glossary
 
@@ -457,7 +457,7 @@ docker compose pull
 docker compose up -d --force-recreate
 ```
 
-> ⚠️ **Lưu ý khi upgrade:**
+> **Lưu ý khi upgrade:**
 > - **Backup MySQL database** trước khi upgrade
 > - Chạy DataHub upgrade CLI: `datahub docker quickstart --upgrade` (nếu dùng quickstart)
 > - Đọc [release notes](https://github.com/datahub-project/datahub/releases) cho breaking changes

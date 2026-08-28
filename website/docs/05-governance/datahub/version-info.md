@@ -36,15 +36,15 @@
 
 | Service | Version Hanas | Tích hợp DataHub | Phương thức |
 |---|---|---|---|
-| **Apache NiFi** | 2.x | ✅ Ingestion Recipe | Pull: provenance events, flow lineage |
-| **Apache Kafka** | 3.x (Confluent) | ✅ Ingestion Recipe | Pull: topics, schemas, consumer groups |
-| **MinIO** | RELEASE.2025-04-22 | ✅ Via Iceberg/Hive | Indirect: qua Iceberg catalog metadata |
-| **Apache Iceberg** | 1.5.x | ✅ Ingestion Recipe | Pull: table schemas, partitions, snapshots |
-| **Apache Airflow** | 2.10.x | ✅ Plugin + TaskGroup | Push: DAG lineage, task metadata |
-| **Apache Spark** | 3.5.x | ✅ Java Agent | Push: job lineage, dataset I/O |
-| **dbt** | 1.8.x | ✅ Airflow TaskGroup | Push: model lineage, test results, docs |
-| **Dremio** | 25.x | ✅ Ingestion Recipe | Pull: virtual datasets, query lineage |
-| **Hive Metastore** | 3.1.x | ✅ Ingestion Recipe | Pull: database/table schemas |
+| **Apache NiFi** | 2.x | Ingestion Recipe | Pull: provenance events, flow lineage |
+| **Apache Kafka** | 3.x (Confluent) | Ingestion Recipe | Pull: topics, schemas, consumer groups |
+| **MinIO** | RELEASE.2025-04-22T22-12-26Z theo baseline | Via Iceberg/Hive | Indirect: qua Iceberg catalog metadata |
+| **Apache Iceberg** | 1.8.1 theo runtime Spark | Ingestion Recipe | Pull: table schemas, partitions, snapshots |
+| **Apache Airflow** | 2.x theo deployment | Plugin + TaskGroup | Push: DAG lineage, task metadata |
+| **Apache Spark** | 3.5.x | Java Agent | Push: job lineage, dataset I/O |
+| **dbt** | 1.8.x | Airflow TaskGroup | Push: model lineage, test results, docs |
+| **Dremio** | 25.x | Ingestion Recipe | Pull: virtual datasets, query lineage |
+| **Hive Metastore** | 3.1.x | Ingestion Recipe | Pull: database/table schemas |
 
 ## Lịch Sử Phiên Bản
 
@@ -70,7 +70,7 @@
 
 ## Lưu Ý Upgrade
 
-> ⚠️ **Khi upgrade DataHub, cần lưu ý:**
+> **Khi upgrade DataHub, cần lưu ý:**
 > - Backup MySQL + Elasticsearch **trước** khi upgrade
 > - Kiểm tra [Migration Guide](https://datahubproject.io/docs/how/updating-datahub) cho từng version
 > - Elasticsearch reindex có thể cần sau major upgrade

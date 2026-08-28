@@ -5,7 +5,7 @@
 | Thông tin | Giá trị |
 |---|---|
 | **URL** | `http://<DATAHUB_HOST>:9002` (Docker) hoặc qua Ingress/Port-forward (K8s) |
-| **Default credentials** | Username: `datahub` / Password: `datahub` |
+| **Credentials** | Secret/SSO do khách hàng cấp; không sử dụng credential mặc định |
 | **SSO** | Nếu đã cấu hình OIDC → Login qua Identity Provider |
 
 ### Giao Diện Chính

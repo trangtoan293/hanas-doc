@@ -46,8 +46,8 @@ Output sẽ hiển thị compiled SQL cho từng model:
 
 ```
 ──────────────────────────────────
-📄 Model: hub_customer
-🗂️  Table: demo.integration.hub_customer
+Model: hub_customer
+  Table: demo.integration.hub_customer
 ──────────────────────────────────
 <compiled SQL code>
 ```
@@ -58,7 +58,7 @@ Output sẽ hiển thị compiled SQL cho từng model:
 # Load tất cả seeds
 python dbt_seed.py
 
-# Load seed cụ thể  
+# Load seed cụ thể
 python dbt_seed.py --select ref_eod
 
 # Full refresh (drop & recreate)

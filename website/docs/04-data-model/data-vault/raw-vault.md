@@ -406,21 +406,21 @@ SELECT ... FROM changed_records;
 
 | Loại cột | Mô tả | HUB | LNK | SAT | LSAT | LSATE |
 |----------|-------|:---:|:---:|:---:|:----:|:-----:|
-| **HKEY_HUB** | Hash key của Hub, từ business key | ✓ | ✓ | ✓ | | ✓ |
-| **HKEY_LNK** | Hash key của Link, từ tổ hợp HKEY_HUB | | ✓ | | ✓ | ✓ |
-| **HKEY_SAT** | Hash key của Satellite, từ HKEY + load date | | | ✓ | | |
-| **HKEY_LSAT** | Hash key của Link Satellite | | | | ✓ | |
-| **HASH_DIFF** | Hash của tất cả thuộc tính mô tả | | | ✓ | ✓ | |
-| **BIZ_KEY** | Business Key từ hệ thống nguồn | ✓ | | | | |
-| **DEPENDENT_KEY** | Khóa phụ thuộc trong Satellite | | | ✓ | ✓ | |
-| **ATTR_COLUMN** | Cột thuộc tính mô tả | | | ✓ | ✓ | ✓ |
-| **DV_CDC_OPS** | Loại thao tác CDC (INIT/INSERT/UPDATE/DELETE) | ✓ | ✓ | ✓ | ✓ | ✓ |
-| **DV_SRC_LDT** | Thờgian phát sinh tại nguồn (OP_TIME) | ✓ | ✓ | ✓ | ✓ | ✓ |
-| **DV_SCN** | System Change Number (OP_NO) | ✓ | ✓ | ✓ | ✓ | ✓ |
-| **DV_RBA** | Redo Byte Address (OP_RBA) | ✓ | ✓ | ✓ | ✓ | ✓ |
-| **DV_SRC_REC** | Tên bảng Landing nguồn | ✓ | ✓ | ✓ | ✓ | ✓ |
-| **DV_LDT** | Load Date Timestamp | ✓ | ✓ | ✓ | ✓ | ✓ |
-| **DV_CCD** | Collision Code (default: 'NAB') | ✓ | | | | |
+| **HKEY_HUB** | Hash key của Hub, từ business key | Có | Có | Có | | Có |
+| **HKEY_LNK** | Hash key của Link, từ tổ hợp HKEY_HUB | | Có | | Có | Có |
+| **HKEY_SAT** | Hash key của Satellite, từ HKEY + load date | | | Có | | |
+| **HKEY_LSAT** | Hash key của Link Satellite | | | | Có | |
+| **HASH_DIFF** | Hash của tất cả thuộc tính mô tả | | | Có | Có | |
+| **BIZ_KEY** | Business Key từ hệ thống nguồn | Có | | | | |
+| **DEPENDENT_KEY** | Khóa phụ thuộc trong Satellite | | | Có | Có | |
+| **ATTR_COLUMN** | Cột thuộc tính mô tả | | | Có | Có | Có |
+| **DV_CDC_OPS** | Loại thao tác CDC (INIT/INSERT/UPDATE/DELETE) | Có | Có | Có | Có | Có |
+| **DV_SRC_LDT** | Thờgian phát sinh tại nguồn (OP_TIME) | Có | Có | Có | Có | Có |
+| **DV_SCN** | System Change Number (OP_NO) | Có | Có | Có | Có | Có |
+| **DV_RBA** | Redo Byte Address (OP_RBA) | Có | Có | Có | Có | Có |
+| **DV_SRC_REC** | Tên bảng Landing nguồn | Có | Có | Có | Có | Có |
+| **DV_LDT** | Load Date Timestamp | Có | Có | Có | Có | Có |
+| **DV_CCD** | Collision Code (default: 'NAB') | Có | | | | |
 
 ## Best Practices
 

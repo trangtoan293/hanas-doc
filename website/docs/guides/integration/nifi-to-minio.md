@@ -79,7 +79,7 @@ Validation Query: SELECT 1 FROM DUAL
 
 Template đầu tiên trên Hanas Platform. Thu thập file từ FTP server và đẩy lên MinIO.
 
-> Xem chi tiết đầy đủ: [NiFi User Guide — Template 1](../01-ingestion/apache-nifi/user-guide.md#3-template-1--ftp--s3-get_file_from_ftp_push_s3)
+> Xem chi tiết đầy đủ: [NiFi User Guide — Template 1](../../01-ingestion/apache-nifi/user-guide.md#3-template-1--ftp--minios3)
 
 ### Flow Diagram
 
@@ -133,7 +133,7 @@ Ghi log toàn bộ FlowFile attributes cho audit trail. `Attributes to Log: .*` 
 
 Backup toàn bộ dữ liệu từ Dremio landing tables sang MinIO/S3.
 
-> Xem chi tiết đầy đủ: [NiFi User Guide — Template 2 (Backup)](../01-ingestion/apache-nifi/user-guide.md#41-backup-process-group)
+> Xem chi tiết đầy đủ: [NiFi User Guide — Template 2 (Backup)](../../01-ingestion/apache-nifi/user-guide.md#41-backup-process-group)
 
 ### Flow Diagram
 

@@ -44,7 +44,7 @@ flowchart LR
 
 Pipeline chính trên Hanas Platform, lấy trực tiếp từ `project_template.json`. Thu thập dữ liệu từ Kafka topics, transform, và load vào Dremio Iceberg tables.
 
-> Xem chi tiết đầy đủ: [NiFi User Guide — Template 2 (Landing)](../01-ingestion/apache-nifi/user-guide.md#42-landing-process-group)
+> Xem chi tiết đầy đủ: [NiFi User Guide — Template 2 (Landing)](../../01-ingestion/apache-nifi/user-guide.md#42-landing-process-group)
 
 ### Kiến Trúc 8 Stages
 
@@ -244,6 +244,8 @@ Topics:
 
 ```python
 # streaming_hub_customer.py
+import os
+
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import *
 from pyspark.sql.types import *
@@ -254,8 +256,8 @@ spark = (SparkSession.builder
     .config("spark.sql.catalog.hanas.type", "hadoop")
     .config("spark.sql.catalog.hanas.warehouse", "s3a://warehouse/")
     .config("spark.hadoop.fs.s3a.endpoint", "http://minio:9000")
-    .config("spark.hadoop.fs.s3a.access.key", "admin")
-    .config("spark.hadoop.fs.s3a.secret.key", "minio_secret_2024")
+    .config("spark.hadoop.fs.s3a.access.key", os.environ["MINIO_ACCESS_KEY"])
+    .config("spark.hadoop.fs.s3a.secret.key", os.environ["MINIO_SECRET_KEY"])
     .config("spark.hadoop.fs.s3a.path.style.access", "true")
     .config("spark.sql.streaming.checkpointLocation", "s3a://warehouse/checkpoints/")
     .getOrCreate())
@@ -362,7 +364,7 @@ query.awaitTermination()
 | **Error Handling** | FlowFile retry, Provenance | Checkpointing, DLQ |
 | **Use Case** | Landing data, file-based ETL | Complex transforms, Data Vault |
 | **Monitoring** | NiFi UI, Bulletin Board | Spark UI, Kafka lag |
-| **Production** | ✅ Đang chạy (project_template) | Advanced use cases |
+| **Production** | Đang chạy (project_template) | Advanced use cases |
 
 > **Khuyến nghị**: Dùng **NiFi Landing Pipeline** cho ingestion chuẩn. Dùng **Spark Streaming** khi cần transform phức tạp hoặc latency < 1 phút.
 

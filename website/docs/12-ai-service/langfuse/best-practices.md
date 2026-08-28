@@ -18,7 +18,7 @@ flowchart TB
         J3["Tone & Style"]
     end
 
-    subgraph Human["👤 Human (Sampling)"]
+    subgraph Human["Human (Sampling)"]
         H1["Expert Review"]
         H2["User Feedback"]
     end

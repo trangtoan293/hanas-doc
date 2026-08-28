@@ -29,8 +29,8 @@ Dremio UI → Sources → Add Source → Amazon S3
 
 Name: lakehouse
 Authentication: Access Key
-Access Key: admin
-Secret Key: minio_secret_2024
+Access Key: <MINIO_ACCESS_KEY_FROM_SECRET>
+Secret Key: <MINIO_SECRET_KEY_FROM_SECRET>
 
 Connection Properties:
   fs.s3a.endpoint         = http://minio:9000

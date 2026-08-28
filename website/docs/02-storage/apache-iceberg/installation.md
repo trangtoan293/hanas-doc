@@ -9,9 +9,10 @@ Apache Iceberg không phải là một service chạy độc lập — nó là m
 | Component | Version | Vai trò |
 |---|---|---|
 | **Apache Spark** | 3.5.1 | Compute engine chính |
-| **Hive Metastore** | 3.x | Catalog backend (lưu metadata pointer) |
-| **MinIO** | Latest | Object storage (lưu data + metadata files) |
-| **Iceberg Runtime JAR** | 1.5.x | Library tích hợp vào Spark |
+| **Hive Metastore** | 3.x | Catalog backend cho profile quickstart/dev |
+| **Apache Polaris** | 1.3.0 | REST Catalog khuyến nghị cho production (xem [data-catalog/installation.md](../data-catalog/installation.md)) |
+| **MinIO** | `RELEASE.2025-04-22T22-12-26Z` hoặc theo baseline | Object storage (lưu data + metadata files) |
+| **Iceberg Runtime JAR** | 1.8.1 | Library tích hợp vào Spark |
 
 ### Components Tùy Chọn
 
@@ -32,7 +33,7 @@ Iceberg được tích hợp sẵn trong Docker image của Spark. Không cần 
 Sử dụng image đã bao gồm Iceberg runtime:
 
 ```
-trangtoan293/dbt-spark-k8s-ktl:ktl-dbt
+<REGISTRY>/<NAMESPACE>/dbt-spark-k8s-ktl:<PINNED_TAG>
 ```
 
 Image này bao gồm:
@@ -41,7 +42,11 @@ Image này bao gồm:
 - AWS SDK (cho S3FileIO)
 - dbt-spark adapter
 
-### Step 2: Hive Metastore
+### Step 2: Catalog
+
+Production dùng Apache Polaris làm REST Catalog; Hive Metastore chỉ dùng cho profile quickstart/dev. Chọn đúng một catalog cho mỗi namespace, không trộn hai profile trong cùng một catalog/table namespace.
+
+#### Profile quickstart/dev — Hive Metastore
 
 Hive Metastore phải đang chạy và accessible từ Spark pods:
 
@@ -95,17 +100,17 @@ services:
       - SERVICE_NAME=metastore
 
   minio:
-    image: minio/minio
+    image: quay.io/minio/minio:RELEASE.2025-04-22T22-12-26Z
     ports:
       - "9000:9000"
       - "9001:9001"
     command: server /data --console-address ":9001"
     environment:
-      MINIO_ROOT_USER: minioadmin
-      MINIO_ROOT_PASSWORD: minioadmin
+      MINIO_ROOT_USER: <MINIO_ADMIN_USER_FROM_SECRET>
+      MINIO_ROOT_PASSWORD: <MINIO_ADMIN_PASSWORD_FROM_SECRET>
 
   spark-iceberg:
-    image: trangtoan293/dbt-spark-k8s-ktl:ktl-dbt
+    image: <REGISTRY>/<NAMESPACE>/dbt-spark-k8s-ktl:<PINNED_TAG>
     depends_on:
       - hive-metastore
       - minio
@@ -159,11 +164,11 @@ SELECT * FROM demo.default.test_iceberg VERSION AS OF <snapshot_id>;
 mc ls minio/data/warehouse/default/test_iceberg/
 # Expected:
 # ├── metadata/
-# │   ├── v1.metadata.json
-# │   ├── v2.metadata.json
-# │   └── snap-*.avro
+# │ ├── v1.metadata.json
+# │ ├── v2.metadata.json
+# │ └── snap-*.avro
 # └── data/
-#     └── *.parquet
+# └── *.parquet
 ```
 
 ### 4. Verify Maintenance Procedures

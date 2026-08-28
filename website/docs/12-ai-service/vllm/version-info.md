@@ -5,13 +5,13 @@
 | Thành phần | Version | Ghi chú |
 |---|---|---|
 | **vLLM** | Nightly (pre-release) | Build từ `wheels.vllm.ai/nightly` |
-| **Base Image** | `vllm/vllm-openai:latest` | Official Docker image |
-| **Custom Image** | `ktl-vllm:latest` | Katalyst custom build |
-| **Transformers** | Source (latest) | Build từ `huggingface/transformers.git` |
+| **Base Image** | `<CẦN CHỐT TAG/DIGEST>` | Official Docker image, không dùng mutable tag |
+| **Custom Image** | `<CẦN CHỐT TAG/DIGEST>` | Katalyst custom build |
+| **Transformers** | `<CẦN CHỐT COMMIT/VERSION>` | Build từ source đã lock |
 | **CUDA** | 12.1+ | Bundled trong base image |
 
 > [!NOTE]
-> Sử dụng nightly build vì cần hỗ trợ model architecture mới nhất (Qwen3, GLM4, v.v.).
+> Nếu sử dụng nightly/pre-release để hỗ trợ model mới, phải ghi commit/image digest, kết quả benchmark và kế hoạch rollback trong release register.
 
 ## Model Version Matrix
 
@@ -19,9 +19,9 @@
 
 | Model | Version/Variant | Params | VRAM | Hỗ Trợ Tiếng Việt |
 |---|---|---|---|---|
-| **Qwen/Qwen3-14B-AWQ** | AWQ quantized | 14B | ~10 GB | ✅ Tốt |
-| **BAAI/bge-m3** | v1 | 568M | ~2 GB | ✅ Multilingual |
-| **BAAI/bge-reranker-v2-m3** | v2 | 568M | ~2 GB | ✅ Multilingual |
+| **Qwen/Qwen3-14B-AWQ** | AWQ quantized | 14B | ~10 GB | Tốt |
+| **BAAI/bge-m3** | v1 | 568M | ~2 GB | Multilingual |
+| **BAAI/bge-reranker-v2-m3** | v2 | 568M | ~2 GB | Multilingual |
 
 ### Backup / Alternative Models
 
@@ -39,37 +39,37 @@
 
 | GPU | VRAM | Hỗ trợ | Models khuyến nghị |
 |---|---|---|---|
-| **NVIDIA A100** | 40/80 GB | ✅ Tốt nhất | 32B AWQ, multi-model |
-| **NVIDIA H100** | 80 GB | ✅ Tốt nhất | FP8 quantization |
-| **NVIDIA RTX 4090** | 24 GB | ✅ | 14B AWQ + embed + rerank |
-| **NVIDIA RTX 3090** | 24 GB | ✅ | 14B AWQ solo |
-| **NVIDIA V100** | 16/32 GB | ⚠️ Giới hạn | 4B models only |
+| **NVIDIA A100** | 40/80 GB | Tốt nhất | 32B AWQ, multi-model |
+| **NVIDIA H100** | 80 GB | Tốt nhất | FP8 quantization |
+| **NVIDIA RTX 4090** | 24 GB | Có | 14B AWQ + embed + rerank |
+| **NVIDIA RTX 3090** | 24 GB | Có | 14B AWQ solo |
+| **NVIDIA V100** | 16/32 GB | Giới hạn | 4B models only |
 
 ## vLLM Feature Compatibility
 
 | Feature | Supported | Ghi chú |
 |---|---|---|
-| **PagedAttention** | ✅ | Core feature |
-| **Continuous Batching** | ✅ | Auto-enabled |
-| **AWQ Quantization** | ✅ | Production-ready |
-| **GPTQ Quantization** | ✅ | Production-ready |
-| **FP8 Quantization** | ✅ | H100 recommended |
-| **GGUF Format** | ⚠️ Experimental | Single file only |
-| **Tool Calling** | ✅ | Hermes parser |
-| **Prefix Caching** | ✅ | Auto-enabled |
-| **Speculative Decoding** | ✅ | Needs draft model |
-| **Tensor Parallelism** | ✅ | Multi-GPU |
-| **Embedding Task** | ✅ | `TASK=embeddings` |
-| **Reranking Task** | ✅ | `TASK=score` |
-| **Vision Models** | ✅ | `limit-mm-per-prompt` |
+| **PagedAttention** | Có | Core feature |
+| **Continuous Batching** | Có | Auto-enabled |
+| **AWQ Quantization** | Có | Production-ready |
+| **GPTQ Quantization** | Có | Production-ready |
+| **FP8 Quantization** | Có | H100 recommended |
+| **GGUF Format** | Experimental | Single file only |
+| **Tool Calling** | Có | Hermes parser |
+| **Prefix Caching** | Có | Auto-enabled |
+| **Speculative Decoding** | Có | Needs draft model |
+| **Tensor Parallelism** | Có | Multi-GPU |
+| **Embedding Task** | Có | `TASK=embeddings` |
+| **Reranking Task** | Có | `TASK=score` |
+| **Vision Models** | Có | `limit-mm-per-prompt` |
 
 ## Upgrade Notes
 
 ### Update vLLM Nightly
 
 ```bash
-# Rebuild image mới để lấy nightly mới nhất
-docker build --no-cache -t ktl-vllm:latest .
+# Rebuild image từ version/commit đã phê duyệt
+docker build --no-cache -t <REGISTRY>/<VLLM_IMAGE>:<PINNED_TAG> .
 docker compose down
 docker compose up -d
 ```

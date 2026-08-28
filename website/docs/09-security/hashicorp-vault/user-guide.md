@@ -280,19 +280,19 @@ spec:
 ```bash
 # Dify secrets
 vault kv put secret/hanas/ai/dify \
-  OPENAI_API_KEY="sk-xxxx" \
+  OPENAI_API_KEY="<OPENAI_API_KEY_FROM_SECRET>" \
   SECRET_KEY="<RANDOM_SECRET>" \
   DB_PASSWORD="<DIFY_DB_PASSWORD>" \
   REDIS_PASSWORD="<REDIS_PASSWORD>"
 
 # vLLM model tokens
 vault kv put secret/hanas/ai/vllm \
-  HUGGING_FACE_HUB_TOKEN="hf_xxxx" \
+  HUGGING_FACE_HUB_TOKEN="<HUGGING_FACE_TOKEN_FROM_SECRET>" \
   MODEL_NAME="meta-llama/Llama-3-8B-Instruct"
 
 # Langfuse
 vault kv put secret/hanas/ai/langfuse \
-  DATABASE_URL="postgresql://langfuse:password@postgres.database.svc:5432/langfuse" \
+  DATABASE_URL="postgresql://<LANGFUSE_DB_USER>:<LANGFUSE_DB_PASSWORD>@postgres.database.svc:5432/langfuse" \
   NEXTAUTH_SECRET="<RANDOM_SECRET>" \
   ENCRYPTION_KEY="<RANDOM_KEY>" \
   SALT="<RANDOM_SALT>"
@@ -305,7 +305,7 @@ vault kv put secret/hanas/ai/langfuse \
 ```bash
 # Cập nhật secret (tự tạo version mới)
 vault kv put secret/hanas/ai/dify \
-  OPENAI_API_KEY="sk-NEW_KEY" \
+  OPENAI_API_KEY="<NEW_OPENAI_API_KEY_FROM_SECRET>" \
   SECRET_KEY="<NEW_SECRET>" \
   DB_PASSWORD="<NEW_PASSWORD>" \
   REDIS_PASSWORD="<NEW_REDIS_PASSWORD>"

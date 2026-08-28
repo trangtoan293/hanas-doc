@@ -11,8 +11,8 @@
 | **UI/API Port** | 9047 |
 | **JDBC Port** | 31010 |
 | **Arrow Flight Port** | 32010 |
-| **Internal IP** | `192.168.1.193` |
-| **URL** | `http://dremio.hanas.local/` |
+| **Internal IP** | `<CẦN ĐIỀN / KHÔNG CÔNG BỐ>` |
+| **URL** | `<CẦN ĐIỀN THEO ENVIRONMENT>` |
 
 ---
 
@@ -22,25 +22,25 @@
 
 | Service | Version | Tích hợp | Giao thức |
 |---|---|---|---|
-| **Apache Iceberg** | 1.5.x (format v2) | ✅ Native read/write | Hive Metastore / S3 |
-| **MinIO** | Latest | ✅ Data source (S3-compat) | S3A protocol |
-| **Hive Metastore** | 3.x | ✅ Catalog source | Thrift (port 9083) |
-| **Apache Spark** | 3.5.1 | ✅ Multi-engine access | Shared Iceberg tables |
-| **dbt** | 1.x | ✅ dbt tạo tables → Dremio views | Qua Iceberg tables |
-| **Apache Airflow** | 2.x | ✅ DremioClient API | REST API v3 |
-| **DataHub** | Latest | ✅ Metadata ingestion | API / Lineage |
-| **Apache Ranger** | Optional | ⚠️ Tùy chọn | Plugin |
+| **Apache Iceberg** | 1.8.1 theo runtime Spark (format v2) | Native read/write | Hive Metastore / S3 |
+| **MinIO** | `RELEASE.2025-04-22T22-12-26Z` theo baseline | Data source (S3-compat) | S3A protocol |
+| **Hive Metastore** | 3.x | Catalog source | Thrift (port 9083) |
+| **Apache Spark** | 3.5.1 | Multi-engine access | Shared Iceberg tables |
+| **dbt** | 1.x | dbt tạo tables → Dremio views | Qua Iceberg tables |
+| **Apache Airflow** | 2.x | DremioClient API | REST API v3 |
+| **DataHub** | v0.14.1 theo baseline | Metadata ingestion | API / Lineage |
+| **Apache Ranger** | Optional | Tùy chọn | Plugin |
 
 ### BI Tools
 
 | Tool | Kết nối | Driver | Port |
 |---|---|---|---|
-| **Apache Superset** | ✅ | Arrow Flight JDBC / dremio-sqlalchemy | 32010 |
-| **Tableau** | ✅ | Dremio JDBC Driver | 31010 |
-| **PowerBI** | ✅ | Dremio ODBC Driver | 31010 |
-| **Python (pyarrow)** | ✅ | Arrow Flight gRPC | 32010 |
-| **DBeaver** | ✅ | JDBC | 31010 |
-| **Custom Apps** | ✅ | REST API v3 | 9047 |
+| **Apache Superset** | Có | Arrow Flight JDBC / dremio-sqlalchemy | 32010 |
+| **Tableau** | Có | Dremio JDBC Driver | 31010 |
+| **PowerBI** | Có | Dremio ODBC Driver | 31010 |
+| **Python (pyarrow)** | Có | Arrow Flight gRPC | 32010 |
+| **DBeaver** | Có | JDBC | 31010 |
+| **Custom Apps** | Có | REST API v3 | 9047 |
 
 ### Client Drivers
 
@@ -56,17 +56,17 @@
 
 | Feature | Community Edition (OSS) | Hanas Platform Edition |
 |---|---|---|
-| Query Engine | ✅ | ✅ |
-| Reflections | ✅ | ✅ |
-| Semantic Layer | ✅ | ✅ |
-| Arrow Flight | ✅ | ✅ |
-| Iceberg Support | ✅ | ✅ |
-| Kubernetes Deploy | ✅ | ✅ |
-| **HA Coordinator** | ❌ | ✅ |
-| **Column Masking** | ❌ | ✅ |
-| **Row Filtering** | ❌ | ✅ |
-| **Audit Logging** | ❌ | ✅ |
-| **Enterprise Support** | ❌ | ✅ |
+| Query Engine | Có | Có |
+| Reflections | Có | Có |
+| Semantic Layer | Có | Có |
+| Arrow Flight | Có | Có |
+| Iceberg Support | Có | Có |
+| Kubernetes Deploy | Có | Có |
+| **HA Coordinator** | Không | Có |
+| **Column Masking** | Không | Có |
+| **Row Filtering** | Không | Có |
+| **Audit Logging** | Không | Có |
+| **Enterprise Support** | Không | Có |
 
 ---
 
@@ -74,15 +74,15 @@
 
 | Iceberg Feature | Dremio Support | Ghi chú |
 |---|---|---|
-| Read Iceberg tables | ✅ | Qua Hive / S3 source |
-| Write Iceberg tables (CTAS) | ✅ | CREATE TABLE AS SELECT |
-| DML (INSERT/UPDATE/DELETE) | ✅ | Yêu cầu format v2 |
-| MERGE INTO | ✅ | Yêu cầu format v2 |
-| Time Travel | ✅ | `AT TIMESTAMP` / `AT SNAPSHOT` |
-| Schema Evolution | ✅ | Auto-detect schema changes |
-| Partition Pruning | ✅ | Tự động dựa trên WHERE clause |
-| Hidden Partitioning | ✅ | Transparent cho user |
-| Metadata Pruning | ✅ | Min/max file statistics |
+| Read Iceberg tables | Có | Qua Hive / S3 source |
+| Write Iceberg tables (CTAS) | Có | CREATE TABLE AS SELECT |
+| DML (INSERT/UPDATE/DELETE) | Có | Yêu cầu format v2 |
+| MERGE INTO | Có | Yêu cầu format v2 |
+| Time Travel | Có | `AT TIMESTAMP` / `AT SNAPSHOT` |
+| Schema Evolution | Có | Auto-detect schema changes |
+| Partition Pruning | Có | Tự động dựa trên WHERE clause |
+| Hidden Partitioning | Có | Transparent cho user |
+| Metadata Pruning | Có | Min/max file statistics |
 
 
 ---

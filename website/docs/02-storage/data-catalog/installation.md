@@ -10,7 +10,7 @@ Apache Polaris là một **service chạy độc lập** (khác với Iceberg l�
 |---|---|---|
 | **Apache Polaris** | 1.3.x | REST Catalog server (Quarkus-based) |
 | **PostgreSQL** | 14+ | Persistence backend cho catalog metadata |
-| **MinIO** | Latest | Object Storage (lưu Iceberg data + metadata files) |
+| **MinIO** | `RELEASE.2025-04-22T22-12-26Z` hoặc theo baseline | Object Storage (lưu Iceberg data + metadata files) |
 | **Kubernetes** | 1.28+ | Container orchestration (production) |
 | **Helm** | 3.x+ | Package manager cho K8s deployment |
 
@@ -91,7 +91,7 @@ replicaCount: 2
 
 image:
   repository: apache/polaris
-  tag: "1.3.0"
+  tag: "<PINNED_TAG>"
   pullPolicy: IfNotPresent
 
 # Server configuration
@@ -231,7 +231,7 @@ services:
     image: postgres:16-alpine
     environment:
       POSTGRES_USER: polaris
-      POSTGRES_PASSWORD: polaris123
+      POSTGRES_PASSWORD: <POLARIS_DB_PASSWORD_FROM_SECRET>
       POSTGRES_DB: polaris
     ports:
       - "5432:5432"
@@ -258,13 +258,13 @@ services:
       POLARIS_PERSISTENCE_TYPE: jdbc
       QUARKUS_DATASOURCE_JDBC_URL: "jdbc:postgresql://polaris-postgres:5432/polaris"
       QUARKUS_DATASOURCE_USERNAME: polaris
-      QUARKUS_DATASOURCE_PASSWORD: polaris123
+      QUARKUS_DATASOURCE_PASSWORD: <POLARIS_DB_PASSWORD_FROM_SECRET>
       # Bootstrap
-      POLARIS_BOOTSTRAP_CREDENTIALS: "POLARIS,root,s3cr3t"
+      POLARIS_BOOTSTRAP_CREDENTIALS: "<POLARIS_BOOTSTRAP_CREDENTIALS_FROM_SECRET>"
       # Storage defaults
       AWS_REGION: us-east-1
-      AWS_ACCESS_KEY_ID: minioadmin
-      AWS_SECRET_ACCESS_KEY: minioadmin
+      AWS_ACCESS_KEY_ID: <MINIO_ACCESS_KEY_FROM_SECRET>
+      AWS_SECRET_ACCESS_KEY: <MINIO_SECRET_KEY_FROM_SECRET>
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8182/q/health/ready"]
       interval: 10s
@@ -272,25 +272,25 @@ services:
       retries: 10
 
   minio:
-    image: minio/minio
+    image: quay.io/minio/minio:RELEASE.2025-04-22T22-12-26Z
     ports:
       - "9000:9000"
       - "9001:9001"
     command: server /data --console-address ":9001"
     environment:
-      MINIO_ROOT_USER: minioadmin
-      MINIO_ROOT_PASSWORD: minioadmin
+      MINIO_ROOT_USER: <MINIO_ADMIN_USER_FROM_SECRET>
+      MINIO_ROOT_PASSWORD: <MINIO_ADMIN_PASSWORD_FROM_SECRET>
     volumes:
       - minio_data:/data
 
   minio-init:
-    image: minio/mc
+    image: quay.io/minio/mc:<PINNED_TAG>
     depends_on:
       - minio
     entrypoint: >
       /bin/sh -c "
       sleep 5;
-      mc alias set minio http://minio:9000 minioadmin minioadmin;
+      mc alias set minio http://minio:9000 "$MINIO_ROOT_USER" "$MINIO_ROOT_PASSWORD";
       mc mb minio/data --ignore-existing;
       mc mb minio/data/warehouse --ignore-existing;
       exit 0;
@@ -334,7 +334,7 @@ curl -s http://localhost:8182/q/health/ready | jq .
 TOKEN=$(curl -s -X POST http://localhost:8181/api/catalog/v1/oauth/tokens \
   -d "grant_type=client_credentials" \
   -d "client_id=root" \
-  -d "client_secret=s3cr3t" \
+  -d "client_secret=$POLARIS_CLIENT_SECRET" \
   -d "scope=PRINCIPAL_ROLE:ALL" | jq -r '.access_token')
 
 echo $TOKEN
@@ -381,7 +381,7 @@ bin/spark-sql \
   --conf spark.sql.catalog.polaris=org.apache.iceberg.spark.SparkCatalog \
   --conf spark.sql.catalog.polaris.catalog-impl=org.apache.iceberg.rest.RESTCatalog \
   --conf spark.sql.catalog.polaris.uri=http://localhost:8181/api/catalog \
-  --conf spark.sql.catalog.polaris.credential='root:s3cr3t' \
+  --conf spark.sql.catalog.polaris.credential='<POLARIS_CLIENT_ID>:<POLARIS_CLIENT_SECRET_FROM_SECRET>' \
   --conf spark.sql.catalog.polaris.warehouse=test_catalog \
   --conf spark.sql.catalog.polaris.scope='PRINCIPAL_ROLE:ALL' \
   --conf spark.sql.catalog.polaris.token-refresh-enabled=true \

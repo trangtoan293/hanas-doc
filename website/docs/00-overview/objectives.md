@@ -45,3 +45,19 @@
 - Không phụ thuộc cứng vào một mô hình đơn lẻ — hỗ trợ đa models và mở rộng trong tương lai
 - Nền tảng thống nhất phục vụ chuyển đổi số toàn diện (dữ liệu + AI)
 
+## 7. Tiêu chí thành công và nghiệm thu
+
+Các mục tiêu trên cần được chuyển thành tiêu chí đo được theo từng dự án:
+
+| Nhóm | Bằng chứng nghiệm thu tham chiếu |
+|---|---|
+| Kết nối nguồn | Source inventory, data contract, full-load/CDC test và reconciliation |
+| Pipeline | Run thành công, retry/backfill, throughput/latency baseline và alert |
+| Data Lakehouse | Đúng zone, schema/partition evolution, snapshot/compaction và retention |
+| Governance | Asset, owner, glossary, lineage, quality result và certification |
+| Security | SSO/MFA, RBAC, row/column masking, export control và audit evidence |
+| Khai thác | Query/Dashboard đúng KPI, freshness và quyền consumer |
+| Vận hành/DR | Health dashboard, backup `Completed`, restore test và RPO/RTO đo được |
+| AI (nếu áp dụng) | Model/version, prompt/data policy, latency, quality, cost và trace |
+
+Ngưỡng số liệu, owner, thời hạn và môi trường áp dụng phải được ghi trong [Baseline triển khai](platform-baseline.md) và biên bản nghiệm thu; không dùng các giá trị tham khảo làm cam kết mặc định.

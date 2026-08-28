@@ -35,7 +35,7 @@ dremio+flight://<DREMIO_USER>:<PAT>@<DREMIO_HOST>:32010/dremio?UseEncryption=fal
 dremio+flight://hanas_bi:P%40ssw0rd@dremio-client.dremio.svc.cluster.local:32010/dremio
 ```
 
-> ⚠️ Mật khẩu chứa ký tự đặc biệt phải được URL-encoded (ví dụ: `@` → `%40`, `#` → `%23`).
+> **Cảnh báo:** Mật khẩu chứa ký tự đặc biệt phải được URL-encoded (ví dụ: `@` → `%40`, `#` → `%23`).
 
 #### Cấu Hình Qua UI
 
@@ -44,9 +44,9 @@ dremio+flight://hanas_bi:P%40ssw0rd@dremio-client.dremio.svc.cluster.local:32010
 3. Nhập **Display Name**: `Dremio Hanas`
 4. Nhập **SQLAlchemy URI**: `dremio+flight://...`
 5. Tab **Advanced** → **Security**:
-   - ✅ Allow DML (nếu cần INSERT/UPDATE)
-   - ✅ Allow this database to be explored
-   - ✅ Expose database in SQL Lab
+   - Allow DML (nếu cần INSERT/UPDATE)
+   - Allow this database to be explored
+   - Expose database in SQL Lab
 6. Click **Test Connection** → **Connect**
 
 #### Cấu Hình Qua CLI

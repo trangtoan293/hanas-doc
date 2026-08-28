@@ -67,11 +67,11 @@ kubectl create namespace minio-tenant
 ```bash
 kubectl create secret generic minio-creds \
   --namespace minio-tenant \
-  --from-literal=accesskey=admin \
+  --from-literal=accesskey='<MINIO_ADMIN_USER>' \
   --from-literal=secretkey='<MINIO_SECRET_KEY>'
 ```
 
-> ⚠️ **KHÔNG** commit credentials vào Git. Sử dụng Kubernetes Secrets hoặc HashiCorp Vault.
+> **Cảnh báo:** **KHÔNG** commit credentials vào Git. Sử dụng Kubernetes Secrets hoặc HashiCorp Vault.
 
 #### Step 4: Deploy MinIO Tenant
 
@@ -131,17 +131,17 @@ helm install hanas-tenant minio-operator/tenant \
 # Kiểm tra pods
 kubectl get pods -n minio-tenant
 # Expected:
-# hanas-minio-pool-0-0    1/1  Running
-# hanas-minio-pool-0-1    1/1  Running
-# hanas-minio-pool-0-2    1/1  Running
-# hanas-minio-pool-0-3    1/1  Running
-# hanas-minio-console-xxx 1/1  Running
+# hanas-minio-pool-0-0 1/1 Running
+# hanas-minio-pool-0-1 1/1 Running
+# hanas-minio-pool-0-2 1/1 Running
+# hanas-minio-pool-0-3 1/1 Running
+# hanas-minio-console-xxx 1/1 Running
 
 # Kiểm tra services
 kubectl get svc -n minio-tenant
 # Expected:
-# minio         ClusterIP  ...  9000/TCP
-# minio-console ClusterIP  ...  9090/TCP
+# minio ClusterIP ... 9000/TCP
+# minio-console ClusterIP ... 9090/TCP
 ```
 
 ### Option B: Standalone Pod (Dev/Staging)
@@ -252,8 +252,8 @@ services:
       - "9000:9000"   # S3 API
       - "9001:9001"   # Console UI
     environment:
-      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-admin}
-      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minio_secret_2025}
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:?Set MINIO_ROOT_USER in .env}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:?Set MINIO_ROOT_PASSWORD in .env}
     volumes:
       - minio_data:/data
     healthcheck:
@@ -265,7 +265,7 @@ services:
 
   # Bucket initialization
   minio-init:
-    image: quay.io/minio/mc:latest
+    image: quay.io/minio/mc:<PINNED_TAG>
     container_name: hanas-minio-init
     depends_on:
       minio:
@@ -278,11 +278,11 @@ services:
       mc mb --ignore-existing myminio/business-vault;
       mc mb --ignore-existing myminio/information-mart;
       mc mb --ignore-existing myminio/warehouse;
-      echo '✅ All Hanas buckets created successfully';
+      echo 'All Hanas buckets created successfully';
       "
     environment:
-      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-admin}
-      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minio_secret_2025}
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:?Set MINIO_ROOT_USER in .env}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:?Set MINIO_ROOT_PASSWORD in .env}
 
 volumes:
   minio_data:
@@ -321,11 +321,11 @@ mc mb --ignore-existing hanas/warehouse
 # Verify
 mc ls hanas/
 # Expected:
-# [2025-01-01 00:00:00 +07]     0B landing/
-# [2025-01-01 00:00:00 +07]     0B raw-vault/
-# [2025-01-01 00:00:00 +07]     0B business-vault/
-# [2025-01-01 00:00:00 +07]     0B information-mart/
-# [2025-01-01 00:00:00 +07]     0B warehouse/
+# [2025-01-01 00:00:00 +07] 0B landing/
+# [2025-01-01 00:00:00 +07] 0B raw-vault/
+# [2025-01-01 00:00:00 +07] 0B business-vault/
+# [2025-01-01 00:00:00 +07] 0B information-mart/
+# [2025-01-01 00:00:00 +07] 0B warehouse/
 ```
 
 ---
@@ -408,7 +408,7 @@ spark.read.text("s3a://landing/test/test.txt").show()
 
 ```bash
 # Cập nhật image tag trong tenant-values.yaml
-# tag: "RELEASE.2025-04-22T22-12-26Z"  (giữ nguyên pin version)
+# tag: "RELEASE.2025-04-22T22-12-26Z" (giữ nguyên pin version)
 
 # Apply upgrade
 helm upgrade hanas-tenant minio-operator/tenant \
@@ -430,7 +430,7 @@ docker compose pull minio
 docker compose up -d --force-recreate minio
 ```
 
-> ⚠️ **Lưu ý khi upgrade:**
+> **Lưu ý khi upgrade:**
 > - **Backup trước** khi upgrade (xem [Best Practices](best-practices.md))
 > - MinIO hỗ trợ **rolling upgrade** trong distributed mode
 > - Đọc release notes cho breaking changes

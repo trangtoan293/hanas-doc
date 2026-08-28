@@ -84,10 +84,10 @@ kubectl create namespace security
 # 2. Deploy PostgreSQL cho Ranger
 helm install ranger-db bitnami/postgresql \
   --namespace security \
-  --set auth.postgresPassword=ranger_admin_pwd \
+  --set-string auth.postgresPassword=<RANGER_DB_ADMIN_PASSWORD_FROM_SECRET> \
   --set auth.database=ranger \
   --set auth.username=ranger \
-  --set auth.password=ranger_db_pwd \
+  --set-string auth.password=<RANGER_DB_PASSWORD_FROM_SECRET> \
   --set primary.persistence.size=50Gi
 ```
 
@@ -359,10 +359,10 @@ kubectl get pods -n security -l app=ranger-admin
 # Check Ranger Admin UI
 kubectl port-forward svc/ranger-admin -n security 6080:6080
 # Truy cập http://localhost:6080
-# Default credentials: admin / rangerR0cks!
+# Dùng RANGER_ADMIN_USER/RANGER_ADMIN_PASSWORD từ Secret manager; không ghi credential vào shell history.
 
 # Check Ranger Admin status via API
-curl -u admin:rangerR0cks! \
+curl -u "$RANGER_ADMIN_USER:$RANGER_ADMIN_PASSWORD" \
   http://ranger-admin.security.svc:6080/service/public/v2/api/service
 ```
 
@@ -370,7 +370,7 @@ curl -u admin:rangerR0cks! \
 
 ```bash
 # Tạo Kafka service trong Ranger
-curl -u admin:rangerR0cks! -X POST \
+curl -u "$RANGER_ADMIN_USER:$RANGER_ADMIN_PASSWORD" -X POST \
   -H "Content-Type: application/json" \
   http://ranger-admin.security.svc:6080/service/public/v2/api/service \
   -d '{
@@ -388,7 +388,7 @@ curl -u admin:rangerR0cks! -X POST \
 
 ```bash
 # Kiểm tra plugin đã kết nối Ranger Admin
-curl -u admin:rangerR0cks! \
+curl -u "$RANGER_ADMIN_USER:$RANGER_ADMIN_PASSWORD" \
   "http://ranger-admin.security.svc:6080/service/public/v2/api/plugins/info"
 
 # Expected: Danh sách plugins với last policy download time

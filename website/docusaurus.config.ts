@@ -30,7 +30,6 @@ const config: Config = {
   projectName: 'hanas-docs',
 
   onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
 
   // Internationalization - Vietnamese default
   i18n: {
@@ -41,6 +40,9 @@ const config: Config = {
   // Enable Mermaid
   markdown: {
     mermaid: true,
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
   },
   themes: ['@docusaurus/theme-mermaid'],
 
@@ -69,8 +71,8 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          // Edit URL pointing to GitLab repository for contribution
-          editUrl: 'https://gitlab.katalyst.vn:7979/de-team/hanas-docs/-/blob/main/website/',
+          // Training và maintenance là tài liệu nội bộ, không đưa vào public build/search.
+          exclude: ['**/10-training/**', '**/11-maintenance/**'],
           routeBasePath: '/',
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
@@ -120,19 +122,7 @@ const config: Config = {
         alt: 'Hanas Logo',
         src: 'img/logo.svg',
       },
-      items: [
-        // {
-        //   type: 'docSidebar',
-        //   sidebarId: 'docsSidebar',
-        //   position: 'left',
-        //   label: 'Tài Liệu',
-        // },
-        {
-          href: 'https://github.com/trangtoan293/hanas-doc',
-          label: 'GitHub',
-          position: 'right',
-        },
-      ],
+      items: [],
     },
     footer: {
       style: 'dark',
@@ -151,12 +141,6 @@ const config: Config = {
             { label: 'Thu Thập Dữ Liệu', to: '/ingestion' },
             { label: 'Lưu Trữ', to: '/storage' },
             { label: 'Xử Lý', to: '/processing' },
-          ],
-        },
-        {
-          title: 'Liên Kết',
-          items: [
-            { label: 'GitHub', href: 'https://github.com/hanas/hanas-docs' },
           ],
         },
       ],

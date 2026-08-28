@@ -8,7 +8,7 @@ sidebar_position: 1
 
 HashiCorp Vault là công cụ mã nguồn mở quản lý secrets, mã hóa dữ liệu và kiểm soát truy cập dựa trên danh tính (identity-based access). Vault tập trung hóa việc lưu trữ, truy cập và xoay vòng các thông tin nhạy cảm như mật khẩu, API keys, certificates và encryption keys.
 
-Trong Hanas Data Platform, Vault đóng vai trò **trung tâm quản lý bí mật (Secrets Management Hub)** — cung cấp credentials động, mã hóa dữ liệu và chứng chỉ TLS cho toàn bộ 7 lớp kiến trúc và tất cả services.
+Trong Hanas Data Platform, Vault đóng vai trò **trung tâm quản lý bí mật (Secrets Management Hub)** — cung cấp credentials động, mã hóa dữ liệu và chứng chỉ TLS cho toàn bộ các lớp kiến trúc và services được triển khai.
 
 > **Phiên bản**: HashiCorp Vault OSS (Open Source) — MPL 2.0 License
 
@@ -173,19 +173,19 @@ flowchart LR
 
 | Tính Năng | OSS (Miễn Phí) | Enterprise |
 |-----------|:---:|:---:|
-| KV, Database, Transit, PKI Secrets Engines | ✅ | ✅ |
-| Kubernetes, AppRole, LDAP Auth | ✅ | ✅ |
-| HA Clustering (Raft Integrated Storage) | ✅ | ✅ |
-| Audit Logging | ✅ | ✅ |
-| Policies (ACL) | ✅ | ✅ |
-| UI Dashboard | ✅ | ✅ |
-| Namespaces (Multi-Tenancy) | ❌ | ✅ |
-| Sentinel Policies (Policy-as-Code) | ❌ | ✅ |
-| Performance Replication | ❌ | ✅ |
-| Disaster Recovery Replication | ❌ | ✅ |
-| HSM Auto-Unseal | ❌ | ✅ |
-| MFA | ❌ | ✅ |
-| Control Groups | ❌ | ✅ |
+| KV, Database, Transit, PKI Secrets Engines | Có | Có |
+| Kubernetes, AppRole, LDAP Auth | Có | Có |
+| HA Clustering (Raft Integrated Storage) | Có | Có |
+| Audit Logging | Có | Có |
+| Policies (ACL) | Có | Có |
+| UI Dashboard | Có | Có |
+| Namespaces (Multi-Tenancy) | Không | Có |
+| Sentinel Policies (Policy-as-Code) | Không | Có |
+| Performance Replication | Không | Có |
+| Disaster Recovery Replication | Không | Có |
+| HSM Auto-Unseal | Không | Có |
+| MFA | Không | Có |
+| Control Groups | Không | Có |
 
 > **Hanas Platform sử dụng phiên bản OSS** — đáp ứng đầy đủ nhu cầu secrets management, dynamic credentials và encryption cho hệ thống. Các tính năng enterprise chủ yếu phục vụ tổ chức lớn với yêu cầu multi-tenancy và compliance cao.
 
