@@ -1,4 +1,5 @@
 import React from 'react';
+import useLazyVideo from '@site/src/hooks/useLazyVideo';
 import styles from './styles.module.css';
 
 const roadmap = [
@@ -20,17 +21,18 @@ const roadmap = [
 ];
 
 export default function CTABanner(): React.JSX.Element {
+  const videoRef = useLazyVideo();
   return (
     <section className={styles.section}>
       <div className="container">
         <div className={styles.shell}>
           <video
             className={styles.backgroundVideo}
-            autoPlay
+            ref={videoRef}
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="none"
             poster="/img/landing/use-case-operations.webp"
             aria-hidden="true"
           >

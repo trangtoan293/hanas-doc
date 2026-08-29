@@ -1,4 +1,5 @@
 import React from 'react';
+import useLazyVideo from '@site/src/hooks/useLazyVideo';
 import styles from './styles.module.css';
 
 const principles = [
@@ -25,15 +26,16 @@ const architectureLayers = [
 ];
 
 export default function CaseStudySection(): React.JSX.Element {
+  const videoRef = useLazyVideo();
   return (
     <section className={styles.section} id="architecture">
       <video
         className={styles.sectionVideo}
-        autoPlay
+        ref={videoRef}
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="none"
         poster="/img/landing/use-case-analytics.webp"
         aria-hidden="true"
       >

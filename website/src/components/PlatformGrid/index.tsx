@@ -1,4 +1,5 @@
 import React from 'react';
+import useLazyVideo from '@site/src/hooks/useLazyVideo';
 import styles from './styles.module.css';
 
 interface Capability {
@@ -69,15 +70,16 @@ const capabilities: Capability[] = [
 ];
 
 function CapabilityCard({title, description, technologies, video, poster, link}: Capability): React.JSX.Element {
+  const videoRef = useLazyVideo();
   return (
     <a href={link} className={styles.card} aria-label={`Tìm hiểu ${title}`}>
       <div className={styles.cardMedia} aria-hidden="true">
         <video
-          autoPlay
+          ref={videoRef}
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="none"
           poster={poster}
           aria-hidden="true"
         >

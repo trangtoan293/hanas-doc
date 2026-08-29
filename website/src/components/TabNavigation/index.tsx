@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import useLazyVideo from '@site/src/hooks/useLazyVideo';
 import styles from './styles.module.css';
 
 type TabId = 'foundation' | 'intelligence' | 'governance';
@@ -28,7 +29,7 @@ const experiences: Experience[] = [
       'Pipeline được điều phối và quan sát xuyên suốt',
     ],
     flow: ['Data Sources', 'Open Lakehouse', 'Data Products'],
-    video: '/video/data-pipeline.mp4',
+    video: '/video/background-data.mp4',
     poster: '/img/landing/use-case-operations.webp',
   },
   {
@@ -43,7 +44,7 @@ const experiences: Experience[] = [
       'Theo dõi prompt, chất lượng và chi phí inference',
     ],
     flow: ['Governed Data', 'LLM Mesh', 'AI Applications'],
-    video: '/video/agentic-ai.mp4',
+    video: '/video/main-background-landing-page.mp4',
     poster: '/img/landing/use-case-ai.webp',
   },
   {
@@ -58,7 +59,7 @@ const experiences: Experience[] = [
       'Audit, observability và bảo mật tập trung',
     ],
     flow: ['Metadata', 'Policy Engine', 'Trusted Access'],
-    video: '/video/Governance & Security.mp4',
+    video: '/video/digital-dashboard.mp4',
     poster: '/img/landing/use-case-operations.webp',
   },
 ];
@@ -66,6 +67,7 @@ const experiences: Experience[] = [
 export default function TabNavigation(): React.JSX.Element {
   const [activeTab, setActiveTab] = useState<TabId>('foundation');
   const activeExperience = experiences.find((experience) => experience.id === activeTab) ?? experiences[0];
+  const videoRef = useLazyVideo([activeExperience.video]);
 
   const moveTab = (direction: number) => {
     const currentIndex = experiences.findIndex((experience) => experience.id === activeTab);
@@ -144,11 +146,11 @@ export default function TabNavigation(): React.JSX.Element {
               <video
                 key={activeExperience.video}
                 className={styles.flowVideo}
-                autoPlay
+                ref={videoRef}
                 muted
                 loop
                 playsInline
-                preload="metadata"
+                preload="none"
                 poster={activeExperience.poster}
                 aria-hidden="true"
               >

@@ -1,4 +1,5 @@
 import React from 'react';
+import useLazyVideo from '@site/src/hooks/useLazyVideo';
 import styles from './styles.module.css';
 
 interface UseCase {
@@ -51,16 +52,17 @@ const useCases: UseCase[] = [
 ];
 
 function UseCaseCard({category, title, description, signal, image, video, link}: UseCase): React.JSX.Element {
+  const videoRef = useLazyVideo();
   return (
     <article className={styles.card}>
       <div className={styles.visual} aria-hidden="true">
         <img src={image} alt="" loading="lazy" decoding="async" />
         <video
-          autoPlay
+          ref={videoRef}
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="none"
           poster={image}
           aria-hidden="true"
         >

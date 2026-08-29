@@ -1,20 +1,22 @@
 import React from 'react';
+import useLazyVideo from '@site/src/hooks/useLazyVideo';
 import styles from './styles.module.css';
 
 export default function HeroSection(): React.JSX.Element {
+  const videoRef = useLazyVideo();
   return (
     <section className={styles.hero}>
       <video
         className={styles.stageVideo}
-        autoPlay
+        ref={videoRef}
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="none"
         poster="/img/landing/use-case-analytics.webp"
         aria-hidden="true"
       >
-        <source src="/video/main-background-landing-page.mp4" type="video/mp4" />
+        <source src="/video/main-background.mp4" type="video/mp4" />
       </video>
       <div className={styles.gridBackdrop} aria-hidden="true" />
       <div className={styles.heroGlow} aria-hidden="true" />
