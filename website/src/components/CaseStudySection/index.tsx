@@ -36,7 +36,7 @@ export default function CaseStudySection(): React.JSX.Element {
         loop
         playsInline
         preload="none"
-        poster="/img/landing/use-case-analytics.webp"
+        poster="/img/poster/computer.webp"
         aria-hidden="true"
       >
         <source src="/video/computer.mp4" type="video/mp4" />

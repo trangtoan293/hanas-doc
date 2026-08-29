@@ -1,5 +1,5 @@
 import React from 'react';
-import useLazyVideo from '@site/src/hooks/useLazyVideo';
+import useLazyVideo, {posterOf} from '@site/src/hooks/useLazyVideo';
 import styles from './styles.module.css';
 
 interface Capability {
@@ -8,7 +8,6 @@ interface Capability {
   description: string;
   technologies: string[];
   video: string;
-  poster: string;
   link: string;
 }
 
@@ -19,7 +18,6 @@ const capabilities: Capability[] = [
     description: 'Đưa dữ liệu từ mọi hệ thống về một nơi, theo lô hoặc ngay khi phát sinh — không còn chờ batch đêm.',
     technologies: ['NiFi', 'Kafka', 'Debezium'],
     video: '/video/data-pipeline.mp4',
-    poster: '/img/landing/use-case-operations.webp',
     link: '/ingestion',
   },
   {
@@ -28,7 +26,6 @@ const capabilities: Capability[] = [
     description: 'Dữ liệu nằm ở định dạng mở và thuộc về doanh nghiệp — đổi công cụ xử lý mà không phải chuyển kho.',
     technologies: ['MinIO', 'Iceberg', 'Polaris'],
     video: '/video/data-sample.mp4',
-    poster: '/img/landing/use-case-analytics.webp',
     link: '/storage',
   },
   {
@@ -37,7 +34,6 @@ const capabilities: Capability[] = [
     description: 'Mỗi phòng ban đọc ra cùng một con số, vì cùng lấy từ một mô hình dữ liệu đã được chuẩn hóa.',
     technologies: ['Spark', 'Airflow', 'dbt'],
     video: '/video/processing-data.mp4',
-    poster: '/img/landing/use-case-operations.webp',
     link: '/processing',
   },
   {
@@ -46,7 +42,6 @@ const capabilities: Capability[] = [
     description: 'Biết rõ dữ liệu đến từ đâu, ai được xem, ai đã dùng — trả lời được mọi câu hỏi của kiểm toán.',
     technologies: ['DataHub', 'Ranger', 'Vault'],
     video: '/video/Governance & Security.mp4',
-    poster: '/img/landing/use-case-financial.webp',
     link: '/governance',
   },
   {
@@ -55,7 +50,6 @@ const capabilities: Capability[] = [
     description: 'Đội nghiệp vụ tự lấy được dữ liệu cần, qua dashboard hay API, không phải mở ticket chờ IT.',
     technologies: ['Dremio', 'Superset'],
     video: '/video/Data Access & BI.mp4',
-    poster: '/img/landing/use-case-analytics.webp',
     link: '/federation',
   },
   {
@@ -64,12 +58,11 @@ const capabilities: Capability[] = [
     description: 'Chạy AI trên dữ liệu nội bộ, trong hạ tầng của doanh nghiệp — đo được cả chất lượng lẫn chi phí.',
     technologies: ['Dify', 'vLLM', 'Langfuse'],
     video: '/video/Enterprise AI Services.mp4',
-    poster: '/img/landing/use-case-ai.webp',
     link: '/ai-service',
   },
 ];
 
-function CapabilityCard({title, description, technologies, video, poster, link}: Capability): React.JSX.Element {
+function CapabilityCard({title, description, technologies, video, link}: Capability): React.JSX.Element {
   const videoRef = useLazyVideo();
   return (
     <a href={link} className={styles.card} aria-label={`Tìm hiểu ${title}`}>
@@ -80,7 +73,7 @@ function CapabilityCard({title, description, technologies, video, poster, link}:
           loop
           playsInline
           preload="none"
-          poster={poster}
+          poster={posterOf(video)}
           aria-hidden="true"
         >
           <source src={video} type="video/mp4" />

@@ -33,7 +33,7 @@ export default function CTABanner(): React.JSX.Element {
             loop
             playsInline
             preload="none"
-            poster="/img/landing/use-case-operations.webp"
+            poster="/img/poster/coding-monitor.webp"
             aria-hidden="true"
           >
             <source src="/video/coding-vertical.mp4" type="video/mp4" media="(max-width: 600px)" />

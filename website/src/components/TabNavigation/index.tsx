@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import useLazyVideo from '@site/src/hooks/useLazyVideo';
+import useLazyVideo, {posterOf} from '@site/src/hooks/useLazyVideo';
 import styles from './styles.module.css';
 
 type TabId = 'foundation' | 'intelligence' | 'governance';
@@ -13,7 +13,6 @@ interface Experience {
   bullets: string[];
   flow: string[];
   video: string;
-  poster: string;
 }
 
 const experiences: Experience[] = [
@@ -30,7 +29,6 @@ const experiences: Experience[] = [
     ],
     flow: ['Data Sources', 'Open Lakehouse', 'Data Products'],
     video: '/video/background-data.mp4',
-    poster: '/img/landing/use-case-operations.webp',
   },
   {
     id: 'intelligence',
@@ -45,7 +43,6 @@ const experiences: Experience[] = [
     ],
     flow: ['Governed Data', 'LLM Mesh', 'AI Applications'],
     video: '/video/main-background-landing-page.mp4',
-    poster: '/img/landing/use-case-ai.webp',
   },
   {
     id: 'governance',
@@ -60,7 +57,6 @@ const experiences: Experience[] = [
     ],
     flow: ['Metadata', 'Policy Engine', 'Trusted Access'],
     video: '/video/digital-dashboard.mp4',
-    poster: '/img/landing/use-case-operations.webp',
   },
 ];
 
@@ -151,7 +147,7 @@ export default function TabNavigation(): React.JSX.Element {
                 loop
                 playsInline
                 preload="none"
-                poster={activeExperience.poster}
+                poster={posterOf(activeExperience.video)}
                 aria-hidden="true"
               >
                 <source src={activeExperience.video} type="video/mp4" />

@@ -13,7 +13,7 @@ export default function HeroSection(): React.JSX.Element {
         loop
         playsInline
         preload="none"
-        poster="/img/landing/use-case-analytics.webp"
+        poster="/img/poster/main-background.webp"
         aria-hidden="true"
       >
         <source src="/video/main-background.mp4" type="video/mp4" />

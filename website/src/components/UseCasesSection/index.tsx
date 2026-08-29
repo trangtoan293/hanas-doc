@@ -1,5 +1,5 @@
 import React from 'react';
-import useLazyVideo from '@site/src/hooks/useLazyVideo';
+import useLazyVideo, {posterOf} from '@site/src/hooks/useLazyVideo';
 import styles from './styles.module.css';
 
 interface UseCase {
@@ -7,7 +7,6 @@ interface UseCase {
   title: string;
   description: string;
   signal: string;
-  image: string;
   video: string;
   link: string;
 }
@@ -18,7 +17,6 @@ const useCases: UseCase[] = [
     title: 'Customer 360 & Real-time Risk',
     description: 'Nhìn được toàn cảnh một khách hàng ngay khi giao dịch vừa phát sinh, không phải chờ báo cáo ngày.',
     signal: 'STREAM / PROFILE / DECIDE',
-    image: '/img/landing/use-case-financial.webp',
     video: '/video/dashboard-with-manager.mp4',
     link: '/federation',
   },
@@ -27,7 +25,6 @@ const useCases: UseCase[] = [
     title: 'Conversational Analytics',
     description: 'Người dùng nghiệp vụ hỏi bằng ngôn ngữ thường ngày, trên lớp dữ liệu đã được định nghĩa sẵn ý nghĩa.',
     signal: 'ASK / QUERY / EXPLAIN',
-    image: '/img/landing/use-case-analytics.webp',
     video: '/video/dashboard-simple.mp4',
     link: '/visualization',
   },
@@ -36,7 +33,6 @@ const useCases: UseCase[] = [
     title: 'Knowledge Assistant',
     description: 'Nhân viên hỏi một câu, nhận câu trả lời rút từ tài liệu và dữ liệu nội bộ của chính doanh nghiệp.',
     signal: 'RETRIEVE / REASON / RESPOND',
-    image: '/img/landing/use-case-ai.webp',
     video: '/video/agentic-ai.mp4',
     link: '/ai-service',
   },
@@ -45,25 +41,23 @@ const useCases: UseCase[] = [
     title: 'Intelligent Data Operations',
     description: 'Biết pipeline hỏng ở đâu trước khi người dùng phàn nàn, kèm đủ ngữ cảnh để xử lý ngay.',
     signal: 'OBSERVE / DETECT / ACT',
-    image: '/img/landing/use-case-operations.webp',
     video: '/video/modern-dashboard-monitoring.mp4',
     link: '/system-management',
   },
 ];
 
-function UseCaseCard({category, title, description, signal, image, video, link}: UseCase): React.JSX.Element {
+function UseCaseCard({category, title, description, signal, video, link}: UseCase): React.JSX.Element {
   const videoRef = useLazyVideo();
   return (
     <article className={styles.card}>
       <div className={styles.visual} aria-hidden="true">
-        <img src={image} alt="" loading="lazy" decoding="async" />
         <video
           ref={videoRef}
           muted
           loop
           playsInline
           preload="none"
-          poster={image}
+          poster={posterOf(video)}
           aria-hidden="true"
         >
           <source src={video} type="video/mp4" />

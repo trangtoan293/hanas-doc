@@ -36,3 +36,9 @@ export default function useLazyVideo(deps: unknown[] = []) {
 
   return ref;
 }
+
+// Poster lấy từ chính frame của video (static/img/poster/<tên video>.webp), nên
+// mỗi section có ảnh chờ riêng và không "nhảy hình" khi video bắt đầu chạy.
+export function posterOf(video: string): string {
+  return video.replace('/video/', '/img/poster/').replace(/\.mp4$/, '.webp');
+}
