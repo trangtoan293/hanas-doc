@@ -1,5 +1,5 @@
 .landingPage {
-  overflow: hidden;
+  overflow-x: clip;
   background: var(--hanas-bg-page);
 }
 

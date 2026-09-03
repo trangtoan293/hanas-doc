@@ -2,6 +2,7 @@ import type {ReactNode} from 'react';
 import Layout from '@theme/Layout';
 
 import HeroSection from '@site/src/components/HeroSection';
+import DataJourneySection from '@site/src/components/DataJourneySection';
 import PlatformGrid from '@site/src/components/PlatformGrid';
 import TabNavigation from '@site/src/components/TabNavigation';
 import CaseStudySection from '@site/src/components/CaseStudySection';
@@ -17,6 +18,7 @@ export default function Home(): ReactNode {
       description="Hanas là nền tảng Data & AI hợp nhất giúp doanh nghiệp xây dựng lakehouse, quản trị dữ liệu và đưa AI vào vận hành trên một kiến trúc mở.">
       <main className={styles.landingPage}>
         <HeroSection />
+        <DataJourneySection />
         <PlatformGrid />
         <TabNavigation />
         <CaseStudySection />
