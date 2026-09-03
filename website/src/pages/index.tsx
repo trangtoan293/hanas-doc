@@ -5,7 +5,6 @@ import HeroSection from '@site/src/components/HeroSection';
 import DataJourneySection from '@site/src/components/DataJourneySection';
 import PlatformGrid from '@site/src/components/PlatformGrid';
 import TabNavigation from '@site/src/components/TabNavigation';
-import CaseStudySection from '@site/src/components/CaseStudySection';
 import UseCasesSection from '@site/src/components/UseCasesSection';
 import FAQSection from '@site/src/components/FAQSection';
 import CTABanner from '@site/src/components/CTABanner';
@@ -21,7 +20,6 @@ export default function Home(): ReactNode {
         <DataJourneySection />
         <PlatformGrid />
         <TabNavigation />
-        <CaseStudySection />
         <UseCasesSection />
         <FAQSection />
         <CTABanner />
