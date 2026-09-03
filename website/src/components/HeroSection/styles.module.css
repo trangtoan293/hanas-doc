@@ -4,7 +4,9 @@
   flex-direction: column;
   min-height: calc(100vh - var(--ifm-navbar-height));
   min-height: max(740px, calc(100svh - var(--ifm-navbar-height)));
-  padding: 64px 0 0;
+  /* Trước đây techRail chiếm phần đáy nên hero chỉ đệm trên; bỏ nó rồi thì
+     đệm phải cân hai đầu, không nội dung sẽ lệch xuống dưới. */
+  padding: 64px 0;
   overflow: hidden;
   color: #f8fafc;
   background:
@@ -148,36 +150,6 @@
   color: #50647b;
 }
 
-.techRail {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  gap: 34px;
-  margin-top: 0;
-  padding: 22px 0 24px;
-  border-top: 1px solid rgba(148, 163, 184, 0.12);
-}
-
-.techRailLabel {
-  flex: 0 0 auto;
-  color: #50647b;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.13em;
-}
-
-.techList {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  color: #8194a9;
-  font-size: 14px;
-  font-weight: 600;
-}
-
 .animateIn {
   opacity: 0;
   transform: translateY(20px);
@@ -188,7 +160,6 @@
 .delay2 { animation-delay: 160ms; }
 .delay3 { animation-delay: 240ms; }
 .delay4 { animation-delay: 320ms; }
-.delay5 { animation-delay: 440ms; }
 
 @keyframes fadeInUp {
   to { opacity: 1; transform: translateY(0); }
@@ -220,14 +191,6 @@
 
   .trustRow {
     font-size: 12px;
-  }
-
-  .techRailLabel {
-    font-size: 10px;
-  }
-
-  .techList {
-    font-size: clamp(15px, 0.45vw, 17px);
   }
 }
 
@@ -261,10 +224,6 @@
     margin-bottom: 24px;
     line-height: 1.6;
   }
-
-  .techRail {
-    padding: 16px 0 18px;
-  }
 }
 
 @media (max-width: 768px) {
@@ -294,18 +253,6 @@
 
   .heroSubtitle {
     font-size: 16px;
-  }
-
-  .techRail {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 18px;
-  }
-
-  .techList {
-    width: 100%;
-    flex-wrap: wrap;
-    justify-content: flex-start;
   }
 }
 
@@ -339,10 +286,6 @@
 
   .trustDivider {
     margin: 0 5px;
-  }
-
-  .techList {
-    gap: 16px;
   }
 }
 

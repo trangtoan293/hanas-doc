@@ -1,7 +1,12 @@
-import React, {lazy, Suspense, useEffect, useRef, useState} from 'react';
+import React, {lazy, Suspense, useRef, useState} from 'react';
 import {useGSAP} from '@gsap/react';
 import {gsap} from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
+import {
+  getNavbarHeight,
+  scheduleScrollTriggerRefresh,
+  useDesktopMotion,
+} from '@site/src/hooks/useScrollStage';
 import DashboardPanel from './DashboardPanel';
 import RecordStoryOverlay, {MobileRecordEvidence} from './RecordStoryOverlay';
 import styles from './styles.module.css';
@@ -95,33 +100,6 @@ function qualityPhaseFromProgress(progress: number): number {
   return nextPhase === -1 ? qualityPhaseThresholds.length : nextPhase;
 }
 
-function useEnhancedStory(): boolean {
-  const [enabled, setEnabled] = useState(false);
-
-  useEffect(() => {
-    const desktop = window.matchMedia('(min-width: 901px)');
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const update = () => setEnabled(desktop.matches && !reducedMotion.matches);
-
-    desktop.addEventListener('change', update);
-    reducedMotion.addEventListener('change', update);
-    update();
-
-    return () => {
-      desktop.removeEventListener('change', update);
-      reducedMotion.removeEventListener('change', update);
-    };
-  }, []);
-
-  return enabled;
-}
-
-// --ifm-navbar-height là clamp() nên parseFloat trả NaN — đo thẳng phần tử navbar.
-function getNavbarHeight(): number {
-  const navbar = document.querySelector('.navbar');
-  return navbar ? navbar.getBoundingClientRect().height : 0;
-}
-
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(useGSAP, ScrollTrigger);
 }
@@ -132,7 +110,7 @@ export default function DataJourneySection(): React.JSX.Element {
   const canvasLayerRef = useRef<HTMLDivElement>(null);
   const dashboardRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef(0);
-  const enhancedStory = useEnhancedStory();
+  const enhancedStory = useDesktopMotion();
   const [activeStage, setActiveStage] = useState(0);
   const [qualityPhase, setQualityPhase] = useState(0);
 
@@ -235,14 +213,10 @@ export default function DataJourneySection(): React.JSX.Element {
 
       updateStory();
 
-      // Trigger được tạo sau hydrate, thường muộn hơn sự kiện `load`, nên ScrollTrigger
-      // không tự refresh và pin-spacer giữ nguyên chiều dài 0 -> cả chương trôi tuột.
-      const refresh = () => ScrollTrigger.refresh();
-      const refreshFrame = requestAnimationFrame(refresh);
-      document.fonts?.ready.then(refresh);
+      const cancelRefresh = scheduleScrollTriggerRefresh();
 
       return () => {
-        cancelAnimationFrame(refreshFrame);
+        cancelRefresh();
         progressRef.current = 0;
         section.style.removeProperty('--story-progress');
       };
