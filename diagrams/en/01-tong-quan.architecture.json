@@ -1,0 +1,326 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Hanas Platform Architecture",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1240,
+      700
+    ],
+    "views": [
+      {
+        "id": "truy-cap",
+        "label": "Access & sign-in",
+        "focus": [
+          "users",
+          "ui",
+          "keycloak"
+        ],
+        "note": "One Keycloak SSO sign-in for every module."
+      },
+      {
+        "id": "truy-van",
+        "label": "Data queries",
+        "focus": [
+          "ui",
+          "query-engine",
+          "sources",
+          "bi"
+        ],
+        "note": "Query Engine queries sources directly, with no data copying."
+      },
+      {
+        "id": "dich-vu",
+        "label": "Hanas services",
+        "focus": [
+          "userapi",
+          "ai",
+          "dbt",
+          "catalog",
+          "ontology"
+        ],
+        "note": "Specialized services all go through Query Engine to enforce permissions."
+      }
+    ],
+    "locale": "en"
+  },
+  "components": [
+    {
+      "id": "users",
+      "type": "external",
+      "label": "Users",
+      "sublabel": "admin · engineer · analyst",
+      "pos": [
+        40,
+        310
+      ],
+      "size": [
+        140,
+        64
+      ]
+    },
+    {
+      "id": "ui",
+      "type": "frontend",
+      "label": "Hanas Console",
+      "sublabel": "unified interface",
+      "pos": [
+        250,
+        310
+      ],
+      "size": [
+        160,
+        64
+      ],
+      "tag": "web"
+    },
+    {
+      "id": "keycloak",
+      "type": "security",
+      "label": "Keycloak SSO",
+      "sublabel": "user · role · language",
+      "pos": [
+        250,
+        80
+      ],
+      "size": [
+        160,
+        64
+      ],
+      "tag": "OIDC"
+    },
+    {
+      "id": "userapi",
+      "type": "backend",
+      "label": "User API",
+      "sublabel": "user management",
+      "pos": [
+        520,
+        50
+      ],
+      "size": [
+        160,
+        60
+      ]
+    },
+    {
+      "id": "ai",
+      "type": "backend",
+      "label": "AI Agents",
+      "sublabel": "Kapas · Copilot",
+      "pos": [
+        520,
+        160
+      ],
+      "size": [
+        160,
+        60
+      ]
+    },
+    {
+      "id": "dbt",
+      "type": "backend",
+      "label": "dbt Studio",
+      "sublabel": "transform · pipeline",
+      "pos": [
+        520,
+        420
+      ],
+      "size": [
+        160,
+        60
+      ]
+    },
+    {
+      "id": "catalog",
+      "type": "backend",
+      "label": "Hanas Catalog",
+      "sublabel": "catalog · lineage",
+      "pos": [
+        520,
+        520
+      ],
+      "size": [
+        160,
+        60
+      ]
+    },
+    {
+      "id": "ontology",
+      "type": "backend",
+      "label": "Ontology",
+      "sublabel": "objects · metrics",
+      "pos": [
+        520,
+        620
+      ],
+      "size": [
+        160,
+        60
+      ]
+    },
+    {
+      "id": "query-engine",
+      "type": "backend",
+      "label": "Query Engine",
+      "sublabel": "cross-source queries",
+      "pos": [
+        800,
+        305
+      ],
+      "size": [
+        170,
+        74
+      ],
+      "tag": "core"
+    },
+    {
+      "id": "sources",
+      "type": "external",
+      "label": "Data sources",
+      "sublabel": "DB · S3 · lakehouse",
+      "pos": [
+        1060,
+        310
+      ],
+      "size": [
+        150,
+        64
+      ]
+    },
+    {
+      "id": "bi",
+      "type": "external",
+      "label": "BI & apps",
+      "sublabel": "JDBC · ODBC · Flight",
+      "pos": [
+        1060,
+        500
+      ],
+      "size": [
+        150,
+        64
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "security-group",
+      "label": "Hanas services",
+      "wraps": [
+        "userapi",
+        "ai",
+        "dbt",
+        "catalog",
+        "ontology"
+      ],
+      "pad": 16
+    }
+  ],
+  "connections": [
+    {
+      "from": "users",
+      "to": "ui",
+      "label": "HTTPS",
+      "variant": "emphasis"
+    },
+    {
+      "from": "ui",
+      "to": "keycloak",
+      "label": "SSO",
+      "variant": "security"
+    },
+    {
+      "from": "ui",
+      "to": "query-engine",
+      "label": "SQL · REST",
+      "variant": "emphasis",
+      "labelAt": [
+        605,
+        330
+      ]
+    },
+    {
+      "from": "ui",
+      "to": "userapi"
+    },
+    {
+      "from": "ui",
+      "to": "ai"
+    },
+    {
+      "from": "ui",
+      "to": "dbt"
+    },
+    {
+      "from": "ui",
+      "to": "catalog"
+    },
+    {
+      "from": "ui",
+      "to": "ontology"
+    },
+    {
+      "from": "dbt",
+      "to": "query-engine",
+      "label": "run models",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "from": "catalog",
+      "to": "query-engine",
+      "label": "scan metadata",
+      "fromSide": "right",
+      "toSide": "bottom"
+    },
+    {
+      "from": "ai",
+      "to": "query-engine",
+      "label": "ask data"
+    },
+    {
+      "from": "query-engine",
+      "to": "sources",
+      "label": "read in place",
+      "variant": "emphasis"
+    },
+    {
+      "from": "bi",
+      "to": "query-engine",
+      "label": "BI connect",
+      "fromSide": "left",
+      "toSide": "right"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "One entry for every role",
+      "items": [
+        "One interface, one sign-in",
+        "Menus follow Keycloak permissions",
+        "Vietnamese and English supported"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Query Engine is the query core",
+      "items": [
+        "Cross-source queries without copying",
+        "Every service goes through Query Engine to keep permissions",
+        "BI connects via JDBC/ODBC/Arrow Flight"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Specialized services",
+      "items": [
+        "dbt Studio: transforms and pipelines",
+        "Catalog: search, lineage, glossary",
+        "Ontology + AI: semantics and Q&A"
+      ]
+    }
+  ]
+}

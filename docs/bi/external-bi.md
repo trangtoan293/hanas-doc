@@ -17,6 +17,10 @@ Bạn có thể dùng công cụ BI sẵn có để đọc dữ liệu từ quer
 
 Endpoint client JDBC/ODBC mặc định dùng cổng 31010. Nền tảng có driver JDBC; ODBC driver cần lấy từ nguồn tương ứng và kiểm tra tương thích với hệ điều hành trước khi triển khai diện rộng.
 
+## Tích hợp trong Settings
+
+Trong Hanas Console, **Settings** → **Integrations** → **BI Applications** cung cấp mục cho **Power BI** và **Tableau**. Dùng mục này cùng hướng dẫn kết nối dưới đây khi bạn thiết lập công cụ BI.
+
 ## Điều kiện cần
 
 :::note Điều kiện
@@ -27,7 +31,7 @@ Máy khách truy cập được địa chỉ query engine (thường qua gateway
 
 ## Tạo token và kết nối
 
-1. Trong Hanas Console, mở phần quản lý token của tài khoản và tạo PAT. Đặt thời hạn ngắn nhất phù hợp.
+1. Trong Hanas Console, mở menu tài khoản, chọn **Access Tokens**, rồi chọn **Generate Token** trong hộp thoại **Personal Access Tokens** để tạo PAT. Đặt thời hạn ngắn nhất phù hợp.
 2. Sao chép token ngay khi hiển thị; token không xem lại được.
 3. Trong công cụ BI, chọn nguồn dữ liệu theo driver (ODBC hoặc JDBC) và nhập host, cổng.
 4. Dùng tên đăng nhập của bạn và dán token vào ô mật khẩu theo hướng dẫn của driver.

@@ -17,7 +17,7 @@ Explore runs queries with your identity. Row access and masking in the query eng
 
 ## Catalog
 
-Open **Explore** to select a project and view the catalog of published objects.
+Open **Ontology** > **Explore**. The **Explore projects** page lists the projects; each card shows the state **PUBLISHED** (with a version) or **NOT PUBLISHED**. Choose **Explore** on a published project card to view the catalog of objects. If you are an author, choose **Open Build** to enter the authoring environment; to start a new project, choose **Create project**.
 
 - Search by name, description, field, or metric. This filters metadata; it is not a full-text search over records.
 - Filter by the **All**, **Object**, or **Snapshot** group.

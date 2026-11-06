@@ -31,7 +31,7 @@ flowchart LR
 
 | Page | Contents |
 |---|---|
-| [SQL Studio](sql-studio.md) | Write and run SQL, tabs, context, multiple statements, Save as View. |
+| [SQL Editor](sql-studio.md) | Write and run SQL from the Workspaces menu, context, multiple statements, Save as View. |
 | [Workspaces, folders, and views](spaces-and-views.md) | Organize the semantic layer by bronze, silver, gold, and manage permissions. |
 | [Iceberg tables](iceberg-tables.md) | DDL, DML, maintenance, and time travel. |
 | [Accelerate queries with Reflections](acceleration.md) | Raw and Aggregation Reflections, refresh, monitoring. |

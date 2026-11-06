@@ -37,7 +37,7 @@ Hanas supports two types of credentials. They differ in where they are issued an
 | Method | Issued by | Used for | How to send |
 |---|---|---|---|
 | Keycloak OIDC token | Keycloak, after sign-in or through client credentials | Hanas service APIs (Hanas Catalog, Ontology, Kapas, dbt, Ingestion) | Header `Authorization: Bearer <access_token>` |
-| Personal Access Token (PAT) | Hanas Console, in Account Settings | Query engine: REST, JDBC, ODBC, Arrow Flight; scripts and tools that cannot sign in interactively | Header `Authorization: Bearer <PAT>` or as the SQL client password |
+| Personal Access Token (PAT) | Hanas Console, account menu **Access Tokens** | Query engine: REST, JDBC, ODBC, Arrow Flight; scripts and tools that cannot sign in interactively | Header `Authorization: Bearer <PAT>` or as the SQL client password |
 
 Keycloak tokens are short-lived and are reissued when you sign in or refresh. For a service account, use the client credentials flow of the Hanas realm; see [Authentication and SSO with Keycloak](../operate/identity.md) for the realm, client, and audience.
 
@@ -52,8 +52,8 @@ Whether the query engine accepts Keycloak tokens directly depends on the environ
 A PAT is tied to your account and inherits exactly that account's data permissions.
 
 1. Sign in to Hanas Console.
-2. Open the user menu in the top corner and select **Account Settings**.
-3. In **Personal Access Tokens**, click **Generate Token**.
+2. Open the account menu (the avatar at the bottom left) and select **Access Tokens**. The **Personal Access Tokens** dialog opens and lists tokens with the columns Token ID, Label, Creation, and Expiration.
+3. Click **Generate Token**.
 4. Enter a **Label** that describes the purpose, for example `bi-reporting`.
 5. Enter a **Lifetime** in days. The default value in the form is 30 days.
 6. Click **Generate**, then copy the displayed token.

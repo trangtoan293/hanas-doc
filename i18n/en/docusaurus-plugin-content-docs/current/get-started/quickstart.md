@@ -27,16 +27,16 @@ The source, workspace, and table names in the example are assumptions; replace t
 
 ### 2. Add a data source
 
-1. Open **Data Hub** and select **New Source**.
+1. Open **Connections** and select **New Source**.
 2. Choose the source type, for example a relational database that holds retail banking data.
 3. Enter the endpoint and the credentials. Use a read-only account; do not paste real secrets into documents or chats.
 4. Create the source, then browse the folders and tables to confirm you see the three sample tables.
 
 The list of source types depends on the deployed query engine version. See [Direct-query data sources](../connect/data-sources.md).
 
-### 3. Query in SQL Studio
+### 3. Query in SQL Editor
 
-1. Open **SQL Studio** and create a new tab.
+1. Open **SQL Editor** (menu **Workspaces**) and create a new tab.
 2. Run a query that aggregates transactions by customer:
 
 ```sql
@@ -52,11 +52,11 @@ GROUP  BY c.customer_id, c.full_name
 
 3. Select **Run** to execute or **Preview** for a quick look. Check the result and the job status.
 
-See [SQL Studio](../query/sql-studio.md).
+See [SQL Editor](../query/sql-studio.md).
 
 ### 4. Save as a view
 
-1. In SQL Studio, select **Save as View**.
+1. In SQL Editor, select **Save as View**.
 2. Choose the destination workspace and folder, and enter a name, for example `customer_txn_summary`.
 3. Save, then reopen the view from the data tree to verify it.
 
@@ -89,7 +89,7 @@ Analytics and Kapas are available only when an administrator has deployed and co
 |---|---|
 | You do not see **New Source** | Your account might lack permission; contact an administrator |
 | You cannot browse tables | Check the permissions of the connecting account at the source and your permissions on the source |
-| The query reports that a table is not found | Check the source name, schema, and context in SQL Studio |
+| The query reports that a table is not found | Check the source name, schema, and context in SQL Editor |
 | You cannot save the view | Check write permission on the destination workspace or folder |
 
 See also [Job history and query profiles](../query/jobs.md) to read error details.

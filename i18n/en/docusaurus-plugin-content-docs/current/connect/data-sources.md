@@ -2,7 +2,7 @@
 title: Query data sources in place
 sidebar_label: Data sources
 sidebar_position: 1
-description: Add sources in Data Hub to query object storage, catalogs, and other systems directly with SQL, including metadata refresh options and file formats.
+description: Add sources in Connections to query object storage, catalogs, and other systems directly with SQL, including metadata refresh options and file formats.
 ---
 
 This page shows you how to add a source to **Hanas Console** so the query engine queries data in place, without copying it. If you need to store a copy in the lakehouse, see [Ingest data into the lakehouse](./ingestion.md).
@@ -13,20 +13,21 @@ This page shows you how to add a source to **Hanas Console** so the query engine
 - **Physical dataset**: a file or table in a source whose format has been recognized so you can query it with SQL.
 - **View**: a saved SQL statement created on a physical dataset; see [Workspaces, folders, and views](../query/spaces-and-views.md).
 
-## Connector groups
+## Connector list
 
-The table below lists the connector groups that the query engine implements as plugins.
+The **Add Source** dialog offers the following source types, grouped under three headings.
 
 | Group | Connectors |
 |---|---|
-| Object storage | Amazon S3 (and S3-compatible storage through endpoint configuration), Azure Storage, Google Cloud Storage |
-| File system | HDFS, NAS (local or shared directory) |
-| Lakehouse catalog | AWS Glue Data Catalog, Nessie (versioned catalog), Iceberg REST Catalog, Hive Metastore |
-| Search and NoSQL | Elasticsearch (including Amazon Elasticsearch), MongoDB |
+| Lakehouse Catalogs | Apache Polaris (Incubating), AWS Glue Data Catalog, Hive 2.x, Hive 3.x, Iceberg REST Catalog, Nessie, Snowflake Open Catalog, Unity Catalog |
+| Object Storage | Amazon S3, Azure Storage, Google Cloud Storage, HDFS, NAS / Local Path |
+| Databases | Amazon OpenSearch Service, Amazon Redshift, Druid, Elasticsearch, Google BigQuery, IBM Db2, Microsoft Azure Data Explorer, Microsoft Azure Synapse Analytics, Microsoft SQL Server, MongoDB, MySQL, Oracle, PostgreSQL, SAP HANA, Snowflake, Teradata, Vertica |
+
+The Databases list also contains an entry for connecting to another query engine instance.
 
 :::note Requirements
 
-The actual list shown in **New Source** is returned by the backend of your release. Some groups, such as Iceberg REST Catalog, MongoDB, and Hive, depend on the deployment package and the authentication method. Relational databases (PostgreSQL, MySQL, Oracle, SQL Server) may appear in the list; check your environment before promising them to users. If you need stable data from these systems, use [Ingestion](./ingestion.md).
+Some source types depend on the deployment package and the authentication method of your environment. If you need data from a system in a stable, repeatable way, use [Ingestion](./ingestion.md).
 
 :::
 
@@ -38,14 +39,14 @@ The actual list shown in **New Source** is returned by the backend of your relea
 
 ## Add a source
 
-1. Open **Data Hub** or the data tree in SQL Studio, and select **New Source**.
-2. Select the source type from the list. The list is grouped by lakehouse, object storage, and database.
+1. Open **Connections** (or the data tree in SQL Editor, menu **Workspaces**), and select **New Source**. The **Add Source** dialog opens with two tabs, **Manual Setup** and **Import File**.
+2. On the **Manual Setup** tab, select the source type from the list. The list is grouped under Lakehouse Catalogs, Object Storage, and Databases.
 3. Enter the connection and authentication details. The fields vary by source type.
 4. Open the optional tabs if you want to change the **Metadata** or **Reflection Refresh** policy (see below).
 5. Select save to create the source. The source appears in the data tree.
-6. Browse the source's folders and tables. For file-based sources, format the file as a physical dataset (see below), then open it in SQL Studio or create a view.
+6. Browse the source's folders and tables. For file-based sources, format the file as a physical dataset (see below), then open it in SQL Editor or create a view.
 
-The **New Source** screen also has a tab for importing source configuration from a JSON file, for when you need to create many sources at once.
+The **Import File** tab of **Add Source** lets you import source configuration from a JSON file, for when you need to create many sources at once.
 
 ## Metadata refresh options
 
@@ -82,5 +83,5 @@ To undo, select remove format. The file returns to the unformatted state; the or
 ## Next steps
 
 - [Upload files](./file-upload.md) if you only have a few loose files.
-- [SQL Studio](../query/sql-studio.md) to query datasets.
+- [SQL Editor](../query/sql-studio.md) to query datasets.
 - [Reflections](../query/acceleration.md) to speed up queries on external sources.

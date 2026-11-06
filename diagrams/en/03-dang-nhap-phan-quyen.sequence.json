@@ -1,0 +1,259 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "One Sign-in, Permissions Follow the User",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1060,
+      600
+    ],
+    "column_fit": "spread",
+    "views": [
+      {
+        "id": "sso",
+        "label": "SSO sign-in",
+        "focus": [
+          "user",
+          "ui",
+          "keycloak",
+          "query-engine"
+        ],
+        "note": "Keycloak issues identity; Query Engine receives the same user."
+      },
+      {
+        "id": "catalog-quyen",
+        "label": "Permission-filtered Catalog",
+        "focus": [
+          "ui",
+          "catalog",
+          "query-engine"
+        ],
+        "note": "Catalog asks Query Engine which tables the user may see."
+      },
+      {
+        "id": "dbt-quyen",
+        "label": "dbt runs as the user",
+        "focus": [
+          "ui",
+          "dbt",
+          "keycloak",
+          "query-engine"
+        ],
+        "note": "No shared service account; audit records the right person."
+      }
+    ],
+    "locale": "en"
+  },
+  "participants": [
+    {
+      "id": "user",
+      "type": "external",
+      "label": "User",
+      "sublabel": "browser"
+    },
+    {
+      "id": "ui",
+      "type": "frontend",
+      "label": "Hanas Console",
+      "sublabel": "interface"
+    },
+    {
+      "id": "keycloak",
+      "type": "security",
+      "label": "Keycloak",
+      "sublabel": "SSO · role"
+    },
+    {
+      "id": "catalog",
+      "type": "backend",
+      "label": "Hanas Catalog",
+      "sublabel": "catalog-api"
+    },
+    {
+      "id": "dbt",
+      "type": "backend",
+      "label": "dbt Studio",
+      "sublabel": "dbt runner"
+    },
+    {
+      "id": "query-engine",
+      "type": "backend",
+      "label": "Query Engine",
+      "sublabel": "engine · ACL"
+    }
+  ],
+  "segments": [
+    {
+      "from": 150,
+      "to": 276,
+      "label": "Sign-in"
+    },
+    {
+      "from": 278,
+      "to": 404,
+      "label": "Find data"
+    },
+    {
+      "from": 406,
+      "to": 532,
+      "label": "Run model"
+    }
+  ],
+  "messages": [
+    {
+      "from": "user",
+      "to": "ui",
+      "y": 174,
+      "label": "open Hanas",
+      "variant": "emphasis"
+    },
+    {
+      "from": "ui",
+      "to": "keycloak",
+      "y": 202,
+      "label": "OIDC sign-in",
+      "variant": "security"
+    },
+    {
+      "from": "keycloak",
+      "to": "ui",
+      "y": 230,
+      "label": "token + role",
+      "variant": "return"
+    },
+    {
+      "from": "ui",
+      "to": "query-engine",
+      "y": 258,
+      "label": "Query Engine session (SSO)",
+      "variant": "security"
+    },
+    {
+      "from": "ui",
+      "to": "catalog",
+      "y": 302,
+      "label": "search datasets",
+      "variant": "emphasis"
+    },
+    {
+      "from": "catalog",
+      "to": "query-engine",
+      "y": 330,
+      "label": "what can user see?",
+      "variant": "security"
+    },
+    {
+      "from": "query-engine",
+      "to": "catalog",
+      "y": 358,
+      "label": "allowed list",
+      "variant": "return"
+    },
+    {
+      "from": "catalog",
+      "to": "ui",
+      "y": 386,
+      "label": "permission-filtered results",
+      "variant": "return"
+    },
+    {
+      "from": "ui",
+      "to": "dbt",
+      "y": 430,
+      "label": "run dbt run",
+      "variant": "emphasis"
+    },
+    {
+      "from": "dbt",
+      "to": "keycloak",
+      "y": 458,
+      "label": "swap for Query Engine token",
+      "variant": "security"
+    },
+    {
+      "from": "dbt",
+      "to": "query-engine",
+      "y": 486,
+      "label": "SQL as the user",
+      "variant": "emphasis"
+    },
+    {
+      "from": "dbt",
+      "to": "ui",
+      "y": 514,
+      "label": "live logs (SSE)",
+      "variant": "return"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "ui",
+      "from": 168,
+      "to": 266,
+      "type": "frontend"
+    },
+    {
+      "participant": "keycloak",
+      "from": 196,
+      "to": 238,
+      "type": "security"
+    },
+    {
+      "participant": "catalog",
+      "from": 296,
+      "to": 394,
+      "type": "backend"
+    },
+    {
+      "participant": "query-engine",
+      "from": 324,
+      "to": 366,
+      "type": "backend"
+    },
+    {
+      "participant": "dbt",
+      "from": 424,
+      "to": 522,
+      "type": "backend"
+    },
+    {
+      "participant": "keycloak",
+      "from": 452,
+      "to": 466,
+      "type": "security"
+    },
+    {
+      "participant": "query-engine",
+      "from": 480,
+      "to": 504,
+      "type": "backend"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "rose",
+      "title": "One identity",
+      "items": [
+        "Keycloak is the only place managing users and roles",
+        "Query Engine gets the exact user via SSO"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Permissions are not copied",
+      "items": [
+        "Catalog asks Query Engine; it keeps no ACL copy",
+        "Tables not permitted stay hidden"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Audit the right person",
+      "items": [
+        "dbt runs with the user's own token",
+        "Scheduled jobs use the creator's permissions"
+      ]
+    }
+  ]
+}

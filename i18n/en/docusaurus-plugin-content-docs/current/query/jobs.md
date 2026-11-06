@@ -5,11 +5,18 @@ sidebar_position: 5
 description: View the query engine's job history, filter by status and user, read SQL, timing, and profile details, and cancel jobs.
 ---
 
-Every query that runs through the query engine creates a job. The **Jobs** page in Hanas Console lists these jobs so you can check status, find slow or failed queries, and read execution profiles.
+Every query that runs through the query engine creates a job. Hanas Console has no standalone Jobs menu; you open the job list from the entry points below to check status, find slow or failed queries, and read execution profiles.
+
+| Entry point | Use it when |
+|---|---|
+| **Home** → **My Jobs** | You want a quick view of your own jobs. |
+| **Overview** → **View all jobs** | You want recent jobs across the platform from the Recent Jobs section. |
+| **History** tab of the SQL Editor | You want to review earlier runs from your editing session. |
+| **Engine** → **Monitor** → **Jobs** | You want to follow jobs alongside catalog usage and engine resources. |
 
 ## Job list
 
-The Jobs page shows a table of jobs with information such as status, query type, user, queue, dataset, and duration. You choose which columns to display.
+The job list shows a table of jobs with information such as status, query type, user, queue, dataset, and duration. You choose which columns to display.
 
 | Filter | Purpose |
 |---|---|
@@ -37,7 +44,7 @@ When looking for the cause of a slow query, compare the time of each phase in th
 
 ## Cancel a job
 
-You cancel a running job from the job status in SQL Studio or from the Jobs page. A cancelled job moves to the cancelled state; in a sequence of multiple statements, the later statements do not run.
+You cancel a running job from the **History** tab of the SQL Editor or from the job list at **Engine** → **Monitor** → **Jobs**. A cancelled job moves to the cancelled state; in a sequence of multiple statements, the later statements do not run.
 
 :::note Requirements
 
@@ -55,6 +62,6 @@ Regular users can only view and cancel their own jobs. Administrators can view t
 
 ## Next steps
 
-- [SQL Studio](sql-studio.md).
+- [SQL Editor](sql-studio.md).
 - [Accelerate with Reflections](acceleration.md).
 - [Engines, queues, and workload management](workload-management.md).

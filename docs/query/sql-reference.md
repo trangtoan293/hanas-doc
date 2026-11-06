@@ -5,7 +5,7 @@ sidebar_position: 7
 description: Tổng quan nhóm lệnh SQL, nhóm hàm và kiểu dữ liệu của query engine, kèm ví dụ thường dùng.
 ---
 
-Trang này tóm tắt những gì bạn viết được trong SQL Studio và qua các client SQL. Đây là bản tổng quan, không liệt kê từng hàm; dùng autocomplete trong [SQL Studio](sql-studio.md) để xem danh sách hàm đầy đủ.
+Trang này tóm tắt những gì bạn viết được trong SQL Editor (mở từ menu **Workspaces**) và qua các client SQL. Đây là bản tổng quan, không liệt kê từng hàm; dùng autocomplete trong [SQL Editor](sql-studio.md) để xem danh sách hàm đầy đủ.
 
 ## Nhóm lệnh
 
@@ -82,6 +82,6 @@ Tài liệu này không cam kết tương thích đầy đủ với chuẩn ANSI
 
 ## Tiếp theo
 
-- [SQL Studio](sql-studio.md).
+- [SQL Editor](sql-studio.md).
 - [Bảng Iceberg](iceberg-tables.md).
 - [JDBC, ODBC và Arrow Flight](../develop/sql-clients.md).

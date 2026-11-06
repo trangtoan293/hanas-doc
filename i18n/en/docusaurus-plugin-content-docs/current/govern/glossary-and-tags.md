@@ -29,7 +29,7 @@ The viewer level is read-only. Applying and removing tags, terms, and owners, ed
 
 ## Build a glossary
 
-1. Open **Data Governance** and choose **Glossary**.
+1. Open **Data Governance** in Hanas Console and choose **Glossary**.
 2. Create a term group for a business domain, for example "Customer" or "Account".
 3. In the group, create a term and enter its name and definition.
 4. Use the **Related terms** action to link related terms.

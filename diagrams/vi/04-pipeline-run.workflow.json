@@ -1,0 +1,249 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Một lần chạy Pipeline",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "duong-chinh",
+        "label": "Đường chạy chính",
+        "focus": [
+          "trigger",
+          "validate",
+          "queue",
+          "worker",
+          "wave",
+          "branch",
+          "result"
+        ],
+        "note": "Từ lúc bấm Run hoặc đến giờ cron cho tới khi có kết quả."
+      },
+      {
+        "id": "loi",
+        "label": "Khi có lỗi",
+        "focus": [
+          "wave",
+          "retry",
+          "failpath"
+        ],
+        "note": "Thử lại theo cấu hình, hết lượt thì đi nhánh xử lý lỗi."
+      },
+      {
+        "id": "phuc-hoi",
+        "label": "Tự phục hồi",
+        "focus": [
+          "reaper",
+          "worker",
+          "queue"
+        ],
+        "note": "Máy chủ chết giữa chừng thì worker khác chạy tiếp."
+      }
+    ]
+  },
+  "lanes": [
+    {
+      "id": "orch",
+      "label": "Kích hoạt & điều phối"
+    },
+    {
+      "id": "exec",
+      "label": "Thực thi Step"
+    },
+    {
+      "id": "recover",
+      "label": "Lỗi & phục hồi",
+      "variant": "exception"
+    }
+  ],
+  "mainPath": [
+    "trigger",
+    "validate",
+    "queue",
+    "worker",
+    "wave",
+    "branch",
+    "result"
+  ],
+  "nodes": [
+    {
+      "id": "trigger",
+      "lane": "orch",
+      "col": 0,
+      "type": "external",
+      "label": "Kích hoạt",
+      "sublabel": "Run · cron · rerun",
+      "width": 132
+    },
+    {
+      "id": "validate",
+      "lane": "orch",
+      "col": 1,
+      "type": "security",
+      "label": "Kiểm tra",
+      "sublabel": "vòng lặp · cú pháp",
+      "width": 132
+    },
+    {
+      "id": "queue",
+      "lane": "orch",
+      "col": 2,
+      "type": "messagebus",
+      "label": "Snapshot + hàng đợi",
+      "sublabel": "lưu DB trước",
+      "width": 140
+    },
+    {
+      "id": "worker",
+      "lane": "orch",
+      "col": 3,
+      "type": "backend",
+      "label": "Worker nhận run",
+      "sublabel": "khóa chống trùng",
+      "width": 132
+    },
+    {
+      "id": "wave",
+      "lane": "exec",
+      "col": 3,
+      "type": "backend",
+      "label": "Chạy Step song song",
+      "sublabel": "dbt · SQL · Python",
+      "width": 140
+    },
+    {
+      "id": "branch",
+      "lane": "exec",
+      "col": 4,
+      "type": "backend",
+      "label": "Branch",
+      "sublabel": "rẽ theo điều kiện",
+      "width": 132
+    },
+    {
+      "id": "result",
+      "lane": "orch",
+      "col": 5,
+      "type": "frontend",
+      "label": "Kết quả End",
+      "sublabel": "log + output",
+      "width": 132
+    },
+    {
+      "id": "retry",
+      "lane": "recover",
+      "col": 3,
+      "type": "messagebus",
+      "label": "Thử lại",
+      "sublabel": "1–10 lần, có chờ",
+      "width": 132
+    },
+    {
+      "id": "failpath",
+      "lane": "recover",
+      "col": 4,
+      "type": "security",
+      "label": "Nhánh on-failure",
+      "sublabel": "cảnh báo · dọn dẹp",
+      "width": 140
+    },
+    {
+      "id": "reaper",
+      "lane": "recover",
+      "col": 2,
+      "type": "backend",
+      "label": "Phục hồi run",
+      "sublabel": "quét run mồ côi",
+      "width": 132
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "from": "trigger",
+      "to": "validate",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e2",
+      "from": "validate",
+      "to": "queue",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e3",
+      "from": "queue",
+      "to": "worker",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e4",
+      "from": "worker",
+      "to": "wave",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e5",
+      "from": "wave",
+      "to": "branch",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e6",
+      "from": "branch",
+      "to": "result",
+      "label": "hoàn tất",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e7",
+      "from": "wave",
+      "to": "retry",
+      "label": "lỗi",
+      "variant": "security",
+      "role": "error"
+    },
+    {
+      "id": "e8",
+      "from": "retry",
+      "to": "failpath",
+      "label": "hết lượt",
+      "variant": "security",
+      "role": "error"
+    },
+    {
+      "id": "e9",
+      "from": "reaper",
+      "to": "queue",
+      "label": "xếp lại",
+      "variant": "dashed",
+      "role": "branch"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Một bộ điều phối",
+      "items": [
+        "dbt, SQL và Python trong cùng Pipeline",
+        "Không cần dựng thêm Airflow riêng"
+      ]
+    },
+    {
+      "dot": "orange",
+      "title": "Lỗi được xử lý có chủ đích",
+      "items": [
+        "Thử lại theo từng Step",
+        "Nhánh on-failure để cảnh báo hoặc dọn dẹp"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Không mất run",
+      "items": [
+        "Lưu DB trước khi xếp hàng",
+        "Run mồ côi được worker khác chạy tiếp"
+      ]
+    }
+  ]
+}

@@ -5,7 +5,11 @@ sidebar_position: 2
 description: Tạo source và recipe, kiểm tra kết nối, chạy theo lịch, theo dõi Run History và quản lý Secrets trong Hanas Catalog.
 ---
 
+import Diagram from '@site/src/components/Diagram';
+
 Metadata ingestion đưa metadata từ các hệ thống nguồn vào Hanas Catalog. Trang này dành cho quản trị viên catalog. Đừng nhầm với [Ingestion](../connect/ingestion.md), tính năng nạp dữ liệu vào lakehouse.
+
+<Diagram name="05-catalog-ingestion" alt="Hanas Catalog thu thập metadata" />
 
 ## Khái niệm
 
@@ -22,7 +26,7 @@ Hanas Catalog tạo run trong cơ sở dữ liệu, một runner nhận run, ch�
 
 :::note Điều kiện
 
-Mọi thao tác trong mục **Ingestion** của Data Governance, kể cả xem, cần role admin Data Governance. Admin của query engine tự động là admin Data Governance. Xem [Phân quyền dữ liệu](access-control.md).
+Mọi thao tác trong mục **Data Sources** của Data Governance, kể cả xem, cần role admin Data Governance. Admin của query engine tự động là admin Data Governance. Xem [Phân quyền dữ liệu](access-control.md).
 
 :::
 
@@ -46,8 +50,8 @@ Connector metadata cho Iceberg và dbt Cloud bị chặn trong Hanas Catalog. Đ
 
 ## Tạo source
 
-1. Mở **Data Governance**, chọn **Ingestion**, tab **Sources**.
-2. Chọn thao tác tạo source mới và chọn loại source.
+1. Mở **Data Governance**, chọn **Data Sources**. Trang có tiêu đề **Manage Data Sources** với các tab **Sources**, **Run History** và **Secrets**. Mở tab **Sources**.
+2. Chọn **Create Source** và chọn loại source.
 3. Điền thông tin kết nối trong form recipe. Với giá trị nhạy cảm, tham chiếu một Secret thay vì nhập trực tiếp.
 4. Chọn **Test connection** để kiểm tra kết nối trước khi lưu.
 5. Đặt lịch chạy: nhập biểu thức cron và chọn múi giờ, hoặc để chạy thủ công.
@@ -98,7 +102,7 @@ Không dán mật khẩu trực tiếp vào recipe. Dùng Secret để giá tr�
 |---|---|
 | Test connection thất bại | Kiểm tra host, thông tin đăng nhập và quyền mạng từ nơi catalog chạy. |
 | Run kẹt ở trạng thái đang chạy | Dùng Cancel, rồi xem Run History. |
-| Không thấy mục Ingestion | Bạn chưa có role admin Data Governance. |
+| Không thấy mục Data Sources | Bạn chưa có role admin Data Governance. |
 | Dataset mới chưa xuất hiện | Chạy lại source hoặc kiểm tra phạm vi container trong recipe. |
 
 ## Tiếp theo

@@ -1,0 +1,244 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "Data Lifecycle on Hanas",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1080,
+      660
+    ],
+    "views": [
+      {
+        "id": "ket-noi",
+        "label": "Zero-copy connect",
+        "focus": [
+          "oltp",
+          "lake",
+          "query-engine"
+        ],
+        "note": "Query Engine reads straight from the source; data does not move first."
+      },
+      {
+        "id": "bien-doi",
+        "label": "Controlled transforms",
+        "focus": [
+          "query-engine",
+          "dbt",
+          "pipeline",
+          "mart"
+        ],
+        "note": "dbt Studio and Pipeline build a clean data layer with tests and run history."
+      },
+      {
+        "id": "quan-tri",
+        "label": "Govern & use",
+        "focus": [
+          "mart",
+          "catalog",
+          "ontology",
+          "bi",
+          "ai"
+        ],
+        "note": "Catalog and Ontology add context before BI and AI use the data."
+      }
+    ],
+    "locale": "en"
+  },
+  "stages": [
+    {
+      "label": "Sources"
+    },
+    {
+      "label": "Connect"
+    },
+    {
+      "label": "Transform"
+    },
+    {
+      "label": "Store & govern"
+    },
+    {
+      "label": "Consume"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "oltp",
+      "type": "external",
+      "label": "Business DBs",
+      "sublabel": "Oracle · MySQL",
+      "stage": 0,
+      "row": 0
+    },
+    {
+      "id": "lake",
+      "type": "database",
+      "label": "Object storage",
+      "sublabel": "S3 · Iceberg",
+      "stage": 0,
+      "row": 2
+    },
+    {
+      "id": "query-engine",
+      "type": "backend",
+      "label": "Query Engine",
+      "sublabel": "cross-source queries",
+      "stage": 1,
+      "row": 1,
+      "tag": "core"
+    },
+    {
+      "id": "dbt",
+      "type": "backend",
+      "label": "dbt Studio",
+      "sublabel": "model · test",
+      "stage": 2,
+      "row": 2
+    },
+    {
+      "id": "pipeline",
+      "type": "backend",
+      "label": "Pipeline",
+      "sublabel": "schedule · branching",
+      "stage": 2,
+      "row": 0
+    },
+    {
+      "id": "mart",
+      "type": "database",
+      "label": "Data mart",
+      "sublabel": "clean data",
+      "stage": 3,
+      "row": 2
+    },
+    {
+      "id": "catalog",
+      "type": "security",
+      "label": "Hanas Catalog",
+      "sublabel": "lineage · glossary",
+      "stage": 3,
+      "row": 0
+    },
+    {
+      "id": "ontology",
+      "type": "security",
+      "label": "Ontology",
+      "sublabel": "objects · metrics",
+      "stage": 3,
+      "row": 3
+    },
+    {
+      "id": "bi",
+      "type": "frontend",
+      "label": "BI & reports",
+      "sublabel": "Superset · Excel",
+      "stage": 4,
+      "row": 0
+    },
+    {
+      "id": "ai",
+      "type": "frontend",
+      "label": "AI assistant",
+      "sublabel": "data Q&A",
+      "stage": 4,
+      "row": 3
+    }
+  ],
+  "flows": [
+    {
+      "id": "f-oltp",
+      "from": "oltp",
+      "to": "query-engine",
+      "label": "connect source",
+      "variant": "emphasis"
+    },
+    {
+      "id": "f-lake",
+      "from": "lake",
+      "to": "query-engine",
+      "label": "read table files",
+      "variant": "emphasis"
+    },
+    {
+      "id": "f-dbt",
+      "from": "query-engine",
+      "to": "dbt",
+      "label": "SQL models"
+    },
+    {
+      "id": "f-pipe",
+      "from": "pipeline",
+      "to": "dbt",
+      "label": "orchestrate",
+      "variant": "dashed",
+      "labelAt": [
+        530,
+        200
+      ]
+    },
+    {
+      "id": "f-mart",
+      "from": "dbt",
+      "to": "mart",
+      "label": "write results",
+      "variant": "emphasis"
+    },
+    {
+      "id": "f-cat",
+      "from": "mart",
+      "to": "catalog",
+      "label": "metadata",
+      "variant": "dashed"
+    },
+    {
+      "id": "f-onto",
+      "from": "mart",
+      "to": "ontology",
+      "label": "map",
+      "labelAt": [
+        745,
+        428
+      ]
+    },
+    {
+      "id": "f-bi",
+      "from": "catalog",
+      "to": "bi",
+      "label": "find & trust"
+    },
+    {
+      "id": "f-ai",
+      "from": "ontology",
+      "to": "ai",
+      "label": "context",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Copy nothing first",
+      "items": [
+        "Query Engine reads sources in place",
+        "Copy only into a clean data layer"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Controlled transforms",
+      "items": [
+        "dbt: Git, tests, run history",
+        "Pipelines: schedules, retries, failure paths"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Use trusted data",
+      "items": [
+        "Catalog: origin, owner, terminology",
+        "Ontology gives AI business meaning"
+      ]
+    }
+  ]
+}

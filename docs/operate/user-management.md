@@ -5,7 +5,16 @@ sidebar_position: 7
 description: Tạo và quản lý người dùng, group, role trong Settings của Hanas Console, đồng bộ qua Keycloak sang query engine và các ứng dụng.
 ---
 
-Quản trị viên quản lý người dùng, group và role ngay trong **Settings** của Hanas Console. Console không lưu danh tính; các thao tác được chuyển sang Keycloak và đồng bộ sang query engine.
+Quản trị viên quản lý người dùng, group và role ngay trong **Settings** > **User Administration** của Hanas Console. Console không lưu danh tính; các thao tác được chuyển sang Keycloak và đồng bộ sang query engine.
+
+Menu **Settings** gồm các nhóm sau.
+
+| Nhóm | Mục |
+|---|---|
+| **User Administration** | Các tab **Users**, **Roles**, **Permissions**; nút **New User** |
+| **Integrations** | **BI Applications**, **External Tokens**, **AI Config** |
+| **System** | **Preferences**, **Support**, **Compute** |
+| **Custom** | **SQL Query Config** |
 
 ## Khái niệm
 
@@ -24,21 +33,21 @@ flowchart LR
 
 ## Điều kiện cần
 
-- Tài khoản có quyền quản trị (role `admin`). Màn hình Settings dành cho quản trị viên.
+- Tài khoản có quyền quản trị (role `admin`). Màn hình **Settings** dành cho quản trị viên.
 - Hanas Console, User API, Keycloak và query engine đang hoạt động.
 
 ## Các bước
 
 ### Tạo người dùng
 
-1. Mở **Settings**, chọn mục quản lý người dùng.
-2. Chọn thêm người dùng mới, nhập tên đăng nhập, thông tin liên hệ và mật khẩu ban đầu.
+1. Mở **Settings** > **User Administration**, chọn tab **Users**.
+2. Chọn **New User**, nhập tên đăng nhập, thông tin liên hệ và mật khẩu ban đầu.
 3. Lưu. Người dùng xuất hiện trong realm Keycloak và được đồng bộ sang query engine.
 4. Yêu cầu người dùng đăng nhập thử bằng Hanas Console.
 
 ### Tạo group và role
 
-1. Trong **Settings**, mở danh sách group hoặc role.
+1. Trong **Settings** > **User Administration**, mở tab **Roles** (hoặc **Permissions** để xem quyền).
 2. Tạo group theo cấu trúc tổ chức, ví dụ theo nhóm nghiệp vụ.
 3. Gán người dùng vào group và gán role cho người dùng hoặc group.
 

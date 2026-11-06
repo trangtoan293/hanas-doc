@@ -5,7 +5,7 @@ sidebar_position: 4
 description: Develop and run PySpark projects, notebooks, declarative pipelines, and streaming jobs on Spark, and view logs and results in Hanas Console.
 ---
 
-Compute is the Apache Spark execution environment on Kubernetes in Hanas Data Platform. You write Python or PySpark directly in Hanas Console, run it, and read logs without managing a cluster yourself. This page is for data engineers who process large volumes or logic that SQL cannot express.
+Compute (the **Compute Engine** menu) is the Apache Spark execution environment on Kubernetes in Hanas Data Platform. You write Python or PySpark directly in Hanas Console, run it, and read logs without managing a cluster yourself. This page is for data engineers who process large volumes or logic that SQL cannot express.
 
 ## Requirements
 
@@ -30,12 +30,13 @@ Unlike a Python run in dbt Studio, which runs inside the runner container with a
 
 ## Create a project and run
 
-1. Open **Compute** in Hanas Console and choose to create a project.
-2. Create a Python file, SQL file, or notebook in the file tree.
-3. Choose a catalog in the Catalog panel to browse lakehouse tables.
-4. Choose **Run**, select a resource size, and confirm.
-5. Open the **Output** tab to read logs in real time. Choose Driver or Executor to view the logs of each component, or download them.
-6. After the run finishes, open the Run details to see who ran it, the configuration, parameters, errors, and where it ran.
+1. Open **Compute Engine** in Hanas Console. The page has the tabs **Projects**, **Runs**, **Streaming jobs**, and **Sessions**.
+2. In the **Projects** tab, choose **New project**.
+3. Create a Python file, SQL file, or notebook in the file tree.
+4. Choose a catalog in the Catalog panel to browse lakehouse tables.
+5. Choose **Run**, select a resource size, and confirm.
+6. Open the **Output** tab to read logs in real time. Choose Driver or Executor to view the logs of each component, or download them.
+7. After the run finishes, open the Run details to see who ran it, the configuration, parameters, errors, and where it ran.
 
 Example PySpark script that reads an Iceberg table and writes the result:
 
@@ -87,7 +88,7 @@ Failure notification webhooks are configured per project and by default apply to
 
 | Symptom | Resolution |
 |---|---|
-| The Compute menu does not appear | Compute is not enabled, or you lack a Compute role. |
+| The Compute Engine menu does not appear | Compute is not enabled, or you lack a Compute role. |
 | A run stays pending for a long time and then fails | The cluster lacks resources or the image has an error; the run fails after the pod stays Pending too long. |
 | Library installation error | Check the `pip install` log in the Environment panel. |
 | A run is canceled midway | Check the data that was already written before you rerun. |

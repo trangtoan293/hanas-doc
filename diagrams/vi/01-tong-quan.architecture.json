@@ -1,0 +1,325 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Kiến trúc tổng thể Hanas",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1240,
+      700
+    ],
+    "views": [
+      {
+        "id": "truy-cap",
+        "label": "Truy cập & đăng nhập",
+        "focus": [
+          "users",
+          "ui",
+          "keycloak"
+        ],
+        "note": "Một lần đăng nhập Keycloak SSO cho mọi phân hệ."
+      },
+      {
+        "id": "truy-van",
+        "label": "Truy vấn dữ liệu",
+        "focus": [
+          "ui",
+          "query-engine",
+          "sources",
+          "bi"
+        ],
+        "note": "Query Engine truy vấn trực tiếp nguồn, không cần sao chép dữ liệu."
+      },
+      {
+        "id": "dich-vu",
+        "label": "Dịch vụ Hanas",
+        "focus": [
+          "userapi",
+          "ai",
+          "dbt",
+          "catalog",
+          "ontology"
+        ],
+        "note": "Các dịch vụ chuyên biệt đều đi qua Query Engine để giữ đúng quyền."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "users",
+      "type": "external",
+      "label": "Người dùng",
+      "sublabel": "admin · kỹ sư · analyst",
+      "pos": [
+        40,
+        310
+      ],
+      "size": [
+        140,
+        64
+      ]
+    },
+    {
+      "id": "ui",
+      "type": "frontend",
+      "label": "Hanas Console",
+      "sublabel": "giao diện hợp nhất",
+      "pos": [
+        250,
+        310
+      ],
+      "size": [
+        160,
+        64
+      ],
+      "tag": "web"
+    },
+    {
+      "id": "keycloak",
+      "type": "security",
+      "label": "Keycloak SSO",
+      "sublabel": "user · role · ngôn ngữ",
+      "pos": [
+        250,
+        80
+      ],
+      "size": [
+        160,
+        64
+      ],
+      "tag": "OIDC"
+    },
+    {
+      "id": "userapi",
+      "type": "backend",
+      "label": "User API",
+      "sublabel": "quản lý người dùng",
+      "pos": [
+        520,
+        50
+      ],
+      "size": [
+        160,
+        60
+      ]
+    },
+    {
+      "id": "ai",
+      "type": "backend",
+      "label": "AI Agents",
+      "sublabel": "Kapas · Copilot",
+      "pos": [
+        520,
+        160
+      ],
+      "size": [
+        160,
+        60
+      ]
+    },
+    {
+      "id": "dbt",
+      "type": "backend",
+      "label": "dbt Studio",
+      "sublabel": "biến đổi · pipeline",
+      "pos": [
+        520,
+        420
+      ],
+      "size": [
+        160,
+        60
+      ]
+    },
+    {
+      "id": "catalog",
+      "type": "backend",
+      "label": "Hanas Catalog",
+      "sublabel": "danh mục · lineage",
+      "pos": [
+        520,
+        520
+      ],
+      "size": [
+        160,
+        60
+      ]
+    },
+    {
+      "id": "ontology",
+      "type": "backend",
+      "label": "Ontology",
+      "sublabel": "đối tượng · chỉ số",
+      "pos": [
+        520,
+        620
+      ],
+      "size": [
+        160,
+        60
+      ]
+    },
+    {
+      "id": "query-engine",
+      "type": "backend",
+      "label": "Query Engine",
+      "sublabel": "truy vấn liên nguồn",
+      "pos": [
+        800,
+        305
+      ],
+      "size": [
+        170,
+        74
+      ],
+      "tag": "lõi"
+    },
+    {
+      "id": "sources",
+      "type": "external",
+      "label": "Nguồn dữ liệu",
+      "sublabel": "DB · S3 · lakehouse",
+      "pos": [
+        1060,
+        310
+      ],
+      "size": [
+        150,
+        64
+      ]
+    },
+    {
+      "id": "bi",
+      "type": "external",
+      "label": "BI & ứng dụng",
+      "sublabel": "JDBC · ODBC · Flight",
+      "pos": [
+        1060,
+        500
+      ],
+      "size": [
+        150,
+        64
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "security-group",
+      "label": "Hanas services",
+      "wraps": [
+        "userapi",
+        "ai",
+        "dbt",
+        "catalog",
+        "ontology"
+      ],
+      "pad": 16
+    }
+  ],
+  "connections": [
+    {
+      "from": "users",
+      "to": "ui",
+      "label": "HTTPS",
+      "variant": "emphasis"
+    },
+    {
+      "from": "ui",
+      "to": "keycloak",
+      "label": "SSO",
+      "variant": "security"
+    },
+    {
+      "from": "ui",
+      "to": "query-engine",
+      "label": "SQL · REST",
+      "variant": "emphasis",
+      "labelAt": [
+        605,
+        330
+      ]
+    },
+    {
+      "from": "ui",
+      "to": "userapi"
+    },
+    {
+      "from": "ui",
+      "to": "ai"
+    },
+    {
+      "from": "ui",
+      "to": "dbt"
+    },
+    {
+      "from": "ui",
+      "to": "catalog"
+    },
+    {
+      "from": "ui",
+      "to": "ontology"
+    },
+    {
+      "from": "dbt",
+      "to": "query-engine",
+      "label": "chạy model",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "from": "catalog",
+      "to": "query-engine",
+      "label": "quét metadata",
+      "fromSide": "right",
+      "toSide": "bottom"
+    },
+    {
+      "from": "ai",
+      "to": "query-engine",
+      "label": "hỏi dữ liệu"
+    },
+    {
+      "from": "query-engine",
+      "to": "sources",
+      "label": "đọc tại chỗ",
+      "variant": "emphasis"
+    },
+    {
+      "from": "bi",
+      "to": "query-engine",
+      "label": "kết nối BI",
+      "fromSide": "left",
+      "toSide": "right"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Một cửa cho mọi vai trò",
+      "items": [
+        "Một giao diện, một lần đăng nhập",
+        "Menu hiển thị theo quyền Keycloak",
+        "Hỗ trợ tiếng Việt và tiếng Anh"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Query Engine là lõi truy vấn",
+      "items": [
+        "Truy vấn liên nguồn không sao chép",
+        "Mọi dịch vụ đi qua Query Engine để giữ quyền",
+        "BI kết nối qua JDBC/ODBC/Arrow Flight"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Dịch vụ chuyên biệt",
+      "items": [
+        "dbt Studio: biến đổi và pipeline",
+        "Catalog: tìm kiếm, lineage, glossary",
+        "Ontology + AI: ngữ nghĩa và hỏi đáp"
+      ]
+    }
+  ]
+}

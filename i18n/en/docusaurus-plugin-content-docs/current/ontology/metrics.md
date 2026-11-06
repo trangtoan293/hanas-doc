@@ -59,7 +59,7 @@ A metric's execution includes the following choices.
 
 ## Steps to create a metric
 
-1. Open **Metrics** in the Workbench.
+1. Choose **Open Build** on the project (or open **Ontology** > **Workbench**), then open **Metrics**.
 2. Enter the name, description, unit, and formula or references.
 3. Configure execution, context, and placement.
 4. Select **Validate**, then review the **compile preview**.

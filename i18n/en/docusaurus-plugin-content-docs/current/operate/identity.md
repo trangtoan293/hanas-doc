@@ -5,6 +5,8 @@ sidebar_position: 6
 description: Realm, clients, roles, mappers, SSO across components, token exchange, and how to tell public URLs from internal URLs in Keycloak.
 ---
 
+import Diagram from '@site/src/components/Diagram';
+
 Hanas Data Platform uses Keycloak as its shared identity provider. This page describes the realm, clients, roles, and how components use tokens, so you can configure and diagnose sign-in.
 
 ## Realm and administrator accounts
@@ -67,6 +69,8 @@ The `skipClients` setting is empty by default, so every client role is grouped i
 
 ## SSO and token exchange
 
+<Diagram name="03-dang-nhap-phan-quyen" alt="One sign-in, permissions follow the user" />
+
 1. The browser signs in to Keycloak through the `odc` client. The applications share the realm, but each backend still verifies tokens and permissions on its own.
 2. The query engine exchanges the OIDC code on the server side and issues its own session. Hanas Console also obtains a Keycloak token to call other services.
 3. Ontology accepts tokens with a configured audience; when a token lacks the `tenant` claim, Ontology derives it from the client that issued the token.
@@ -75,6 +79,8 @@ The `skipClients` setting is empty by default, so every client role is grouped i
 6. Hanas Catalog checks permissions against the viewer's query engine session. Scheduled sources use a service PAT or a dedicated service account, which differs from the viewer's identity.
 
 There is no end-to-end verification yet of token exchange permissions and claims in a real environment; check them as described in [Health checks and monitoring](health-checks.md).
+
+In the UI, tokens for external integrations are managed under **Settings** > **Integrations** > **External Tokens**. Your personal tokens are under the account menu, **Access Tokens**.
 
 ## Public URLs and internal URLs
 

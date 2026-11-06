@@ -37,7 +37,7 @@ Một entity cần runtime nhưng thiếu dataset hoặc primary key sẽ chặn
 
 ### 1. Chọn nguồn dữ liệu
 
-1. Mở **Workbench** của workspace và chuyển sang **Mapping**.
+1. Từ thẻ project trong **Ontology** > **Explore**, chọn **Open Build** (hoặc mở **Ontology** > **Workbench**), rồi chuyển sang **Mapping**.
 2. Chọn concept cần ánh xạ.
 3. Chọn dataset từ danh sách source, schema, table hoặc view, hoặc dùng đề xuất nguồn của hệ thống.
 4. Kiểm tra schema và mẫu dữ liệu của dataset.

@@ -13,12 +13,17 @@ npm run start:en   # tiếng Anh
 npm run build      # build cả hai ngôn ngữ vào build/ (link hỏng sẽ làm build lỗi)
 ```
 
-Docker:
+Docker (image chỉ chứa site đã build, nên chạy `npm run build` trước):
 
 ```bash
+npm run build
 docker build -t hanas-docs .
 docker run -p 8080:80 hanas-docs
 ```
+
+## CI/CD
+
+`.gitlab-ci.yml` build site trên mọi nhánh và MR. Trên `main` và tag được bảo vệ, CI đóng image nginx và push lên Harbor `192.168.1.41/k8s-image/hanas-docs` với tag `<commit-sha>` và `<YYYYMMDD>-<short-sha>`; nhánh khác chạy bước này bằng tay. Nếu có biến `DOCKERHUB_TOKEN`, image cũng được push lên `katalysthub/hanas-docs`. Pipeline chưa có bước deploy.
 
 ## Cấu trúc
 
@@ -30,6 +35,10 @@ sidebars.ts                                        4 sidebar: product, operate, 
 ```
 
 Mỗi mục là một thư mục; `index.md` là trang giới thiệu mục, các trang con sắp theo `sidebar_position`.
+
+## Sơ đồ
+
+Sơ đồ kiến trúc được sinh bằng archify (skill nội bộ) từ file JSON trong `diagrams/vi/` và `diagrams/en/`. Kết quả gồm HTML tương tác ở `static/diagrams/<locale>/` và ảnh xem trước sáng/tối ở `static/img/diagrams/<locale>/`; trang docs nhúng bằng component `<Diagram name="..." alt="..." />`. Khi sửa sơ đồ: sửa JSON, chạy `archify deliver <type> <file.json> <out.html> --quality showcase`, rồi `archify visual-check <out.html>` và chuyển ảnh `*.2048x1320.{light,dark}.png` sang WebP.
 
 ## Quy ước viết
 

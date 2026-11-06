@@ -5,7 +5,11 @@ sidebar_position: 0
 description: Giới thiệu Kapas, trợ lý AI của Hanas Data Platform giúp hỏi đáp dữ liệu, dựng dashboard và hỗ trợ các màn hình quản trị dữ liệu.
 ---
 
+import Diagram from '@site/src/components/Diagram';
+
 Kapas là lớp AI assistant của Hanas Data Platform. Bạn đặt câu hỏi bằng ngôn ngữ tự nhiên; Kapas gọi các công cụ đã được cấp (query engine, Ontology, Apache Superset, dbt, Hanas Catalog) rồi tổng hợp câu trả lời tiếng Việt kèm nguồn số liệu.
+
+Trong Hanas Console, bạn trò chuyện với Kapas ở menu **AI Agent** (nút **New chat** và lịch sử chat). Kapas cũng được nhúng dưới dạng panel **AI Agent** trong **SQL Editor** (menu **Workspaces**).
 
 Mục này dành cho người dùng nghiệp vụ, người quản trị và nhà phát triển muốn tích hợp Kapas vào ứng dụng. Phần cấu hình mô hình AI nằm ở mục vận hành, phần API nằm ở mục phát triển.
 
@@ -27,6 +31,8 @@ flowchart LR
 Kapas là một dịch vụ riêng, chạy trong cùng cụm Kubernetes và dùng PostgreSQL (có extension vector) cùng Redis của chính nó. Mỗi người dùng có không gian làm việc riêng cho agent, phiên chat và lịch chạy.
 
 ## Kapas làm được gì?
+
+<Diagram name="06-ai-agent" alt="Kapas làm việc cùng người dùng" />
 
 | Nhu cầu | Agent phụ trách | Trang hướng dẫn |
 |---|---|---|

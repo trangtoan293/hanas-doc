@@ -1,0 +1,258 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "Một lần đăng nhập, quyền đi theo người dùng",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1060,
+      600
+    ],
+    "column_fit": "spread",
+    "views": [
+      {
+        "id": "sso",
+        "label": "Đăng nhập SSO",
+        "focus": [
+          "user",
+          "ui",
+          "keycloak",
+          "query-engine"
+        ],
+        "note": "Keycloak cấp danh tính; Query Engine nhận cùng người dùng đó."
+      },
+      {
+        "id": "catalog-quyen",
+        "label": "Catalog lọc theo quyền",
+        "focus": [
+          "ui",
+          "catalog",
+          "query-engine"
+        ],
+        "note": "Catalog hỏi query engine xem người dùng được thấy bảng nào."
+      },
+      {
+        "id": "dbt-quyen",
+        "label": "dbt chạy bằng chính user",
+        "focus": [
+          "ui",
+          "dbt",
+          "keycloak",
+          "query-engine"
+        ],
+        "note": "Không dùng tài khoản dịch vụ chung; audit ghi đúng người."
+      }
+    ]
+  },
+  "participants": [
+    {
+      "id": "user",
+      "type": "external",
+      "label": "Người dùng",
+      "sublabel": "trình duyệt"
+    },
+    {
+      "id": "ui",
+      "type": "frontend",
+      "label": "Hanas Console",
+      "sublabel": "giao diện"
+    },
+    {
+      "id": "keycloak",
+      "type": "security",
+      "label": "Keycloak",
+      "sublabel": "SSO · role"
+    },
+    {
+      "id": "catalog",
+      "type": "backend",
+      "label": "Hanas Catalog",
+      "sublabel": "catalog-api"
+    },
+    {
+      "id": "dbt",
+      "type": "backend",
+      "label": "dbt Studio",
+      "sublabel": "dbt runner"
+    },
+    {
+      "id": "query-engine",
+      "type": "backend",
+      "label": "Query Engine",
+      "sublabel": "engine · ACL"
+    }
+  ],
+  "segments": [
+    {
+      "from": 150,
+      "to": 276,
+      "label": "Đăng nhập"
+    },
+    {
+      "from": 278,
+      "to": 404,
+      "label": "Tìm dữ liệu"
+    },
+    {
+      "from": 406,
+      "to": 532,
+      "label": "Chạy model"
+    }
+  ],
+  "messages": [
+    {
+      "from": "user",
+      "to": "ui",
+      "y": 174,
+      "label": "mở Hanas",
+      "variant": "emphasis"
+    },
+    {
+      "from": "ui",
+      "to": "keycloak",
+      "y": 202,
+      "label": "đăng nhập OIDC",
+      "variant": "security"
+    },
+    {
+      "from": "keycloak",
+      "to": "ui",
+      "y": 230,
+      "label": "token + role",
+      "variant": "return"
+    },
+    {
+      "from": "ui",
+      "to": "query-engine",
+      "y": 258,
+      "label": "phiên query engine (SSO)",
+      "variant": "security"
+    },
+    {
+      "from": "ui",
+      "to": "catalog",
+      "y": 302,
+      "label": "tìm kiếm dataset",
+      "variant": "emphasis"
+    },
+    {
+      "from": "catalog",
+      "to": "query-engine",
+      "y": 330,
+      "label": "user được thấy gì?",
+      "variant": "security"
+    },
+    {
+      "from": "query-engine",
+      "to": "catalog",
+      "y": 358,
+      "label": "danh sách được phép",
+      "variant": "return"
+    },
+    {
+      "from": "catalog",
+      "to": "ui",
+      "y": 386,
+      "label": "kết quả đã lọc quyền",
+      "variant": "return"
+    },
+    {
+      "from": "ui",
+      "to": "dbt",
+      "y": 430,
+      "label": "chạy dbt run",
+      "variant": "emphasis"
+    },
+    {
+      "from": "dbt",
+      "to": "keycloak",
+      "y": 458,
+      "label": "đổi sang token query engine",
+      "variant": "security"
+    },
+    {
+      "from": "dbt",
+      "to": "query-engine",
+      "y": 486,
+      "label": "SQL dưới tên user",
+      "variant": "emphasis"
+    },
+    {
+      "from": "dbt",
+      "to": "ui",
+      "y": 514,
+      "label": "log trực tiếp (SSE)",
+      "variant": "return"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "ui",
+      "from": 168,
+      "to": 266,
+      "type": "frontend"
+    },
+    {
+      "participant": "keycloak",
+      "from": 196,
+      "to": 238,
+      "type": "security"
+    },
+    {
+      "participant": "catalog",
+      "from": 296,
+      "to": 394,
+      "type": "backend"
+    },
+    {
+      "participant": "query-engine",
+      "from": 324,
+      "to": 366,
+      "type": "backend"
+    },
+    {
+      "participant": "dbt",
+      "from": 424,
+      "to": 522,
+      "type": "backend"
+    },
+    {
+      "participant": "keycloak",
+      "from": 452,
+      "to": 466,
+      "type": "security"
+    },
+    {
+      "participant": "query-engine",
+      "from": 480,
+      "to": 504,
+      "type": "backend"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "rose",
+      "title": "Một danh tính",
+      "items": [
+        "Keycloak là nơi duy nhất quản lý user và role",
+        "Query Engine nhận đúng người dùng qua SSO"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Quyền không bị sao chép",
+      "items": [
+        "Catalog hỏi query engine, không tự giữ bản ACL riêng",
+        "Bảng không được phép thì không hiện"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Audit đúng người",
+      "items": [
+        "dbt chạy bằng token của chính người dùng",
+        "Job chạy theo lịch dùng quyền người tạo"
+      ]
+    }
+  ]
+}

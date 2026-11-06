@@ -5,11 +5,18 @@ sidebar_position: 5
 description: Xem lịch sử job của query engine, lọc theo trạng thái và người dùng, đọc chi tiết SQL, thời gian, profile và hủy job.
 ---
 
-Mỗi truy vấn chạy qua query engine tạo ra một job. Trang **Jobs** trong Hanas Console liệt kê các job này để bạn kiểm tra trạng thái, tìm truy vấn chậm hoặc lỗi và đọc profile thực thi.
+Mỗi truy vấn chạy qua query engine tạo ra một job. Hanas Console không có menu Jobs riêng; bạn mở danh sách job từ các điểm vào dưới đây để kiểm tra trạng thái, tìm truy vấn chậm hoặc lỗi và đọc profile thực thi.
+
+| Điểm vào | Dùng khi |
+|---|---|
+| **Home** → **My Jobs** | Xem nhanh job của chính bạn. |
+| **Overview** → **View all jobs** | Xem job gần đây trên toàn nền tảng từ phần Recent Jobs. |
+| Tab **History** của SQL Editor | Xem lại các lần chạy trong phiên soạn SQL. |
+| **Engine** → **Monitor** → **Jobs** | Theo dõi job cùng catalog usage và tài nguyên của engine. |
 
 ## Danh sách job
 
-Trang Jobs hiển thị bảng job với các thông tin như trạng thái, loại truy vấn, người chạy, queue, dataset và thời lượng. Bạn chọn cột hiển thị theo nhu cầu.
+Danh sách job hiển thị bảng job với các thông tin như trạng thái, loại truy vấn, người chạy, queue, dataset và thời lượng. Bạn chọn cột hiển thị theo nhu cầu.
 
 | Bộ lọc | Công dụng |
 |---|---|
@@ -37,7 +44,7 @@ Khi tìm nguyên nhân truy vấn chậm, bạn so sánh thời gian ở từng 
 
 ## Hủy job
 
-Bạn hủy job đang chạy từ trạng thái job trong SQL Studio hoặc từ trang Jobs. Job bị hủy chuyển sang trạng thái đã hủy; trong chuỗi nhiều statement, các statement sau không được chạy.
+Bạn hủy job đang chạy từ tab **History** của SQL Editor hoặc từ danh sách job ở **Engine** → **Monitor** → **Jobs**. Job bị hủy chuyển sang trạng thái đã hủy; trong chuỗi nhiều statement, các statement sau không được chạy.
 
 :::note Điều kiện
 
@@ -55,6 +62,6 @@ Người dùng thường chỉ xem và hủy job của chính mình. Quản tr�
 
 ## Tiếp theo
 
-- [SQL Studio](sql-studio.md).
+- [SQL Editor](sql-studio.md).
 - [Tăng tốc với Reflection](acceleration.md).
 - [Engine, queue và điều phối tải](workload-management.md).

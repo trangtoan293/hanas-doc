@@ -9,7 +9,7 @@ Workload management helps administrators divide compute resources among user gro
 
 :::note Requirements
 
-These screens are in the administration area of Hanas Console and require administrative permission. Actual availability depends on whether your query engine deployment enables engine and workload management. If the menu appears but actions report errors, contact your operations team. Treat this as a **(Preview)** feature until you confirm it in your environment.
+These screens are in the **Engine** menu of Hanas Console and require administrative permission. The **Engine** menu contains **Monitor**, **Nodes**, **Engines**, **Queues**, **Routing**, and **Reflections**. If actions report errors, contact your operations team.
 
 :::
 
@@ -33,18 +33,18 @@ flowchart LR
 
 ## Manage engines
 
-The **Engines** page lists engines with their status and size; you can filter by these two criteria. From here you create a new engine or adjust the resources of an existing one.
+The **Engine** → **Engines** page lists engines with their status and size; you can filter by these two criteria. From here you create a new engine or adjust the resources of an existing one.
 
 ## Manage queues
 
-1. Open the **Queues** page in the administration area.
+1. Open **Engine** → **Queues**.
 2. Select add queue and enter a name.
 3. Set the CPU priority, the concurrency limit, and the memory limits for the queue and for each job.
 4. Save; the queue appears in the list for use in routing rules.
 
 ## Routing rules
 
-1. Open the **Engine Routing** page.
+1. Open **Engine** → **Routing**.
 2. Add a rule, set its name, enter the condition, and select the target queue. You can also choose to reject queries that match the rule.
 3. Drag and drop to set the order; rules higher in the list are evaluated first.
 4. Edit the default rule for the remaining queries.
@@ -53,13 +53,13 @@ An example idea: queries from the dashboard group go into a queue with a low con
 
 ## Monitoring
 
-The monitor and **Node Activity** screens show job and node activity. Use them together with [Job history](jobs.md) to identify overloaded queues or nodes.
+The **Engine** menu has two monitoring screens. **Monitor** has three tabs: **Catalog usage**, **Jobs**, and **Resources**. **Nodes** shows the activity of each node. Use them together with [Job history](jobs.md) to identify overloaded queues or nodes.
 
 ## Troubleshooting
 
 | Symptom | What to check |
 |---|---|
-| Cannot save a queue or rule | Check administrative permission and that the deployment supports workload management. |
+| Cannot save a queue or rule | Check your administrative permission. |
 | A query does not go into the expected queue | Check the rule order; the rule higher in the list matches first. |
 | Jobs wait a long time | Increase the concurrency limit or move load to another queue. |
 

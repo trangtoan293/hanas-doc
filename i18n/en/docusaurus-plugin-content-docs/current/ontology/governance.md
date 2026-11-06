@@ -5,7 +5,7 @@ sidebar_position: 7
 description: The draft, review, publish, and deployment workflow, release gates, audit, roles, and ontology import/export.
 ---
 
-This page describes how to control ontology changes: who can do what, which gates a change passes through before it reaches users, and how to export or import definitions between workspaces. It is intended for ontology admins and approvers.
+This page describes how to control ontology changes: who can do what, which gates a change passes through before it reaches users, and how to export or import definitions between workspaces. It is intended for ontology admins and approvers. In Hanas Console, these actions are under the **Ontology** > **Governance** menu.
 
 ## Roles
 

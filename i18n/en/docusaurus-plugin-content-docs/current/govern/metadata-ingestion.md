@@ -5,7 +5,11 @@ sidebar_position: 2
 description: Create sources and recipes, test connections, run on a schedule, monitor Run History, and manage Secrets in Hanas Catalog.
 ---
 
+import Diagram from '@site/src/components/Diagram';
+
 Metadata ingestion brings metadata from source systems into Hanas Catalog. This page is for catalog administrators. Do not confuse it with [Ingestion](../connect/ingestion.md), the feature that loads data into the lakehouse.
+
+<Diagram name="05-catalog-ingestion" alt="Hanas Catalog metadata ingestion" />
 
 ## Concepts
 
@@ -22,7 +26,7 @@ Hanas Catalog creates a run in the database, a runner picks up the run, runs the
 
 :::note Requirements
 
-Every action in the **Ingestion** section of Data Governance, including viewing, requires the Data Governance admin role. A query engine admin is automatically a Data Governance admin. See [Data access control](access-control.md).
+Every action in the **Data Sources** section of Data Governance, including viewing, requires the Data Governance admin role. A query engine admin is automatically a Data Governance admin. See [Data access control](access-control.md).
 
 :::
 
@@ -46,8 +50,8 @@ Metadata connectors for Iceberg and dbt Cloud are blocked in Hanas Catalog. This
 
 ## Create a source
 
-1. Open **Data Governance**, choose **Ingestion**, then the **Sources** tab.
-2. Choose the action to create a new source and select the source type.
+1. Open **Data Governance** and choose **Data Sources**. The page is titled **Manage Data Sources** and has the **Sources**, **Run History**, and **Secrets** tabs. Open the **Sources** tab.
+2. Choose **Create Source** and select the source type.
 3. Fill in the connection information in the recipe form. For sensitive values, reference a Secret instead of entering them directly.
 4. Choose **Test connection** to check the connection before saving.
 5. Set the run schedule: enter a cron expression and choose a time zone, or leave it to run manually.
@@ -98,7 +102,7 @@ Do not paste passwords directly into a recipe. Use a Secret so the value does no
 |---|---|
 | Test connection fails | Check the host, credentials, and network access from where the catalog runs. |
 | A run is stuck in the running state | Use Cancel, then check Run History. |
-| You do not see the Ingestion section | You do not have the Data Governance admin role. |
+| You do not see the Data Sources section | You do not have the Data Governance admin role. |
 | A new dataset does not appear yet | Rerun the source or check the container scope in the recipe. |
 
 ## Next steps

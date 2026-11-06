@@ -9,7 +9,7 @@ Workload management giúp quản trị viên chia tài nguyên tính toán giữ
 
 :::note Điều kiện
 
-Các màn hình này nằm trong phần quản trị của Hanas Console, cần quyền quản trị. Khả năng dùng thực tế phụ thuộc bản triển khai query engine của bạn có bật quản lý engine và workload hay không. Nếu menu hiện nhưng thao tác báo lỗi, hãy liên hệ nhóm vận hành. Hãy xem đây là chức năng **(Preview)** cho đến khi bạn xác nhận trên môi trường của mình.
+Các màn hình này nằm trong menu **Engine** của Hanas Console và cần quyền quản trị. Menu **Engine** gồm **Monitor**, **Nodes**, **Engines**, **Queues**, **Routing** và **Reflections**. Nếu thao tác báo lỗi, hãy liên hệ nhóm vận hành.
 
 :::
 
@@ -33,18 +33,18 @@ flowchart LR
 
 ## Quản lý engine
 
-Trang **Engines** liệt kê engine kèm trạng thái và kích thước; bạn lọc theo hai tiêu chí này. Từ đây bạn tạo engine mới hoặc điều chỉnh số lượng tài nguyên của engine hiện có.
+Trang **Engine** → **Engines** liệt kê engine kèm trạng thái và kích thước; bạn lọc theo hai tiêu chí này. Từ đây bạn tạo engine mới hoặc điều chỉnh số lượng tài nguyên của engine hiện có.
 
 ## Quản lý queue
 
-1. Mở trang **Queues** trong phần quản trị.
+1. Mở **Engine** → **Queues**.
 2. Chọn thêm queue và đặt tên.
 3. Đặt ưu tiên CPU, giới hạn đồng thời, giới hạn bộ nhớ của queue và của mỗi job.
 4. Lưu; queue xuất hiện trong danh sách để dùng trong quy tắc định tuyến.
 
 ## Quy tắc định tuyến
 
-1. Mở trang **Engine Routing**.
+1. Mở **Engine** → **Routing**.
 2. Thêm quy tắc, đặt tên, nhập điều kiện và chọn queue đích. Bạn cũng chọn từ chối truy vấn khớp quy tắc.
 3. Kéo thả để sắp xếp thứ tự; quy tắc ở trên được đánh giá trước.
 4. Chỉnh quy tắc mặc định cho các truy vấn còn lại.
@@ -53,13 +53,13 @@ Ví dụ ý tưởng: truy vấn của nhóm dashboard vào queue giới hạn �
 
 ## Giám sát
 
-Màn hình monitor và **Node Activity** cho thấy hoạt động của job và node. Dùng chúng kết hợp với [Lịch sử job](jobs.md) để xác định queue hoặc node quá tải.
+Menu **Engine** có hai màn hình giám sát. **Monitor** có ba tab: **Catalog usage**, **Jobs** và **Resources**. **Nodes** cho thấy hoạt động của từng node. Dùng chúng kết hợp với [Lịch sử job](jobs.md) để xác định queue hoặc node quá tải.
 
 ## Xử lý sự cố
 
 | Hiện tượng | Cách kiểm tra |
 |---|---|
-| Không lưu được queue hoặc quy tắc | Kiểm tra quyền quản trị và bản triển khai có hỗ trợ workload management. |
+| Không lưu được queue hoặc quy tắc | Kiểm tra quyền quản trị của bạn. |
 | Truy vấn không vào queue mong đợi | Kiểm tra thứ tự quy tắc; quy tắc phía trên khớp trước. |
 | Job chờ lâu | Tăng giới hạn đồng thời hoặc chuyển tải sang queue khác. |
 

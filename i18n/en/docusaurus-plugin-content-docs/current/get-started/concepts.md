@@ -65,7 +65,7 @@ A **Kapas agent** is a preconfigured AI agent with its own tools and skills that
 
 A **role** is a set of permissions assigned to a user or group; Keycloak roles control access to services, while grants on data objects are checked by the query engine. See [Manage users, groups, and roles](../operate/user-management.md) and [Data access control](../govern/access-control.md).
 
-A **PAT** (personal access token) is a personal token that SQL clients or scripts use to call APIs on your behalf. You create a PAT in Account Settings. See [Integration overview](../develop/index.md).
+A **PAT** (personal access token) is a personal token that SQL clients or scripts use to call APIs on your behalf. You create a PAT from the account menu, under **Access Tokens**. See [Integration overview](../develop/index.md).
 
 :::note Requirements
 

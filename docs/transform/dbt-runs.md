@@ -78,7 +78,7 @@ Bạn nên bổ sung kiểm tra quan hệ, trạng thái hợp lệ và tổng s
 
 ## Theo dõi và hủy run
 
-Mở **Orchestrate** rồi chọn **Runs** để xem lịch sử các run đã ghi nhận. Chi tiết run cung cấp command, target, thời gian, trạng thái và log phục vụ chẩn đoán.
+Mở **dbt Studio** → **Orchestrate** rồi chọn **Runs** để xem lịch sử các run đã ghi nhận. Chi tiết run cung cấp command, target, thời gian, trạng thái và log phục vụ chẩn đoán.
 
 Log trực tiếp được truyền từ runner; artifacts được lưu theo kết quả thực thi. Khi cần dừng công việc, chọn thao tác **Cancel** trên run đang hoạt động, rồi kiểm tra trạng thái cuối cùng.
 
@@ -86,7 +86,7 @@ Hủy hoặc lỗi giữa chừng không tự hoàn nguyên toàn bộ dữ li�
 
 ## Tạo lịch dbt
 
-1. Mở **Orchestrate** rồi chọn **Schedules** để quản lý lịch của workspace.
+1. Mở **dbt Studio** → **Orchestrate** rồi chọn **Schedules** để quản lý lịch của workspace.
 2. Chọn thao tác tạo lịch và nhập tên mô tả rõ công việc cần thực thi.
 3. Chọn project, command, target và selector giống cấu hình đã chạy thử thành công.
 4. Nhập cron hoặc chọn mẫu lịch có sẵn để xác định các thời điểm kích hoạt.

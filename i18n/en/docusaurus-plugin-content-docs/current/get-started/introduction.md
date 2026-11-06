@@ -21,7 +21,7 @@ For example, customer, account, and transaction data can be standardized into an
 
 ### Access and querying
 
-**Hanas Console** brings together the areas for connecting data, SQL Studio, development, administration, and analytics. Menus depend on your permissions and the enabled features; each backend still checks permissions when it receives a request.
+**Hanas Console** brings together the areas for connecting data, SQL Editor, development, administration, and analytics. Menus depend on your permissions and the enabled features; each backend still checks permissions when it receives a request.
 
 **Query Engine** runs SQL on supported sources and lakehouse tables. It manages datasets, views, jobs, profiles, and Reflections, and provides a REST API and SQL client interfaces.
 

@@ -1,44 +1,38 @@
 ---
-title: SQL Studio
-sidebar_label: SQL Studio
+title: SQL Editor
+sidebar_label: SQL Editor
 sidebar_position: 1
-description: Soạn và chạy SQL trong Hanas Console, dùng tab, context, Run, Preview, nhiều statement và lưu truy vấn thành view.
+description: Soạn và chạy SQL trong Hanas Console bằng SQL Editor, dùng cây dữ liệu, script, context, Run, nhiều statement, AI Agent và lưu truy vấn thành view.
 ---
 
-SQL Studio là trình soạn thảo SQL trong Hanas Console. Bạn dùng nó để khám phá dữ liệu, thử truy vấn và lưu kết quả thành view cho người khác dùng lại. Mỗi lần chạy tạo một job của query engine, nên bạn xem lại được trong [Lịch sử job](jobs.md).
+SQL Editor là trình soạn thảo SQL trong Hanas Console, mở từ menu **Workspaces** (thẻ **SQL Editor** trên **Home** cũng dẫn tới đây). Bạn dùng nó để khám phá dữ liệu, thử truy vấn và lưu kết quả thành view cho người khác dùng lại. Mỗi lần chạy tạo một job của query engine, nên bạn xem lại được ở tab **History** của trình soạn thảo hoặc trong [Lịch sử job](jobs.md).
 
-## Khái niệm
+## Bố cục
 
 | Thành phần | Ý nghĩa |
 |---|---|
-| Tab | Một vùng soạn SQL độc lập. Bạn mở nhiều tab để làm nhiều truy vấn song song. |
-| Script | SQL đã lưu có tên, mở lại được ở lần sau. |
+| Panel bên trái | Ba tab **DATA**, **SCRIPTS** và **FUNCTIONS**. DATA là cây dữ liệu; SCRIPTS chứa SQL đã lưu có tên; FUNCTIONS liệt kê các hàm có thể dùng. |
+| Cây dữ liệu | Hai nhóm: **Workspaces** (workspace cá nhân dạng `@user`) và **Spaces**. Chỉ hiển thị đối tượng bạn có quyền xem. |
+| Trình soạn thảo | Vùng nhập SQL, có nút **Run**, **Save as View** và bộ chọn **Context**. |
 | Context | Đường dẫn mặc định (source, schema hoặc space) để viết tên bảng ngắn gọn. |
-| Run | Thực thi SQL và ghi job đầy đủ. |
-| Preview | Chạy nhanh để xem mẫu kết quả, phù hợp khi bạn đang chỉnh truy vấn. |
+| Tab kết quả | **Results** hiển thị dữ liệu trả về; **History** liệt kê các lần chạy trước. |
+| **AI Agent** | Panel nhúng bên cạnh trình soạn thảo để hỏi và nhờ hỗ trợ viết SQL. |
 
-Cây dữ liệu bên trái hiển thị space, source và lakehouse mà bạn có quyền xem. Chọn một đối tượng để chèn đường dẫn vào SQL hoặc xem thông tin tóm tắt như chủ sở hữu, ngày tạo và số job gần đây.
+Chọn một đối tượng trong cây dữ liệu để chèn đường dẫn vào SQL hoặc xem thông tin tóm tắt.
 
 ## Chạy một truy vấn
 
-1. Mở **SQL Studio** từ menu của Hanas Console.
-2. Chọn **context** nếu bạn muốn viết tên bảng ngắn, ví dụ `account` thay cho `Lakehouse.silver_retail.account`.
+1. Mở **Workspaces** từ menu của Hanas Console để vào SQL Editor.
+2. Chọn **Context** nếu bạn muốn viết tên bảng ngắn, ví dụ `account` thay cho `Lakehouse.silver_retail.account`.
 3. Nhập SQL vào trình soạn thảo.
-4. Chọn **Run** để thực thi, hoặc **Preview** để xem nhanh.
-5. Xem kết quả trong bảng bên dưới; trạng thái job hiển thị cùng tab.
+4. Chọn **Run** hoặc nhấn `Ctrl/Cmd + Enter` để thực thi.
+5. Xem kết quả ở tab **Results**; các lần chạy trước nằm ở tab **History**.
 
-Nếu bạn bôi đen một đoạn SQL, Run và Preview chỉ thực thi đoạn được chọn. Khi không chọn gì, trình soạn thảo chạy toàn bộ nội dung.
-
-| Phím tắt | Hành động |
-|---|---|
-| `Ctrl/Cmd + Shift + Enter` | Run |
-| `Ctrl/Cmd + Enter` | Preview |
-| `Ctrl/Cmd + S` | Lưu script |
-| `Ctrl/Cmd + Shift + F` | Định dạng SQL |
+Nếu bạn bôi đen một đoạn SQL, Run chỉ thực thi đoạn được chọn. Khi không chọn gì, trình soạn thảo chạy toàn bộ nội dung.
 
 ## Nhiều statement
 
-Bạn có thể viết nhiều statement ngăn cách bằng dấu chấm phẩy rồi chạy một lần. SQL Studio theo dõi từng statement với trạng thái riêng.
+Bạn có thể viết nhiều statement ngăn cách bằng dấu chấm phẩy rồi chạy một lần. SQL Editor theo dõi từng statement với trạng thái riêng.
 
 ```sql
 CREATE TABLE Lakehouse.silver_retail.account_stage AS
@@ -54,7 +48,7 @@ Các statement chạy tuần tự. Nếu một statement lỗi hoặc bị hủy
 
 ## Autocomplete và kết quả
 
-Trình soạn thảo gợi ý tên đối tượng và hàm khi bạn gõ, đồng thời đánh dấu lỗi cú pháp. Bảng kết quả hỗ trợ thao tác trên cột như sắp xếp và ẩn hiện cột.
+Trình soạn thảo gợi ý tên đối tượng và hàm khi bạn gõ, đồng thời đánh dấu lỗi cú pháp. Bảng kết quả ở tab **Results** hỗ trợ thao tác trên cột như sắp xếp và ẩn hiện cột.
 
 Kết quả hiển thị trong trình duyệt chỉ là một phần dữ liệu. Với tập dữ liệu lớn, hãy ghi kết quả vào bảng bằng `CREATE TABLE AS` thay vì kéo toàn bộ về client.
 
@@ -80,7 +74,7 @@ Một số thao tác ghi (`INSERT`, `UPDATE`, `DELETE`, `MERGE`) chỉ hỗ tr�
 | Hiện tượng | Cách kiểm tra |
 |---|---|
 | Lỗi "table not found" | Kiểm tra context và viết đường dẫn đầy đủ, đặt tên có ký tự đặc biệt trong dấu nháy kép. |
-| Statement sau không chạy | Statement trước đã lỗi hoặc bị hủy; xem lỗi trong [Lịch sử job](jobs.md). |
+| Statement sau không chạy | Statement trước đã lỗi hoặc bị hủy; xem lỗi ở tab **History** hoặc trong [Lịch sử job](jobs.md). |
 | Không lưu được view | Kiểm tra quyền ghi trên space đích và tên view chưa bị trùng. |
 
 ## Tiếp theo

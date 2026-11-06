@@ -15,8 +15,8 @@ Bạn có thể bắt đầu bằng model SQL trong dbt Studio, kiểm thử k�
 |---|---|
 | [dbt Studio](dbt-studio.md) | Tạo project, làm việc trong IDE và quản lý mã bằng Git. |
 | [Chạy và lập lịch dbt](dbt-runs.md) | Chọn command, target, selector; xem log, artifacts và lịch chạy. |
-| [Pipeline](pipelines.md) | Ghép nhiều bước thành đồ thị phụ thuộc và theo dõi từng lần thực thi. |
-| [Compute](compute.md) | Chạy PySpark, notebook và pipeline khai báo trên Spark. |
+| [Pipeline](pipelines.md) | Menu **Data Pipeline**. Ghép nhiều bước thành đồ thị phụ thuộc và theo dõi từng lần thực thi. |
+| [Compute](compute.md) | Menu **Compute Engine**. Chạy PySpark, notebook và pipeline khai báo trên Spark. |
 | [Chuẩn mô hình hóa](modeling-standards.md) | Áp dụng bronze, silver, gold và Data Vault theo nhu cầu dữ liệu. |
 | [Quy ước đặt tên](naming-conventions.md) | Thống nhất tên namespace, model, bảng và cột kỹ thuật. |
 
@@ -25,7 +25,7 @@ Bạn có thể bắt đầu bằng model SQL trong dbt Studio, kiểm thử k�
 | Nhu cầu | Công cụ phù hợp | Kết quả chính |
 |---|---|---|
 | Biến đổi bằng SQL, quản lý dependency giữa model | dbt Studio | Model, test, tài liệu và artifacts dbt |
-| Chạy định kỳ một command cho một project | Lịch dbt | Các run được theo dõi trong Orchestrate |
+| Chạy định kỳ một command cho một project | Lịch dbt | Các run được theo dõi trong dbt Studio → Orchestrate |
 | Điều phối nhiều command hoặc nhiều project | Pipeline | Run gồm các Step và trạng thái phụ thuộc |
 | Xử lý bằng Python/PySpark, thử nghiệm notebook | Compute | Run Spark, kết quả cell và log driver/executor |
 | Thống nhất cấu trúc dữ liệu phục vụ BI | Chuẩn mô hình hóa | Các bảng và view có grain, owner, quy tắc chất lượng |

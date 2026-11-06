@@ -27,16 +27,16 @@ Các tên source, workspace và bảng trong ví dụ là giả định; hãy th
 
 ### 2. Thêm nguồn dữ liệu
 
-1. Mở **Data Hub**, chọn **New Source**.
+1. Mở **Connections**, chọn **New Source**.
 2. Chọn loại nguồn, ví dụ cơ sở dữ liệu quan hệ chứa dữ liệu ngân hàng bán lẻ.
 3. Nhập endpoint và thông tin xác thực. Dùng tài khoản chỉ đọc; không dán secret thật vào tài liệu hay chat.
 4. Tạo source, rồi duyệt folder và table để xác nhận thấy ba bảng mẫu.
 
 Danh sách loại nguồn phụ thuộc bản query engine triển khai. Xem [Nguồn dữ liệu truy vấn trực tiếp](../connect/data-sources.md).
 
-### 3. Truy vấn trong SQL Studio
+### 3. Truy vấn trong SQL Editor
 
-1. Mở **SQL Studio** và tạo tab mới.
+1. Mở **SQL Editor** (menu **Workspaces**) và tạo tab mới.
 2. Chạy câu truy vấn tổng hợp giao dịch theo khách hàng:
 
 ```sql
@@ -52,11 +52,11 @@ GROUP  BY c.customer_id, c.full_name
 
 3. Chọn **Run** để thực thi hoặc **Preview** để xem nhanh. Kiểm tra kết quả và trạng thái job.
 
-Xem [SQL Studio](../query/sql-studio.md).
+Xem [SQL Editor](../query/sql-studio.md).
 
 ### 4. Lưu thành view
 
-1. Trong SQL Studio, chọn **Save as View**.
+1. Trong SQL Editor, chọn **Save as View**.
 2. Chọn workspace và folder đích, đặt tên, ví dụ `customer_txn_summary`.
 3. Lưu và mở lại view từ cây dữ liệu để kiểm tra.
 
@@ -89,7 +89,7 @@ Analytics và Kapas chỉ dùng được khi quản trị viên đã triển kha
 |---|---|
 | Không thấy **New Source** | Tài khoản có thể thiếu quyền; liên hệ quản trị viên |
 | Không duyệt được table | Kiểm tra quyền của tài khoản kết nối ở nguồn và quyền trên source |
-| Truy vấn báo lỗi không tìm thấy bảng | Kiểm tra tên source, schema và context trong SQL Studio |
+| Truy vấn báo lỗi không tìm thấy bảng | Kiểm tra tên source, schema và context trong SQL Editor |
 | Không lưu được view | Kiểm tra quyền ghi vào workspace hoặc folder đích |
 
 Xem thêm [Lịch sử job và profile truy vấn](../query/jobs.md) để đọc chi tiết lỗi.

@@ -11,7 +11,7 @@ Quyền trong Hanas Data Platform không nằm ở một nơi. Mỗi thành ph�
 
 | Miền | Quyết định điều gì | Cơ chế |
 |---|---|---|
-| Danh tính | Ai là người dùng, thuộc group và role nào | Keycloak, quản lý trong Settings của Hanas Console |
+| Danh tính | Ai là người dùng, thuộc group và role nào | Keycloak, quản lý trong **Settings** > **User Administration** của Hanas Console |
 | Query engine | Ai đọc, ghi, sửa từng source, folder, bảng, view, function | Object grant theo user hoặc role |
 | Row và column | Ai thấy hàng nào, giá trị cột nào | Row access policy, column masking |
 | Hanas Catalog | Ai chỉnh sửa metadata, quản lý ingestion | Role `data-governance-viewer`, `editor`, `admin` |
@@ -31,9 +31,9 @@ Quyền trong Hanas Data Platform không nằm ở một nơi. Mỗi thành ph�
 
 | Việc cần làm | Nơi thực hiện |
 |---|---|
-| Tạo user, group, role; gán role | **Settings**, mục người dùng, group và role. Xem [Quản lý người dùng, group và role](../operate/user-management.md) |
+| Tạo user, group, role; gán role | **Settings** > **User Administration**, các tab **Users**, **Roles** và **Permissions**. Xem [Quản lý người dùng, group và role](../operate/user-management.md) |
 | Cấp quyền trên bảng, view, folder | Tab quyền của đối tượng trong Console, hoặc câu lệnh SQL `GRANT` |
-| Gắn row access policy, column masking | SQL Studio, bằng câu lệnh `ALTER TABLE` hoặc `ALTER VIEW` |
+| Gắn row access policy, column masking | **SQL Editor** (menu **Workspaces**), bằng câu lệnh `ALTER TABLE` hoặc `ALTER VIEW` |
 | Gán role Data Governance | Role của user trên client `data-governance` trong Keycloak |
 | Gán role dbt và Compute | Role của user trong Keycloak; ACL Compute trong cấu hình project |
 | Ánh xạ role Superset | Cấu hình ánh xạ group, role Keycloak sang role Superset khi triển khai |
@@ -71,7 +71,7 @@ Hai cơ chế này lọc hàng hoặc che giá trị cột dựa trên một fun
 
 :::info
 
-Row access policy và column masking được query engine áp dụng cho mọi truy vấn đi qua nó, bao gồm SQL Studio, BI, JDBC/ODBC và Arrow Flight. Console không có màn hình riêng để quản lý các policy này; bạn thao tác bằng SQL.
+Row access policy và column masking được query engine áp dụng cho mọi truy vấn đi qua nó, bao gồm SQL Editor, BI, JDBC/ODBC và Arrow Flight. Console không có màn hình riêng để quản lý các policy này; bạn thao tác bằng SQL.
 
 :::
 

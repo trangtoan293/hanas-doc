@@ -5,7 +5,7 @@ sidebar_position: 4
 description: Phát triển và chạy project PySpark, notebook, pipeline khai báo và streaming job trên Spark, xem log và kết quả trong Hanas Console.
 ---
 
-Compute là môi trường chạy Apache Spark trên Kubernetes trong Hanas Data Platform. Bạn viết Python hoặc PySpark ngay trong Hanas Console, chạy và đọc log mà không phải tự quản lý cụm. Trang này dành cho data engineer xử lý khối lượng lớn hoặc logic không biểu diễn được bằng SQL.
+Compute (menu **Compute Engine**) là môi trường chạy Apache Spark trên Kubernetes trong Hanas Data Platform. Bạn viết Python hoặc PySpark ngay trong Hanas Console, chạy và đọc log mà không phải tự quản lý cụm. Trang này dành cho data engineer xử lý khối lượng lớn hoặc logic không biểu diễn được bằng SQL.
 
 ## Điều kiện cần
 
@@ -30,12 +30,13 @@ Khác với Python run trong dbt Studio chạy ngay trong container runner với
 
 ## Tạo project và chạy
 
-1. Mở **Compute** trong Hanas Console và chọn tạo project.
-2. Tạo file Python, SQL hoặc notebook trong cây file.
-3. Chọn catalog trong khung Catalog để duyệt bảng lakehouse.
-4. Chọn **Run**, chọn kích thước tài nguyên rồi xác nhận.
-5. Mở tab **Output** để đọc log theo thời gian thực. Chọn Driver hoặc Executor để xem log từng thành phần, hoặc tải về.
-6. Sau khi chạy xong, mở chi tiết Run để xem người chạy, cấu hình, tham số, lỗi và nơi chạy.
+1. Mở **Compute Engine** trong Hanas Console. Trang này có các tab **Projects**, **Runs**, **Streaming jobs** và **Sessions**.
+2. Trong tab **Projects**, chọn **New project**.
+3. Tạo file Python, SQL hoặc notebook trong cây file.
+4. Chọn catalog trong khung Catalog để duyệt bảng lakehouse.
+5. Chọn **Run**, chọn kích thước tài nguyên rồi xác nhận.
+6. Mở tab **Output** để đọc log theo thời gian thực. Chọn Driver hoặc Executor để xem log từng thành phần, hoặc tải về.
+7. Sau khi chạy xong, mở chi tiết Run để xem người chạy, cấu hình, tham số, lỗi và nơi chạy.
 
 Ví dụ script PySpark đọc bảng Iceberg và ghi kết quả:
 
@@ -87,7 +88,7 @@ Webhook thông báo lỗi cấu hình theo project, mặc định áp dụng cho
 
 | Hiện tượng | Cách xử lý |
 |---|---|
-| Không thấy menu Compute | Compute chưa bật hoặc bạn thiếu role Compute. |
+| Không thấy menu Compute Engine | Compute chưa bật hoặc bạn thiếu role Compute. |
 | Run ở trạng thái chờ lâu rồi lỗi | Cụm thiếu tài nguyên hoặc lỗi image; Run lỗi sau khi pod Pending quá lâu. |
 | Lỗi cài thư viện | Xem log `pip install` ở khung Môi trường. |
 | Run bị hủy giữa chừng | Kiểm tra lại dữ liệu đã ghi trước khi chạy lại. |

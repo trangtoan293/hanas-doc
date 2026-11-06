@@ -11,7 +11,7 @@ Permissions in Hanas Data Platform are not in one place. Each component has its 
 
 | Domain | What it decides | Mechanism |
 |---|---|---|
-| Identity | Who the users are, and which groups and roles they belong to | Keycloak, managed in Settings of Hanas Console |
+| Identity | Who the users are, and which groups and roles they belong to | Keycloak, managed in **Settings** > **User Administration** of Hanas Console |
 | Query engine | Who can read, write, and modify each source, folder, table, view, and function | Object grants by user or role |
 | Row and column | Who sees which rows and which column values | Row access policy, column masking |
 | Hanas Catalog | Who edits metadata and manages ingestion | Roles `data-governance-viewer`, `editor`, `admin` |
@@ -31,9 +31,9 @@ Role synchronization between Keycloak and the query engine synchronizes membersh
 
 | Task | Where |
 |---|---|
-| Create users, groups, and roles; assign roles | **Settings**, the users, groups, and roles section. See [Manage users, groups, and roles](../operate/user-management.md) |
+| Create users, groups, and roles; assign roles | **Settings** > **User Administration**, the **Users**, **Roles**, and **Permissions** tabs. See [Manage users, groups, and roles](../operate/user-management.md) |
 | Grant permissions on tables, views, and folders | The object's permissions tab in Console, or the SQL `GRANT` statement |
-| Attach row access policies and column masking | SQL Studio, with `ALTER TABLE` or `ALTER VIEW` statements |
+| Attach row access policies and column masking | **SQL Editor** (menu **Workspaces**), with `ALTER TABLE` or `ALTER VIEW` statements |
 | Assign Data Governance roles | The user's roles on the `data-governance` client in Keycloak |
 | Assign dbt and Compute roles | The user's roles in Keycloak; Compute ACLs in the project configuration |
 | Map Superset roles | Configure the mapping from Keycloak groups and roles to Superset roles at deployment |
@@ -71,7 +71,7 @@ These two mechanisms filter rows or mask column values based on a function (UDF)
 
 :::info
 
-The query engine applies row access policies and column masking to every query that passes through it, including SQL Studio, BI, JDBC/ODBC, and Arrow Flight. Console has no separate screen to manage these policies; you work with them in SQL.
+The query engine applies row access policies and column masking to every query that passes through it, including SQL Editor, BI, JDBC/ODBC, and Arrow Flight. Console has no separate screen to manage these policies; you work with them in SQL.
 
 :::
 

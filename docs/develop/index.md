@@ -37,7 +37,7 @@ Hanas hỗ trợ hai loại credential. Chúng khác nhau về nơi cấp và ph
 | Phương thức | Cấp bởi | Dùng cho | Cách gửi |
 |---|---|---|---|
 | Token OIDC của Keycloak | Keycloak, sau khi đăng nhập hoặc qua client credentials | API dịch vụ Hanas (Hanas Catalog, Ontology, Kapas, dbt, Ingestion) | Header `Authorization: Bearer <access_token>` |
-| Personal Access Token (PAT) | Hanas Console, trong Account Settings | Query engine: REST, JDBC, ODBC, Arrow Flight; script và công cụ không đăng nhập tương tác được | Header `Authorization: Bearer <PAT>` hoặc làm mật khẩu của SQL client |
+| Personal Access Token (PAT) | Hanas Console, menu tài khoản **Access Tokens** | Query engine: REST, JDBC, ODBC, Arrow Flight; script và công cụ không đăng nhập tương tác được | Header `Authorization: Bearer <PAT>` hoặc làm mật khẩu của SQL client |
 
 Token Keycloak có thời hạn ngắn và được cấp lại khi đăng nhập hoặc làm mới. Với service account, bạn dùng luồng client credentials của realm Hanas; xem [Xác thực và SSO với Keycloak](../operate/identity.md) để biết realm, client và audience.
 
@@ -52,8 +52,8 @@ Việc query engine chấp nhận trực tiếp token Keycloak phụ thuộc c�
 PAT gắn với tài khoản của bạn và kế thừa đúng quyền của tài khoản đó trên dữ liệu.
 
 1. Đăng nhập Hanas Console.
-2. Mở menu người dùng ở góc trên, chọn **Account Settings**.
-3. Trong mục **Personal Access Tokens**, bấm **Generate Token**.
+2. Mở menu tài khoản (biểu tượng avatar ở góc dưới bên trái), chọn **Access Tokens**. Hộp thoại **Personal Access Tokens** hiện ra, liệt kê token với các cột Token ID, Label, Creation và Expiration.
+3. Bấm **Generate Token**.
 4. Nhập **Label** mô tả mục đích sử dụng, ví dụ `bi-reporting`.
 5. Nhập **Lifetime** tính theo ngày. Giá trị mặc định trong form là 30 ngày.
 6. Bấm **Generate**, rồi sao chép token hiển thị.

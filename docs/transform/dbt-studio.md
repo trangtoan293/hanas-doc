@@ -40,8 +40,8 @@ Các project dbt dùng workspace chung: người có role dbt thấy project, t�
 
 ## Chuẩn bị project
 
-1. Mở **dbt** hoặc **Develop** trong Hanas Console để xem danh sách project được cung cấp.
-2. Chọn thao tác **Tạo project**, **Import** hoặc **Clone** phù hợp với nguồn mã hiện có.
+1. Mở **dbt Studio** trong Hanas Console. Menu có ba mục con: **Projects**, **Explore** và **Orchestrate**. Trang đầu hiển thị Recent projects và Quick actions (Create project, Manage connections, Run history), cùng các nút **Open IDE**, **New project** và **User guide**.
+2. Chọn **New project**, hoặc thao tác **Import** hay **Clone**, phù hợp với nguồn mã hiện có.
 3. Nhập tên project có ý nghĩa và thống nhất với quy ước đặt tên của nhóm phát triển.
 4. Chọn template nếu bạn khởi tạo từ mẫu, hoặc cung cấp repository khi clone mã đã có.
 5. Nhờ quản trị viên dbt gắn connection và target dùng cho môi trường phát triển của project.

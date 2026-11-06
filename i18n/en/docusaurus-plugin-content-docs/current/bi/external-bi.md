@@ -17,6 +17,10 @@ You can use your existing BI tools to read data from the query engine of Hanas D
 
 The default JDBC/ODBC client endpoint uses port 31010. The platform provides a JDBC driver; you need to obtain the ODBC driver from the appropriate source and check its compatibility with your operating system before wide deployment.
 
+## Integrations in Settings
+
+In Hanas Console, **Settings** → **Integrations** → **BI Applications** offers entries for **Power BI** and **Tableau**. Use it together with the connection guidance below when you set up a BI tool.
+
 ## Requirements
 
 :::note Requirements
@@ -27,7 +31,7 @@ The client machine can reach the query engine address (usually through a gateway
 
 ## Create a token and connect
 
-1. In Hanas Console, open your account's token management and create a PAT. Set the shortest expiration that fits your use.
+1. In Hanas Console, open the account menu, select **Access Tokens**, and then select **Generate Token** in the **Personal Access Tokens** dialog to create a PAT. Set the shortest expiration that fits your use.
 2. Copy the token as soon as it is shown; you cannot view it again.
 3. In the BI tool, choose the data source by driver (ODBC or JDBC) and enter the host and port.
 4. Use your username and paste the token into the password field, following the driver's instructions.

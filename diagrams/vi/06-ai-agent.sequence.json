@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "Trợ lý AI làm việc cùng người dùng",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1060,
+      620
+    ],
+    "column_fit": "spread",
+    "views": [
+      {
+        "id": "dinh-tuyen",
+        "label": "Chọn đúng agent",
+        "focus": [
+          "user",
+          "panel",
+          "kapas"
+        ],
+        "note": "Mỗi màn hình có agent chuyên trách; câu hỏi được định tuyến tự động."
+      },
+      {
+        "id": "phe-duyet",
+        "label": "Phê duyệt thao tác",
+        "focus": [
+          "kapas",
+          "panel",
+          "user"
+        ],
+        "note": "Lệnh ghi hoặc SQL không chỉ-đọc luôn chờ người dùng đồng ý."
+      },
+      {
+        "id": "du-lieu",
+        "label": "Truy vấn có quyền",
+        "focus": [
+          "kapas",
+          "tools",
+          "query-engine"
+        ],
+        "note": "Agent dùng quyền của chính người hỏi."
+      }
+    ]
+  },
+  "participants": [
+    {
+      "id": "user",
+      "type": "external",
+      "label": "Người dùng",
+      "sublabel": "đặt câu hỏi"
+    },
+    {
+      "id": "panel",
+      "type": "frontend",
+      "label": "AI panel",
+      "sublabel": "trong mọi màn hình"
+    },
+    {
+      "id": "kapas",
+      "type": "backend",
+      "label": "Kapas",
+      "sublabel": "agent runtime"
+    },
+    {
+      "id": "tools",
+      "type": "backend",
+      "label": "Công cụ Hanas",
+      "sublabel": "dbt · SQL · chart"
+    },
+    {
+      "id": "query-engine",
+      "type": "backend",
+      "label": "Query Engine",
+      "sublabel": "dữ liệu"
+    }
+  ],
+  "segments": [
+    {
+      "from": 150,
+      "to": 248,
+      "label": "Hỏi"
+    },
+    {
+      "from": 254,
+      "to": 380,
+      "label": "Làm việc"
+    },
+    {
+      "from": 386,
+      "to": 540,
+      "label": "Kiểm soát"
+    }
+  ],
+  "messages": [
+    {
+      "from": "user",
+      "to": "panel",
+      "y": 174,
+      "label": "câu hỏi tiếng Việt",
+      "variant": "emphasis"
+    },
+    {
+      "from": "panel",
+      "to": "kapas",
+      "y": 202,
+      "label": "hỏi + ngữ cảnh màn hình",
+      "variant": "emphasis"
+    },
+    {
+      "from": "kapas",
+      "to": "panel",
+      "y": 230,
+      "label": "trả lời từng phần",
+      "variant": "return"
+    },
+    {
+      "from": "kapas",
+      "to": "tools",
+      "y": 278,
+      "label": "gọi công cụ",
+      "variant": "emphasis"
+    },
+    {
+      "from": "tools",
+      "to": "query-engine",
+      "y": 306,
+      "label": "SQL chỉ-đọc",
+      "variant": "security"
+    },
+    {
+      "from": "query-engine",
+      "to": "tools",
+      "y": 334,
+      "label": "kết quả theo quyền",
+      "variant": "return"
+    },
+    {
+      "from": "tools",
+      "to": "kapas",
+      "y": 362,
+      "label": "dữ liệu + biểu đồ",
+      "variant": "return"
+    },
+    {
+      "from": "kapas",
+      "to": "panel",
+      "y": 410,
+      "label": "xin phê duyệt",
+      "variant": "security"
+    },
+    {
+      "from": "panel",
+      "to": "user",
+      "y": 438,
+      "label": "thẻ phê duyệt",
+      "variant": "security"
+    },
+    {
+      "from": "user",
+      "to": "panel",
+      "y": 466,
+      "label": "đồng ý / từ chối",
+      "variant": "emphasis"
+    },
+    {
+      "from": "panel",
+      "to": "kapas",
+      "y": 494,
+      "label": "quyết định",
+      "variant": "default"
+    },
+    {
+      "from": "panel",
+      "to": "user",
+      "y": 522,
+      "label": "cập nhật màn hình",
+      "variant": "return"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "panel",
+      "from": 168,
+      "to": 240,
+      "type": "frontend"
+    },
+    {
+      "participant": "kapas",
+      "from": 196,
+      "to": 370,
+      "type": "backend"
+    },
+    {
+      "participant": "tools",
+      "from": 272,
+      "to": 370,
+      "type": "backend"
+    },
+    {
+      "participant": "panel",
+      "from": 404,
+      "to": 538,
+      "type": "frontend"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "violet",
+      "title": "Agent theo màn hình",
+      "items": [
+        "SQL Copilot, Project Copilot, Dashboard Copilot",
+        "Tự chọn agent theo câu hỏi"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "4 mức an toàn",
+      "items": [
+        "STRICT · SMART · AUTO · OFF",
+        "Thao tác ghi cần người dùng phê duyệt"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Không vượt quyền",
+      "items": [
+        "Agent dùng token của người hỏi",
+        "Ngữ cảnh màn hình không kèm dữ liệu dòng"
+      ]
+    }
+  ]
+}

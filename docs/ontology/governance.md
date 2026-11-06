@@ -5,7 +5,7 @@ sidebar_position: 7
 description: Quy trình draft, review, publish, deployment, release gate, audit, role và import/export ontology.
 ---
 
-Trang này mô tả cách kiểm soát thay đổi ontology: ai được làm gì, thay đổi đi qua những cổng nào trước khi đến người dùng, và cách xuất hoặc nhập định nghĩa giữa các workspace. Đối tượng đọc là admin ontology và người phê duyệt.
+Trang này mô tả cách kiểm soát thay đổi ontology: ai được làm gì, thay đổi đi qua những cổng nào trước khi đến người dùng, và cách xuất hoặc nhập định nghĩa giữa các workspace. Đối tượng đọc là admin ontology và người phê duyệt. Trong Hanas Console, các thao tác này nằm ở menu **Ontology** > **Governance**.
 
 ## Role
 

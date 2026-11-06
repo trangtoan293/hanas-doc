@@ -31,7 +31,7 @@ flowchart LR
 
 | Trang | Nội dung |
 |---|---|
-| [SQL Studio](sql-studio.md) | Soạn và chạy SQL, tab, context, nhiều statement, Save as View. |
+| [SQL Editor](sql-studio.md) | Soạn và chạy SQL từ menu Workspaces, context, nhiều statement, Save as View. |
 | [Workspace, folder và view](spaces-and-views.md) | Tổ chức semantic layer theo bronze, silver, gold và phân quyền. |
 | [Bảng Iceberg](iceberg-tables.md) | DDL, DML, bảo trì và time travel. |
 | [Tăng tốc với Reflection](acceleration.md) | Raw và Aggregation Reflection, refresh, theo dõi. |

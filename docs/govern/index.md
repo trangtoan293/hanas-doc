@@ -7,6 +7,8 @@ description: Vai trò của Hanas Catalog, cách phân biệt với catalog th�
 
 Hanas Catalog là nơi bạn tìm kiếm, mô tả và theo dõi các tài sản dữ liệu của Hanas Data Platform. Mục này dành cho data steward, analytics engineer và quản trị viên cần biết dữ liệu nằm ở đâu, ai sở hữu, đi từ đâu tới và ai được truy cập.
 
+Trong Hanas Console, Hanas Catalog nằm ở menu **Data Governance** với các mục con **Glossary**, **Tags** và **Data Sources**. Trang đầu của menu là màn hình tìm kiếm metadata.
+
 ## Hai loại catalog trong nền tảng
 
 Trong Hanas Console có hai khái niệm "catalog" phục vụ hai mục đích khác nhau. Bạn nên phân biệt rõ để tìm đúng nơi thao tác.

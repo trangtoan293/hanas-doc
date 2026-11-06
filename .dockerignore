@@ -1,5 +1,3 @@
-node_modules
-build
-.docusaurus
-.git
-.DS_Store
+*
+!build/
+!nginx.conf

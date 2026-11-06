@@ -44,9 +44,9 @@ Hãy đặt tên theo [Quy ước đặt tên](../transform/naming-conventions.m
 
 ## Tạo space, folder và view
 
-1. Trong cây dữ liệu của **SQL Studio**, chọn thao tác tạo workspace hoặc space mới.
+1. Mở **Workspaces** để vào SQL Editor. Trong cây dữ liệu (nhóm **Workspaces** và **Spaces**), chọn thao tác tạo workspace hoặc space mới.
 2. Tạo folder trong space để nhóm view theo domain.
-3. Chạy truy vấn, chọn **Save as View**, rồi chọn space và folder đích. Xem [SQL Studio](sql-studio.md).
+3. Chạy truy vấn, chọn **Save as View**, rồi chọn space và folder đích. Xem [SQL Editor](sql-studio.md).
 4. Mở view đã lưu để chỉnh SQL, xem cột và kiểm tra thông tin tóm tắt.
 
 Bạn cũng tạo view trực tiếp bằng `CREATE VIEW` hoặc `CREATE OR REPLACE VIEW`.

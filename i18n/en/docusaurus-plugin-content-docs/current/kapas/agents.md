@@ -25,7 +25,7 @@ You can see and use only the tools enabled in an agent's template. One agent doe
 | Hanas Analyst | Data Q&A, running metrics, read-only queries, citing figures | Console |
 | Analytics Studio Copilot | Create datasets, charts, and dashboards on Superset | Console, embedded |
 | Dashboard Copilot | Edit dashboards through a YAML spec, validate, then create a draft dashboard | Console, embedded |
-| SQL Copilot | Write, fix, explain, and check SQL in SQL Studio | Console, embedded |
+| SQL Copilot | Write, fix, explain, and check SQL in the SQL Editor | Console, embedded |
 | Catalog Steward | Find assets, lineage, and freshness; check and update metadata in Hanas Catalog | Console, embedded |
 | Ontology Assistant | Browse Ontology objects, relationships, and metrics | Console, embedded |
 | Project Copilot | Support dbt projects: models, lineage, dbt commands, board-style reports | Console, embedded |

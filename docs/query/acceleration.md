@@ -26,7 +26,7 @@ Bạn cần quyền quản trị trên dataset để tạo hoặc sửa Reflecti
 
 ## Tạo Reflection
 
-1. Mở dataset trong **SQL Studio** hoặc cây dữ liệu và chọn mục cài đặt tăng tốc (Acceleration).
+1. Mở dataset trong SQL Editor (menu **Workspaces**) hoặc cây dữ liệu và chọn mục cài đặt tăng tốc (Acceleration).
 2. Chọn tab **Raw Reflections** hoặc **Aggregation Reflections**.
 3. Với Raw, chọn các cột hiển thị và tuỳ chọn sắp xếp, phân vùng. Với Aggregation, chọn dimension và measure.
 4. Bật Reflection rồi lưu.
@@ -59,7 +59,9 @@ Bảng hệ thống `sys.reflections` liệt kê Reflection cùng trạng thái:
 SELECT * FROM sys.reflections;
 ```
 
-Trang quản trị Reflection trong Hanas Console hiển thị loại, dataset, trạng thái refresh, lỗi, dung lượng và mức sử dụng. Trong chi tiết một [job](jobs.md), phần Reflection cho biết truy vấn có dùng Reflection hay không.
+Trang **Reflections** trong menu **Engine** của Hanas Console hiển thị loại, dataset, trạng thái refresh, lỗi, dung lượng và mức sử dụng. Trong chi tiết một [job](jobs.md), phần Reflection cho biết truy vấn có dùng Reflection hay không.
+
+Trong **Engine** → **Monitor**, Hanas Console còn có mục **Autonomous Reflections**, kèm nhật ký **History**. Bạn xem mục này cùng trang **Reflections** khi theo dõi tăng tốc.
 
 :::caution Giới hạn hiện tại
 

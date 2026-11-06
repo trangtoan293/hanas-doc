@@ -40,13 +40,15 @@ flowchart LR
   P --> E["Explore và API"]
 ```
 
-### 1. Chọn workspace
+### 1. Chọn project
 
-1. Mở **Ontology** trong Hanas Console.
-2. Chọn workspace cần làm việc.
-3. Mở **Workbench** của workspace đó.
+Công việc ontology được tổ chức theo **project**. Menu **Ontology** có các mục **Explore**, **My requests**, **Workbench**, **Governance** và **Settings**.
 
-Kiểm tra tên dự án trước khi sửa hoặc import tài liệu. Workspace xác định phạm vi nội dung, còn quyền truy cập vẫn được kiểm tra theo tenant và role.
+1. Mở **Ontology** > **Explore** trong Hanas Console. Trang hiển thị **Explore projects**.
+2. Để tạo project mới, chọn **Create project**. Để làm việc với project có sẵn, tìm thẻ của project; thẻ cho biết trạng thái **PUBLISHED** (kèm số phiên bản, ví dụ vN) hoặc **NOT PUBLISHED**.
+3. Trên thẻ project, chọn **Open Build** để vào môi trường authoring (Workbench) của project đó. Chọn **Explore** để duyệt dữ liệu đã phát hành.
+
+Kiểm tra tên project trước khi sửa hoặc import tài liệu. Project xác định phạm vi nội dung, còn quyền truy cập vẫn được kiểm tra theo tenant và role.
 
 ### 2. Khởi tạo draft
 

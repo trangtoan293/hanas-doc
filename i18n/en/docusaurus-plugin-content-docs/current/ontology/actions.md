@@ -48,12 +48,12 @@ The `completed` status records the result that the worker reports. It does not b
 
 1. Open the detail page of a record that has an action.
 2. Select the action, enter the parameters, and submit the request.
-3. Track it in the record's request list or your own request list.
+3. Track it in the record's request list or in **Ontology** > **My requests**.
 4. The approver handles the request in the approval inbox.
 
 :::note Requirements
 
-The detail page shows an action only when the ontology defines an action for the object type. The request and approval inboxes have routes but may not appear in the navigation bar of a deployment; contact your administrator if you need access.
+The detail page shows an action only when the ontology defines an action for the object type. The **My requests** item in the **Ontology** menu is always visible; this is where you track the requests you submitted. If you need access to the approval inbox, contact your administrator.
 
 :::
 

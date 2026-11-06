@@ -51,7 +51,7 @@ A concept can be kept as business vocabulary without a dataset. Only definitions
 
 ## What can you do?
 
-Designers use **Ontology Workspace** to author concepts, configure mappings, and prepare releases. Drafts are validated before an admin publishes them and activates a deployment.
+Designers use **Ontology Workspace** to author concepts, configure mappings, and prepare releases. Drafts are validated before an admin publishes them and activates a deployment. In Hanas Console, work is organized in projects: open the **Ontology** > **Explore** menu, then choose **Create project** or choose **Open Build** on a project card. The **Ontology** menu has **Explore**, **My requests**, **Workbench**, **Governance**, and **Settings**.
 
 Business users use **Explore** to find object types, filter records, and follow declared relationships. Metrics appear in the positions and contexts that the designer configures.
 

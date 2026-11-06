@@ -1,0 +1,243 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "Vòng đời dữ liệu trên Hanas",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1080,
+      660
+    ],
+    "views": [
+      {
+        "id": "ket-noi",
+        "label": "Kết nối không sao chép",
+        "focus": [
+          "oltp",
+          "lake",
+          "query-engine"
+        ],
+        "note": "Query Engine đọc trực tiếp từ nguồn, dữ liệu không phải chuyển đi trước."
+      },
+      {
+        "id": "bien-doi",
+        "label": "Biến đổi có kiểm soát",
+        "focus": [
+          "query-engine",
+          "dbt",
+          "pipeline",
+          "mart"
+        ],
+        "note": "dbt Studio và Pipeline tạo lớp dữ liệu sạch, có test và lịch sử chạy."
+      },
+      {
+        "id": "quan-tri",
+        "label": "Quản trị & khai thác",
+        "focus": [
+          "mart",
+          "catalog",
+          "ontology",
+          "bi",
+          "ai"
+        ],
+        "note": "Catalog và Ontology gắn ngữ cảnh trước khi BI và AI sử dụng."
+      }
+    ]
+  },
+  "stages": [
+    {
+      "label": "Nguồn"
+    },
+    {
+      "label": "Kết nối"
+    },
+    {
+      "label": "Biến đổi"
+    },
+    {
+      "label": "Lưu & quản trị"
+    },
+    {
+      "label": "Khai thác"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "oltp",
+      "type": "external",
+      "label": "CSDL nghiệp vụ",
+      "sublabel": "Oracle · MySQL",
+      "stage": 0,
+      "row": 0
+    },
+    {
+      "id": "lake",
+      "type": "database",
+      "label": "Kho đối tượng",
+      "sublabel": "S3 · Iceberg",
+      "stage": 0,
+      "row": 2
+    },
+    {
+      "id": "query-engine",
+      "type": "backend",
+      "label": "Query Engine",
+      "sublabel": "truy vấn liên nguồn",
+      "stage": 1,
+      "row": 1,
+      "tag": "lõi"
+    },
+    {
+      "id": "dbt",
+      "type": "backend",
+      "label": "dbt Studio",
+      "sublabel": "model · test",
+      "stage": 2,
+      "row": 2
+    },
+    {
+      "id": "pipeline",
+      "type": "backend",
+      "label": "Pipeline",
+      "sublabel": "lịch · rẽ nhánh",
+      "stage": 2,
+      "row": 0
+    },
+    {
+      "id": "mart",
+      "type": "database",
+      "label": "Data mart",
+      "sublabel": "dữ liệu sạch",
+      "stage": 3,
+      "row": 2
+    },
+    {
+      "id": "catalog",
+      "type": "security",
+      "label": "Hanas Catalog",
+      "sublabel": "lineage · glossary",
+      "stage": 3,
+      "row": 0
+    },
+    {
+      "id": "ontology",
+      "type": "security",
+      "label": "Ontology",
+      "sublabel": "đối tượng · chỉ số",
+      "stage": 3,
+      "row": 3
+    },
+    {
+      "id": "bi",
+      "type": "frontend",
+      "label": "BI & báo cáo",
+      "sublabel": "Superset · Excel",
+      "stage": 4,
+      "row": 0
+    },
+    {
+      "id": "ai",
+      "type": "frontend",
+      "label": "Trợ lý AI",
+      "sublabel": "hỏi đáp dữ liệu",
+      "stage": 4,
+      "row": 3
+    }
+  ],
+  "flows": [
+    {
+      "id": "f-oltp",
+      "from": "oltp",
+      "to": "query-engine",
+      "label": "kết nối nguồn",
+      "variant": "emphasis"
+    },
+    {
+      "id": "f-lake",
+      "from": "lake",
+      "to": "query-engine",
+      "label": "đọc file bảng",
+      "variant": "emphasis"
+    },
+    {
+      "id": "f-dbt",
+      "from": "query-engine",
+      "to": "dbt",
+      "label": "SQL model"
+    },
+    {
+      "id": "f-pipe",
+      "from": "pipeline",
+      "to": "dbt",
+      "label": "điều phối",
+      "variant": "dashed",
+      "labelAt": [
+        530,
+        200
+      ]
+    },
+    {
+      "id": "f-mart",
+      "from": "dbt",
+      "to": "mart",
+      "label": "ghi kết quả",
+      "variant": "emphasis"
+    },
+    {
+      "id": "f-cat",
+      "from": "mart",
+      "to": "catalog",
+      "label": "metadata",
+      "variant": "dashed"
+    },
+    {
+      "id": "f-onto",
+      "from": "mart",
+      "to": "ontology",
+      "label": "ánh xạ",
+      "labelAt": [
+        745,
+        428
+      ]
+    },
+    {
+      "id": "f-bi",
+      "from": "catalog",
+      "to": "bi",
+      "label": "tìm & tin dùng"
+    },
+    {
+      "id": "f-ai",
+      "from": "ontology",
+      "to": "ai",
+      "label": "ngữ cảnh",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Không sao chép trước",
+      "items": [
+        "Query Engine truy vấn trực tiếp tại nguồn",
+        "Chỉ lưu thêm khi cần lớp dữ liệu sạch"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Biến đổi có kiểm soát",
+      "items": [
+        "Model dbt có Git, test, lịch sử chạy",
+        "Pipeline có lịch, thử lại, nhánh lỗi"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Dùng dữ liệu đã được tin cậy",
+      "items": [
+        "Catalog: nguồn gốc, chủ sở hữu, thuật ngữ",
+        "Ontology cho AI hiểu nghĩa nghiệp vụ"
+      ]
+    }
+  ]
+}

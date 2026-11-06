@@ -5,7 +5,11 @@ sidebar_position: 0
 description: An introduction to Kapas, the AI assistant of Hanas Data Platform that supports data Q&A, dashboard building, and data governance screens.
 ---
 
+import Diagram from '@site/src/components/Diagram';
+
 Kapas is the AI assistant layer of Hanas Data Platform. You ask questions in natural language; Kapas calls the tools it has been granted (query engine, Ontology, Apache Superset, dbt, Hanas Catalog) and composes an answer in Vietnamese with the source of each figure.
+
+In Hanas Console, you chat with Kapas in the **AI Agent** menu (the **New chat** button and the chat history). Kapas is also embedded as an **AI Agent** panel in the **SQL Editor** (menu **Workspaces**).
 
 This section is for business users, administrators, and developers who want to integrate Kapas into applications. AI model configuration is in the operations section, and the API is in the development section.
 
@@ -27,6 +31,8 @@ flowchart LR
 Kapas is a separate service that runs in the same Kubernetes cluster and uses its own PostgreSQL (with a vector extension) and Redis. Each user has a separate workspace for agents, chat sessions, and schedules.
 
 ## What can Kapas do?
+
+<Diagram name="06-ai-agent" alt="Kapas working with the user" />
 
 | Need | Responsible agent | Guide |
 |---|---|---|

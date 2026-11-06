@@ -17,9 +17,9 @@ Every signed-in user can view Hanas Catalog (viewer level). You only see the ass
 
 ## Search and filter
 
-1. Open **Data Governance** in Hanas Console.
+1. Open **Data Governance** in Hanas Console. The landing page is the metadata search.
 2. Enter a keyword in the search box. Results include the names, descriptions, and metadata of assets.
-3. Use filters to narrow the results, for example by entity type, platform, tag, term, or owner.
+3. Use the **Type**, **Platform**, **Environment**, **Owner**, **Tag**, and **Platform Instance** filters to narrow the results. Use **Sort by** to change the ordering.
 4. Use the browse panel on the side to follow the platform and container structure.
 5. Select a result to open the details page. If you are an editor, you can add tags or terms directly in the results table.
 

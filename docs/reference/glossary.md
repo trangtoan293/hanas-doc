@@ -33,17 +33,17 @@ Bảng này giải thích các thuật ngữ thường gặp trong tài liệu H
 
 **Checkpoint**: điểm đánh dấu tiến độ của một luồng Ingestion, dùng để chạy tiếp hoặc chạy lại. Xem [Lịch chạy, checkpoint và chạy lại](../connect/ingestion-schedules.md).
 
-**Compute**: môi trường chạy Spark, PySpark và notebook trên Kubernetes. Xem [Compute](../transform/compute.md).
+**Compute**: môi trường chạy Spark, PySpark và notebook trên Kubernetes; trong Console là menu **Compute Engine**. Xem [Compute](../transform/compute.md).
 
 **Concept**: khái niệm nghiệp vụ trong mô hình Ontology. Xem [Khái niệm Ontology](../ontology/concepts.md).
+
+**Connections**: menu Console để xem và thêm source, duyệt dữ liệu. Xem [Làm quen Hanas Console](../get-started/console-tour.md).
 
 **Connector**: thành phần kết nối tới một loại nguồn dữ liệu cụ thể. Xem [Nguồn dữ liệu truy vấn trực tiếp](../connect/data-sources.md).
 
 ## D
 
 **Dashboard**: tập hợp chart trong Analytics. Xem [Analytics với Superset](../bi/superset.md).
-
-**Data Hub**: khu vực Console để xem và thêm source, duyệt dữ liệu. Xem [Làm quen Hanas Console](../get-started/console-tour.md).
 
 **Data Vault**: phương pháp mô hình hóa dùng hub, link và satellite. Xem [Chuẩn mô hình hóa](../transform/modeling-standards.md).
 
@@ -173,7 +173,7 @@ Bảng này giải thích các thuật ngữ thường gặp trong tài liệu H
 
 **Spark**: engine xử lý phân tán dùng trong Compute. Xem [Compute](../transform/compute.md).
 
-**SQL Studio**: khu vực Console để viết và chạy SQL. Xem [SQL Studio](../query/sql-studio.md).
+**SQL Editor**: khu vực Console để viết và chạy SQL, mở từ menu **Workspaces**. Xem [SQL Editor](../query/sql-studio.md).
 
 **SSE** (server-sent events): cơ chế nhận phản hồi theo luồng từ Kapas API. Xem [Kapas API và SSE](../develop/kapas-api.md).
 

@@ -26,7 +26,7 @@ You need administrative permission on the dataset to create or edit a Reflection
 
 ## Create a Reflection
 
-1. Open the dataset in **SQL Studio** or the data tree and select the acceleration settings (Acceleration).
+1. Open the dataset in the SQL Editor (**Workspaces** menu) or the data tree and select the acceleration settings (Acceleration).
 2. Select the **Raw Reflections** or **Aggregation Reflections** tab.
 3. For Raw, select the display columns and the sort and partition options. For Aggregation, select dimensions and measures.
 4. Enable the Reflection and save.
@@ -59,7 +59,9 @@ The system table `sys.reflections` lists Reflections with their status:
 SELECT * FROM sys.reflections;
 ```
 
-The Reflection administration page in Hanas Console shows the type, dataset, refresh status, errors, size, and usage. In the details of a [job](jobs.md), the Reflection section shows whether the query used a Reflection.
+The **Reflections** page in the **Engine** menu of Hanas Console shows the type, dataset, refresh status, errors, size, and usage. In the details of a [job](jobs.md), the Reflection section shows whether the query used a Reflection.
+
+In **Engine** → **Monitor**, Hanas Console also has an **Autonomous Reflections** section with a **History** log. Check it together with the **Reflections** page when you monitor acceleration.
 
 :::caution Current limitations
 

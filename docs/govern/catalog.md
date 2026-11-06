@@ -17,9 +17,9 @@ Mọi người dùng đăng nhập đều xem được Hanas Catalog (mức view
 
 ## Tìm kiếm và lọc
 
-1. Mở mục **Data Governance** trong Hanas Console.
+1. Mở mục **Data Governance** trong Hanas Console. Trang đầu là màn hình tìm kiếm metadata.
 2. Nhập từ khóa vào ô tìm kiếm. Kết quả gồm tên, mô tả và metadata của tài sản.
-3. Dùng bộ lọc để thu hẹp kết quả, ví dụ theo loại thực thể, nền tảng, tag, term hoặc người sở hữu.
+3. Dùng bộ lọc **Type**, **Platform**, **Environment**, **Owner**, **Tag** và **Platform Instance** để thu hẹp kết quả. Dùng **Sort by** để đổi thứ tự sắp xếp.
 4. Dùng thanh duyệt phía bên để đi theo cấu trúc nền tảng và container.
 5. Chọn một kết quả để mở trang chi tiết. Bảng kết quả có thể thêm tag hoặc term trực tiếp nếu bạn là editor.
 

@@ -2,7 +2,7 @@
 title: Nguồn dữ liệu truy vấn trực tiếp
 sidebar_label: Nguồn dữ liệu
 sidebar_position: 1
-description: Thêm nguồn trong Data Hub để truy vấn trực tiếp object storage, catalog và các hệ thống khác bằng SQL, kèm tuỳ chọn metadata refresh và format file.
+description: Thêm nguồn trong Connections để truy vấn trực tiếp object storage, catalog và các hệ thống khác bằng SQL, kèm tuỳ chọn metadata refresh và format file.
 ---
 
 Trang này hướng dẫn bạn thêm một nguồn vào **Hanas Console** để query engine truy vấn dữ liệu tại chỗ, không sao chép. Nếu cần lưu bản sao trong lakehouse, xem [Nạp dữ liệu vào lakehouse](./ingestion.md).
@@ -13,20 +13,21 @@ Trang này hướng dẫn bạn thêm một nguồn vào **Hanas Console** để
 - **Physical dataset**: tệp hoặc bảng của nguồn đã được nhận diện định dạng để truy vấn bằng SQL.
 - **View**: câu SQL đã lưu, tạo trên physical dataset; xem [Workspace, folder và view](../query/spaces-and-views.md).
 
-## Nhóm connector
+## Danh sách connector
 
-Bảng dưới liệt kê các nhóm connector mà query engine có plugin triển khai.
+Hộp thoại **Add Source** cung cấp các loại nguồn sau, nhóm theo ba mục.
 
 | Nhóm | Connector |
 |---|---|
-| Object storage | Amazon S3 (và hệ lưu trữ tương thích S3 theo cấu hình endpoint), Azure Storage, Google Cloud Storage |
-| File system | HDFS, NAS (thư mục cục bộ hoặc chia sẻ) |
-| Lakehouse catalog | AWS Glue Data Catalog, Nessie (catalog có phiên bản), Iceberg REST Catalog, Hive Metastore |
-| Search và NoSQL | Elasticsearch (kể cả Amazon Elasticsearch), MongoDB |
+| Lakehouse Catalogs | Apache Polaris (Incubating), AWS Glue Data Catalog, Hive 2.x, Hive 3.x, Iceberg REST Catalog, Nessie, Snowflake Open Catalog, Unity Catalog |
+| Object Storage | Amazon S3, Azure Storage, Google Cloud Storage, HDFS, NAS / Local Path |
+| Databases | Amazon OpenSearch Service, Amazon Redshift, Druid, Elasticsearch, Google BigQuery, IBM Db2, Microsoft Azure Data Explorer, Microsoft Azure Synapse Analytics, Microsoft SQL Server, MongoDB, MySQL, Oracle, PostgreSQL, SAP HANA, Snowflake, Teradata, Vertica |
+
+Danh sách Databases còn có một mục để kết nối tới một instance query engine khác (another query engine instance).
 
 :::note Điều kiện
 
-Danh sách thực tế hiển thị trong **New Source** do backend của bản phát hành trả về. Một số nhóm, như Iceberg REST Catalog, MongoDB và Hive, phụ thuộc vào gói triển khai và phương thức xác thực. Cơ sở dữ liệu quan hệ (PostgreSQL, MySQL, Oracle, SQL Server) có thể xuất hiện trong danh sách; hãy kiểm tra trên môi trường của bạn trước khi hứa với người dùng. Nếu cần dữ liệu từ các hệ này một cách ổn định, dùng [Ingestion](./ingestion.md).
+Một số loại nguồn phụ thuộc gói triển khai và phương thức xác thực của môi trường bạn. Nếu cần dữ liệu từ một hệ thống theo cách ổn định và lặp lại, dùng [Ingestion](./ingestion.md).
 
 :::
 
@@ -38,14 +39,14 @@ Danh sách thực tế hiển thị trong **New Source** do backend của bản 
 
 ## Thêm một nguồn
 
-1. Mở **Data Hub** hoặc cây dữ liệu trong SQL Studio, chọn **New Source**.
-2. Chọn loại nguồn trong danh sách. Danh sách được nhóm theo lakehouse, object storage và database.
+1. Mở **Connections** (hoặc cây dữ liệu trong SQL Editor, menu **Workspaces**), chọn **New Source**. Hộp thoại **Add Source** mở ra với hai tab **Manual Setup** và **Import File**.
+2. Ở tab **Manual Setup**, chọn loại nguồn trong danh sách. Danh sách được nhóm theo Lakehouse Catalogs, Object Storage và Databases.
 3. Điền thông tin kết nối và xác thực. Các trường thay đổi theo loại nguồn.
 4. Mở các tab tuỳ chọn nếu muốn đổi chính sách **Metadata** hoặc **Reflection Refresh** (xem bên dưới).
 5. Chọn lưu để tạo nguồn. Nguồn xuất hiện trong cây dữ liệu.
-6. Duyệt folder và bảng của nguồn. Với nguồn dạng tệp, định dạng tệp thành physical dataset (xem bên dưới), rồi mở trong SQL Studio hoặc tạo view.
+6. Duyệt folder và bảng của nguồn. Với nguồn dạng tệp, định dạng tệp thành physical dataset (xem bên dưới), rồi mở trong SQL Editor hoặc tạo view.
 
-Màn hình **New Source** cũng có tab nhập cấu hình nguồn từ tệp JSON, dành cho trường hợp bạn cần tạo nhiều nguồn cùng lúc.
+Tab **Import File** của **Add Source** cho phép nhập cấu hình nguồn từ tệp JSON, dành cho trường hợp bạn cần tạo nhiều nguồn cùng lúc.
 
 ## Tuỳ chọn metadata refresh
 
@@ -82,5 +83,5 @@ Với nguồn dạng tệp, query engine cần biết định dạng trước kh
 ## Tiếp theo
 
 - [Tải tệp lên](./file-upload.md) nếu bạn chỉ có vài tệp rời.
-- [SQL Studio](../query/sql-studio.md) để truy vấn dataset.
+- [SQL Editor](../query/sql-studio.md) để truy vấn dataset.
 - [Reflection](../query/acceleration.md) để tăng tốc truy vấn trên nguồn ngoài.

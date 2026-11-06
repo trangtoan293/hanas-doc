@@ -78,7 +78,7 @@ Add relationship checks, valid-status checks, and total-amount-per-period checks
 
 ## Monitor and cancel runs
 
-Open **Orchestrate** and then choose **Runs** to see the history of recorded runs. The run details show the command, target, time, status, and logs for diagnosis.
+Open **dbt Studio** → **Orchestrate** and then choose **Runs** to see the history of recorded runs. The run details show the command, target, time, status, and logs for diagnosis.
 
 Live logs are streamed from the runner; artifacts are stored according to the execution result. When you need to stop a job, choose **Cancel** on the active run, then check the final status.
 
@@ -86,7 +86,7 @@ Canceling or failing midway does not automatically roll back all the data that e
 
 ## Create a dbt schedule
 
-1. Open **Orchestrate** and then choose **Schedules** to manage the workspace schedules.
+1. Open **dbt Studio** → **Orchestrate** and then choose **Schedules** to manage the workspace schedules.
 2. Choose to create a schedule and enter a name that clearly describes the job to run.
 3. Choose the project, command, target, and selector, matching the configuration that already ran successfully.
 4. Enter a cron expression or choose a built-in schedule template to define the trigger times.

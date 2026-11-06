@@ -65,7 +65,7 @@ Trang này định nghĩa các khái niệm bạn gặp ở nhiều thành phầ
 
 **Role** là nhóm quyền gán cho người dùng hoặc group; role Keycloak điều khiển truy cập dịch vụ, còn grant trên đối tượng dữ liệu do query engine kiểm tra. Xem [Quản lý người dùng, group và role](../operate/user-management.md) và [Phân quyền dữ liệu](../govern/access-control.md).
 
-**PAT** (personal access token) là token cá nhân để SQL client hoặc script gọi API dưới danh nghĩa bạn. Bạn tạo PAT trong Account Settings. Xem [Tổng quan tích hợp](../develop/index.md).
+**PAT** (personal access token) là token cá nhân để SQL client hoặc script gọi API dưới danh nghĩa bạn. Bạn tạo PAT từ menu tài khoản, mục **Access Tokens**. Xem [Tổng quan tích hợp](../develop/index.md).
 
 :::note Điều kiện
 

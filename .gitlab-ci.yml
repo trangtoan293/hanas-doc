@@ -1,0 +1,65 @@
+# Build the docs site on every branch/MR; publish the nginx image on main and protected tags
+# (manual on other branches). Deploy is not part of this pipeline yet.
+#
+# CI/CD variables (group de-team, masked):
+#   HARBOR_USERNAME, HARBOR_PASSWORD   required — push to Harbor
+#   DOCKERHUB_USERNAME, DOCKERHUB_TOKEN optional — also push katalysthub/hanas-docs:<YYYYMMDD>-<sha>
+stages:
+  - verify
+  - publish
+
+variables:
+  GIT_DEPTH: "0" # full history so each page's "last updated" date is correct
+
+build-docs:
+  stage: verify
+  image: node:22
+  cache:
+    key:
+      files: [package-lock.json]
+    paths: [.npm/]
+  script:
+    - npm ci --cache .npm --prefer-offline --no-audit --no-fund
+    - npm run build
+  artifacts:
+    paths: [build/]
+    expire_in: 7 days
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH'
+    - if: '$CI_COMMIT_TAG'
+
+publish-image:
+  stage: publish
+  image: docker:27.5.1-cli
+  # No dind: the runner is not privileged; this uses the host docker daemon over its mounted socket.
+  needs: [build-docs]
+  variables:
+    HARBOR_HOST: "192.168.1.41"
+    HARBOR_IMAGE: "192.168.1.41/k8s-image/hanas-docs"
+    DOCKERHUB_IMAGE: "docker.io/katalysthub/hanas-docs"
+  script:
+    - HUB_TAG="$(date -u +%Y%m%d)-${CI_COMMIT_SHORT_SHA}"
+    - echo "$HARBOR_PASSWORD" | docker login -u "$HARBOR_USERNAME" --password-stdin "$HARBOR_HOST"
+    - docker build -t "$HARBOR_IMAGE:$CI_COMMIT_SHA" -t "$HARBOR_IMAGE:$HUB_TAG" .
+    - docker push "$HARBOR_IMAGE:$CI_COMMIT_SHA"
+    - docker push "$HARBOR_IMAGE:$HUB_TAG"
+    - |
+      if [ -n "${DOCKERHUB_TOKEN:-}" ]; then
+        echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin docker.io
+        docker tag "$HARBOR_IMAGE:$CI_COMMIT_SHA" "$DOCKERHUB_IMAGE:$HUB_TAG"
+        docker push "$DOCKERHUB_IMAGE:$HUB_TAG"
+        docker logout docker.io
+      else
+        echo "DOCKERHUB_TOKEN not set, skipping Docker Hub"
+      fi
+    - echo "Published $HARBOR_IMAGE:$HUB_TAG"
+  after_script:
+    # Images live in the registries now; on the shared host daemon they only eat disk.
+    - docker images --format '{{.Repository}}:{{.Tag}}' | grep '/hanas-docs:' | xargs -r docker rmi -f || true
+  rules:
+    - if: '$CI_COMMIT_TAG && $CI_COMMIT_REF_PROTECTED == "true"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    - if: '$CI_COMMIT_BRANCH'
+      when: manual
+      allow_failure: true

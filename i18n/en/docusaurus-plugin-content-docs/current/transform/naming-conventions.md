@@ -113,7 +113,7 @@ create table raw_vault.sat_customer_detail (
 );
 ```
 
-Data types and table creation syntax depend on where you create the table: Iceberg tables through [SQL Studio](../query/sql-studio.md) or dbt materialization.
+Data types and table creation syntax depend on where you create the table: Iceberg tables through the [SQL Editor](../query/sql-studio.md) (**Workspaces** menu) or dbt materialization.
 
 ## Limitations
 

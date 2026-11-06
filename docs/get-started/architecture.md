@@ -5,7 +5,11 @@ sidebar_position: 2
 description: Các lớp của Hanas Data Platform, luồng dữ liệu end-to-end và luồng danh tính khi truy vấn chạy dưới danh nghĩa người dùng.
 ---
 
+import Diagram from '@site/src/components/Diagram';
+
 Trang này mô tả các lớp của Hanas Data Platform, cách dữ liệu đi từ nguồn đến người dùng cuối và cách danh tính của bạn được chuyển tiếp qua các dịch vụ. Nội dung dành cho kiến trúc sư, data engineer và quản trị viên cần hiểu ranh giới giữa các thành phần trước khi cấu hình hoặc tích hợp.
+
+<Diagram name="01-tong-quan" alt="Kiến trúc tổng thể Hanas Data Platform" />
 
 ## Các lớp của nền tảng
 
@@ -110,25 +114,12 @@ Keycloak cung cấp SSO, group và role. User API chuyển các thao tác quản
 
 ## Luồng dữ liệu end-to-end
 
-```mermaid
-flowchart LR
-    SRC["Nguồn dữ liệu"] -->|"truy vấn trực tiếp"| QE["Query engine"]
-    SRC -->|"Ingestion"| ICE[("Iceberg")]
-    ICE --> QE
-    QE --> VW["View và Reflection"]
-    DBT["dbt / Spark"] --> ICE
-    VW --> ONT["Ontology: object type, metric"]
-    VW --> BI["Analytics"]
-    VW --> SQL["SQL Studio, JDBC, API"]
-    ONT --> EXP["Khám phá đối tượng"]
-    ONT --> KAP["Kapas"]
-    CAT["Hanas Catalog"] -. "metadata, lineage" .-> VW
-```
+<Diagram name="02-vong-doi-du-lieu" alt="Vòng đời dữ liệu trên Hanas" />
 
 1. **Kết nối**: bạn thêm source để truy vấn trực tiếp, hoặc cấu hình Ingestion để nạp dữ liệu vào bảng Iceberg.
 2. **Xử lý**: dbt model, Pipeline hoặc Spark biến đổi dữ liệu thô thành các lớp được chuẩn hóa.
 3. **Ngữ nghĩa**: bạn lưu SQL thành view, tạo Reflection khi cần tăng tốc, và có thể ánh xạ dataset vào object type và metric trong Ontology.
-4. **Sử dụng**: analyst truy vấn trong SQL Studio, người dùng nghiệp vụ khám phá đối tượng, đội BI dựng dashboard, và Kapas trả lời câu hỏi bằng ngôn ngữ tự nhiên.
+4. **Sử dụng**: analyst truy vấn trong SQL Editor, người dùng nghiệp vụ khám phá đối tượng, đội BI dựng dashboard, và Kapas trả lời câu hỏi bằng ngôn ngữ tự nhiên.
 5. **Quản trị**: Hanas Catalog thu thập metadata để tìm kiếm, gắn glossary và xem lineage trên các bước trên.
 
 ## Luồng danh tính

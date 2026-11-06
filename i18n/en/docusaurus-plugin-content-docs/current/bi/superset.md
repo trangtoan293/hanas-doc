@@ -16,7 +16,7 @@ The Analytics menu in Hanas Console embeds Apache Superset so you can create cha
 | Chart | A visualization on a dataset. |
 | Dashboard | A set of charts with filters, shared with others. |
 
-Superset sends queries to the query engine, so results are subject to the same permissions, Reflections, and load limits as queries from [SQL Studio](../query/sql-studio.md).
+Superset sends queries to the query engine, so results are subject to the same permissions, Reflections, and load limits as queries from the [SQL Editor](../query/sql-studio.md) (**Workspaces** menu).
 
 ## Requirements
 
@@ -28,14 +28,14 @@ Superset is an optional component. When enabled, the platform runs Superset with
 
 ## Access and sign in
 
-1. Open **Analytics** in Hanas Console.
+1. Open **Analytics** in Hanas Console. The embedded Superset shows the tabs **Dashboards**, **Charts**, **Template**, **Report**, **Datasets**, and **SQL**.
 2. Superset signs you in automatically with your Keycloak identity; you do not need a separate account.
 3. The first time you sign in, Superset creates the corresponding user and assigns roles based on your Keycloak groups.
 
 ## Create datasets, charts, and dashboards
 
 1. Open **Datasets** and choose to create a new dataset.
-2. Choose the query engine database, the schema (namespace or space), and the table or view. You can also use SQL Lab to write a query and save it as a dataset.
+2. Choose the query engine database, the schema (namespace or space), and the table or view. You can also use the **SQL** tab to write a query and save it as a dataset.
 3. Give it a clear name, and define calculated columns and shared metrics.
 4. Open **Charts**, choose a dataset and a chart type, configure dimensions, metrics, and filters, then save.
 5. Open **Dashboards**, create a dashboard, and add the charts.

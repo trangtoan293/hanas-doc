@@ -29,7 +29,7 @@ Mức viewer chỉ đọc. Gắn và gỡ tag, term, owner, sửa mô tả, tạ
 
 ## Xây dựng glossary
 
-1. Mở **Data Governance**, chọn **Glossary**.
+1. Mở **Data Governance** trong Hanas Console, chọn **Glossary**.
 2. Tạo một nhóm thuật ngữ cho miền nghiệp vụ, ví dụ "Khách hàng" hoặc "Tài khoản".
 3. Trong nhóm, tạo term, nhập tên và định nghĩa.
 4. Dùng thao tác thêm **Related terms** để liên kết các term liên quan.

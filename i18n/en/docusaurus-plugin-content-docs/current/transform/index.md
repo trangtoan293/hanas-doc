@@ -15,8 +15,8 @@ You can start with a SQL model in dbt Studio, test the results, and then set up 
 |---|---|
 | [dbt Studio](dbt-studio.md) | Create projects, work in the IDE, and manage code with Git. |
 | [Run and schedule dbt](dbt-runs.md) | Choose commands, targets, and selectors; view logs, artifacts, and schedules. |
-| [Pipeline](pipelines.md) | Combine multiple steps into a dependency graph and monitor each execution. |
-| [Compute](compute.md) | Run PySpark, notebooks, and declarative pipelines on Spark. |
+| [Pipeline](pipelines.md) | **Data Pipeline** menu. Combine multiple steps into a dependency graph and monitor each execution. |
+| [Compute](compute.md) | **Compute Engine** menu. Run PySpark, notebooks, and declarative pipelines on Spark. |
 | [Modeling standards](modeling-standards.md) | Apply bronze, silver, gold, and Data Vault according to your data needs. |
 | [Naming conventions](naming-conventions.md) | Standardize names for namespaces, models, tables, and technical columns. |
 
@@ -25,7 +25,7 @@ You can start with a SQL model in dbt Studio, test the results, and then set up 
 | Need | Suitable tool | Main result |
 |---|---|---|
 | Transform with SQL and manage dependencies between models | dbt Studio | dbt models, tests, documentation, and artifacts |
-| Run a command for a project on a recurring basis | dbt schedule | Runs tracked in Orchestrate |
+| Run a command for a project on a recurring basis | dbt schedule | Runs tracked in dbt Studio → Orchestrate |
 | Orchestrate multiple commands or multiple projects | Pipeline | Runs made up of Steps and dependency states |
 | Process with Python/PySpark, experiment in notebooks | Compute | Spark runs, cell results, and driver/executor logs |
 | Standardize data structures for BI | Modeling standards | Tables and views with a defined grain, owner, and quality rules |

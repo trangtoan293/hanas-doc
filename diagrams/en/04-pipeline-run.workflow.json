@@ -1,0 +1,250 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "A Pipeline Run",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "duong-chinh",
+        "label": "Main path",
+        "focus": [
+          "trigger",
+          "validate",
+          "queue",
+          "worker",
+          "wave",
+          "branch",
+          "result"
+        ],
+        "note": "From clicking Run or a cron tick until a result is ready."
+      },
+      {
+        "id": "loi",
+        "label": "On failure",
+        "focus": [
+          "wave",
+          "retry",
+          "failpath"
+        ],
+        "note": "Retry as configured; when retries run out, take the failure branch."
+      },
+      {
+        "id": "phuc-hoi",
+        "label": "Self-recovery",
+        "focus": [
+          "reaper",
+          "worker",
+          "queue"
+        ],
+        "note": "If a server dies mid-run, another worker continues."
+      }
+    ],
+    "locale": "en"
+  },
+  "lanes": [
+    {
+      "id": "orch",
+      "label": "Trigger & orchestrate"
+    },
+    {
+      "id": "exec",
+      "label": "Step execution"
+    },
+    {
+      "id": "recover",
+      "label": "Errors & recovery",
+      "variant": "exception"
+    }
+  ],
+  "mainPath": [
+    "trigger",
+    "validate",
+    "queue",
+    "worker",
+    "wave",
+    "branch",
+    "result"
+  ],
+  "nodes": [
+    {
+      "id": "trigger",
+      "lane": "orch",
+      "col": 0,
+      "type": "external",
+      "label": "Trigger",
+      "sublabel": "Run · cron · rerun",
+      "width": 132
+    },
+    {
+      "id": "validate",
+      "lane": "orch",
+      "col": 1,
+      "type": "security",
+      "label": "Validate",
+      "sublabel": "cycles · syntax",
+      "width": 132
+    },
+    {
+      "id": "queue",
+      "lane": "orch",
+      "col": 2,
+      "type": "messagebus",
+      "label": "Snapshot + queue",
+      "sublabel": "save to DB first",
+      "width": 140
+    },
+    {
+      "id": "worker",
+      "lane": "orch",
+      "col": 3,
+      "type": "backend",
+      "label": "Worker takes run",
+      "sublabel": "dedup lock",
+      "width": 132
+    },
+    {
+      "id": "wave",
+      "lane": "exec",
+      "col": 3,
+      "type": "backend",
+      "label": "Run Steps in parallel",
+      "sublabel": "dbt · SQL · Python",
+      "width": 140
+    },
+    {
+      "id": "branch",
+      "lane": "exec",
+      "col": 4,
+      "type": "backend",
+      "label": "Branch",
+      "sublabel": "conditional split",
+      "width": 132
+    },
+    {
+      "id": "result",
+      "lane": "orch",
+      "col": 5,
+      "type": "frontend",
+      "label": "End result",
+      "sublabel": "log + output",
+      "width": 132
+    },
+    {
+      "id": "retry",
+      "lane": "recover",
+      "col": 3,
+      "type": "messagebus",
+      "label": "Retry",
+      "sublabel": "1–10 tries, with wait",
+      "width": 132
+    },
+    {
+      "id": "failpath",
+      "lane": "recover",
+      "col": 4,
+      "type": "security",
+      "label": "On-failure branch",
+      "sublabel": "alert · cleanup",
+      "width": 140
+    },
+    {
+      "id": "reaper",
+      "lane": "recover",
+      "col": 2,
+      "type": "backend",
+      "label": "Run recovery",
+      "sublabel": "scan orphaned runs",
+      "width": 132
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "from": "trigger",
+      "to": "validate",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e2",
+      "from": "validate",
+      "to": "queue",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e3",
+      "from": "queue",
+      "to": "worker",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e4",
+      "from": "worker",
+      "to": "wave",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e5",
+      "from": "wave",
+      "to": "branch",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e6",
+      "from": "branch",
+      "to": "result",
+      "label": "done",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e7",
+      "from": "wave",
+      "to": "retry",
+      "label": "error",
+      "variant": "security",
+      "role": "error"
+    },
+    {
+      "id": "e8",
+      "from": "retry",
+      "to": "failpath",
+      "label": "retries out",
+      "variant": "security",
+      "role": "error"
+    },
+    {
+      "id": "e9",
+      "from": "reaper",
+      "to": "queue",
+      "label": "re-queue",
+      "variant": "dashed",
+      "role": "branch"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "One orchestrator",
+      "items": [
+        "dbt, SQL and Python in one Pipeline",
+        "No separate Airflow to set up"
+      ]
+    },
+    {
+      "dot": "orange",
+      "title": "Failures handled by design",
+      "items": [
+        "Retry per Step",
+        "On-failure branch for alerts or cleanup"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "No lost runs",
+      "items": [
+        "Saved to DB before queueing",
+        "Orphaned runs resume on another worker"
+      ]
+    }
+  ]
+}

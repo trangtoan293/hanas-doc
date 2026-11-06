@@ -16,7 +16,7 @@ Menu Analytics trong Hanas Console nhúng Apache Superset để bạn tạo char
 | Chart | Biểu đồ trên một dataset. |
 | Dashboard | Tập chart cùng bộ lọc, chia sẻ cho người khác. |
 
-Superset gửi truy vấn tới query engine, nên kết quả chịu cùng quyền, Reflection và giới hạn tải như truy vấn từ [SQL Studio](../query/sql-studio.md).
+Superset gửi truy vấn tới query engine, nên kết quả chịu cùng quyền, Reflection và giới hạn tải như truy vấn từ [SQL Editor](../query/sql-studio.md) (menu **Workspaces**).
 
 ## Điều kiện cần
 
@@ -28,14 +28,14 @@ Superset là thành phần tuỳ chọn. Khi bật, nền tảng chạy Superset
 
 ## Truy cập và đăng nhập
 
-1. Mở **Analytics** trong Hanas Console.
+1. Mở **Analytics** trong Hanas Console. Superset nhúng hiển thị các tab **Dashboards**, **Charts**, **Template**, **Report**, **Datasets** và **SQL**.
 2. Superset tự đăng nhập bằng danh tính Keycloak của bạn; không cần tài khoản riêng.
 3. Lần đầu đăng nhập, Superset tạo người dùng tương ứng và gán role theo group Keycloak.
 
 ## Tạo dataset, chart và dashboard
 
 1. Mở **Datasets** và chọn tạo dataset mới.
-2. Chọn database của query engine, schema (namespace hoặc space) và bảng hoặc view. Có thể dùng SQL Lab để viết truy vấn rồi lưu thành dataset.
+2. Chọn database của query engine, schema (namespace hoặc space) và bảng hoặc view. Có thể dùng tab **SQL** để viết truy vấn rồi lưu thành dataset.
 3. Đặt tên rõ ràng, định nghĩa cột tính toán và metric dùng chung.
 4. Mở **Charts**, chọn dataset và loại biểu đồ, cấu hình dimension, metric, bộ lọc, rồi lưu.
 5. Mở **Dashboards**, tạo dashboard và thêm các chart.

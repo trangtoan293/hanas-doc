@@ -5,7 +5,11 @@ sidebar_position: 2
 description: The layers of Hanas Data Platform, the end-to-end data flow, and the identity flow when queries run on behalf of a user.
 ---
 
+import Diagram from '@site/src/components/Diagram';
+
 This page describes the layers of Hanas Data Platform, how data moves from sources to end users, and how your identity is passed through the services. It is intended for architects, data engineers, and administrators who need to understand the boundaries between components before configuring or integrating them.
+
+<Diagram name="01-tong-quan" alt="Hanas Data Platform architecture" />
 
 ## Platform layers
 
@@ -110,25 +114,12 @@ Keycloak provides SSO, groups, and roles. User API forwards user, role, and grou
 
 ## End-to-end data flow
 
-```mermaid
-flowchart LR
-    SRC["Data source"] -->|"direct query"| QE["Query engine"]
-    SRC -->|"Ingestion"| ICE[("Iceberg")]
-    ICE --> QE
-    QE --> VW["Views and Reflections"]
-    DBT["dbt / Spark"] --> ICE
-    VW --> ONT["Ontology: object types, metrics"]
-    VW --> BI["Analytics"]
-    VW --> SQL["SQL Studio, JDBC, API"]
-    ONT --> EXP["Explore objects"]
-    ONT --> KAP["Kapas"]
-    CAT["Hanas Catalog"] -. "metadata, lineage" .-> VW
-```
+<Diagram name="02-vong-doi-du-lieu" alt="Data lifecycle on Hanas" />
 
 1. **Connect**: you add a source for direct query, or configure Ingestion to load data into Iceberg tables.
 2. **Process**: dbt models, Pipelines, or Spark transform raw data into standardized layers.
 3. **Semantics**: you save SQL as a view, create a Reflection when you need acceleration, and can map datasets to object types and metrics in Ontology.
-4. **Use**: analysts query in SQL Studio, business users explore objects, the BI team builds dashboards, and Kapas answers questions in natural language.
+4. **Use**: analysts query in SQL Editor, business users explore objects, the BI team builds dashboards, and Kapas answers questions in natural language.
 5. **Govern**: Hanas Catalog collects metadata for search, glossary tagging, and lineage across the steps above.
 
 ## Identity flow

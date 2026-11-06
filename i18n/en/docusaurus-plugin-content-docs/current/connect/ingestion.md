@@ -59,7 +59,7 @@ Not every source and destination combination is verified. Run a trial of the com
 
 ## Create an ingestion flow
 
-1. Open **Ingestion** in Hanas Console, go to **Sources**, and create a connection. Select **Test** to verify the connection.
+1. Open the **Ingestion Flows** menu in Hanas Console, go to **Sources**, and create a connection. Select **Test** to verify the connection.
 2. Go to **Destinations**, create an Iceberg REST or Iceberg Hive connection, or import the Lakehouse configuration and add the secrets.
 3. Select **New** in the ingestion flow list.
 4. Select the source, destination, team, namespace, and engine.

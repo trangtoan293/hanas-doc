@@ -25,6 +25,8 @@ When answering, Kapas chooses the model in this order: the model specified in th
 
 ## Configure through the interface
 
+In Hanas Console, AI configuration lives under **Settings** > **Integrations** > **AI Config**.
+
 1. Sign in to Kapas Console with an administrator account.
 2. Open **Models**.
 3. Choose a provider or add a custom **OpenAI-compatible** provider. Enter the base URL and the API key if any.

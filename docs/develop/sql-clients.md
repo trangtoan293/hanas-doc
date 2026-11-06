@@ -102,14 +102,14 @@ PAT là credential của query engine, khác với token Keycloak. Cách dùng t
 | Arrow Flight | Header `authorization: Bearer <PAT>`. |
 | REST | Header `Authorization: Bearer <PAT>`. |
 
-Quyền dữ liệu (grant, row access, masking) áp dụng theo tài khoản sở hữu PAT, như khi bạn dùng [SQL Studio](../query/sql-studio.md).
+Quyền dữ liệu (grant, row access, masking) áp dụng theo tài khoản sở hữu PAT, như khi bạn dùng [SQL Editor](../query/sql-studio.md) (menu **Workspaces**).
 
 ## Xử lý sự cố
 
 | Triệu chứng | Nguyên nhân thường gặp | Cách xử lý |
 |---|---|---|
 | Connection refused hoặc timeout | Cổng chưa được công bố hoặc bị chặn. | Kiểm tra route mạng tới 31010 hoặc 32010. |
-| Lỗi xác thực | PAT hết hạn, bị xoá hoặc sai tên đăng nhập. | Tạo PAT mới trong **Account Settings**. |
+| Lỗi xác thực | PAT hết hạn, bị xoá hoặc sai tên đăng nhập. | Tạo PAT mới: menu tài khoản, **Access Tokens**, **Generate Token**. |
 | Kết nối được nhưng bảng trống hoặc báo thiếu quyền | Tài khoản chưa được cấp quyền dữ liệu. | Nhờ quản trị viên cấp grant. |
 | Flight lỗi TLS | Endpoint bật TLS nhưng client dùng `grpc+tcp`. | Dùng `grpc+tls` và chứng chỉ CA phù hợp. |
 

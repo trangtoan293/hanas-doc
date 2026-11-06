@@ -5,7 +5,11 @@ sidebar_position: 3
 description: Combine dbt, SQL, and Python Steps into a dependency graph, set schedules, backfill, and monitor each run in Hanas Console.
 ---
 
+import Diagram from '@site/src/components/Diagram';
+
 Pipeline in Hanas Data Platform lets you combine multiple processing steps into an ordered graph, run it on a schedule or manually, and then monitor the result of each step. This page is for data engineers who need to orchestrate work beyond a single dbt command.
+
+<Diagram name="04-pipeline-run" alt="A Pipeline run" />
 
 ## Concepts
 
@@ -34,16 +38,16 @@ flowchart LR
 
 :::note Requirements
 
-The Orchestrate menu shows Pipelines only when an administrator enables the orchestration service. The new engine also needs Temporal and the service's PostgreSQL database. Permissions follow the viewer, operator, editor, and admin roles; by default these roles use the corresponding dbt roles.
+The **Data Pipeline** menu appears only when an administrator enables the orchestration service. The new engine also needs Temporal and the service's PostgreSQL database. Permissions follow the viewer, operator, editor, and admin roles; by default these roles use the corresponding dbt roles.
 
 :::
 
-A Run executes under the identity of the Pipeline owner or a service account. When a Step accesses the query engine or dbt, this identity needs the corresponding data permissions.
+A Run executes under the identity of the Pipeline owner or a service account (managed with the **Service accounts** button on the Pipelines page). When a Step accesses the query engine or dbt, this identity needs the corresponding data permissions.
 
 ## Create and run a Pipeline
 
-1. Open **Orchestrate** and then choose **Pipelines**.
-2. Choose to create a new Pipeline and give it a name that describes its purpose.
+1. Open the **Data Pipeline** menu. The **Pipelines** page has two tabs: **Pipelines** and **Runs**.
+2. Choose **Create pipeline** and give it a name that describes its purpose.
 3. On the canvas, add Steps from the palette and connect them in dependency order.
 4. Select each Step to enter its configuration: project and selector for dbt, statement for SQL, file for Python.
 5. Set the trigger rule, retry, and timeout for a Step when needed.
@@ -87,7 +91,7 @@ With the new engine: there are no realtime logs and the UI updates by polling pe
 
 | Symptom | Resolution |
 |---|---|
-| The Pipelines menu does not appear | Ask an administrator to check that the orchestration service is enabled. |
+| The Data Pipeline menu does not appear | Ask an administrator to check that the orchestration service is enabled. |
 | A Step is skipped | Check the trigger rule and the status of the preceding Steps. |
 | A SQL or dbt Step is rejected | Check the data permissions of the Pipeline owner or service account. |
 | A scheduled Run runs at the wrong time | Check the schedule's time zone; separate dbt schedules are evaluated in UTC. |

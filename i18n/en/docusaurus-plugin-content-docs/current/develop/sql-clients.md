@@ -102,14 +102,14 @@ A PAT is a query engine credential, different from a Keycloak token. How to use 
 | Arrow Flight | Header `authorization: Bearer <PAT>`. |
 | REST | Header `Authorization: Bearer <PAT>`. |
 
-Data permissions (grants, row access, masking) apply according to the account that owns the PAT, the same as when you use [SQL Studio](../query/sql-studio.md).
+Data permissions (grants, row access, masking) apply according to the account that owns the PAT, the same as when you use the [SQL Editor](../query/sql-studio.md) (**Workspaces** menu).
 
 ## Troubleshooting
 
 | Symptom | Common cause | Resolution |
 |---|---|---|
 | Connection refused or timeout | The port is not published or is blocked. | Check the network route to 31010 or 32010. |
-| Authentication error | The PAT is expired, deleted, or the username is wrong. | Create a new PAT in **Account Settings**. |
+| Authentication error | The PAT is expired, deleted, or the username is wrong. | Create a new PAT: account menu, **Access Tokens**, **Generate Token**. |
 | Connection succeeds but tables are empty or report missing permission | The account has not been granted data permissions. | Ask an administrator to grant access. |
 | Flight TLS error | The endpoint has TLS enabled but the client uses `grpc+tcp`. | Use `grpc+tls` and a suitable CA certificate. |
 

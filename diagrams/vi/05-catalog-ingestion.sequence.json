@@ -1,0 +1,247 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "Hanas Catalog thu thập metadata",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1060,
+      660
+    ],
+    "column_fit": "spread",
+    "views": [
+      {
+        "id": "cau-hinh",
+        "label": "Cấu hình nguồn",
+        "focus": [
+          "admin",
+          "api",
+          "db"
+        ],
+        "note": "Mật khẩu nguồn được mã hóa ngay khi lưu."
+      },
+      {
+        "id": "thu-thap",
+        "label": "Thu thập an toàn",
+        "focus": [
+          "runner",
+          "worker",
+          "source",
+          "db"
+        ],
+        "note": "Tiến trình con riêng, không thấy mật khẩu hệ thống."
+      },
+      {
+        "id": "nguyen-tu",
+        "label": "Ghi trọn vẹn",
+        "focus": [
+          "runner",
+          "db",
+          "api",
+          "admin"
+        ],
+        "note": "Lỗi giữa chừng thì catalog giữ nguyên, không ghi dở."
+      }
+    ]
+  },
+  "participants": [
+    {
+      "id": "admin",
+      "type": "frontend",
+      "label": "Quản trị viên",
+      "sublabel": "Hanas Console"
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "catalog-api",
+      "sublabel": "REST"
+    },
+    {
+      "id": "db",
+      "type": "database",
+      "label": "Postgres",
+      "sublabel": "metadata"
+    },
+    {
+      "id": "runner",
+      "type": "backend",
+      "label": "ingest-runner",
+      "sublabel": "hàng đợi"
+    },
+    {
+      "id": "worker",
+      "type": "backend",
+      "label": "Connector",
+      "sublabel": "tiến trình con"
+    },
+    {
+      "id": "source",
+      "type": "external",
+      "label": "Nguồn",
+      "sublabel": "Query Engine · Oracle · dbt"
+    }
+  ],
+  "segments": [
+    {
+      "from": 150,
+      "to": 282,
+      "label": "Cấu hình"
+    },
+    {
+      "from": 290,
+      "to": 482,
+      "label": "Thu thập"
+    },
+    {
+      "from": 490,
+      "to": 592,
+      "label": "Kết quả"
+    }
+  ],
+  "messages": [
+    {
+      "from": "admin",
+      "to": "api",
+      "y": 174,
+      "label": "tạo nguồn + lịch cron",
+      "variant": "emphasis"
+    },
+    {
+      "from": "api",
+      "to": "db",
+      "y": 204,
+      "label": "lưu, mã hóa mật khẩu",
+      "variant": "security"
+    },
+    {
+      "from": "admin",
+      "to": "api",
+      "y": 234,
+      "label": "chạy ngay",
+      "variant": "default"
+    },
+    {
+      "from": "api",
+      "to": "db",
+      "y": 264,
+      "label": "tạo run chờ xử lý",
+      "variant": "default"
+    },
+    {
+      "from": "runner",
+      "to": "db",
+      "y": 314,
+      "label": "nhận run",
+      "variant": "emphasis"
+    },
+    {
+      "from": "runner",
+      "to": "worker",
+      "y": 344,
+      "label": "chạy cách ly",
+      "variant": "security"
+    },
+    {
+      "from": "worker",
+      "to": "source",
+      "y": 374,
+      "label": "đọc bảng, cột, view",
+      "variant": "emphasis"
+    },
+    {
+      "from": "source",
+      "to": "worker",
+      "y": 404,
+      "label": "schema + SQL view",
+      "variant": "return"
+    },
+    {
+      "from": "worker",
+      "to": "runner",
+      "y": 434,
+      "label": "metadata + lineage",
+      "variant": "return"
+    },
+    {
+      "from": "runner",
+      "to": "db",
+      "y": 464,
+      "label": "ghi 1 transaction",
+      "variant": "emphasis"
+    },
+    {
+      "from": "admin",
+      "to": "api",
+      "y": 514,
+      "label": "xem log, báo cáo",
+      "variant": "default"
+    },
+    {
+      "from": "api",
+      "to": "db",
+      "y": 544,
+      "label": "đọc kết quả run",
+      "variant": "default"
+    },
+    {
+      "from": "api",
+      "to": "admin",
+      "y": 574,
+      "label": "trạng thái + thay đổi",
+      "variant": "return"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "api",
+      "from": 168,
+      "to": 272,
+      "type": "backend"
+    },
+    {
+      "participant": "runner",
+      "from": 308,
+      "to": 472,
+      "type": "backend"
+    },
+    {
+      "participant": "worker",
+      "from": 338,
+      "to": 442,
+      "type": "backend"
+    },
+    {
+      "participant": "api",
+      "from": 508,
+      "to": 582,
+      "type": "backend"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "rose",
+      "title": "Bảo mật thông tin nguồn",
+      "items": [
+        "Mật khẩu mã hóa AES-256-GCM",
+        "Tiến trình thu thập không thấy khóa hệ thống"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Không bao giờ ghi dở",
+      "items": [
+        "Kết quả ghi trong một transaction",
+        "Có thể rollback một lần chạy"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Mở rộng dễ dàng",
+      "items": [
+        "Nhiều runner chạy song song an toàn",
+        "Connector query engine riêng, có lineage view"
+      ]
+    }
+  ]
+}

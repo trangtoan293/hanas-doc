@@ -59,9 +59,9 @@ Không phải mọi tổ hợp nguồn và đích đều được kiểm chứng
 
 ## Tạo luồng nạp
 
-1. Mở **Ingestion** trong Hanas Console, vào **Sources** và tạo connection. Chọn **Test** để kiểm tra kết nối.
-2. Vào **Destinations**, tạo connection Iceberg REST hoặc Iceberg Hive, hoặc nhập cấu hình Lakehouse và bổ sung secret.
-3. Chọn **New** trong danh sách luồng nạp.
+1. Mở menu **Ingestion Flows** trong Hanas Console, vào mục **Sources** và tạo connection. Chọn **Test** để kiểm tra kết nối.
+2. Vào mục **Destinations**, tạo connection Iceberg REST hoặc Iceberg Hive, hoặc nhập cấu hình Lakehouse và bổ sung secret.
+3. Vào mục **Ingestion Flows** và chọn **New** trong danh sách luồng nạp.
 4. Chọn nguồn, đích, team, namespace và engine.
 5. Chọn mục tiêu (full refresh, incremental hoặc CDC). Wizard khám phá danh sách bảng và chỉ cho phép chọn bảng phù hợp.
 6. Chọn các bảng cần nạp và đặt tên bảng đích.

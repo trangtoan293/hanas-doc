@@ -44,9 +44,9 @@ Name objects according to the [Naming conventions](../transform/naming-conventio
 
 ## Create spaces, folders, and views
 
-1. In the data tree of **SQL Studio**, select the action to create a new workspace or space.
+1. Open **Workspaces** to reach the SQL Editor. In the data tree (the **Workspaces** and **Spaces** sections), select the action to create a new workspace or space.
 2. Create folders in the space to group views by domain.
-3. Run a query, select **Save as View**, and then select the destination space and folder. See [SQL Studio](sql-studio.md).
+3. Run a query, select **Save as View**, and then select the destination space and folder. See [SQL Editor](sql-studio.md).
 4. Open the saved view to edit the SQL, view the columns, and check the summary information.
 
 You can also create views directly with `CREATE VIEW` or `CREATE OR REPLACE VIEW`.

@@ -25,6 +25,8 @@ Khi trả lời, Kapas chọn model theo thứ tự: model chỉ định trong r
 
 ## Cấu hình qua giao diện
 
+Trong Hanas Console, phần cấu hình AI nằm ở **Settings** > **Integrations** > **AI Config**.
+
 1. Đăng nhập Kapas Console bằng tài khoản quản trị.
 2. Mở **Models**.
 3. Chọn provider hoặc thêm provider **OpenAI-compatible** tùy chỉnh. Nhập base URL, khóa API nếu có.

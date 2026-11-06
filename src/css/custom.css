@@ -945,3 +945,22 @@ button:focus-visible {
   filter: brightness(0) invert(1);
   opacity: 0.75;
 }
+
+/* Architecture diagrams embedded with <Diagram> */
+.hanas-diagram {
+  margin: 1.5rem 0;
+}
+
+.hanas-diagram img {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--ifm-border-color);
+  border-radius: var(--ifm-radius-md);
+}
+
+.hanas-diagram figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--ifm-font-color-secondary);
+  text-align: center;
+}

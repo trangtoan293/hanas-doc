@@ -5,7 +5,16 @@ sidebar_position: 7
 description: Create and manage users, groups, and roles in Hanas Console Settings, synchronized through Keycloak to the query engine and applications.
 ---
 
-Administrators manage users, groups, and roles in **Settings** of Hanas Console. Console does not store identities; operations are forwarded to Keycloak and synchronized to the query engine.
+Administrators manage users, groups, and roles in **Settings** > **User Administration** of Hanas Console. Console does not store identities; operations are forwarded to Keycloak and synchronized to the query engine.
+
+The **Settings** menu has the following groups.
+
+| Group | Items |
+|---|---|
+| **User Administration** | The **Users**, **Roles**, and **Permissions** tabs; the **New User** button |
+| **Integrations** | **BI Applications**, **External Tokens**, **AI Config** |
+| **System** | **Preferences**, **Support**, **Compute** |
+| **Custom** | **SQL Query Config** |
 
 ## Concepts
 
@@ -24,21 +33,21 @@ flowchart LR
 
 ## Requirements
 
-- An account with administrator permissions (the `admin` role). The Settings screen is for administrators.
+- An account with administrator permissions (the `admin` role). The **Settings** screen is for administrators.
 - Hanas Console, User API, Keycloak, and the query engine are running.
 
 ## Steps
 
 ### Create a user
 
-1. Open **Settings** and select user management.
-2. Select add new user, then enter the username, contact information, and an initial password.
+1. Open **Settings** > **User Administration** and select the **Users** tab.
+2. Choose **New User**, then enter the username, contact information, and an initial password.
 3. Save. The user appears in the Keycloak realm and is synchronized to the query engine.
 4. Ask the user to test signing in to Hanas Console.
 
 ### Create groups and roles
 
-1. In **Settings**, open the group or role list.
+1. In **Settings** > **User Administration**, open the **Roles** tab (or **Permissions** to review permissions).
 2. Create groups that follow your organization structure, for example by business team.
 3. Add users to groups and assign roles to users or groups.
 

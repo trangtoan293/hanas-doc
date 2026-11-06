@@ -5,7 +5,11 @@ sidebar_position: 3
 description: Ghép các Step dbt, SQL và Python thành đồ thị phụ thuộc, đặt lịch, backfill và theo dõi từng lần chạy trong Hanas Console.
 ---
 
+import Diagram from '@site/src/components/Diagram';
+
 Pipeline trong Hanas Data Platform cho phép bạn ghép nhiều bước xử lý thành một đồ thị có thứ tự, chạy theo lịch hoặc chạy tay, rồi theo dõi kết quả từng bước. Trang này dành cho data engineer cần điều phối công việc vượt quá một command dbt.
+
+<Diagram name="04-pipeline-run" alt="Một lần chạy Pipeline" />
 
 ## Khái niệm
 
@@ -34,16 +38,16 @@ flowchart LR
 
 :::note Điều kiện
 
-Menu Orchestrate chỉ hiển thị Pipeline khi quản trị viên bật dịch vụ điều phối. Engine mới cần thêm Temporal và cơ sở dữ liệu PostgreSQL của dịch vụ. Quyền theo role viewer, operator, editor và admin; mặc định các role này dùng role dbt tương ứng.
+Menu **Data Pipeline** chỉ hiển thị khi quản trị viên bật dịch vụ điều phối. Engine mới cần thêm Temporal và cơ sở dữ liệu PostgreSQL của dịch vụ. Quyền theo role viewer, operator, editor và admin; mặc định các role này dùng role dbt tương ứng.
 
 :::
 
-Run được thực thi dưới danh tính chủ Pipeline hoặc một service account. Khi Step truy cập query engine hoặc dbt, danh tính này cần có quyền dữ liệu tương ứng.
+Run được thực thi dưới danh tính chủ Pipeline hoặc một service account (quản lý bằng nút **Service accounts** trên trang Pipelines). Khi Step truy cập query engine hoặc dbt, danh tính này cần có quyền dữ liệu tương ứng.
 
 ## Tạo và chạy Pipeline
 
-1. Mở **Orchestrate** rồi chọn **Pipelines**.
-2. Chọn tạo Pipeline mới và đặt tên mô tả mục đích.
+1. Mở menu **Data Pipeline**. Trang **Pipelines** có hai tab: **Pipelines** và **Runs**.
+2. Chọn **Create pipeline** và đặt tên mô tả mục đích.
 3. Trên canvas, thêm các Step từ palette và nối chúng theo thứ tự phụ thuộc.
 4. Chọn từng Step để nhập cấu hình: project và selector cho dbt, câu lệnh cho SQL, file cho Python.
 5. Đặt quy tắc kích hoạt, retry và timeout cho Step khi cần.
@@ -87,7 +91,7 @@ Với engine mới: chưa có log realtime, giao diện cập nhật bằng các
 
 | Hiện tượng | Cách xử lý |
 |---|---|
-| Không thấy menu Pipelines | Nhờ quản trị viên kiểm tra dịch vụ điều phối đã được bật. |
+| Không thấy menu Data Pipeline | Nhờ quản trị viên kiểm tra dịch vụ điều phối đã được bật. |
 | Step bị bỏ qua | Kiểm tra quy tắc kích hoạt và trạng thái các Step phía trước. |
 | Step SQL hoặc dbt bị từ chối | Kiểm tra quyền dữ liệu của chủ Pipeline hoặc service account. |
 | Run theo lịch chạy sai giờ | Kiểm tra múi giờ của lịch; lịch dbt riêng tính theo UTC. |

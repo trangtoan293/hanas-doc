@@ -17,7 +17,7 @@ Explore chạy truy vấn bằng danh tính của bạn. Row access và masking 
 
 ## Catalog
 
-Mở **Explore** để chọn dự án và xem catalog các đối tượng đã phát hành.
+Mở **Ontology** > **Explore**. Trang **Explore projects** liệt kê các project; mỗi thẻ cho biết trạng thái **PUBLISHED** (kèm phiên bản) hoặc **NOT PUBLISHED**. Chọn **Explore** trên thẻ project đã phát hành để xem catalog các đối tượng. Nếu bạn là tác giả, chọn **Open Build** để vào môi trường authoring; nếu cần project mới, chọn **Create project**.
 
 - Tìm theo tên, mô tả, field hoặc metric. Đây là lọc metadata, không phải tìm kiếm toàn văn trên record.
 - Lọc theo nhóm **All**, **Object** hoặc **Snapshot**.

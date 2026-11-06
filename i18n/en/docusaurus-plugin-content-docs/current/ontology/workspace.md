@@ -40,13 +40,15 @@ flowchart LR
   P --> E["Explore and API"]
 ```
 
-### 1. Select a workspace
+### 1. Select a project
 
-1. Open **Ontology** in Hanas Console.
-2. Select the workspace to work in.
-3. Open the **Workbench** of that workspace.
+Ontology work is organized in **projects**. The **Ontology** menu has the **Explore**, **My requests**, **Workbench**, **Governance**, and **Settings** items.
 
-Check the project name before editing or importing documents. The workspace determines the content scope, while access is still checked by tenant and role.
+1. Open **Ontology** > **Explore** in Hanas Console. The page shows **Explore projects**.
+2. To start a new project, choose **Create project**. To work on an existing one, find its card; the card shows the publication state, **PUBLISHED** (with a version number, for example vN) or **NOT PUBLISHED**.
+3. On the project card, choose **Open Build** to enter the authoring environment (Workbench) of that project. Choose **Explore** to browse the published data.
+
+Check the project name before editing or importing documents. The project determines the content scope, while access is still checked by tenant and role.
 
 ### 2. Initialize a draft
 

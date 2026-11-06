@@ -1,0 +1,248 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "Hanas Catalog Metadata Ingestion",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1060,
+      660
+    ],
+    "column_fit": "spread",
+    "views": [
+      {
+        "id": "cau-hinh",
+        "label": "Source setup",
+        "focus": [
+          "admin",
+          "api",
+          "db"
+        ],
+        "note": "Source passwords are encrypted as soon as they are saved."
+      },
+      {
+        "id": "thu-thap",
+        "label": "Safe ingestion",
+        "focus": [
+          "runner",
+          "worker",
+          "source",
+          "db"
+        ],
+        "note": "Separate child process; it never sees system secrets."
+      },
+      {
+        "id": "nguyen-tu",
+        "label": "Atomic write",
+        "focus": [
+          "runner",
+          "db",
+          "api",
+          "admin"
+        ],
+        "note": "On a mid-run failure the catalog stays unchanged, with no partial writes."
+      }
+    ],
+    "locale": "en"
+  },
+  "participants": [
+    {
+      "id": "admin",
+      "type": "frontend",
+      "label": "Admin",
+      "sublabel": "Hanas Console"
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "catalog-api",
+      "sublabel": "REST"
+    },
+    {
+      "id": "db",
+      "type": "database",
+      "label": "Postgres",
+      "sublabel": "metadata"
+    },
+    {
+      "id": "runner",
+      "type": "backend",
+      "label": "ingest-runner",
+      "sublabel": "queue"
+    },
+    {
+      "id": "worker",
+      "type": "backend",
+      "label": "Connector",
+      "sublabel": "child process"
+    },
+    {
+      "id": "source",
+      "type": "external",
+      "label": "Source",
+      "sublabel": "Query Engine · Oracle · dbt"
+    }
+  ],
+  "segments": [
+    {
+      "from": 150,
+      "to": 282,
+      "label": "Setup"
+    },
+    {
+      "from": 290,
+      "to": 482,
+      "label": "Ingest"
+    },
+    {
+      "from": 490,
+      "to": 592,
+      "label": "Results"
+    }
+  ],
+  "messages": [
+    {
+      "from": "admin",
+      "to": "api",
+      "y": 174,
+      "label": "create source + cron",
+      "variant": "emphasis"
+    },
+    {
+      "from": "api",
+      "to": "db",
+      "y": 204,
+      "label": "save, encrypt password",
+      "variant": "security"
+    },
+    {
+      "from": "admin",
+      "to": "api",
+      "y": 234,
+      "label": "run now",
+      "variant": "default"
+    },
+    {
+      "from": "api",
+      "to": "db",
+      "y": 264,
+      "label": "create pending run",
+      "variant": "default"
+    },
+    {
+      "from": "runner",
+      "to": "db",
+      "y": 314,
+      "label": "claim run",
+      "variant": "emphasis"
+    },
+    {
+      "from": "runner",
+      "to": "worker",
+      "y": 344,
+      "label": "run isolated",
+      "variant": "security"
+    },
+    {
+      "from": "worker",
+      "to": "source",
+      "y": 374,
+      "label": "read tables, columns, views",
+      "variant": "emphasis"
+    },
+    {
+      "from": "source",
+      "to": "worker",
+      "y": 404,
+      "label": "schema + view SQL",
+      "variant": "return"
+    },
+    {
+      "from": "worker",
+      "to": "runner",
+      "y": 434,
+      "label": "metadata + lineage",
+      "variant": "return"
+    },
+    {
+      "from": "runner",
+      "to": "db",
+      "y": 464,
+      "label": "write in 1 transaction",
+      "variant": "emphasis"
+    },
+    {
+      "from": "admin",
+      "to": "api",
+      "y": 514,
+      "label": "view logs, reports",
+      "variant": "default"
+    },
+    {
+      "from": "api",
+      "to": "db",
+      "y": 544,
+      "label": "read run results",
+      "variant": "default"
+    },
+    {
+      "from": "api",
+      "to": "admin",
+      "y": 574,
+      "label": "status + changes",
+      "variant": "return"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "api",
+      "from": 168,
+      "to": 272,
+      "type": "backend"
+    },
+    {
+      "participant": "runner",
+      "from": 308,
+      "to": 472,
+      "type": "backend"
+    },
+    {
+      "participant": "worker",
+      "from": 338,
+      "to": 442,
+      "type": "backend"
+    },
+    {
+      "participant": "api",
+      "from": 508,
+      "to": 582,
+      "type": "backend"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "rose",
+      "title": "Source credential security",
+      "items": [
+        "Passwords encrypted with AES-256-GCM",
+        "Ingestion process never sees system keys"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Never a partial write",
+      "items": [
+        "Results written in one transaction",
+        "A run can be rolled back"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Easy to scale",
+      "items": [
+        "Many runners work in parallel safely",
+        "Dedicated Query Engine connector with lineage views"
+      ]
+    }
+  ]
+}

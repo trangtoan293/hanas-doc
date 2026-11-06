@@ -5,7 +5,7 @@ sidebar_position: 7
 description: Overview of the query engine's SQL command groups, function groups, and data types, with common examples.
 ---
 
-This page summarizes what you can write in SQL Studio and through SQL clients. It is an overview and does not list every function; use autocomplete in [SQL Studio](sql-studio.md) to see the full list of functions.
+This page summarizes what you can write in the SQL Editor (opened from the **Workspaces** menu) and through SQL clients. It is an overview and does not list every function; use autocomplete in the [SQL Editor](sql-studio.md) to see the full list of functions.
 
 ## Command groups
 
@@ -82,6 +82,6 @@ This documentation does not claim full compatibility with the ANSI SQL standard 
 
 ## Next steps
 
-- [SQL Studio](sql-studio.md).
+- [SQL Editor](sql-studio.md).
 - [Iceberg tables](iceberg-tables.md).
 - [JDBC, ODBC, and Arrow Flight](../develop/sql-clients.md).

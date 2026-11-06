@@ -31,17 +31,17 @@ This table explains terms commonly found in the Hanas Data Platform documentatio
 
 **Checkpoint**: a marker of the progress of an Ingestion flow, used to resume or rerun. See [Schedules, checkpoints, and reruns](../connect/ingestion-schedules.md).
 
-**Compute**: the environment that runs Spark, PySpark, and notebooks on Kubernetes. See [Compute](../transform/compute.md).
+**Compute**: the environment that runs Spark, PySpark, and notebooks on Kubernetes; in Console it is the **Compute Engine** menu. See [Compute](../transform/compute.md).
 
 **Concept**: a business concept in the Ontology model. See [Ontology concepts](../ontology/concepts.md).
+
+**Connections**: the Console menu to view and add sources and browse data. See [Hanas Console tour](../get-started/console-tour.md).
 
 **Connector**: a component that connects to a specific type of data source. See [Directly queryable data sources](../connect/data-sources.md).
 
 ## D
 
 **Dashboard**: a collection of charts in Analytics. See [Analytics with Superset](../bi/superset.md).
-
-**Data Hub**: the Console area to view and add sources and browse data. See [Hanas Console tour](../get-started/console-tour.md).
 
 **Data Vault**: a modeling method that uses hubs, links, and satellites. See [Modeling standards](../transform/modeling-standards.md).
 
@@ -173,7 +173,7 @@ This table explains terms commonly found in the Hanas Data Platform documentatio
 
 **Spark**: the distributed processing engine used in Compute. See [Compute](../transform/compute.md).
 
-**SQL Studio**: the Console area to write and run SQL. See [SQL Studio](../query/sql-studio.md).
+**SQL Editor**: the Console area to write and run SQL, opened from the **Workspaces** menu. See [SQL Editor](../query/sql-studio.md).
 
 **SSE** (server-sent events): a mechanism for receiving streamed responses from the Kapas API. See [Kapas API and SSE](../develop/kapas-api.md).
 

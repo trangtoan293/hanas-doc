@@ -40,8 +40,8 @@ dbt projects share a common workspace: people with a dbt role see the projects, 
 
 ## Prepare a project
 
-1. Open **dbt** or **Develop** in Hanas Console to see the list of available projects.
-2. Choose **Create project**, **Import**, or **Clone**, whichever fits your existing code source.
+1. Open **dbt Studio** in Hanas Console. The menu has three sub-items: **Projects**, **Explore**, and **Orchestrate**. The landing page shows Recent projects and Quick actions (Create project, Manage connections, Run history), plus the **Open IDE**, **New project**, and **User guide** buttons.
+2. Choose **New project**, or the **Import** or **Clone** action, whichever fits your existing code source.
 3. Enter a meaningful project name that matches the naming conventions of your development team.
 4. Choose a template if you are starting from a template, or provide the repository when cloning existing code.
 5. Ask a dbt administrator to attach the connection and target used for the project's development environment.

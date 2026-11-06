@@ -5,6 +5,8 @@ sidebar_position: 6
 description: Realm, client, role, mapper, SSO giữa các thành phần, token exchange và cách phân biệt URL public với URL nội bộ trong Keycloak.
 ---
 
+import Diagram from '@site/src/components/Diagram';
+
 Hanas Data Platform dùng Keycloak làm nơi cấp danh tính chung. Trang này mô tả realm, client, role và cách các thành phần dùng token, để bạn cấu hình và chẩn đoán đăng nhập.
 
 ## Realm và tài khoản quản trị
@@ -67,6 +69,8 @@ Cấu hình `skipClients` mặc định rỗng, nên mọi client role được 
 
 ## SSO và token exchange
 
+<Diagram name="03-dang-nhap-phan-quyen" alt="Một lần đăng nhập, quyền đi theo người dùng" />
+
 1. Trình duyệt đăng nhập Keycloak qua client `odc`. Các ứng dụng dùng chung realm nhưng mỗi backend vẫn tự xác minh token và quyền.
 2. Query engine tự đổi mã OIDC ở phía server và cấp session riêng. Hanas Console còn lấy token Keycloak để gọi các dịch vụ khác.
 3. Ontology chấp nhận token có audience được cấu hình; khi token thiếu claim `tenant`, nó suy ra từ client phát hành token.
@@ -75,6 +79,8 @@ Cấu hình `skipClients` mặc định rỗng, nên mọi client role được 
 6. Hanas Catalog kiểm quyền theo phiên query engine của người xem. Nguồn chạy theo lịch dùng service PAT hoặc service account riêng, khác danh tính người xem.
 
 Chưa có bằng chứng kiểm chứng end-to-end về quyền token exchange và claims trong môi trường thực tế; hãy kiểm tra theo [Kiểm tra sức khỏe và giám sát](health-checks.md).
+
+Về phía giao diện, token cho tích hợp bên ngoài được quản lý tại **Settings** > **Integrations** > **External Tokens**. Token cá nhân của bạn nằm ở menu tài khoản, mục **Access Tokens**.
 
 ## URL public và URL nội bộ
 

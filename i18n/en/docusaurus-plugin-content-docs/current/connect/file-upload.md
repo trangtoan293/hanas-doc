@@ -2,19 +2,19 @@
 title: Upload files
 sidebar_label: Upload files
 sidebar_position: 2
-description: Upload CSV, JSON, Parquet, or Excel files to a workspace from the DATA tree in SQL Studio and choose a format before saving as a dataset.
+description: Upload CSV, JSON, Parquet, or Excel files to a workspace from the DATA tree in SQL Editor and choose a format before saving as a dataset.
 ---
 
 This page shows you how to upload a local file to your workspace so you can query it with SQL right away. This approach suits small reference data or one-off files; for data that updates regularly, use [data sources](./data-sources.md) or [Ingestion](./ingestion.md).
 
 ## Steps
 
-1. Open [SQL Studio](../query/sql-studio.md) and find **DATA** in the data tree.
+1. Open [SQL Editor](../query/sql-studio.md) (menu **Workspaces**) and find **DATA** in the data tree.
 2. Select your personal workspace (home) or a folder inside it, then select the **Upload** action.
 3. Select the file with the browse button or drag and drop it into the dialog. Set a dataset name if needed.
 4. In the next step, select the appropriate **Format** and adjust the options. The preview updates as you change settings.
 5. If the preview reports an error (for example, a CSV with the wrong delimiter), change the options and review again.
-6. Save. The file becomes a physical dataset in the selected folder; open it in SQL Studio or create a view.
+6. Save. The file becomes a physical dataset in the selected folder; open it in SQL Editor or create a view.
 
 ## Supported formats
 
@@ -45,6 +45,6 @@ The interface does not set an explicit size limit; the practical limit depends o
 
 ## Next steps
 
-- [SQL Studio](../query/sql-studio.md)
+- [SQL Editor](../query/sql-studio.md)
 - [Workspaces, folders, and views](../query/spaces-and-views.md)
 - [Query data sources in place](./data-sources.md)

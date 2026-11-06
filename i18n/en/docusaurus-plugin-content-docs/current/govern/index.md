@@ -7,6 +7,8 @@ description: The role of Hanas Catalog, how it differs from the query engine's e
 
 Hanas Catalog is where you search for, describe, and track the data assets of Hanas Data Platform. This section is for data stewards, analytics engineers, and administrators who need to know where data is, who owns it, where it comes from, and who can access it.
 
+In Hanas Console, Hanas Catalog lives under the **Data Governance** menu, with the **Glossary**, **Tags**, and **Data Sources** sub-items. The landing page of the menu is the metadata search.
+
 ## Two kinds of catalog in the platform
 
 Hanas Console has two concepts called "catalog" that serve different purposes. Keep them distinct so you know where to work.

@@ -21,7 +21,7 @@ Ví dụ, dữ liệu khách hàng, tài khoản và giao dịch có thể đư�
 
 ### Truy cập và truy vấn
 
-**Hanas Console** tập hợp các khu vực kết nối dữ liệu, SQL Studio, phát triển, quản trị và phân tích. Menu phụ thuộc quyền và tính năng được bật; mỗi backend vẫn kiểm tra quyền khi nhận yêu cầu.
+**Hanas Console** tập hợp các khu vực kết nối dữ liệu, SQL Editor, phát triển, quản trị và phân tích. Menu phụ thuộc quyền và tính năng được bật; mỗi backend vẫn kiểm tra quyền khi nhận yêu cầu.
 
 **Query Engine** thực thi SQL trên nguồn được hỗ trợ và bảng lakehouse. Thành phần này quản lý dataset, view, job, profile và Reflection, đồng thời cung cấp REST API và giao diện SQL client.
 

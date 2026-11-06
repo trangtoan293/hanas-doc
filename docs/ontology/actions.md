@@ -48,12 +48,12 @@ Trạng thái `completed` ghi nhận kết quả mà worker báo cáo. Nó khôn
 
 1. Mở trang chi tiết của một record có action.
 2. Chọn action, nhập parameters và gửi request.
-3. Theo dõi trong danh sách request của record hoặc danh sách request của bạn.
+3. Theo dõi trong danh sách request của record hoặc trong **Ontology** > **My requests**.
 4. Người duyệt xử lý request trong hộp thư phê duyệt.
 
 :::note Điều kiện
 
-Trang chi tiết chỉ hiện action khi ontology định nghĩa action cho object type. Hộp thư request và phê duyệt có route nhưng có thể không hiện trong thanh điều hướng của bản triển khai; liên hệ quản trị viên nếu bạn cần truy cập.
+Trang chi tiết chỉ hiện action khi ontology định nghĩa action cho object type. Mục **My requests** trong menu **Ontology** luôn hiển thị; đây là nơi bạn theo dõi các request đã gửi. Nếu bạn cần truy cập hộp thư phê duyệt, liên hệ quản trị viên.
 
 :::
 

@@ -113,7 +113,7 @@ create table raw_vault.sat_customer_detail (
 );
 ```
 
-Kiểu dữ liệu và cú pháp tạo bảng phụ thuộc nơi bạn tạo: bảng Iceberg qua [SQL Studio](../query/sql-studio.md) hoặc materialization của dbt.
+Kiểu dữ liệu và cú pháp tạo bảng phụ thuộc nơi bạn tạo: bảng Iceberg qua [SQL Editor](../query/sql-studio.md) (menu **Workspaces**) hoặc materialization của dbt.
 
 ## Giới hạn
 

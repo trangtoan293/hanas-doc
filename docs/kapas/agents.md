@@ -25,7 +25,7 @@ Bạn chỉ thấy và dùng được tool mà template của agent đã bật. 
 | Hanas Analyst | Hỏi đáp dữ liệu, chạy metric, truy vấn chỉ đọc, trích dẫn số liệu | Console |
 | Analytics Studio Copilot | Tạo dataset, chart, dashboard trên Superset | Console, nhúng |
 | Dashboard Copilot | Chỉnh dashboard qua spec YAML, kiểm tra rồi tạo dashboard bản nháp | Console, nhúng |
-| SQL Copilot | Viết, sửa, giải thích, kiểm tra SQL trong SQL Studio | Console, nhúng |
+| SQL Copilot | Viết, sửa, giải thích, kiểm tra SQL trong SQL Editor | Console, nhúng |
 | Catalog Steward | Tìm asset, lineage, độ mới; kiểm tra và cập nhật metadata trong Hanas Catalog | Console, nhúng |
 | Ontology Assistant | Duyệt object, quan hệ và metric Ontology | Console, nhúng |
 | Project Copilot | Hỗ trợ project dbt: model, lineage, lệnh dbt, báo cáo dạng board | Console, nhúng |

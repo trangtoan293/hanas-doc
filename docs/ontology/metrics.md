@@ -59,7 +59,7 @@ Execution của metric gồm các lựa chọn sau.
 
 ## Các bước tạo metric
 
-1. Mở **Metrics** trong Workbench.
+1. Mở **Open Build** của project (hoặc **Ontology** > **Workbench**), rồi mở **Metrics**.
 2. Nhập tên, mô tả, đơn vị và công thức hoặc tham chiếu.
 3. Cấu hình execution, context và placement.
 4. Chọn **Validate**, sau đó xem **compile preview**.

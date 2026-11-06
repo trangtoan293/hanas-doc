@@ -11,7 +11,7 @@ This page shows you how to ask questions about data with Hanas Analyst and SQL C
 
 - **Hanas Analyst**: the agent that answers data questions. It finds suitable tables and columns, calls a query or metric, and answers in Vietnamese.
 - **Metric**: an indicator declared and published in the Ontology. When a suitable metric exists, Kapas builds SQL from the metric definition instead of letting the model write the formula itself.
-- **SQL Copilot**: the agent that helps write, fix, explain, and check SQL in SQL Studio.
+- **SQL Copilot**: the agent that helps write, fix, explain, and check SQL in the **SQL Editor**.
 
 ## Requirements
 
@@ -21,8 +21,8 @@ This page shows you how to ask questions about data with Hanas Analyst and SQL C
 
 ## Steps
 
-1. Sign in to Kapas Console with SSO.
-2. Select the **Hanas Analyst** agent in the agent list.
+1. Sign in to Hanas Console with SSO, then open the **AI Agent** menu in the left sidebar.
+2. Choose **New chat** to start a new conversation, or pick an earlier one from the chat history. Select the **Hanas Analyst** agent in the agent list.
 3. Enter your question. State the indicator, what to group by (grain), and the **as-of date** if you want a balance at a point in time.
 4. Follow the streaming response. Tool call steps appear directly in the chat panel.
 5. Read the answer, which includes source tables, filters, units, and notes. Open the citation to check the original query.
@@ -63,9 +63,9 @@ The metric compiler rejects or warns when the as-of date is missing, a metric na
 
 Hanas Analyst is instructed to distinguish period figures from balances at a point in time, and not to translate code values on its own. This is guidance for the model, not a hard constraint; verify sensitive business indicators.
 
-## Q&A in SQL Studio
+## Q&A in the SQL Editor
 
-When Kapas is embedded in SQL Studio, SQL Copilot receives the editor content, the selection, and job errors sent by the application. The agent validates SQL with `EXPLAIN` and offers to insert or open SQL; the editor operation is performed by the UI after you confirm. A standalone Kapas Console does not know what the editor contains.
+Kapas is also embedded as an **AI Agent** side panel next to the editor in the **SQL Editor** (menu **Workspaces**). SQL Copilot receives the editor content, the selection, and job errors sent by the application. The agent validates SQL with `EXPLAIN` and offers to insert or open SQL; the editor operation is performed by the UI after you confirm. A standalone Kapas Console does not know what the editor contains.
 
 ## Charts in conversation
 
@@ -94,4 +94,4 @@ The agent can return a table or chart directly in the chat. This is a temporary 
 
 - [Reports, citations, and schedules](reports-and-schedules.md)
 - [Agents, skills, and tools](agents.md)
-- [SQL Studio](../query/sql-studio.md)
+- [SQL Editor](../query/sql-studio.md)

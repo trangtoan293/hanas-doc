@@ -1,0 +1,233 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "AI Assistant Working With the User",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1060,
+      620
+    ],
+    "column_fit": "spread",
+    "views": [
+      {
+        "id": "dinh-tuyen",
+        "label": "Pick the right agent",
+        "focus": [
+          "user",
+          "panel",
+          "kapas"
+        ],
+        "note": "Each screen has a dedicated agent; questions are routed automatically."
+      },
+      {
+        "id": "phe-duyet",
+        "label": "Approve actions",
+        "focus": [
+          "kapas",
+          "panel",
+          "user"
+        ],
+        "note": "Write commands and non-read-only SQL always wait for user approval."
+      },
+      {
+        "id": "du-lieu",
+        "label": "Permissioned queries",
+        "focus": [
+          "kapas",
+          "tools",
+          "query-engine"
+        ],
+        "note": "The agent uses the asker's own permissions."
+      }
+    ],
+    "locale": "en"
+  },
+  "participants": [
+    {
+      "id": "user",
+      "type": "external",
+      "label": "User",
+      "sublabel": "asks questions"
+    },
+    {
+      "id": "panel",
+      "type": "frontend",
+      "label": "AI panel",
+      "sublabel": "on every screen"
+    },
+    {
+      "id": "kapas",
+      "type": "backend",
+      "label": "Kapas",
+      "sublabel": "agent runtime"
+    },
+    {
+      "id": "tools",
+      "type": "backend",
+      "label": "Hanas tools",
+      "sublabel": "dbt · SQL · chart"
+    },
+    {
+      "id": "query-engine",
+      "type": "backend",
+      "label": "Query Engine",
+      "sublabel": "data"
+    }
+  ],
+  "segments": [
+    {
+      "from": 150,
+      "to": 248,
+      "label": "Ask"
+    },
+    {
+      "from": 254,
+      "to": 380,
+      "label": "Work"
+    },
+    {
+      "from": 386,
+      "to": 540,
+      "label": "Control"
+    }
+  ],
+  "messages": [
+    {
+      "from": "user",
+      "to": "panel",
+      "y": 174,
+      "label": "question in Vietnamese",
+      "variant": "emphasis"
+    },
+    {
+      "from": "panel",
+      "to": "kapas",
+      "y": 202,
+      "label": "ask + screen context",
+      "variant": "emphasis"
+    },
+    {
+      "from": "kapas",
+      "to": "panel",
+      "y": 230,
+      "label": "stream answer",
+      "variant": "return"
+    },
+    {
+      "from": "kapas",
+      "to": "tools",
+      "y": 278,
+      "label": "call tools",
+      "variant": "emphasis"
+    },
+    {
+      "from": "tools",
+      "to": "query-engine",
+      "y": 306,
+      "label": "read-only SQL",
+      "variant": "security"
+    },
+    {
+      "from": "query-engine",
+      "to": "tools",
+      "y": 334,
+      "label": "permissioned results",
+      "variant": "return"
+    },
+    {
+      "from": "tools",
+      "to": "kapas",
+      "y": 362,
+      "label": "data + charts",
+      "variant": "return"
+    },
+    {
+      "from": "kapas",
+      "to": "panel",
+      "y": 410,
+      "label": "request approval",
+      "variant": "security"
+    },
+    {
+      "from": "panel",
+      "to": "user",
+      "y": 438,
+      "label": "approval card",
+      "variant": "security"
+    },
+    {
+      "from": "user",
+      "to": "panel",
+      "y": 466,
+      "label": "approve / reject",
+      "variant": "emphasis"
+    },
+    {
+      "from": "panel",
+      "to": "kapas",
+      "y": 494,
+      "label": "decision",
+      "variant": "default"
+    },
+    {
+      "from": "panel",
+      "to": "user",
+      "y": 522,
+      "label": "update screen",
+      "variant": "return"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "panel",
+      "from": 168,
+      "to": 240,
+      "type": "frontend"
+    },
+    {
+      "participant": "kapas",
+      "from": 196,
+      "to": 370,
+      "type": "backend"
+    },
+    {
+      "participant": "tools",
+      "from": 272,
+      "to": 370,
+      "type": "backend"
+    },
+    {
+      "participant": "panel",
+      "from": 404,
+      "to": 538,
+      "type": "frontend"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "violet",
+      "title": "Agent per screen",
+      "items": [
+        "SQL Copilot, Project Copilot, Dashboard Copilot",
+        "Agent picked from the question"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "4 safety levels",
+      "items": [
+        "STRICT · SMART · AUTO · OFF",
+        "Write actions need user approval"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "No privilege escalation",
+      "items": [
+        "Agent uses the asker's token",
+        "Screen context carries no row data"
+      ]
+    }
+  ]
+}

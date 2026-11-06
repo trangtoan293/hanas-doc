@@ -2,19 +2,19 @@
 title: Tải tệp lên
 sidebar_label: Tải tệp lên
 sidebar_position: 2
-description: Tải tệp CSV, JSON, Parquet hoặc Excel lên workspace từ cây DATA của SQL Studio và chọn định dạng trước khi lưu thành dataset.
+description: Tải tệp CSV, JSON, Parquet hoặc Excel lên workspace từ cây DATA của SQL Editor và chọn định dạng trước khi lưu thành dataset.
 ---
 
 Trang này hướng dẫn bạn tải một tệp cục bộ lên workspace của mình để truy vấn ngay bằng SQL. Cách này phù hợp với dữ liệu tham chiếu nhỏ hoặc tệp dùng một lần; với dữ liệu thường xuyên cập nhật, hãy dùng [nguồn dữ liệu](./data-sources.md) hoặc [Ingestion](./ingestion.md).
 
 ## Các bước
 
-1. Mở [SQL Studio](../query/sql-studio.md) và tìm **DATA** trong cây dữ liệu.
+1. Mở [SQL Editor](../query/sql-studio.md) (menu **Workspaces**) và tìm **DATA** trong cây dữ liệu.
 2. Chọn workspace cá nhân (home) hoặc một folder bên trong, rồi chọn thao tác **Upload**.
 3. Chọn tệp bằng nút duyệt hoặc kéo thả vào hộp thoại. Đặt tên dataset nếu cần.
 4. Ở bước tiếp theo, chọn **Format** phù hợp và chỉnh tuỳ chọn. Bản xem trước cập nhật theo thiết lập của bạn.
 5. Nếu bản xem trước báo lỗi (ví dụ CSV sai dấu phân tách), đổi tuỳ chọn rồi xem lại.
-6. Lưu. Tệp trở thành physical dataset trong folder đã chọn; mở trong SQL Studio hoặc tạo view.
+6. Lưu. Tệp trở thành physical dataset trong folder đã chọn; mở trong SQL Editor hoặc tạo view.
 
 ## Định dạng hỗ trợ
 
@@ -45,6 +45,6 @@ Giao diện không đặt giới hạn dung lượng rõ ràng; giới hạn th�
 
 ## Tiếp theo
 
-- [SQL Studio](../query/sql-studio.md)
+- [SQL Editor](../query/sql-studio.md)
 - [Workspace, folder và view](../query/spaces-and-views.md)
 - [Nguồn dữ liệu truy vấn trực tiếp](./data-sources.md)

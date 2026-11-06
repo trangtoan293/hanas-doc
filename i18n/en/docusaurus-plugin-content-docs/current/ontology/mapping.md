@@ -37,7 +37,7 @@ An entity that needs a runtime but lacks a dataset or primary key blocks release
 
 ### 1. Select the data source
 
-1. Open the **Workbench** of the workspace and switch to **Mapping**.
+1. From the project card in **Ontology** > **Explore**, choose **Open Build** (or open **Ontology** > **Workbench**), then switch to **Mapping**.
 2. Select the concept to map.
 3. Select a dataset from the list of sources, schemas, tables, or views, or use the system's source suggestions.
 4. Check the dataset's schema and data sample.

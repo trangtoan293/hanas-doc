@@ -11,7 +11,7 @@ Trang này hướng dẫn bạn đặt câu hỏi về dữ liệu với Hanas A
 
 - **Hanas Analyst**: agent trả lời câu hỏi dữ liệu. Agent tìm bảng và cột phù hợp, gọi truy vấn hoặc metric, rồi trả lời bằng tiếng Việt.
 - **Metric**: chỉ số đã được khai báo và phát hành trong Ontology. Khi có metric phù hợp, Kapas dựng SQL từ định nghĩa metric thay vì để mô hình tự viết công thức.
-- **SQL Copilot**: agent hỗ trợ viết, sửa, giải thích và kiểm tra SQL trong SQL Studio.
+- **SQL Copilot**: agent hỗ trợ viết, sửa, giải thích và kiểm tra SQL trong **SQL Editor**.
 
 ## Điều kiện cần
 
@@ -21,8 +21,8 @@ Trang này hướng dẫn bạn đặt câu hỏi về dữ liệu với Hanas A
 
 ## Các bước
 
-1. Đăng nhập Kapas Console bằng SSO.
-2. Chọn agent **Hanas Analyst** trong danh sách agent.
+1. Đăng nhập Hanas Console bằng SSO, rồi mở menu **AI Agent** ở thanh bên trái.
+2. Chọn **New chat** để bắt đầu hội thoại mới, hoặc chọn một hội thoại trong lịch sử chat. Chọn agent **Hanas Analyst** trong danh sách agent.
 3. Nhập câu hỏi, nêu rõ chỉ số, nhóm theo gì (grain) và **ngày chốt** nếu là số dư tại một thời điểm.
 4. Theo dõi phản hồi streaming. Các bước gọi tool hiện ngay trong khung chat.
 5. Đọc câu trả lời kèm bảng nguồn, bộ lọc, đơn vị và các lưu ý. Mở trích dẫn để đối chiếu truy vấn gốc.
@@ -63,9 +63,9 @@ Compiler metric từ chối hoặc cảnh báo khi thiếu ngày chốt, metric 
 
 Hanas Analyst được hướng dẫn phân biệt số liệu theo kỳ với số dư tại một thời điểm, và không tự dịch giá trị mã. Phần này là chỉ dẫn cho mô hình, không phải ràng buộc cứng; hãy kiểm tra các chỉ số nghiệp vụ nhạy cảm.
 
-## Hỏi đáp trong SQL Studio
+## Hỏi đáp trong SQL Editor
 
-Khi Kapas được nhúng trong SQL Studio, SQL Copilot nhận nội dung editor, vùng chọn và lỗi job do ứng dụng gửi sang. Agent kiểm tra SQL bằng `EXPLAIN`, đề nghị chèn hoặc mở SQL; thao tác trên editor do giao diện thực hiện sau khi bạn xác nhận. Kapas Console độc lập không biết editor đang chứa gì.
+Kapas cũng được nhúng dưới dạng panel **AI Agent** bên cạnh trình soạn thảo trong **SQL Editor** (menu **Workspaces**). SQL Copilot nhận nội dung editor, vùng chọn và lỗi job do ứng dụng gửi sang. Agent kiểm tra SQL bằng `EXPLAIN`, đề nghị chèn hoặc mở SQL; thao tác trên editor do giao diện thực hiện sau khi bạn xác nhận. Kapas Console độc lập không biết editor đang chứa gì.
 
 ## Biểu đồ trong hội thoại
 
@@ -94,4 +94,4 @@ Agent có thể trả bảng hoặc biểu đồ ngay trong chat. Đây là hi�
 
 - [Báo cáo, trích dẫn và lịch chạy](reports-and-schedules.md)
 - [Agent, skill và tool](agents.md)
-- [SQL Studio](../query/sql-studio.md)
+- [SQL Editor](../query/sql-studio.md)

@@ -51,7 +51,7 @@ Concept có thể được giữ làm từ vựng nghiệp vụ mà chưa cần 
 
 ## Bạn có thể làm gì?
 
-Người thiết kế dùng **Ontology Workspace** để soạn concept, cấu hình mapping và chuẩn bị phát hành. Draft được kiểm tra trước khi admin publish và kích hoạt deployment.
+Người thiết kế dùng **Ontology Workspace** để soạn concept, cấu hình mapping và chuẩn bị phát hành. Draft được kiểm tra trước khi admin publish và kích hoạt deployment. Trong Hanas Console, công việc được tổ chức theo project: mở menu **Ontology** > **Explore**, chọn **Create project** hoặc chọn **Open Build** trên thẻ project. Menu **Ontology** gồm **Explore**, **My requests**, **Workbench**, **Governance** và **Settings**.
 
 Người dùng nghiệp vụ dùng **Explore** để tìm object type, lọc record và đi theo các quan hệ đã khai báo. Metric được hiển thị theo vị trí và ngữ cảnh mà người thiết kế cấu hình.
 
