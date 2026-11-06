@@ -1,0 +1,50 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.product.category.get-started": {
+    "message": "Get started",
+    "description": "The label for category 'Bắt đầu' in sidebar 'product'"
+  },
+  "sidebar.product.category.connect": {
+    "message": "Connect data",
+    "description": "The label for category 'Kết nối dữ liệu' in sidebar 'product'"
+  },
+  "sidebar.product.category.query": {
+    "message": "Query Engine",
+    "description": "The label for category 'Query Engine' in sidebar 'product'"
+  },
+  "sidebar.product.category.transform": {
+    "message": "Transform & Model",
+    "description": "The label for category 'Biến đổi & Mô hình hóa' in sidebar 'product'"
+  },
+  "sidebar.product.category.govern": {
+    "message": "Catalog & Governance",
+    "description": "The label for category 'Catalog & Quản trị dữ liệu' in sidebar 'product'"
+  },
+  "sidebar.product.category.ontology": {
+    "message": "Ontology",
+    "description": "The label for category 'Ontology' in sidebar 'product'"
+  },
+  "sidebar.product.category.kapas": {
+    "message": "Kapas AI",
+    "description": "The label for category 'Kapas AI' in sidebar 'product'"
+  },
+  "sidebar.product.category.bi": {
+    "message": "Dashboard & BI",
+    "description": "The label for category 'Dashboard & BI' in sidebar 'product'"
+  },
+  "sidebar.operate.doc.Tổng quan vận hành": {
+    "message": "Operations overview",
+    "description": "The label for the doc item 'Tổng quan vận hành' in sidebar 'operate', linking to the doc operate/index"
+  },
+  "sidebar.develop.doc.Tổng quan tích hợp": {
+    "message": "Integration overview",
+    "description": "The label for the doc item 'Tổng quan tích hợp' in sidebar 'develop', linking to the doc develop/index"
+  },
+  "sidebar.reference.doc.Tham chiếu": {
+    "message": "Reference",
+    "description": "The label for the doc item 'Tham chiếu' in sidebar 'reference', linking to the doc reference/index"
+  }
+}

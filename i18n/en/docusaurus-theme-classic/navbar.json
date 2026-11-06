@@ -1,0 +1,26 @@
+{
+  "title": {
+    "message": "Hanas Docs",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "Hanas Data Platform",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Sản phẩm": {
+    "message": "Product",
+    "description": "Navbar item with label Sản phẩm"
+  },
+  "item.label.Triển khai & Vận hành": {
+    "message": "Deploy & Operate",
+    "description": "Navbar item with label Triển khai & Vận hành"
+  },
+  "item.label.API & Tích hợp": {
+    "message": "APIs & Integration",
+    "description": "Navbar item with label API & Tích hợp"
+  },
+  "item.label.Tham chiếu": {
+    "message": "Reference",
+    "description": "Navbar item with label Tham chiếu"
+  }
+}
