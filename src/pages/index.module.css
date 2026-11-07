@@ -1,0 +1,16 @@
+.landingPage {
+  overflow-x: clip;
+  background: var(--hanas-bg-page);
+}
+
+/* Even line lengths so a heading never ends on one orphan word. */
+.landingPage :is(h1, h2, h3) {
+  text-wrap: balance;
+}
+
+/* Each heading line is one phrase; size it so a phrase fits a phone line. */
+@media (max-width: 767px) {
+  .landingPage section h2 {
+    font-size: clamp(1.75rem, 7.4vw, 2.2rem);
+  }
+}

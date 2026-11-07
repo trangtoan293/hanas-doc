@@ -1,0 +1,416 @@
+/* Chapters 03 (Ontology) and 04 (Kapas agent). Same card language as the gateway card in styles.module.css. */
+
+.panel {
+  --accent: var(--oc0);
+  --accent-soft: var(--oc1);
+  --ok: var(--oc2);
+  --violet: var(--oc3);
+  --ink: var(--oc4);
+  --muted: var(--oc5);
+  --line: var(--oc6);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(560px, 92%);
+  color: var(--oc7);
+  font-family: 'Be Vietnam Pro', system-ui, sans-serif;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 8% 0%, var(--oc8), transparent 40%),
+    linear-gradient(145deg, var(--oc9), var(--oc10));
+  box-shadow: 0 24px 48px -12px var(--oc11);
+  transform: translate(-50%, -50%);
+}
+
+.panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 28px;
+  left: 28px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--oc12);
+}
+
+.mark {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  color: var(--accent);
+  border: 1px solid var(--oc13);
+  border-radius: 8px;
+  background: var(--accent-soft);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.agent .mark {
+  color: var(--violet);
+  background: var(--oc14);
+}
+
+.identity {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.identity strong {
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.identity small {
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+}
+
+.badge {
+  padding: 4px 8px;
+  color: var(--ok);
+  border: 1px solid var(--oc15);
+  border-radius: 999px;
+  background: var(--oc16);
+  font-size: 9px;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ---------- Ontology graph ---------- */
+
+.graph {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px 120px;
+  padding: 26px 22px;
+}
+
+.edges {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.edges line {
+  stroke: var(--oc17);
+  stroke-width: 1.2;
+  stroke-dasharray: 4 4;
+  vector-effect: non-scaling-stroke;
+  animation: flow 1.6s linear infinite;
+}
+
+@keyframes flow {
+  to {
+    stroke-dashoffset: -16;
+  }
+}
+
+.node {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  align-content: flex-start;
+  padding: 10px 12px;
+  border: 1px solid var(--oc18);
+  border-radius: 9px;
+  background: var(--oc19);
+}
+
+.node strong {
+  width: 100%;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.node code,
+.footer code,
+.steps code {
+  padding: 1px 5px;
+  color: var(--oc20);
+  border-radius: 4px;
+  background: var(--oc21);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+}
+
+.edgeLabel {
+  position: absolute;
+  z-index: 2;
+  padding: 2px 7px;
+  color: var(--accent);
+  border: 1px solid var(--oc22);
+  border-radius: 999px;
+  background: var(--oc23);
+  font-size: 9.5px;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+}
+
+.edgeLabel[data-edge='top'] { top: 30%; left: 50%; }
+.edgeLabel[data-edge='bottom'] { top: 70%; left: 50%; }
+.edgeLabel[data-edge='left'] { top: 50%; left: 27%; }
+.edgeLabel[data-edge='right'] { top: 50%; left: 73%; }
+
+.metricHub {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 3;
+  display: grid;
+  gap: 3px;
+  padding: 9px 12px;
+  text-align: center;
+  border: 1px solid var(--oc24);
+  border-radius: 10px;
+  background: var(--oc25);
+  box-shadow: 0 10px 24px -8px var(--oc26);
+  transform: translate(-50%, -50%);
+}
+
+.metricHub small {
+  color: var(--violet);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.metricHub strong {
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 14px;
+  color: var(--muted);
+  border-top: 1px solid var(--oc12);
+  font-size: 10px;
+}
+
+.footer span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.footer i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ok);
+}
+
+/* ---------- Kapas agent ---------- */
+
+.thread {
+  display: grid;
+  gap: 12px;
+  padding: 16px 16px 18px;
+}
+
+.question {
+  justify-self: end;
+  max-width: 82%;
+  margin: 0;
+  padding: 10px 13px;
+  color: var(--oc23);
+  border-radius: 12px 12px 3px 12px;
+  background: var(--oc27);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.steps {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.steps li {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  padding: 7px 10px;
+  border: 1px solid var(--oc28);
+  border-radius: 8px;
+  background: var(--oc29);
+  font-size: 11px;
+}
+
+/* On narrow screens the detail chip drops under the label instead of squeezing it mid-word. */
+@media (max-width: 480px) {
+  .steps li {
+    grid-template-columns: 14px minmax(0, 1fr);
+  }
+
+  .steps code {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+
+.steps i {
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid var(--ok);
+  border-radius: 50%;
+  background: linear-gradient(var(--ok), var(--ok)) center / 6px 6px no-repeat;
+}
+
+.answer {
+  display: grid;
+  gap: 8px;
+  max-width: 92%;
+  padding: 12px 14px;
+  border: 1px solid var(--oc30);
+  border-radius: 12px 12px 12px 3px;
+  background: var(--oc31);
+}
+
+.answer p {
+  margin: 0;
+  color: var(--ink);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+.answer strong {
+  color: var(--oc32);
+}
+
+.answer small {
+  color: var(--muted);
+  font-size: 9.5px;
+}
+
+.bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 54px;
+}
+
+.bars span {
+  flex: 1;
+  height: var(--bar);
+  border-radius: 3px 3px 0 0;
+  background: linear-gradient(180deg, var(--violet), var(--oc33));
+}
+
+.bars span:last-child {
+  background: linear-gradient(180deg, var(--accent), var(--oc22));
+}
+
+/* Steps and answer arrive in order once the chapter layer turns active (class on the parent layer). */
+:global(.journey-layer-active) .steps li,
+:global(.journey-layer-active) .answer,
+:global(.journey-layer-active) .node,
+:global(.journey-layer-active) .metricHub {
+  animation: arrive 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+:global(.journey-layer-active) .steps li:nth-child(1) { animation-delay: 380ms; }
+:global(.journey-layer-active) .steps li:nth-child(2) { animation-delay: 700ms; }
+:global(.journey-layer-active) .steps li:nth-child(3) { animation-delay: 1020ms; }
+:global(.journey-layer-active) .answer { animation-delay: 1400ms; }
+:global(.journey-layer-active) .node:nth-of-type(2) { animation-delay: 120ms; }
+:global(.journey-layer-active) .node:nth-of-type(3) { animation-delay: 240ms; }
+:global(.journey-layer-active) .node:nth-of-type(4) { animation-delay: 360ms; }
+:global(.journey-layer-active) .metricHub { animation-delay: 560ms; }
+
+@keyframes arrive {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+    translate: 0 8px;
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    translate: 0 0;
+  }
+}
+
+/* ---------- Mobile / reduced motion: shown inside the chapter text ---------- */
+
+.mobile {
+  display: none;
+}
+
+@media (max-width: 900px), (prefers-reduced-motion: reduce) {
+  .mobile {
+    position: relative;
+    top: auto;
+    left: auto;
+    display: block;
+    width: 100%;
+    max-width: 520px;
+    margin-top: 18px;
+    transform: none;
+  }
+
+  .mobile .graph {
+    gap: 14px;
+    padding: 18px 16px;
+  }
+
+  /* No room for the centered hub on a phone: it drops below the four cards. */
+  .mobile .edges {
+    display: none;
+  }
+
+  .mobile .metricHub {
+    position: static;
+    grid-column: 1 / -1;
+    transform: none;
+  }
+
+  .mobile .edgeLabel {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .edges line {
+    animation: none;
+  }
+
+  :global(.journey-layer-active) .steps li,
+  :global(.journey-layer-active) .answer,
+  :global(.journey-layer-active) .node,
+  :global(.journey-layer-active) .metricHub {
+    animation: none;
+  }
+}

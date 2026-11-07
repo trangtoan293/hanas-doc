@@ -6,281 +6,100 @@
  * work well for content-centric websites.
  */
 
-/* Unified White Theme */
+/*
+ * Hanas palette. One blue accent and one navy ladder, shared by the landing
+ * page, the docs and the navbar/footer chrome. Components read the --hanas-*
+ * tokens; Infima variables are mapped onto them so docs follow the same theme.
+ */
 :root {
-  /* Primary Colors - Restrained Enterprise Blue */
-  --ifm-color-primary: #527b9c;
-  --ifm-color-primary-dark: #466c8a;
-  --ifm-color-primary-darker: #3d617d;
-  --ifm-color-primary-darkest: #2d4b63;
-  --ifm-color-primary-light: #6c93b4;
-  --ifm-color-primary-lighter: #8cabc4;
-  --ifm-color-primary-lightest: #c8d9e8;
-
-  /* Background Colors - White Theme */
-  --ifm-background-color: #ffffff;
-  --ifm-surface-color: #f9fafb;
-  --ifm-navbar-background-color: #ffffff;
-
-  /* Text Colors */
-  --ifm-font-color-base: #111827;
-  --ifm-font-color-secondary: #6b7280;
-  --ifm-font-color-muted: #9ca3af;
-
-  /* Border & Divider */
-  /* Border & Divider */
-  --ifm-border-color: #e5e7eb;
-
-  /* Accent Colors - Blue */
-  --ifm-color-accent: #6c93b4;
-  --ifm-color-accent-dark: #527b9c;
-  --ifm-color-accent-light: #9eb9cf;
-  --ifm-color-accent-subtle: #edf3f7;
-  --ifm-color-indigo: #758ca4;
-
-  /* Hanas landing page design tokens */
   --hanas-bg-page: #f7f8f8;
   --hanas-bg-surface: #ffffff;
-  --hanas-bg-soft: #f0f3f5;
-  --hanas-text-primary: #111418;
-  --hanas-text-secondary: #697078;
-  --hanas-text-muted: #969da5;
-  --hanas-border-soft: #e5e8ea;
+  --hanas-bg-soft: #eef2f5;
+  --hanas-text-primary: #0e1620;
+  --hanas-text-secondary: #4a5561;
+  --hanas-text-muted: #66727e;
+  --hanas-border-soft: #dce5ec;
+  --hanas-border-strong: #c3d1dc;
+  --hanas-accent: #2c6fa6;
+  --hanas-accent-strong: #235b8a;
+  --hanas-accent-soft: #c8d9e8;
+  --hanas-accent-tint: rgba(44, 111, 166, 0.08);
+  --hanas-focus: rgba(44, 111, 166, 0.55);
+  --hanas-shadow: rgba(30, 64, 96, 0.1);
+  /* Navy panels stay dark in both themes: video frames, story cards, CTA. */
   --hanas-navy-950: #07111c;
   --hanas-navy-900: #0c1723;
   --hanas-navy-850: #122131;
-  --hanas-accent: #6c93b4;
-  --hanas-accent-soft: #c8d9e8;
+  --hanas-on-navy: #edf4f9;
+  --hanas-on-navy-muted: #a9bccd;
+  --hanas-on-navy-accent: #a4c9e8;
+  --hanas-panel-edge: transparent;
 
-  /* Shadows */
+  --ifm-color-primary: #2c6fa6;
+  --ifm-color-primary-dark: #286495;
+  --ifm-color-primary-darker: #255e8d;
+  --ifm-color-primary-darkest: #1f4e74;
+  --ifm-color-primary-light: #3079b6;
+  --ifm-color-primary-lighter: #4a89bd;
+  --ifm-color-primary-lightest: #75a6cf;
+
+  --ifm-background-color: var(--hanas-bg-surface);
+  --ifm-background-surface-color: var(--hanas-bg-page);
+  --ifm-navbar-background-color: var(--hanas-bg-surface);
+  --ifm-font-color-base: var(--hanas-text-primary);
+  --ifm-font-color-secondary: var(--hanas-text-secondary);
+  --ifm-color-emphasis-300: var(--hanas-border-soft);
+  --ifm-toc-border-color: var(--hanas-border-soft);
+  --ifm-hr-background-color: var(--hanas-border-soft);
+  --ifm-color-accent: var(--hanas-accent);
+  --ifm-color-accent-dark: var(--hanas-accent-strong);
+  --ifm-color-accent-subtle: var(--hanas-accent-tint);
+  --ifm-menu-color: var(--hanas-text-secondary);
+
   --ifm-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --ifm-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --ifm-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-
-  /* Border Radius */
   --ifm-radius-sm: 4px;
   --ifm-radius-md: 8px;
   --ifm-radius-lg: 12px;
 
-  /* Default Infima Variables */
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.05);
+  --docusaurus-highlighted-code-line-bg: rgba(44, 111, 166, 0.08);
   --ifm-font-family-base: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --ifm-heading-font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --ifm-navbar-height: clamp(72px, 4vw, 84px);
-
-  /* CTA Banner - Light Mode Variables */
-  --cta-bg-primary: #0f172a;
-  --cta-bg-secondary: #1e293b;
-  --cta-bg-hover: rgba(255, 255, 255, 0.1);
-  --cta-card-bg: rgba(255, 255, 255, 0.05);
-  --cta-text-primary: #ffffff;
-  --cta-text-secondary: #e2e8f0;
-  --cta-text-muted: #94a3b8;
-  --cta-border-subtle: rgba(255, 255, 255, 0.2);
-  --cta-border-hover: rgba(255, 255, 255, 0.4);
-  --cta-input-bg: rgba(255, 255, 255, 0.1);
-  --cta-input-focus: rgba(255, 255, 255, 0.15);
-  --cta-accent-hover: #60A5FA;
-
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.05);
-  --ifm-font-family-base: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-/* Dark Mode - Dark Gray Theme */
 [data-theme='dark'] {
-  --ifm-color-primary: #9ca3af;
-  --ifm-color-primary-dark: #d1d5db;
-  --ifm-color-primary-darker: #e5e7eb;
-  --ifm-color-primary-darkest: #f3f4f6;
-  --ifm-color-primary-light: #6b7280;
-  --ifm-color-primary-lighter: #4b5563;
-  --ifm-color-primary-lightest: #374151;
-  --ifm-background-color: #111827;
-  --ifm-surface-color: #1f2937;
-  --ifm-navbar-background-color: #111827;
-  --ifm-font-color-base: #f9fafb;
-  --ifm-font-color-secondary: #d1d5db;
-  --ifm-border-color: #374151;
+  --hanas-bg-page: #0d151e;
+  --hanas-bg-surface: #16212d;
+  --hanas-bg-soft: #1b2734;
+  --hanas-text-primary: #f3f6f9;
+  --hanas-text-secondary: #b4c0cc;
+  --hanas-text-muted: #8f9eac;
+  --hanas-border-soft: #263545;
+  --hanas-border-strong: #33465a;
+  --hanas-accent: #7fb3de;
+  --hanas-accent-strong: #a4c9e8;
+  --hanas-accent-soft: #c8d9e8;
+  --hanas-accent-tint: rgba(127, 179, 222, 0.12);
+  --hanas-focus: rgba(127, 179, 222, 0.7);
+  --hanas-shadow: rgba(0, 0, 0, 0.35);
+  --hanas-panel-edge: rgba(127, 179, 222, 0.2);
 
-  /* Accent Colors - Dark Mode */
-  --ifm-color-accent: #8fadc5;
-  --ifm-color-accent-dark: #a8c1d4;
-  --ifm-color-accent-light: #6c93b4;
-  --ifm-color-accent-subtle: rgba(108, 147, 180, 0.14);
-  --ifm-color-indigo: #93a8bb;
+  --ifm-color-primary: #7fb3de;
+  --ifm-color-primary-dark: #66a4d7;
+  --ifm-color-primary-darker: #5a9cd4;
+  --ifm-color-primary-darkest: #3683c3;
+  --ifm-color-primary-light: #98c2e5;
+  --ifm-color-primary-lighter: #a4c9e8;
+  --ifm-color-primary-lightest: #c8def0;
 
-  /* Shadows - Dark Mode */
+  --ifm-background-color: var(--hanas-bg-page);
+  --ifm-background-surface-color: var(--hanas-bg-surface);
+  --ifm-navbar-background-color: var(--hanas-bg-page);
   --ifm-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --ifm-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
-  --ifm-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
-
-  /* Border Radius - Dark Mode */
-  --ifm-radius-sm: 4px;
-  --ifm-radius-md: 8px;
-  --ifm-radius-lg: 12px;
-  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1);
-
-  /* CTA Banner - Dark Mode Variables (same as light for dark slate theme) */
-  --cta-bg-primary: #0f172a;
-  --cta-bg-secondary: #1e293b;
-  --cta-bg-hover: rgba(255, 255, 255, 0.1);
-  --cta-card-bg: rgba(255, 255, 255, 0.05);
-  --cta-text-primary: #ffffff;
-  --cta-text-secondary: #e2e8f0;
-  --cta-text-muted: #94a3b8;
-  --cta-border-subtle: rgba(255, 255, 255, 0.2);
-  --cta-border-hover: rgba(255, 255, 255, 0.4);
-  --cta-input-bg: rgba(255, 255, 255, 0.1);
-  --cta-input-focus: rgba(255, 255, 255, 0.15);
-  --cta-accent-hover: #60A5FA;
-
-  --ifm-radius-sm: 4px;
-  --ifm-radius-md: 8px;
-  --ifm-radius-lg: 12px;
-  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1);
+  --docusaurus-highlighted-code-line-bg: rgba(127, 179, 222, 0.12);
 }
 
-/* ========================================
-   UNIFIED WHITE THEME COMPONENTS
-   ======================================== */
-
-/* Pill Button Styles */
-.button--primary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  padding: 12px 24px;
-  font-weight: 600;
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  transition: all 0.2s ease;
-  background-color: var(--ifm-color-accent);
-  color: white;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.button--primary:hover {
-  background-color: #374151;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.button--primary:focus-visible {
-  outline: 2px solid #374151;
-  outline-offset: 2px;
-}
-
-.button--primary:active {
-  transform: translateY(0);
-  box-shadow: none;
-}
-
-.button--primary:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* Secondary Outline Button */
-.button--secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  padding: 12px 24px;
-  font-weight: 600;
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  transition: all 0.2s ease;
-  background-color: transparent;
-  color: #374151;
-  border: 1px solid #d1d5db;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.button--secondary:hover {
-  background-color: #f3f4f6;
-  border-color: #9ca3af;
-  transform: translateY(-1px);
-}
-
-.button--secondary:focus-visible {
-  outline: 2px solid #374151;
-  outline-offset: 2px;
-}
-
-/* Link Button with Arrow */
-.button--link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 600;
-  color: #374151;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-.button--link:hover {
-  color: #111827;
-}
-
-.button--link:hover .link-arrow {
-  transform: translateX(4px);
-}
-
-.link-arrow {
-  transition: transform 0.2s ease;
-}
-
-/* Card Component */
-.feature-card {
-  background: white;
-  border-radius: 12px;
-  border: 1px solid #e5e7eb;
-  padding: 24px;
-  transition: all 0.2s ease;
-  height: 100%;
-}
-
-.feature-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transform: translateY(-2px);
-}
-
-[data-theme='dark'] .feature-card {
-  background: #1f2937;
-  border-color: #374151;
-}
-
-/* Accessibility - Respect user motion preferences */
-@media (prefers-reduced-motion: reduce) {
-
-  .button--primary,
-  .button--secondary,
-  .button--link,
-  .feature-card,
-  .sidebar-expand-collapse-btn,
-  .sidebar-expand-collapse-btn__icon {
-    transition: none;
-  }
-
-  .button--primary:hover,
-  .button--secondary:hover,
-  .sidebar-expand-collapse-btn:hover {
-    transform: none;
-  }
-
-  .feature-card:hover {
-    transform: none;
-  }
-}
 
 /* ========================================
    ANIMATIONS & ENHANCEMENTS
@@ -431,17 +250,6 @@ section {
   transition: transform 0.2s ease;
 }
 
-[data-theme='dark'] .sidebar-expand-collapse-btn {
-  color: var(--ifm-font-color-secondary);
-  border-color: var(--ifm-border-color);
-}
-
-[data-theme='dark'] .sidebar-expand-collapse-btn:hover {
-  color: var(--ifm-color-accent-dark);
-  border-color: var(--ifm-color-accent-dark);
-  background: var(--ifm-color-accent-subtle);
-}
-
 /* ========================================
    SIDEBAR ACTIVE ITEM - VERTICAL INDICATOR
    ======================================== */
@@ -455,7 +263,7 @@ section {
   min-height: 34px;
   margin: 2px 0;
   padding: 7px 12px;
-  color: #606770;
+  color: var(--hanas-text-secondary);
   font-size: 14px;
   font-weight: 400;
   line-height: 1.4;
@@ -472,27 +280,15 @@ section {
 }
 
 .theme-doc-sidebar-menu .menu__link--sublist {
-  color: #535d68;
+  color: var(--hanas-text-primary);
 }
 
-/* Active doc link - vertical left border indicator */
+/* Active doc link: accent text on a tint, no side stripe */
 .menu__link--active:not(.menu__link--sublist) {
-  position: relative;
   color: var(--ifm-color-accent);
   background: var(--ifm-color-accent-subtle);
   font-weight: 600;
-  border-radius: 0 var(--ifm-radius-sm) var(--ifm-radius-sm) 0;
-}
-
-.menu__link--active:not(.menu__link--sublist)::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: var(--ifm-color-accent);
-  border-radius: 0 2px 2px 0;
+  border-radius: var(--ifm-radius-sm);
 }
 
 /* Active category label (parent of active doc) */
@@ -504,15 +300,6 @@ section {
 /* Hover state - subtle preview of indicator */
 .menu__link:not(.menu__link--active):hover {
   color: var(--ifm-color-accent);
-  background: var(--ifm-color-accent-subtle);
-}
-
-/* Dark mode overrides */
-[data-theme='dark'] .menu__link--active:not(.menu__link--sublist) {
-  background: var(--ifm-color-accent-subtle);
-}
-
-[data-theme='dark'] .menu__link:not(.menu__link--active):hover {
   background: var(--ifm-color-accent-subtle);
 }
 
@@ -569,7 +356,7 @@ section {
 
 .navbar {
   padding: 0 clamp(20px, 4.5vw, 144px);
-  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+  border-bottom: 1px solid var(--hanas-border-soft);
   box-shadow: none;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -580,7 +367,7 @@ section {
 }
 
 [data-theme='dark'] .navbar {
-  background: rgba(7, 17, 31, 0.92);
+  background: rgba(13, 21, 30, 0.92);
 }
 
 .navbar__inner {
@@ -650,7 +437,7 @@ section {
 
 [data-theme='dark'] .navbar__items:not(.navbar__items--right) > .navbar__link:hover,
 [data-theme='dark'] .navbar__items:not(.navbar__items--right) > .navbar__link--active {
-  background: rgba(200, 217, 232, 0.08);
+  background: var(--hanas-accent-tint);
 }
 
 .navbar__items--right {
@@ -686,10 +473,10 @@ section {
   min-height: clamp(42px, 1.7vw, 48px);
   margin-left: 2px;
   padding: 0 clamp(12px, 0.8vw, 16px) !important;
-  color: #344255 !important;
-  border: 1px solid rgba(82, 123, 156, 0.22);
+  color: var(--hanas-text-primary) !important;
+  border: 1px solid var(--hanas-border-strong);
   border-radius: 8px;
-  background: rgba(237, 243, 247, 0.5);
+  background: var(--hanas-bg-surface);
   font-family: 'Be Vietnam Pro', sans-serif;
   font-size: clamp(12px, 0.52vw, 13px);
   font-weight: 600;
@@ -697,9 +484,9 @@ section {
 }
 
 .navbarPortal:hover {
-  color: #17293a !important;
-  border-color: rgba(82, 123, 156, 0.38);
-  background: #edf3f7;
+  color: var(--hanas-accent-strong) !important;
+  border-color: var(--hanas-accent);
+  background: var(--hanas-accent-tint);
 }
 
 .navbarPortal svg {
@@ -707,6 +494,7 @@ section {
   opacity: 0.58;
 }
 
+/* Same accent as the hero's primary button, so the demo CTA reads as one action. */
 .navbarDemo {
   order: 4;
   display: inline-flex;
@@ -714,56 +502,38 @@ section {
   justify-content: center;
   min-height: clamp(42px, 1.7vw, 48px);
   padding: 0 clamp(16px, 1vw, 21px) !important;
-  color: #f8fafc !important;
-  border: 1px solid #0b1727;
+  color: #ffffff !important;
+  border: 1px solid var(--hanas-accent);
   border-radius: 8px;
-  background: #0b1727;
-  box-shadow: 0 8px 22px rgba(7, 17, 28, 0.12);
+  background: var(--hanas-accent);
+  box-shadow: 0 8px 22px var(--hanas-shadow);
   font-size: clamp(12px, 0.52vw, 13px);
   font-weight: 600;
 }
 
 .navbarDemo:hover {
   color: #ffffff !important;
-  border-color: #1a3148;
-  background: #1a3148;
+  border-color: var(--hanas-accent-strong);
+  background: var(--hanas-accent-strong);
   transform: translateY(-1px);
 }
 
-[data-theme='dark'] .navbarPortal {
-  color: #cbd9e6 !important;
-  border-color: rgba(200, 217, 232, 0.2);
-  background: rgba(200, 217, 232, 0.06);
-}
-
-[data-theme='dark'] .navbarPortal:hover {
-  color: #ffffff !important;
-  border-color: rgba(200, 217, 232, 0.34);
-  background: rgba(200, 217, 232, 0.11);
-}
-
-[data-theme='dark'] .navbarDemo {
-  color: #07111c !important;
-  border-color: var(--hanas-accent-soft);
-  background: var(--hanas-accent-soft);
-}
-
+[data-theme='dark'] .navbarDemo,
 [data-theme='dark'] .navbarDemo:hover {
-  border-color: #e4eef6;
-  background: #e4eef6;
+  color: var(--hanas-bg-page) !important;
 }
 
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid rgba(79, 120, 157, 0.82);
+  outline: 2px solid var(--hanas-focus);
   outline-offset: 3px;
 }
 
 .footer--dark {
-  --ifm-footer-background-color: #050d17;
-  --ifm-footer-color: #7f93a8;
-  --ifm-footer-link-color: #a7b8c9;
-  --ifm-footer-title-color: #f0f7fc;
+  --ifm-footer-background-color: var(--hanas-navy-950);
+  --ifm-footer-color: #8fa3b6;
+  --ifm-footer-link-color: var(--hanas-on-navy-muted);
+  --ifm-footer-title-color: var(--hanas-on-navy);
   padding: 56px 0 28px;
   border-top: 1px solid rgba(148, 163, 184, 0.12);
 }
@@ -797,13 +567,13 @@ button:focus-visible {
 }
 
 .footer__link-item:hover {
-  color: #67e8f9;
+  color: var(--hanas-on-navy-accent);
   text-decoration: none;
 }
 
 .footer__copyright {
   padding: 0;
-  color: #566b80;
+  color: #8fa3b6;
   border-top: 0;
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
@@ -963,4 +733,28 @@ button:focus-visible {
   font-size: 0.875rem;
   color: var(--ifm-font-color-secondary);
   text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar-expand-collapse-btn,
+  .sidebar-expand-collapse-btn__icon {
+    transition: none;
+  }
+
+  .sidebar-expand-collapse-btn:hover,
+  .navbarDemo:hover {
+    transform: none;
+  }
+}
+
+/* Landing header: one docs link replaces the four doc sections, and search stays on docs pages. */
+html:not(.landing-page) .navbarLandingOnly,
+html.landing-page .navbarDocsOnly,
+html.landing-page .navbar [class*='navbarSearchContainer'] {
+  display: none;
+}
+
+/* Avoid one-word last lines in landing copy. */
+main p {
+  text-wrap: pretty;
 }

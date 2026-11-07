@@ -1,0 +1,517 @@
+.board {
+  --gap: 34px;
+
+  display: grid;
+  grid-template-columns: minmax(168px, 0.9fr) minmax(0, 3.5fr) minmax(184px, 1fr);
+  gap: var(--gap);
+  align-items: center;
+  margin: 0;
+  color: var(--hero-ink);
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+.colTitle,
+.bandTitle {
+  display: block;
+  color: var(--hero-label);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.colTitle {
+  margin-bottom: 2px;
+}
+
+.bandTitle {
+  margin-bottom: 8px;
+}
+
+/* Edge columns: sources on the left, consumers on the right. */
+
+.sources,
+.consumers {
+  display: grid;
+  gap: 10px;
+}
+
+.edgeCard {
+  position: relative;
+  display: grid;
+  gap: 2px;
+  padding: 11px 13px;
+  border: 1px solid var(--hero-tile-border);
+  border-radius: 8px;
+  background: var(--hero-surface);
+  box-shadow: 0 6px 18px var(--hero-shadow);
+}
+
+.edgeCard strong {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.meta {
+  color: var(--hero-accent);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.items {
+  color: var(--hero-text);
+}
+
+/* Connector line plus a dot that travels along it. */
+.edgeCard::before,
+.edgeCard::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  pointer-events: none;
+}
+
+.sources .edgeCard::before {
+  left: 100%;
+  width: var(--gap);
+  height: 1.5px;
+  background: var(--hero-line);
+}
+
+.consumers .edgeCard::before {
+  right: 100%;
+  width: var(--gap);
+  height: 1.5px;
+  background: var(--hero-line);
+}
+
+.edgeCard::after {
+  width: 7px;
+  height: 7px;
+  margin-top: -3px;
+  border-radius: 50%;
+  background: var(--hero-accent);
+  opacity: 0;
+  animation: travel 2.4s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.45s);
+}
+
+.sources .edgeCard::after {
+  left: 100%;
+}
+
+.consumers .edgeCard::after {
+  left: calc(var(--gap) * -1);
+}
+
+@keyframes travel {
+  0% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+  15%,
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(calc(var(--gap) - 7px));
+  }
+}
+
+.aiCard {
+  border-color: var(--hero-ai);
+  background:
+    linear-gradient(var(--hero-ai-tint), var(--hero-ai-tint)),
+    var(--hero-surface);
+  box-shadow: 0 10px 28px var(--hero-ai-glow);
+}
+
+.aiCard strong,
+.aiCard .meta {
+  color: var(--hero-ai);
+}
+
+.consumers .aiCard::before {
+  height: 2px;
+  background: var(--hero-ai);
+}
+
+.consumers .aiCard::after {
+  background: var(--hero-ai);
+}
+
+/* The platform: everything Hanas runs, around one data core. */
+
+.platform {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 1.5px solid var(--hero-accent);
+  border-radius: 14px;
+  background: var(--hero-platform);
+  box-shadow: 0 24px 60px var(--hero-shadow);
+}
+
+.platformHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 12px;
+  padding: 0 2px;
+}
+
+.platformName {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.platformMeta {
+  color: var(--hero-label);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+}
+
+.govern {
+  padding: 10px 12px 12px;
+  border: 1px dashed var(--hero-dash);
+  border-radius: 10px;
+  background: var(--hero-scope-fill);
+}
+
+.governItems {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.chipCard,
+.processItem {
+  display: grid;
+  gap: 1px;
+  padding: 8px 10px;
+  border: 1px solid var(--hero-tile-border);
+  border-radius: 7px;
+  background: var(--hero-surface);
+}
+
+.chipCard strong,
+.processItem strong {
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.chipCard span,
+.processItem span {
+  color: var(--hero-text);
+  font-size: 12px;
+}
+
+.planes {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.55fr) minmax(0, 0.95fr);
+  gap: 12px;
+  align-items: stretch;
+}
+
+.process {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 6px;
+}
+
+.process .bandTitle,
+.semantic .bandTitle {
+  margin-bottom: 2px;
+}
+
+/* Short links from the side layers into the core, so the core reads as the hub. */
+.process::after,
+.semantic::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 12px;
+  height: 1.5px;
+}
+
+.process::after {
+  right: -12px;
+  background: var(--hero-accent);
+}
+
+.semantic::before {
+  left: -12px;
+  background: var(--hero-ai);
+}
+
+/* The core: one query engine over the Iceberg lakehouse. */
+
+.core {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  overflow: hidden;
+  border: 1px solid var(--hero-core-border);
+  border-radius: 10px;
+  background: var(--hero-core);
+  color: #eef4f9;
+}
+
+.engine {
+  position: relative;
+  display: grid;
+  gap: 2px;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.engine strong {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.engine span {
+  color: #a9bccd;
+  font-size: 11.5px;
+}
+
+/* A light sweep across the engine bar: every query passes through here. */
+.engine::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 -1px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--hero-core-glow), transparent);
+  background-size: 40% 100%;
+  background-repeat: no-repeat;
+  animation: sweep 2.8s linear infinite;
+}
+
+@keyframes sweep {
+  from {
+    background-position: -40% 0;
+  }
+  to {
+    background-position: 140% 0;
+  }
+}
+
+.lake {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  padding: 12px 14px 14px;
+}
+
+.lake strong {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.zones {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.zone {
+  display: grid;
+  gap: 1px;
+  padding: 8px 8px 8px 14px;
+  background: rgba(255, 255, 255, 0.08);
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%, 8px 50%);
+}
+
+.zone:first-child {
+  padding-left: 10px;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%);
+}
+
+.zone:nth-child(2) {
+  background: rgba(255, 255, 255, 0.13);
+}
+
+.zone:nth-child(3) {
+  /* Refinement deepens toward the brand blue instead of literal metal colors. */
+  background: rgba(143, 208, 255, 0.24);
+}
+
+.zone b {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.zone span {
+  color: #a9bccd;
+  font-size: 10.5px;
+}
+
+.zone:nth-child(3) span {
+  color: #c6d4e0;
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.features span {
+  padding: 2px 7px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 4px;
+  color: #c6d4e0;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10.5px;
+}
+
+.storage {
+  padding: 9px 14px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.2);
+  color: #a9bccd;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+}
+
+/* Semantics: the layer that makes the data readable for AI agents. */
+
+.semantic {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 6px;
+}
+
+.ontology {
+  display: grid;
+  gap: 2px;
+  padding: 10px 11px 12px;
+  border: 1px solid var(--hero-ai);
+  border-radius: 9px;
+  background:
+    linear-gradient(var(--hero-ai-tint), var(--hero-ai-tint)),
+    var(--hero-surface);
+}
+
+.ontology strong {
+  color: var(--hero-ai);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ontology > span {
+  color: var(--hero-text);
+  font-size: 11.5px;
+}
+
+.graph {
+  position: relative;
+  display: grid;
+  gap: 6px;
+  margin-top: 8px;
+  padding-left: 14px;
+}
+
+.graph::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 4px;
+  border-left: 1px dashed var(--hero-ai);
+}
+
+.graph i {
+  position: relative;
+  width: fit-content;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--hero-surface);
+  box-shadow: inset 0 0 0 1px var(--hero-ai-line);
+  color: var(--hero-ink);
+  font-size: 11.5px;
+  font-style: normal;
+}
+
+.graph i::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -12px;
+  width: 7px;
+  height: 7px;
+  margin-top: -3.5px;
+  border-radius: 50%;
+  background: var(--hero-ai);
+}
+
+/* Tablet and phone: stack the three columns and drop the connectors. */
+
+@media (max-width: 1100px) {
+  .board {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .sources,
+  .consumers {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .colTitle {
+    grid-column: 1 / -1;
+  }
+
+  .edgeCard::before,
+  .edgeCard::after {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .planes {
+    grid-template-columns: 1fr;
+  }
+
+  /* Names and protocols carry the picture on a phone; the detail lines would triple its height. */
+  .items,
+  .chipCard span,
+  .processItem span,
+  .ontology > span {
+    display: none;
+  }
+
+  .governItems {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .aiCard {
+    grid-column: 1 / -1;
+  }
+
+  .aiCard .items {
+    display: block;
+  }
+
+  .process {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .process .bandTitle {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .edgeCard::after,
+  .engine::after {
+    animation: none;
+  }
+}

@@ -1,0 +1,220 @@
+.section {
+  padding: 120px 0;
+  background: var(--hanas-bg-page);
+}
+
+.header {
+  margin-bottom: 54px;
+}
+
+.header h2 {
+  max-width: 760px;
+  margin: 0;
+  color: var(--hanas-text-primary);
+  font-size: clamp(2.45rem, 3.6vw, 3.5rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+
+.rail {
+  display: grid;
+  grid-auto-columns: minmax(330px, 0.88fr);
+  grid-auto-flow: column;
+  gap: 18px;
+  padding-bottom: 16px;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-color: var(--hanas-border-strong) transparent;
+  scrollbar-width: thin;
+}
+
+/* ponytail: 4 card vua khit 2x2 tren desktop, giu carousel cho man hinh hep */
+@media (min-width: 1080px) {
+  .rail {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    padding-bottom: 0;
+    overflow-x: visible;
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  min-height: 480px;
+  overflow: hidden;
+  color: var(--hanas-on-navy);
+  border: 1px solid #172a3e;
+  outline: 1px solid var(--hanas-panel-edge);
+  outline-offset: -1px;
+  border-radius: 14px;
+  background: linear-gradient(145deg, var(--hanas-navy-950), var(--hanas-navy-850));
+  scroll-snap-align: start;
+  transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease;
+}
+
+.card:hover {
+  border-color: rgba(143, 173, 197, 0.45);
+  box-shadow: 0 24px 64px var(--hanas-shadow);
+  transform: translateY(-5px);
+}
+
+.visual {
+  position: relative;
+  min-height: 238px;
+  margin: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(108, 147, 180, 0.17);
+  border-radius: 10px;
+  background: var(--hanas-navy-950);
+}
+
+.visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(180deg, rgba(4, 12, 22, 0.52) 0%, rgba(4, 12, 22, 0.04) 44%, rgba(4, 12, 22, 0.76) 100%),
+    linear-gradient(90deg, rgba(4, 12, 22, 0.18), transparent 60%);
+  pointer-events: none;
+}
+
+.visual img,
+.visual video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 900ms cubic-bezier(0.2, 0.7, 0, 1), filter 500ms ease;
+}
+
+.visual img {
+  z-index: 0;
+}
+
+.visual video {
+  z-index: 1;
+  filter: saturate(0.92) contrast(1.02);
+}
+
+.card:hover .visual img,
+.card:hover .visual video {
+  filter: saturate(1.08) contrast(1.03);
+  transform: scale(1.055);
+}
+
+.visualTop {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+}
+
+.visualSignal {
+  overflow: hidden;
+  color: #d5e3ed;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cardContent {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px 26px 28px;
+}
+
+.category {
+  margin-bottom: 14px;
+  color: var(--hanas-on-navy-accent);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.card h3 {
+  margin: 0 0 12px;
+  color: inherit;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.card p {
+  margin: 0 0 18px;
+  color: var(--hanas-on-navy-muted);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.card a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  margin-top: auto;
+  color: var(--hanas-on-navy-accent);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.card a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+@media (max-width: 900px) {
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding: 84px 0;
+  }
+
+  .header {
+    margin-bottom: 38px;
+  }
+
+  .rail {
+    grid-auto-columns: minmax(292px, 86vw);
+  }
+
+  .card {
+    min-height: 470px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .visual img,
+  .visual video {
+    transition: none;
+  }
+
+  .visual video {
+    display: none;
+  }
+
+  .card:hover {
+    transform: none;
+  }
+
+  .card:hover .visual img,
+  .card:hover .visual video {
+    transform: none;
+  }
+}

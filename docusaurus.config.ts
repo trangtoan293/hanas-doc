@@ -40,7 +40,7 @@ const config: Config = {
       'classic',
       {
         docs: {
-          routeBasePath: '/',
+          routeBasePath: 'docs',
           sidebarPath: './sidebars.ts',
           showLastUpdateTime: true,
           // A section's index.md is its category landing page, so drop it from the generated item list.
@@ -61,7 +61,7 @@ const config: Config = {
       {
         hashed: true,
         language: ['en', 'vi'],
-        docsRouteBasePath: '/',
+        docsRouteBasePath: 'docs',
         indexBlog: false,
         indexPages: false,
         searchResultLimits: 10,
@@ -77,11 +77,19 @@ const config: Config = {
       title: 'Hanas Docs',
       logo: {alt: 'Hanas Data Platform', src: 'img/katalyst-logo.svg'},
       items: [
-        {type: 'docSidebar', sidebarId: 'product', label: 'Sản phẩm', position: 'left'},
-        {type: 'docSidebar', sidebarId: 'operate', label: 'Triển khai & Vận hành', position: 'left'},
-        {type: 'docSidebar', sidebarId: 'develop', label: 'API & Tích hợp', position: 'left'},
-        {type: 'docSidebar', sidebarId: 'reference', label: 'Tham chiếu', position: 'left'},
+        {type: 'docSidebar', sidebarId: 'product', label: 'Sản phẩm', position: 'left', className: 'navbarDocsOnly'},
+        {type: 'docSidebar', sidebarId: 'operate', label: 'Triển khai & Vận hành', position: 'left', className: 'navbarDocsOnly'},
+        {type: 'docSidebar', sidebarId: 'develop', label: 'API & Tích hợp', position: 'left', className: 'navbarDocsOnly'},
+        {type: 'docSidebar', sidebarId: 'reference', label: 'Tham chiếu', position: 'left', className: 'navbarDocsOnly'},
+        // Landing page shows a single docs link instead of the four doc sections.
+        {to: '/docs/get-started/introduction', label: 'Tài liệu', position: 'right', className: 'navbarLandingOnly'},
         {type: 'localeDropdown', position: 'right'},
+        {
+          label: 'Đặt lịch demo',
+          href: 'mailto:thunnv@katalyst.vn?subject=Yêu cầu demo Hanas Data Platform',
+          position: 'right',
+          className: 'navbarDemo',
+        },
       ],
     },
     footer: {
@@ -91,25 +99,25 @@ const config: Config = {
         {
           title: 'Bắt đầu',
           items: [
-            {label: 'Giới thiệu', to: '/get-started/introduction'},
-            {label: 'Kiến trúc', to: '/get-started/architecture'},
-            {label: 'Quickstart', to: '/get-started/quickstart'},
+            {label: 'Giới thiệu', to: '/docs/get-started/introduction'},
+            {label: 'Kiến trúc', to: '/docs/get-started/architecture'},
+            {label: 'Quickstart', to: '/docs/get-started/quickstart'},
           ],
         },
         {
           title: 'Sản phẩm',
           items: [
-            {label: 'Query Engine', to: '/query'},
-            {label: 'Ontology', to: '/ontology'},
-            {label: 'Kapas AI', to: '/kapas'},
+            {label: 'Query Engine', to: '/docs/query'},
+            {label: 'Ontology', to: '/docs/ontology'},
+            {label: 'Kapas AI', to: '/docs/kapas'},
           ],
         },
         {
           title: 'Vận hành',
           items: [
-            {label: 'Cài đặt', to: '/operate/install'},
-            {label: 'Xác thực & SSO', to: '/operate/identity'},
-            {label: 'Nâng cấp', to: '/operate/upgrade'},
+            {label: 'Cài đặt', to: '/docs/operate/install'},
+            {label: 'Xác thực & SSO', to: '/docs/operate/identity'},
+            {label: 'Nâng cấp', to: '/docs/operate/upgrade'},
           ],
         },
       ],
