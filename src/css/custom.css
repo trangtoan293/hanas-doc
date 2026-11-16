@@ -599,7 +599,7 @@ button:focus-visible {
   text-align: right;
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 1279px) {
   .navbar {
     padding-right: 16px;
     padding-left: 16px;
@@ -629,10 +629,6 @@ button:focus-visible {
     padding-left: 8px;
   }
 
-  .navbar__search-input {
-    width: 170px;
-  }
-
   .navbarPortal {
     padding-right: 10px !important;
     padding-left: 10px !important;
@@ -641,6 +637,39 @@ button:focus-visible {
   .navbarDemo {
     padding-right: 14px !important;
     padding-left: 14px !important;
+  }
+}
+
+/* Docs navbar (4 sections + locale + search + demo) overlaps below ~1440px: hide the title
+   and shrink the locale dropdown to its icon. */
+@media (min-width: 997px) and (max-width: 1439px) {
+  .navbar__title {
+    display: none;
+  }
+
+  .navbar__items--right > .dropdown {
+    padding: 0;
+  }
+
+  .navbar__items--right > .dropdown > .navbar__link {
+    font-size: 0; /* label stays in the DOM for screen readers */
+  }
+
+  .navbar__items--right > .dropdown > .navbar__link::after {
+    font-size: 13px; /* keep the caret */
+  }
+}
+
+@media (min-width: 997px) and (max-width: 1150px) {
+  .navbar__search-input {
+    width: 120px;
+  }
+}
+
+/* The shortcut hint covers the placeholder once the search box is narrow. */
+@media (max-width: 1150px) {
+  .navbar [class*='searchHintContainer'] {
+    display: none;
   }
 }
 
